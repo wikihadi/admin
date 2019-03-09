@@ -24,7 +24,7 @@
         <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-                <img src="admin-core/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
+                <img src="/admin-core/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
                 <div class="media-body">
                     <h3 class="dropdown-item-title">
                         پیمان احمدی
@@ -40,7 +40,7 @@
         <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-                <img src="admin-core/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
+                <img src="/admin-core/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle ml-3">
                 <div class="media-body">
                     <h3 class="dropdown-item-title">
                         سارا وکیلی

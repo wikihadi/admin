@@ -1,21 +1,12 @@
-@extends('layouts.app')
+@extends('admincore.app')
 
-@section('myNavbar')
-
-    @extends('layouts.navbar')
-
-@endsection
 @section('content')
-    <div class="row">
-        <div class="col-lg-8 margin-tb">
-            <div class="pull-left">
-                <h2>Users Management</h2>
-            </div>
+        <div class="col">
+
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
+                <a class="btn btn-link" href="{{ route('users.create') }}"><i class="fa fa-user-plus"></i></a>
             </div>
         </div>
-    </div>
 
 
     @if ($message = Session::get('success'))
@@ -23,20 +14,20 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+<div class="col-12">
 
-
-    <table class="table table-bordered w-75">
+    <table class="table table-striped">
         <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Roles</th>
-            <th width="280px">Action</th>
+            <th width="20حط">کد</th>
+            <th>نام</th>
+            <th>ایمیل</th>
+            <th>نقشها</th>
+            <th width="280px"></th>
         </tr>
         @foreach ($data as $key => $user)
             <tr>
-                <td>{{ ++$i }}</td>
-                <td>{{ $user->name }}</td>
+                <td>{{ $user->id }}</td>
+                <td><a class="btn btn-link" href="{{ route('users.show',$user->id) }}">{{ $user->name }}</a></td>
                 <td>{{ $user->email }}</td>
                 <td>
                     @if(!empty($user->getRoleNames()))
@@ -46,11 +37,18 @@
                     @endif
                 </td>
                 <td>
-                    <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-                    {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
+                    <div class="dropdown">
+                        <button class="btn btn-link text-muted" type="button" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="btn btn-link text-warning" href="{{ route('users.edit',$user->id) }}">ویرایش کاربر</a></li>
+                            <li> {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+                                {!! Form::submit('حذف کاذبر', ['class' => 'btn btn-link text-danger']) !!}
+                                {!! Form::close() !!}</li>
+                        </ul>
+                    </div>
+
+
+
                 </td>
             </tr>
         @endforeach
@@ -58,6 +56,6 @@
 
 
     {!! $data->render() !!}
-
+    </div>
 
 @endsection

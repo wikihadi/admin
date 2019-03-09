@@ -1,10 +1,5 @@
-@extends('layouts.app')
+@extends('admincore.app')
 
-@section('myNavbar')
-
-    @extends('layouts.navbar')
-
-@endsection
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">

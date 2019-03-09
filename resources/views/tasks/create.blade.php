@@ -1,20 +1,8 @@
-@extends('layouts.app')
-@section('myNavbar')
+@extends('admincore.app')
 
-    @extends('layouts.navbar')
-
-@endsection
 @section('content')
-    <style>
-        .uper {
-            margin-top: 40px;
-        }
-    </style>
-    <main class="py-4" >
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-8 m-auto">
                 <div class="card uper">
                     <div class="card-header">
                         Add Task
@@ -62,8 +50,6 @@
 
 
             </div>
-        </div>
-    </div>
-    </main>
+
 
 @endsection

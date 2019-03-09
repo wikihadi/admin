@@ -58,10 +58,20 @@
     font-weight: 900;
 }
 
+@font-face {
+    font-family: iranyekan;
+    src: url('../fonts/iranyekan/eot/iranyekanweblight.eot');
+    src: url('../fonts/iranyekan/eot/iranyekanweblight.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/iranyekan/woff2/iranyekanweblight.woff2') format('woff2'),
+    url('../fonts/iranyekan/woff/iranyekanweblight.woff') format('woff'),
+    url('../fonts/iranyekan/svg/iranyekanweblight.svg') format('svg'),
+    url('../fonts/iranyekan/ttf/iranyekanweblight.ttf') format('truetype');
+    font-weight: normal;
+}
 /*---------------------------------- End of fonts ---------------------------------- */
 
 body {
-    font-family: 'Vazir', sans-serif !important;
+    font-family: 'iranyekan', sans-serif !important;
 }
 
 .ltr {
@@ -270,4 +280,12 @@ ul {
 
 .datepicker-plot-area {
     font-family: 'Vazir', sans-serif;
+}
+
+.nav-divider{
+    border-bottom: 5px solid #444;
+}
+
+.content-wrapper{
+    background-color: white;
 }

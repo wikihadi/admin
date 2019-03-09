@@ -11,13 +11,11 @@ use Illuminate\Support\Carbon;
 
 class TaskController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
-        $this->middleware('permission:product-list');
-        $this->middleware('permission:product-create', ['only' => ['create','store']]);
-        $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+        //
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +24,18 @@ class TaskController extends Controller
     public function index()
     {
 
+        $tasks = Task::orderBy('deadline','ASC')->paginate(9);
 
-        $tasks = Task::paginate(10);
+        foreach ($tasks as $key => $loop)
+        {
+
+            $loop->rightNow = Carbon::now()->diffInDays($loop->deadline, false);
+        }
+
         return view('tasks.index', compact('tasks'));
+
+//        $tasks = Task::paginate(10);
+//        return view('home', compact('tasks'));
     }
 
     /**

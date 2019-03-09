@@ -1,9 +1,5 @@
-@extends('layouts.app')
-@section('myNavbar')
+@extends('admincore.app')
 
-    @extends('layouts.navbar')
-
-@endsection
 @section('content')
     <main class="py-4" >
 

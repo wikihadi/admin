@@ -1,21 +1,12 @@
-@extends('layouts.app')
+@extends('admincore.app')
 
-@section('myNavbar')
-
-    @extends('layouts.navbar')
-
-@endsection
 @section('content')
-    <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Edit Role</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+
+            <div>
+                <a class="btn btn-link" href="{{ route('roles.index') }}"><i class="fa fa-lg fa-arrow-right"></i></a>
             </div>
         </div>
-    </div>
 
 
     @if (count($errors) > 0)
@@ -29,12 +20,13 @@
         </div>
     @endif
 
-
+<div class="col-12">
+    <div class="alert alert-warning">فقط به لاتین وارد کنید</div>
     {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
+                <strong>عنوان نقش:</strong>
                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
             </div>
         </div>
@@ -42,11 +34,20 @@
             <div class="form-group">
                 <strong>Permission:</strong>
                 <br/>
-                @foreach($permission as $value)
-                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                        {{ $value->name }}</label>
-                    <br/>
-                @endforeach
+                <table class="table table-striped">
+                    @foreach($permission as $value)
+                        <tr>
+                            <td>
+                                <label for="role{{$value->id}}">{{ $value->name }}</label>
+                            </td>
+<td>
+                                {{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name', 'id'=>'role'.$value->id)) }}
+                            </td>
+                        </tr>
+
+                    @endforeach
+                </table>
+
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -55,5 +56,5 @@
     </div>
     {!! Form::close() !!}
 
-
+    </div>
 @endsection

@@ -1,20 +1,8 @@
-@extends('layouts.app')
-@section('myNavbar')
+@extends('admincore.app')
 
-    @extends('layouts.navbar')
-
-@endsection
 @section('content')
-    <style>
-        .uper {
-            margin-top: 40px;
-        }
-    </style>
-    <main class="py-4" >
 
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-8 m-auto">
                     <div class="card uper">
                         <div class="card-header">
                             Add Task
@@ -54,7 +42,7 @@
 
 
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 m-auto">
                     <div class="card uper">
                         <div class="card-header">
                             دسته ها
@@ -63,9 +51,10 @@
 
                             <table class="table table-striped">
                                 <tr>
+
                                     <td>کد</td>
                                     <td>نام دسته</td>
-                                    <td>والد دسته</td>
+                                    <td>زیرمجموعه ها</td>
                                 </tr>
                                 @foreach($categories->where('parent_id', 0)  as $category)
 
@@ -99,8 +88,6 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </main>
+
 
 @endsection

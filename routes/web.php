@@ -13,22 +13,31 @@
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
-Route::resource('tasks', 'TaskController');
-Route::resource('comments', 'CommentController');
-Route::resource('categories', 'CategoryController');
-    Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
+
+    Route::resource('tasks', 'TaskController');
+    Route::resource('comments', 'CommentController');
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/home', function () {
+        return redirect('/');
+    });
+    Route::get('/profile', 'UserController@profile');
+    Route::post('/profile', 'UserController@update_avatar');
+    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::resource('roles','RoleController');
+        Route::resource('categories', 'CategoryController');
+        Route::resource('users','UserController');
+
+    });
+
+
 });
 
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', function () {
-    return redirect('/');
-});
-Route::get('/profile', 'UserController@profile');
-Route::post('/profile', 'UserController@update_avatar');
 
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+
 
 
 

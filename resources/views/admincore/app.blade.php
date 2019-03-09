@@ -13,16 +13,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="admin-core/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/admin-core/font-awesome/css/font-awesome.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="admin-core/css/adminlte.min.css">
+    <link rel="stylesheet" href="/admin-core/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <!-- bootstrap rtl -->
-    <link rel="stylesheet" href="admin-core/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="/admin-core/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="/admin-core/css/hover.css">
+    <link rel="stylesheet" href="/admin-core/css/animate.css">
     <!-- template rtl version -->
-    <link rel="stylesheet" href="admin-core/css/custom-style.css">
+    <link rel="stylesheet" href="/admin-core/css/custom-style.css">
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -33,13 +35,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
- @include('admincore.breadcrump')
+ {{--@include('admincore.breadcrump')--}}
 
 
 
 
  <!-- Main content -->
-     <div class="content">
+     <div class="content mt-5">
          <div class="container-fluid">
              <div class="row">
 @yield('content')
@@ -64,10 +66,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="admin-core/jquery/jquery.min.js"></script>
+<script src="/admin-core/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="admin-core/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/admin-core/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="admin-core/js/adminlte.min.js"></script>
+<script src="/admin-core/js/adminlte.min.js"></script>
 </body>
 </html>
