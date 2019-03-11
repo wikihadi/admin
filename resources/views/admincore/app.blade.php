@@ -25,6 +25,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/admin-core/css/animate.css">
     <!-- template rtl version -->
     <link rel="stylesheet" href="/admin-core/css/custom-style.css">
+    {{--<link rel="stylesheet" href="/admin-core/pdate/persian-datepicker.min.css"/>--}}
+    <link rel="stylesheet" href="/admin-core/persiandatapicker/persianDatepicker-default.css"/>
+
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -71,5 +74,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/admin-core/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/admin-core/js/adminlte.min.js"></script>
+<script src="/admin-core/persiandatapicker/persianDatepicker.min.js"></script>
+
+    {{--<script src="/admin-core/pdate/persian-date.min.js"></script>--}}
+    {{--<script src="/admin-core/pdate/persian-datepicker.min.js"></script>--}}
+    <script type="text/javascript">
+        // $(document).ready(function() {
+        //     $('.pdate').persianDatepicker({
+        //    });                                    });
+
+        $(function() {
+            $("#input1, #span1").persianDatepicker({ showGregorianDate: true,
+                cellWidth: 50,
+                cellHeight: 50,
+                fontSize: 15,
+            });
+        });
+    </script>
 </body>
 </html>

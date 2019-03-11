@@ -26,4 +26,12 @@ class Task extends Model
     {
         return $this->belongsToMany('App\Category', 'category_task');
     }
+
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'task_users', 'task_id', 'user_id');
+    }
+
+
 }

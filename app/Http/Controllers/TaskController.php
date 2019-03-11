@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\User;
 use App\Comment;
 use App\Task;
-use http\Client\Curl\User;
+//use http\Client\Curl\User as User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -23,9 +25,14 @@ class TaskController extends Controller
      */
     public function index()
     {
+        $id = Auth::user()->id;
+        $user = User::find($id);
 
-        $tasks = Task::orderBy('deadline','ASC')->paginate(9);
 
+        $tasks = $user->tasks()->orderBy('deadline','ASC')->paginate(9);
+//        $tasks = Task::orderBy('deadline','ASC')->paginate(9);
+//        $team = User::with('tasks');
+//
         foreach ($tasks as $key => $loop)
         {
 
@@ -34,8 +41,7 @@ class TaskController extends Controller
 
         return view('tasks.index', compact('tasks'));
 
-//        $tasks = Task::paginate(10);
-//        return view('home', compact('tasks'));
+
     }
 
     /**
@@ -46,7 +52,8 @@ class TaskController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('tasks.create', compact('categories'));
+        $users = User::all();
+        return view('tasks.create', compact('categories','users'));
 
     }
 
@@ -65,22 +72,28 @@ class TaskController extends Controller
         $task = new Task([
             'title' => $request->get('title'),
             'content'=> $request->get('content'),
-            'deadline'=> $request->get('deadline')
+            'deadline'=> $request->get('deadline'),
+            'user_id'=> Auth::user()->id
         ]);
         $task->save();
 
-        $categories = $request->input('categories');
-     $categories = implode(',', $categories);
+        $users = $request->input('users');
+        $users = implode(',', $users);
+        $input['users'] = $users;
+        $task->users()->attach($input);
 
-       //$input = $request->except('categories');
-       $input['categories'] = $categories;
+            $categories = $request->input('categories');
+            $categories = implode(',', $categories);
 
-        $task->categories()->attach($input);
-        //$task->categories()->attach($request->categories, false);
-//        $user->roles()->attach([
-//            1 => ['expires' => $expires],
-//            2 => ['expires' => $expires]
-//        ]);
+
+            //$input = $request->except('categories');
+            $input['categories'] = $categories;
+            $task->categories()->attach($input);
+                //$task->categories()->attach($request->categories, false);
+        //        $user->roles()->attach([
+        //            1 => ['expires' => $expires],
+        //            2 => ['expires' => $expires]
+        //        ]);
 
         return redirect('/tasks')->with('success', 'Task has been added');
     }

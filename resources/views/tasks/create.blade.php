@@ -5,7 +5,7 @@
             <div class="col-md-8 m-auto">
                 <div class="card uper">
                     <div class="card-header">
-                        Add Task
+                        ثبت کار جدید
                     </div>
                     <div class="card-body">
                         @if ($errors->any())
@@ -20,11 +20,15 @@
                         <form method="post" action="{{ route('tasks.store') }}">
                             <div class="form-group">
                                 @csrf
-                                <input type="text" class="form-control" name="title" placeholder="Title"/>
+                                <input type="text" class="form-control" name="title" placeholder="عنوان کامل کار"/>
                             </div>
                             <div class="form-group">
-                                <input type="date" class="form-control" name="deadline"/>
+
+                                <input type="text" id="input1" class="form-control"  name="deadline"/>
+                                {{--<input type="text" class="pdate form-control"  name="deadline"/>--}}
+                                {{--<input type="date"  class="form-control" name="deadline"/>--}}
                             </div>
+
                             <div class="form-group">
                                 <label for="">دسته والد</label>
                                 <select name="categories[]" class="form-control">
@@ -39,11 +43,24 @@
 
                             </div>
                             <div class="form-group">
+                                <label for="">تیم کاری</label>
+                                <select name="users[]" class="form-control" multiple>
+                                    <option value="0">فقط خودم</option>
+                                    @foreach($users as $u)
+                                        <option value="{{ $u->id }}">{{ $u->name }}</option>
 
-                            <textarea class="form-control" name="content" placeholder="Content"></textarea>
+                                    @endforeach
+
+
+                                </select>
 
                             </div>
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <div class="form-group">
+
+                            <textarea class="form-control" name="content" placeholder="توضیحات کاری که باید انجام شود"></textarea>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">بفرست به لیست</button>
                         </form>
                     </div>
                 </div>

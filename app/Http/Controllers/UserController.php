@@ -159,7 +159,7 @@ class UserController extends Controller
     {
 
         $user = Auth::user();
-        return view('profile',compact('user',$user));
+        return view('users.profile',compact('user',$user));
 
     }
     public function update_avatar(Request $request){

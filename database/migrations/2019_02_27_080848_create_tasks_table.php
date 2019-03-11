@@ -25,6 +25,12 @@ class CreateTasksTable extends Migration
             $table->date('deadline')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
         });
+
+        Schema::create('task_users', function (Blueprint $table) {
+            $table->integer('task_id');
+            $table->integer('user_id');
+
+        });
     }
 
     /**
