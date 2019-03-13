@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function() {
     //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::resource('categories', 'CategoryController');
     Route::resource('brands', 'BrandController');
+    Route::get('/materials', 'CategoryController@materials');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::resource('roles','RoleController');

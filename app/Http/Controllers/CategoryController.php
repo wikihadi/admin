@@ -46,12 +46,20 @@ class CategoryController extends Controller
         ]);
         $category = new Category([
             'title' => $request->get('title'),
-            'parent_id'=> $request->get('parent_id')
+            'parent_id'=> $request->get('parent_id'),
+            'isMaterial'=> $request->get('isMaterial')
         ]);
         $category->save();
         return redirect('/categories')->with('success', 'Task has been added');
     }
 
+
+    public function materials()
+    {
+        $material = -1;
+        $categories = Category::where('parent_id', '=' , '-1');
+        return view('categories.create', compact('categories','material'));
+    }
     /**
      * Display the specified resource.
      *

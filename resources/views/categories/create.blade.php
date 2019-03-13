@@ -1,11 +1,20 @@
 @extends('admincore.app')
 
 @section('content')
-
+    @php
+    $titleOfPage = 'دسته';
+    @endphp
+    @if(isset($material) && ($material == '-1'))
+        @php
+        $titleOfPage = 'متریال';
+        @endphp
+    @endif
                 <div class="col-md-8 m-auto">
-                    <div class="card uper">
+
+                    <button data-toggle="collapse" data-target="#addcat" class="btn btn-link"><i class="fa fa-plus"></i></button>
+                    <div class="card uper collapse" id="addcat">
                         <div class="card-header">
-                            Add Task
+                            افزودن {{ $titleOfPage }}
                         </div>
                         <div class="card-body">
                             @if ($errors->any())
@@ -20,21 +29,30 @@
                             <form method="post" action="{{ route('categories.store') }}">
                                 <div class="form-group">
                                     @csrf
-                                    <input type="text" class="form-control" name="title" placeholder="نام دسته"/>
+                                    <input type="text" class="form-control" name="title" placeholder="نام {{ $titleOfPage }}"/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">دسته والد</label>
-                                    <select name="parent_id" class="form-control">
-                                        <option value="0">دسته اصلی</option>
-                                        @foreach($categories->where('parent_id', 0) as $category)
-                                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                @if(isset($material) && ($material == '-1'))
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="description" placeholder="توضیحات متریال"></textarea>
+                                    </div>
+                                    <input type="hidden" name="isMaterial" value="1"/>
+                                    <input type="hidden" name="parent_id" value="-1"/>
+
+                                    @else
+                                    <div class="form-group">
+                                        <label for="">دسته والد</label>
+                                        <select name="parent_id" class="form-control">
+                                            <option value="0">دسته اصلی</option>
+                                            @foreach($categories->where('parent_id', 0) as $category)
+                                                <option value="{{ $category->id }}">{{ $category->title }}</option>
 
                                             @endforeach
 
 
-                                    </select>
+                                        </select>
 
-                                </div>
+                                    </div>
+                                @endif
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </form>
                         </div>
@@ -45,7 +63,7 @@
                 <div class="col-md-8 m-auto">
                     <div class="card uper">
                         <div class="card-header">
-                            دسته ها
+                            {{ $titleOfPage }} ها
                         </div>
                         <div class="card-body">
 
@@ -53,8 +71,12 @@
                                 <tr>
 
                                     <td>کد</td>
-                                    <td>نام دسته</td>
+                                    <td>نام {{ $titleOfPage }}</td>
+                                    @if(isset($material) && ($material != '-1'))
+
                                     <td>زیرمجموعه ها</td>
+                                    @endif
+
                                 </tr>
                                 @foreach($categories->where('parent_id', 0)  as $category)
 
@@ -62,6 +84,7 @@
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->title }}</td>
+                                    @if(isset($material) && ($material != '-1'))
 
                                         <td>
                                             <table>
@@ -78,7 +101,7 @@
 
 
                                         </td>
-
+@endif
                                 </tr>
 
                                     @endforeach
