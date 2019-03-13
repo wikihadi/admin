@@ -22,11 +22,12 @@ Route::group(['middleware' => ['auth']], function() {
     });
     Route::get('/profile', 'UserController@profile');
     Route::post('/profile', 'UserController@update_avatar');
-    Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+    //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+    Route::resource('categories', 'CategoryController');
+    Route::resource('brands', 'BrandController');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::resource('roles','RoleController');
-        Route::resource('categories', 'CategoryController');
         Route::resource('users','UserController');
 
     });

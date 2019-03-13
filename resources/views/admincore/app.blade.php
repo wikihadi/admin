@@ -27,6 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/admin-core/css/custom-style.css">
     {{--<link rel="stylesheet" href="/admin-core/pdate/persian-datepicker.min.css"/>--}}
     <link rel="stylesheet" href="/admin-core/persiandatapicker/persianDatepicker-default.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 
 </head>
@@ -75,7 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="/admin-core/js/adminlte.min.js"></script>
 <script src="/admin-core/persiandatapicker/persianDatepicker.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     {{--<script src="/admin-core/pdate/persian-date.min.js"></script>--}}
     {{--<script src="/admin-core/pdate/persian-datepicker.min.js"></script>--}}
     <script type="text/javascript">
@@ -84,12 +85,58 @@ scratch. This page gets rid of all links and provides the needed markup only.
         //    });                                    });
 
         $(function() {
-            $("#input1, #span1").persianDatepicker({ showGregorianDate: true,
+            $("#pdp-data-jdate").persianDatepicker({
+                onSelect: function () {
+                    var x = $("#pdp-data-jdate").attr("data-gdate");
+                    $("#sendDead").val(x);
+                }
+            });
+            $("#input1").persianDatepicker({ showGregorianDate: true,
                 cellWidth: 50,
                 cellHeight: 50,
                 fontSize: 15,
             });
         });
+
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass   : 'iradio_minimal-blue'
+            })
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass   : 'iradio_minimal-red'
+            })
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass   : 'iradio_flat-green'
+            })
+
+            //Colorpicker
+            $('.my-colorpicker1').colorpicker()
+            //color picker with addon
+            $('.my-colorpicker2').colorpicker()
+
+
+            $('.normal-example').persianDatepicker();
+
+
+
+
+        })
     </script>
 </body>
 </html>

@@ -26,7 +26,7 @@
                 </li>
             </ul>
         </li>
-        @role('admin')
+        {{--@role('admin')--}}
         <li class="nav-item has-treeview @if(Request::is('users*') || Request::is('roles*')) menu-open @endif ">
             <a href="#" class="nav-link @if(Request::is('users*') || Request::is('roles*')) active @endif ">
                 <i class="nav-icon fa fa-user"></i>
@@ -54,7 +54,7 @@
 
             </ul>
         </li>
-        @endrole
+        {{--@endrole--}}
 
         <li class="nav-item">
             <a href="#" class="nav-link">
@@ -66,13 +66,22 @@
             </a>
         </li>
         <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}">
-
+            <a class="dropdown-item" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                 <i class="nav-icon fa fa-key"></i>
-                <p>
                     خروج
-                </p>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+                {{--<a class="nav-link" href="{{ route('logout') }}">--}}
+
+                {{--<i class="nav-icon fa fa-key"></i>--}}
+                {{--<p>--}}
+                    {{--خروج--}}
+                {{--</p>--}}
+            {{--</a>--}}
         </li>
     </ul>
 </nav>

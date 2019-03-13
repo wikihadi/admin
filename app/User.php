@@ -47,11 +47,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Comment');
     }
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
-
+//    public function setPasswordAttribute($password)
+//    {
+//        $this->attributes['password'] = bcrypt($password);
+//    }
+//    public function setPasswordAttribute($password)
+//    {
+//        $this->attributes['password'] = \Hash::make($password);
+//    }
     public function tasks()
     {
         return $this->belongsToMany('App\Task', 'task_users', 'user_id', 'task_id');

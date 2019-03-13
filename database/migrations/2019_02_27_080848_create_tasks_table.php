@@ -24,6 +24,7 @@ class CreateTasksTable extends Migration
             $table->integer('commentCount')->nullable()->default('0');
             $table->date('deadline')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('brand_id')->unsigned()->nullable();
         });
 
         Schema::create('task_users', function (Blueprint $table) {

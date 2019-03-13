@@ -6,6 +6,7 @@ use App\Category;
 use App\User;
 use App\Comment;
 use App\Task;
+use App\Brand;
 //use http\Client\Curl\User as User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -51,9 +52,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('parent_id', '=' , '0')->get();
+        $childCategories = Category::where('parent_id', '!=' , '0')->get();
         $users = User::all();
-        return view('tasks.create', compact('categories','users'));
+        $brands = Brand::all();
+        return view('tasks.create', compact('categories','users', 'childCategories','brands'));
 
     }
 
@@ -76,20 +79,25 @@ class TaskController extends Controller
             'user_id'=> Auth::user()->id
         ]);
         $task->save();
-
-        $users = $request->input('users');
-        $users = implode(',', $users);
-        $input['users'] = $users;
-        $task->users()->attach($input);
-
-            $categories = $request->input('categories');
-            $categories = implode(',', $categories);
+        $task->categories()->attach($request->categories);
+        $task->categories()->attach($request->categorieschild);
+        $task->users()->attach($request->users);
 
 
-            //$input = $request->except('categories');
-            $input['categories'] = $categories;
-            $task->categories()->attach($input);
-                //$task->categories()->attach($request->categories, false);
+
+
+
+//        $users = $request->input('users');
+//        $users = implode(',', $users);
+//        $input['users'] = $users;
+//        $task->users()->attach($input);
+//
+//        $categories = $request->input('categories');
+//        $categories = implode(',', $categories);
+//        //$input = $request->except('categories');
+//        $input['categories'] = $categories;
+//        $task->categories()->attach($input);
+        //$task->categories()->attach($request->categories, false);
         //        $user->roles()->attach([
         //            1 => ['expires' => $expires],
         //            2 => ['expires' => $expires]
