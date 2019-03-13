@@ -7,7 +7,7 @@
 
     <style>
         body, .content-wrapper, .main-heade, .bg-white{
-            background: #2B2A2E!important;
+            background: #2b2a2e!important;
         }
         .border-bottom{
             border-bottom: none!important;

@@ -86,19 +86,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
         // $(document).ready(function() {
         //     $('.pdate').persianDatepicker({
         //    });                                    });
+@yield('JS')
 
-        $(function() {
-            $("#pdp-data-jdate").persianDatepicker({
-                onSelect: function () {
-                    var x = $("#pdp-data-jdate").attr("data-gdate");
-                    $("#sendDead").val(x);
-                }
-            });
-            $("#input1").persianDatepicker({ showGregorianDate: true,
-                cellWidth: 50,
-                cellHeight: 50,
-                fontSize: 15,
-            });
+                // $("#input1").persianDatepicker({ showGregorianDate: true,
+                //     cellWidth: 50,
+                //     cellHeight: 50,
+                //     fontSize: 15,
+                // });
         });
 
         $(function () {

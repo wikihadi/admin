@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-center h-100 row">
             <div class=" col-md-12 user_card">
             <div class="row p-sm-5 p-lg-0 " style="height: 560px">
-                <div class="col-lg-6 d-none d-lg-block " ><img src="img/login.jpg" alt="" width="100%" style="border-radius: 25px"></div>
+                <div class="col-lg-6 d-none d-lg-block " ><img src="img/login.png" alt="" width="100%" style=""></div>
                 <div class="col-lg-6 align-content-center d-flex flex-column justify-content-center" >
                     <div class="d-flex justify-content-start row">
                         <div class="col-lg-9">
