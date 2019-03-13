@@ -58,6 +58,18 @@
                                 </select>
 
                             </div>
+                            <div class="form-group">
+                                <label for="">متریال</label>
+                                <select name="materials[]" class="form-control select2">
+                                    @foreach($materials as $u)
+                                        <option value="{{ $u->id }}">{{ $u->title }}</option>
+
+                                    @endforeach
+
+
+                                </select>
+
+                            </div>
                             <div class="row">
                             <div class="form-group col-6">
                                 <label for="">موضوع اصلی</label>

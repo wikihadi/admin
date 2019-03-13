@@ -28,14 +28,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{--<link rel="stylesheet" href="/admin-core/pdate/persian-datepicker.min.css"/>--}}
     <link rel="stylesheet" href="/admin-core/persiandatapicker/persianDatepicker-default.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    @yield('css')
 
 
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-@include('admincore.topbar.index')
+    @include('admincore.topbar.index')
     <!-- Main Sidebar Container -->
-@include('admincore.sidebar.right')
+{{--@include('admincore.sidebar.right')--}}
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -77,7 +78,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/admin-core/js/adminlte.min.js"></script>
 <script src="/admin-core/persiandatapicker/persianDatepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    {{--<script src="/admin-core/pdate/persian-date.min.js"></script>--}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/umd/tooltip.js"></script>.
+
+        {{--<script src="/admin-core/pdate/persian-date.min.js"></script>--}}
     {{--<script src="/admin-core/pdate/persian-datepicker.min.js"></script>--}}
     <script type="text/javascript">
         // $(document).ready(function() {
@@ -135,8 +138,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 
-
         })
+        // $('[data-toggle="tooltip"]').tooltip();
+
     </script>
 </body>
 </html>

@@ -53,10 +53,11 @@ class TaskController extends Controller
     public function create()
     {
         $categories = Category::where('parent_id', '=' , '0')->get();
+        $materials = Category::where('isMaterial', '=' , '1')->get();
         $childCategories = Category::where('parent_id', '!=' , '0')->get();
         $users = User::all();
         $brands = Brand::all();
-        return view('tasks.create', compact('categories','users', 'childCategories','brands'));
+        return view('tasks.create', compact('categories','users', 'childCategories','brands','materials'));
 
     }
 

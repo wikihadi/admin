@@ -50,7 +50,7 @@ class CategoryController extends Controller
             'isMaterial'=> $request->get('isMaterial')
         ]);
         $category->save();
-        return redirect('/categories')->with('success', 'Task has been added');
+        return back()->with('success', 'Task has been added');
     }
 
 
