@@ -88,12 +88,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         //    });                                    });
 @yield('JS')
 
-                // $("#input1").persianDatepicker({ showGregorianDate: true,
-                //     cellWidth: 50,
-                //     cellHeight: 50,
-                //     fontSize: 15,
-                // });
-        });
+
+
 
         $(function () {
             //Initialize Select2 Elements

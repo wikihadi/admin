@@ -15,6 +15,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('tasks', 'TaskController');
+    Route::resource('media', 'MediaController');
     Route::resource('comments', 'CommentController');
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', function () {

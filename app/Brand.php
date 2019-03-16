@@ -12,4 +12,9 @@ class Brand extends Model
     {
         return $this->hasMany('App\Task');
     }
+
+    public function medias()
+    {
+        return $this->hasMany('App\Media');
+    }
 }

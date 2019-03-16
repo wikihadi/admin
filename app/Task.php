@@ -18,6 +18,10 @@ class Task extends Model
         {
             return $this->hasMany('App\Comment');
         }
+     public function medias()
+        {
+            return $this->hasMany('App\Media');
+        }
     public function parentComments()
     {
         return $this->comments()->where('parent_id', 0);

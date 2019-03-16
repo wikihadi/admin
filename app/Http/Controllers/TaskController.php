@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Media;
 use App\User;
 use App\Comment;
 use App\Task;
@@ -69,20 +70,49 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+
+        $input=$request->all();
+        $images=array();
+
+
+
         $request->validate([
+//            'medias' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'title'=>'required',
             'content'=> 'required'
         ]);
         $task = new Task([
             'title' => $request->get('title'),
             'content'=> $request->get('content'),
-            'deadline'=> $request->get('deadline'),
+            'deadline'=> $request->get('endDate'),
+            'startDate'=> $request->get('startDate'),
+            'reTask'=> $request->get('reTask'),
             'user_id'=> Auth::user()->id
         ]);
         $task->save();
         $task->categories()->attach($request->categories);
         $task->categories()->attach($request->categorieschild);
         $task->users()->attach($request->users);
+
+
+
+
+        if($files=$request->file('medias')){
+            foreach($files as $file){
+                $name=$file->getClientOriginalName();
+                $file->move('imagex',$name);
+                $images[]=$name;
+            }
+        }
+        /*Insert your data*/
+
+        Media::insert( [
+            'name'=>  implode("|",$images),
+            'user_id' => Auth::user()->id,
+            'task_id' => $task->id,
+            //you can put other insertion here
+        ]);
+
 
 
 

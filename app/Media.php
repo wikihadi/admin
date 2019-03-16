@@ -4,13 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Media extends Model
 {
-
     protected $guarded=[];
 
-
-    public function tasks()
+    public function task()
     {
         return $this->belongsTo('App\Task');
     }
@@ -18,9 +16,14 @@ class Comment extends Model
     {
         return $this->belongsTo('App\User');
     }
-
-    public function medias()
+    public function comment()
     {
-        return $this->hasMany('App\Media');
+        return $this->belongsTo('App\Comment');
     }
+    public function brand()
+    {
+        return $this->belongsTo('App\Brand');
+    }
+
+
 }
