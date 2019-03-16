@@ -24,7 +24,7 @@ class CreateTasksTable extends Migration
             $table->integer('commentCount')->nullable()->default('0');
             $table->date('startDate')->nullable();
             $table->date('deadline')->nullable();
-            $table->boolean('reTask')->default(0);
+            $table->boolean('reTask')->default(0)->nullable();
             $table->integer('reTask_id')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('brand_id')->unsigned()->nullable();

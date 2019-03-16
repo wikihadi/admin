@@ -79,14 +79,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/admin-core/persiandatapicker/persianDatepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/umd/tooltip.js"></script>.
-
+        @yield('JS')
         {{--<script src="/admin-core/pdate/persian-date.min.js"></script>--}}
     {{--<script src="/admin-core/pdate/persian-datepicker.min.js"></script>--}}
     <script type="text/javascript">
         // $(document).ready(function() {
         //     $('.pdate').persianDatepicker({
         //    });                                    });
-@yield('JS')
+
 
 
 
