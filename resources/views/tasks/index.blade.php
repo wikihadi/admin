@@ -101,6 +101,24 @@
 
 
                 }
+                td:first-child{
+                    border-radius: 0 30px 30px 0;
+
+                }
+                td:last-child{
+                    border-radius: 30px 0 0 30px;
+                }
+                td{
+                    border: 1px solid black;
+                    border-right: 0;
+                    border-left: 0;
+                }
+
+
+                table{
+                    border-collapse:separate;
+                    border-spacing:0 15px;
+                }
             </style>
         @endsection
         
@@ -136,12 +154,17 @@
     <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
         <div class="row">
         <div class="form-group col-4 text-left">
-            ساده
+            جامع
         </div>
             <div class="form-group col-4 text-center">
 
                 <label class="switch">
-                    <input type="checkbox" name="reTask" value="1">
+                    <input type="checkbox" name="" id="switchMode" onclick="
+
+
+                    var checkBoxes = $('#startDate');
+                    checkBoxes.prop('checked', !checkBoxes.prop('checked'));
+                    " checked>
                     <span class="slider round"></span>
 
                 </label>
@@ -150,7 +173,7 @@
 
             </div>
         <div class="form-group col-4 text-right">
-            جامع
+            ساده
         </div>
         </div>
         <div class="row">
@@ -168,7 +191,7 @@
 </div>
 <div class="col-sm-9">
     <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
-        <table class="w-100 text-center" style="font-size: .8rem">
+        <table class="w-100 text-center table-responsive" style="font-size: .8rem">
             <tr>
                 <td>الویت</td>
                 <td>نام برند</td>
@@ -181,12 +204,11 @@
                 <td>زمان مورد نیاز</td>
                 <td>اصلاح متن</td>
                 <td>توضیحات</td>
-                <td></td>
+                <td>ویرایش</td>
             </tr>
-        </table>
-        <table class="w-100 text-center bg-danger rounded" style="font-size: .8rem">
-            <tr>
-                <td>الویت</td>
+
+            <tr class="table-info">
+                <td class="py-3">الویت</td>
                 <td>نام برند</td>
                 <td>نوع خدمت</td>
                 <td>برای</td>
@@ -197,11 +219,10 @@
                 <td>زمان مورد نیاز</td>
                 <td>اصلاح متن</td>
                 <td>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که</td>
-                <td></td>
+                <td>ویرایش</td>
             </tr>
-        </table>
-        <table class="w-100 text-center bg-info rounded" style="font-size: .8rem">
-            <tr>
+
+            <tr class="table-danger">
                 <td>الویت</td>
                 <td>نام برند</td>
                 <td>نوع خدمت</td>
@@ -212,8 +233,8 @@
                 <td class="startDate">تاریخ شروع</td>
                 <td>زمان مورد نیاز</td>
                 <td>اصلاح متن</td>
-                <td>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که</td>
-                <td></td>
+                <td>اصلاح متن</td>
+                <td>ویرایش</td>
             </tr>
         </table>
     </div>
