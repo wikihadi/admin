@@ -31,7 +31,7 @@ class TaskController extends Controller
         $user = User::find($id);
 
 
-        $tasks = $user->tasks()->orderBy('deadline','ASC')->paginate(9);
+        $tasks = $user->tasks()->orderBy('deadline','ASC')->paginate(10);
 //        $tasks = Task::orderBy('deadline','ASC')->paginate(9);
 //        $team = User::with('tasks');
 //

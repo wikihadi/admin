@@ -101,23 +101,29 @@
 
 
                 }
-                td:first-child{
-                    border-radius: 0 30px 30px 0;
+                /*td:first-child{*/
+                    /*border-radius: 0 30px 30px 0;*/
 
-                }
-                td:last-child{
-                    border-radius: 30px 0 0 30px;
-                }
-                td{
-                    border: 1px solid black;
-                    border-right: 0;
-                    border-left: 0;
-                }
+                /*}*/
+                /*td:last-child{*/
+                    /*border-radius: 30px 0 0 30px;*/
+                /*}*/
+                /*td{*/
+                    /*border: 1px solid black;*/
+                    /*border-right: 0;*/
+                    /*border-left: 0;*/
+                /*}*/
 
 
-                table{
-                    border-collapse:separate;
-                    border-spacing:0 15px;
+                /*table{*/
+                    /*border-collapse:separate;*/
+                    /*border-spacing:0 15px;*/
+                /*}*/
+                .card-header{
+                    cursor: pointer;
+                }
+                .card-border{
+                    border-radius: 30px;
                 }
             </style>
         @endsection
@@ -128,8 +134,8 @@
 
 
 
-<div class="col-sm-3">
-<div class="m-3 p-5 bg-white" style="border-radius: 30px;">
+<div class="col-sm-12">
+<div class="col-3 m-auto m-3 p-5 bg-white collapse fade" style="border-radius: 30px;" id="demo">
     <div class="row">
         <div class="col-3 text-center"><small>طراحی</small></div>
         <div class="col-3 text-center"><small>پیگیری</small></div>
@@ -151,99 +157,257 @@
 
 </div>
 
+    {{--<div class="m-3 p-5 bg-white" style="border-radius: 30px;">--}}
+        {{--<div class="row">--}}
+        {{--<div class="form-group col-4 text-left">--}}
+            {{--جامع--}}
+        {{--</div>--}}
+            {{--<div class="form-group col-4 text-center">--}}
+
+                {{--<label class="switch">--}}
+                    {{--<input type="checkbox" name="" id="switchMode" onclick="--}}
+
+
+                    {{--var checkBoxes = $('#startDate');--}}
+                    {{--checkBoxes.prop('checked', !checkBoxes.prop('checked'));--}}
+                    {{--" checked>--}}
+                    {{--<span class="slider round"></span>--}}
+
+                {{--</label>--}}
+
+
+
+            {{--</div>--}}
+        {{--<div class="form-group col-4 text-right">--}}
+            {{--ساده--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="row">--}}
+            {{--<div class="col-2 text-left"><input id="startDate" type="checkbox" class="" onclick="--}}
+                {{--$('.startDate').toggleClass('d-none');"></div>--}}
+            {{--<div class="col-10"><label for="startDate">تاریخ شروع</label></div>--}}
+            {{--<div class="col-2 text-left"><input type="checkbox" class=""></div>--}}
+            {{--<div class="col-10">تاریخ شروع</div>--}}
+            {{--<div class="col-2 text-left"><input type="checkbox" class=""></div>--}}
+            {{--<div class="col-10">تاریخ شروع</div>--}}
+            {{--<div class="col-2 text-left"><input type="checkbox" class=""></div>--}}
+            {{--<div class="col-10">تاریخ شروع</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+</div>
+<div class="col-sm-12">
+
     <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
-        <div class="row">
-        <div class="form-group col-4 text-left">
-            جامع
-        </div>
-            <div class="form-group col-4 text-center">
+        <div class="text-left">
+            <button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>
 
-                <label class="switch">
-                    <input type="checkbox" name="" id="switchMode" onclick="
+            <a href="/tasks/create" class="btn btn-link"><i class="fa fa-plus"></i></a></div>
+            <div class="card border-0 d-none d-md-block" style="box-shadow: none">
+                <div class="card-header" style="border-bottom: 0">
+                    <div class="row">
+                        <div class="col-md-3 col-xl-2">عنوان</div>
+                        <div class="col-md-3 col-xl-1 text-center">نوع</div>
+                        <div class="col-md-3 col-xl-1 text-center">برند</div>
+                        <div class="d-none d-xl-block col-xl-1 text-center">برای</div>
+                        <div class="d-none d-xl-block col-xl-1 text-center">اندازه و قطع</div>
+                        <div class="d-none d-xl-block col-xl-1 text-center">متریال</div>
+                        <div class="d-none d-xl-block col-xl-1 text-center">فاز</div>
+                        <div class="d-none d-xl-block col-xl-1 text-center">فاز</div>
 
 
-                    var checkBoxes = $('#startDate');
-                    checkBoxes.prop('checked', !checkBoxes.prop('checked'));
-                    " checked>
-                    <span class="slider round"></span>
+                        <div class="col-6 col-md-3 text-left">
+                            زمان | پروژه تگراری
+                        </div>
 
-                </label>
-
-
+                    </div>
+                </div>
 
             </div>
-        <div class="form-group col-4 text-right">
-            ساده
+
+
+
+        <!------------------------------------------------------------------>
+        @foreach($tasks as $task)
+
+        <div class="card card-border">
+                <div class="
+
+                        @if($task->rightNow < 0 )
+                        card-danger bg-danger
+@elseif($task->rightNow <= 3)
+                        card-danger bg-warning
+
+@else
+
+                        bg-info
+
+@endif
+
+                card-header
+                card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
+                   <div class="row">
+                       <div class="col-6 col-md-3 col-xl-2">{{$task->title}}</div>
+                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">کاتالوگ</div>
+                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">فیکورس</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">آدامس</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">A4</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">سلفون مات</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">1</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">فاز</div>
+                           <div class="col-6 col-md-3 text-left">
+                               <i class="fa
+                        @if($task->rightNow < 0 )
+                                       fa-hourglass-end
+@elseif($task->rightNow <= 3)
+                                       fa-hourglass-half
+
+@else
+                                       fa-hourglass-start
+
+@endif
+
+" data-toggle="tooltip" title="{{$task->rightNow}} روز دیگر"  data-placement="right"></i>
+                                |
+                               <i class="fa fa-calendar" data-toggle="tooltip" title="10/01/1398"  data-placement="right"></i>
+                               @if($task->reTask === 1)
+                                |
+                               <i class="fa fa-clone" data-toggle="tooltip" title="Clone"  data-placement="right"></i>
+                                   @endif
+                               |
+                               <a href="/tasks/{{ $task->id }}"><i class="fa fa-link"></i></a>
+                           </div>
+
+                   </div>
+
+
+                </div>
+                <div id="collapse{{$task->id}}" class="collapse " data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 col-xl-3">
+                                <img src="/img/login.png" class="img-thumbnail" alt="">
+                            </div>
+                            <div class="col-sm-12 col-md-8 col-xl-3 table-responsive">
+                                 <table class="table table-borderless table-striped" style="width: 100%">
+
+                                     <tr>
+                                         <td>کد پروژه</td>
+                                         <td><a href="/tasks/{{$task->id}}">{{$task->id}}</a></td>
+                                     </tr>
+                                     <tr>
+                                         <td>عنوان</td>
+                                         <td><a href="/tasks/{{$task->id}}">{{$task->title}}</a></td>
+                                     </tr>
+
+                                     <tr>
+                                         <td>شروع پروژه</td>
+                                         <td>{{$task->startDate}}</td>
+                                     </tr>
+                                     <tr>
+                                         <td>پایان پروژه</td>
+                                         <td>{{$task->deadline}}</td>
+                                     </tr>
+                                     <tr>
+                                         <td>فاز پروژه</td>
+                                         <td>{{$task->status}}</td>
+                                     </tr>
+                                     <tr>
+                                         <td>تعداد نظرات</td>
+                                         <td>{{$task->commentCount}}</td>
+                                     </tr>
+                                     <tr>
+                                         <td>کاربر</td>
+                                         <td>{{$task->user_id}}</td>
+                                     </tr>
+                                     <tr>
+                                         <td></td>
+                                         <td><a href="/tasks/{{$task->id}}" class="card-link">مشاهده بیشتر...</a></td>
+                                     </tr>
+                                 </table>
+
+
+                                </div>
+                            <div class="col-sm-12 col-md-12 col-xl-6">
+                                <p class="text-justify">
+                                    {{ $task->content }}
+
+                                </p>
+
+
+                            </div>
+                            <div class="text-left col-12"><a href="/tasks/{{$task->id}}" class="card-link">مشاهده</a>
+                                <a href="/tasks/{{$task->id}}/edit" class="card-link mr-2 ">ویرایش</a></div>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-12">
+
+                            </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        @endforeach
+
+        <!---------------------------------------------------------->
+
+        {{ $tasks->links() }}
+
+
         </div>
-        </div>
-        <div class="row">
-            <div class="col-2 text-left"><input id="startDate" type="checkbox" class="" onclick="
-                $('.startDate').toggleClass('d-none');"></div>
-            <div class="col-10"><label for="startDate">تاریخ شروع</label></div>
-            <div class="col-2 text-left"><input type="checkbox" class=""></div>
-            <div class="col-10">تاریخ شروع</div>
-            <div class="col-2 text-left"><input type="checkbox" class=""></div>
-            <div class="col-10">تاریخ شروع</div>
-            <div class="col-2 text-left"><input type="checkbox" class=""></div>
-            <div class="col-10">تاریخ شروع</div>
-        </div>
-    </div>
-</div>
-<div class="col-sm-9">
-    <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
-        <table class="w-100 text-center table-responsive" style="font-size: .8rem">
-            <tr>
-                <td>الویت</td>
-                <td>نام برند</td>
-                <td>نوع خدمت</td>
-                <td>برای</td>
-                <td>اندازه و قطع</td>
-                <td>طراحی مجدد</td>
-                <td>متریال</td>
-                <td class="startDate">تاریخ شروع</td>
-                <td>زمان مورد نیاز</td>
-                <td>اصلاح متن</td>
-                <td>توضیحات</td>
-                <td>ویرایش</td>
-            </tr>
+        {{--<table class="w-100 text-center table-responsive" style="font-size: .8rem">--}}
+            {{--<tr>--}}
+                {{--<td>الویت</td>--}}
+                {{--<td>نام برند</td>--}}
+                {{--<td>نوع خدمت</td>--}}
+                {{--<td>برای</td>--}}
+                {{--<td>اندازه و قطع</td>--}}
+                {{--<td>طراحی مجدد</td>--}}
+                {{--<td>متریال</td>--}}
+                {{--<td class="startDate">تاریخ شروع</td>--}}
+                {{--<td>زمان مورد نیاز</td>--}}
+                {{--<td>اصلاح متن</td>--}}
+                {{--<td>توضیحات</td>--}}
+                {{--<td>ویرایش</td>--}}
+            {{--</tr>--}}
 
-            <tr class="table-info">
-                <td class="py-3">الویت</td>
-                <td>نام برند</td>
-                <td>نوع خدمت</td>
-                <td>برای</td>
-                <td>اندازه و قطع</td>
-                <td>طراحی مجدد</td>
-                <td>متریال</td>
-                <td class="startDate">تاریخ شروع</td>
-                <td>زمان مورد نیاز</td>
-                <td>اصلاح متن</td>
-                <td>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که</td>
-                <td>ویرایش</td>
-            </tr>
+            {{--<tr class="table-info">--}}
+                {{--<td class="py-3">الویت</td>--}}
+                {{--<td>نام برند</td>--}}
+                {{--<td>نوع خدمت</td>--}}
+                {{--<td>برای</td>--}}
+                {{--<td>اندازه و قطع</td>--}}
+                {{--<td>طراحی مجدد</td>--}}
+                {{--<td>متریال</td>--}}
+                {{--<td class="startDate">تاریخ شروع</td>--}}
+                {{--<td>زمان مورد نیاز</td>--}}
+                {{--<td>اصلاح متن</td>--}}
+                {{--<td>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که</td>--}}
+                {{--<td>ویرایش</td>--}}
+            {{--</tr>--}}
 
-            <tr class="table-danger">
-                <td>الویت</td>
-                <td>نام برند</td>
-                <td>نوع خدمت</td>
-                <td>برای</td>
-                <td>اندازه و قطع</td>
-                <td>طراحی مجدد</td>
-                <td>متریال</td>
-                <td class="startDate">تاریخ شروع</td>
-                <td>زمان مورد نیاز</td>
-                <td>اصلاح متن</td>
-                <td>اصلاح متن</td>
-                <td>ویرایش</td>
-            </tr>
-        </table>
+            {{--<tr class="table-danger">--}}
+                {{--<td>الویت</td>--}}
+                {{--<td>نام برند</td>--}}
+                {{--<td>نوع خدمت</td>--}}
+                {{--<td>برای</td>--}}
+                {{--<td>اندازه و قطع</td>--}}
+                {{--<td>طراحی مجدد</td>--}}
+                {{--<td>متریال</td>--}}
+                {{--<td class="startDate">تاریخ شروع</td>--}}
+                {{--<td>زمان مورد نیاز</td>--}}
+                {{--<td>اصلاح متن</td>--}}
+                {{--<td>اصلاح متن</td>--}}
+                {{--<td>ویرایش</td>--}}
+            {{--</tr>--}}
+        {{--</table>--}}
     </div>
 
 
     </div>
 
 
-            {{----}}
+
             {{--@foreach($tasks as $task)--}}
 
                 {{--<div class="col-lg-6 col-md-6 col-sm-12 animated fadeIn">--}}

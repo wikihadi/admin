@@ -129,7 +129,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
         })
-        // $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
 
     </script>
 </body>
