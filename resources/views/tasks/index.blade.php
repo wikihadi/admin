@@ -198,31 +198,41 @@
 <div class="col-sm-12">
 
     <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
+
         <div class="text-left">
-            <button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>
+            {{--<button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>--}}
 
             <a href="/tasks/create" class="btn btn-link"><i class="fa fa-plus"></i></a></div>
+
+        @if ($tasks->isEmpty())
+
+            <div class="alert table-success ">تبریک! شما همه الویت های خود را به پایان رسانده اید.</div>
+
+        @endif
+        @if (!$tasks->isEmpty())
+
             <div class="card border-0 d-none d-md-block" style="box-shadow: none">
                 <div class="card-header" style="border-bottom: 0">
                     <div class="row">
-                        <div class="col-md-3 col-xl-2">عنوان</div>
+                        <div class="col-1 text-right">الویت</div>
+                        <div class="col-md-3 col-xl-2 text-right">عنوان</div>
                         <div class="col-md-3 col-xl-1 text-center">نوع</div>
                         <div class="col-md-3 col-xl-1 text-center">برند</div>
                         <div class="d-none d-xl-block col-xl-1 text-center">برای</div>
-                        <div class="d-none d-xl-block col-xl-1 text-center">اندازه و قطع</div>
+                        <div class="d-none d-xl-block col-xl-1 text-center">قطع</div>
                         <div class="d-none d-xl-block col-xl-1 text-center">متریال</div>
-                        <div class="d-none d-xl-block col-xl-1 text-center">فاز</div>
-                        <div class="d-none d-xl-block col-xl-1 text-center">فاز</div>
+                        <div class="d-none d-xl-block col-xl-1 text-center">مهلت</div>
 
 
                         <div class="col-6 col-md-3 text-left">
-                            زمان | پروژه تگراری
+
                         </div>
 
                     </div>
                 </div>
 
             </div>
+        @endif
 
 
 
@@ -231,29 +241,40 @@
 
         <div class="card card-border">
                 <div class="
-
-                        @if($task->rightNow < 0 )
+@switch($task->orderTask)
+                @case(1)
                         card-danger bg-danger
-@elseif($task->rightNow <= 3)
+@break
+
+                @case(2)
+                        card-danger bg-danger
+@break
+
+                @case(3)
                         card-danger bg-warning
+@break
 
-@else
 
-                        bg-info
 
-@endif
+
+
+                @default
+                        bg-light
+@endswitch
+
 
                 card-header
                 card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
                    <div class="row">
-                       <div class="col-6 col-md-3 col-xl-2">{{$task->title}}</div>
-                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">کاتالوگ</div>
-                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">فیکورس</div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">آدامس</div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">A4</div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">سلفون مات</div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">1</div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">فاز</div>
+                       <div class="d-none d-xl-block col-xl-1 text-right">{{$task->orderTask}}</div>
+
+                       <div class="col-5 col-md-3 col-xl-2 text-right">{{$task->title}}</div>
+                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">{{$task->type}}</div>
+                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">{{$task->brand}}</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">{{$task->forProduct}}</div>
+                       <div dir="ltr" class="d-none d-xl-block col-xl-1 text-center">{{$task->dx}}|{{$task->dy}}|{{$task->dz}}</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">{{$task->material}}</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center">{{$task->rightNow}} روز</div>
                            <div class="col-6 col-md-3 text-left">
                                <i class="fa
                         @if($task->rightNow < 0 )
@@ -355,52 +376,8 @@
 
 
         </div>
-        {{--<table class="w-100 text-center table-responsive" style="font-size: .8rem">--}}
-            {{--<tr>--}}
-                {{--<td>الویت</td>--}}
-                {{--<td>نام برند</td>--}}
-                {{--<td>نوع خدمت</td>--}}
-                {{--<td>برای</td>--}}
-                {{--<td>اندازه و قطع</td>--}}
-                {{--<td>طراحی مجدد</td>--}}
-                {{--<td>متریال</td>--}}
-                {{--<td class="startDate">تاریخ شروع</td>--}}
-                {{--<td>زمان مورد نیاز</td>--}}
-                {{--<td>اصلاح متن</td>--}}
-                {{--<td>توضیحات</td>--}}
-                {{--<td>ویرایش</td>--}}
-            {{--</tr>--}}
 
-            {{--<tr class="table-info">--}}
-                {{--<td class="py-3">الویت</td>--}}
-                {{--<td>نام برند</td>--}}
-                {{--<td>نوع خدمت</td>--}}
-                {{--<td>برای</td>--}}
-                {{--<td>اندازه و قطع</td>--}}
-                {{--<td>طراحی مجدد</td>--}}
-                {{--<td>متریال</td>--}}
-                {{--<td class="startDate">تاریخ شروع</td>--}}
-                {{--<td>زمان مورد نیاز</td>--}}
-                {{--<td>اصلاح متن</td>--}}
-                {{--<td>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که</td>--}}
-                {{--<td>ویرایش</td>--}}
-            {{--</tr>--}}
 
-            {{--<tr class="table-danger">--}}
-                {{--<td>الویت</td>--}}
-                {{--<td>نام برند</td>--}}
-                {{--<td>نوع خدمت</td>--}}
-                {{--<td>برای</td>--}}
-                {{--<td>اندازه و قطع</td>--}}
-                {{--<td>طراحی مجدد</td>--}}
-                {{--<td>متریال</td>--}}
-                {{--<td class="startDate">تاریخ شروع</td>--}}
-                {{--<td>زمان مورد نیاز</td>--}}
-                {{--<td>اصلاح متن</td>--}}
-                {{--<td>اصلاح متن</td>--}}
-                {{--<td>ویرایش</td>--}}
-            {{--</tr>--}}
-        {{--</table>--}}
     </div>
 
 
@@ -408,32 +385,6 @@
 
 
 
-            {{--@foreach($tasks as $task)--}}
-
-                {{--<div class="col-lg-6 col-md-6 col-sm-12 animated fadeIn">--}}
-                    {{--<div class="w-100 hvr-bob card card-outline--}}
-        {{--@if($task->rightNow < 0 )--}}
-                            {{--card-danger bg-warning--}}
-        {{--@elseif($task->rightNow <= 3)--}}
-                            {{--card-danger--}}
-
-        {{--@else--}}
-                            {{--card-info--}}
-        {{--@endif--}}
-                            {{--">--}}
-                        {{--<div class="card-body">--}}
-                            {{--<h5 class="card-title mb-2 text-bold">{{$task->title}}--}}
-                                {{--<small class="text-muted">{{$task->rightNow}} روز دیگر</small>--}}
-                            {{--</h5>--}}
-                            {{--<small class="card-text text-small">{{ str_limit($task->content, $limit = 180, $end = '...') }}</small>--}}
-                            {{--<br>--}}
-                            {{--<a href="/tasks/{{$task->id}}" class="card-link">مشاهده</a>--}}
-                            {{--<a href="/tasks/{{$task->id}}/edit" class="card-link mr-2 ">ویرایش</a>--}}
-                        {{--</div>--}}
-                    {{--</div><!-- /.card -->--}}
-                {{--</div>--}}
-            {{--@endforeach--}}
-            {{--{{ $tasks->links() }}--}}
 
 
         @endsection

@@ -9,6 +9,16 @@
         $titleOfPage = 'متریال';
         @endphp
     @endif
+    @if(isset($dimen) && ($dimen == '-1'))
+        @php
+        $titleOfPage = 'قطع کار';
+        @endphp
+    @endif
+    @if(isset($type) && ($type == '-1'))
+        @php
+        $titleOfPage = 'نوع کار';
+        @endphp
+    @endif
                 <div class="col-md-8 m-auto">
 
                     <button data-toggle="collapse" data-target="#addcat" class="btn btn-link"><i class="fa fa-plus"></i></button>
@@ -33,9 +43,18 @@
                                 </div>
                                 @if(isset($material) && ($material == '-1'))
                                     <div class="form-group">
-                                        <textarea class="form-control" name="description" placeholder="توضیحات متریال"></textarea>
+                                        <textarea class="form-control" name="description" placeholder="توضیحات {{ $titleOfPage }}"></textarea>
                                     </div>
-                                    <input type="hidden" name="isMaterial" value="1"/>
+                                    <input type="hidden"
+                                            @if(isset($dimen) && ($dimen == '-1'))
+                                            name="isDimension"
+                                            @elseif(isset($type) && ($type == '-1'))
+                                           name="isType"
+                                           @else
+                                           name="isMaterial"
+
+                                            @endif
+value="1"/>
                                     <input type="hidden" name="parent_id" value="-1"/>
 
                                     @else
@@ -72,18 +91,20 @@
 
                                     <td>کد</td>
                                     <td>نام {{ $titleOfPage }}</td>
+                                    <td>توضیحات</td>
                                     @if(isset($material) && ($material != '-1'))
 
                                     <td>زیرمجموعه ها</td>
                                     @endif
 
                                 </tr>
-                                @foreach($categories->where('parent_id', 0)  as $category)
+                                @foreach($categories->where('parent_id', -1)  as $category)
 
 
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->title }}</td>
+                                    <td>{{ $category->description }}</td>
                                     @if(isset($material) && ($material != '-1'))
 
                                         <td>

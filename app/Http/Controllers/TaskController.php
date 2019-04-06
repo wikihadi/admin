@@ -31,7 +31,7 @@ class TaskController extends Controller
         $user = User::find($id);
 
 
-        $tasks = $user->tasks()->orderBy('deadline','ASC')->paginate(10);
+        $tasks = $user->tasks()->where('isDone', '0')->orderBy('orderTask','ASC')->orderBy('deadline','ASC')->paginate(10);
 //        $tasks = Task::orderBy('deadline','ASC')->paginate(9);
 //        $team = User::with('tasks');
 //
@@ -55,10 +55,13 @@ class TaskController extends Controller
     {
         $categories = Category::where('parent_id', '=' , '0')->get();
         $materials = Category::where('isMaterial', '=' , '1')->get();
+        $dimensions = Category::where('isDimension', '=' , '1')->get();
+        $types = Category::where('isType', '=' , '1')->get();
         $childCategories = Category::where('parent_id', '!=' , '0')->get();
         $users = User::all();
         $brands = Brand::all();
-        return view('tasks.create', compact('categories','users', 'childCategories','brands','materials'));
+        $user_id = Auth::user()->id;
+        return view('tasks.create', compact('categories','users', 'childCategories','brands','materials','user_id','dimensions','types'));
 
     }
 
@@ -87,6 +90,15 @@ class TaskController extends Controller
             'deadline'=> $request->get('endDate'),
             'startDate'=> $request->get('startDate'),
             'reTask'=> $request->get('reTask'),
+            'orderTask'=> $request->get('orderTask'),
+            'brand'=> $request->get('brand'),
+            'material'=> $request->get('material'),
+            'dx'=> $request->get('dx'),
+            'dy'=> $request->get('dy'),
+            'dz'=> $request->get('dz'),
+            'dDesc'=> $request->get('dDesc'),
+            'type'=> $request->get('type'),
+            'forProduct'=> $request->get('forProduct'),
             'user_id'=> Auth::user()->id
         ]);
         $task->save();
@@ -159,11 +171,12 @@ class TaskController extends Controller
         //$comments = Comment::all()->where('task_id',$id);
         //$user=User::all()->get();
         $task = Task::find($id);
-        $comments = $task->comments()->with('user')->get();
+        $comments = $task->comments()->with('user')->orderBy('created_at','DESC')->get();
 
         //$comments = $task->comments;
         $dead = Carbon::now()->diffInDays($task->deadline, false);
         $task->increment('viewCount');
+
         return view('tasks.show', compact('task','comments', 'dead'));
 
 

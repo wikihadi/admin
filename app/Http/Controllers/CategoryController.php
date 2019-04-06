@@ -47,7 +47,10 @@ class CategoryController extends Controller
         $category = new Category([
             'title' => $request->get('title'),
             'parent_id'=> $request->get('parent_id'),
-            'isMaterial'=> $request->get('isMaterial')
+            'isMaterial'=> $request->get('isMaterial'),
+            'isDimension'=> $request->get('isDimension'),
+            'isType'=> $request->get('isType'),
+            'description'=> $request->get('description')
         ]);
         $category->save();
         return back()->with('success', 'Task has been added');
@@ -57,8 +60,22 @@ class CategoryController extends Controller
     public function materials()
     {
         $material = -1;
-        $categories = Category::where('parent_id', '=' , '-1');
+        $categories = Category::where('isMaterial', '=' , '1')->get();
         return view('categories.create', compact('categories','material'));
+    }
+    public function dimensions()
+    {
+        $material = -1;
+        $dimen = -1;
+        $categories = Category::where('isDimension', '=' , '1')->get();
+        return view('categories.create', compact('categories','material', 'dimen'));
+    }
+    public function types()
+    {
+        $material = -1;
+        $type = -1;
+        $categories = Category::where('isType', '=' , '1')->get();
+        return view('categories.create', compact('categories','material', 'type'));
     }
     /**
      * Display the specified resource.

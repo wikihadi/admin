@@ -18,7 +18,9 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->boolean('isMaterial')->default(0);
+            $table->boolean('isMaterial')->default(0)->nullable();
+            $table->boolean('isDimension')->default(0)->nullable();
+            $table->boolean('isType')->default(0)->nullable();
             $table->integer('parent_id')->nullable()->default(0);
         });
         Schema::create('category_task', function (Blueprint $table) {

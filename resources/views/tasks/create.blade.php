@@ -2,13 +2,12 @@
 
 @section('css')
     <style>
-
     </style>
     @endsection
 @section('content')
 
     <div class="col-md-8 m-auto">
-        <div class="alert alert-danger">بخشهایی از فرم متصل نیست:  . پروژه مجدد . فایل</div>
+        {{--<div class="alert alert-danger">بخشهایی از فرم متصل نیست:  . فایل</div>--}}
         <div class="card uper">
             <div class="card-header">
                 ثبت کار جدید
@@ -29,7 +28,16 @@
                         <div class="form-group col-sm-12">
                             <label for="title">عنوان</label>
                             <input type="text" class="form-control" name="title" placeholder="عنوان کامل کار"/>
+
                         </div>
+                        <div class="form-group col-sm-12">
+
+
+                            <label for="title">الویت</label>
+
+                            <input type="number" class="form-control" name="orderTask" placeholder="From 1 to 10" min="1" max="10" value="10"/>
+                        </div>
+
                         <div class="form-group col-sm-6">
                             <label for="deadline">تاریخ شروع</label>
 
@@ -50,10 +58,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">برند</label>
-                        <select name="brands[]" class="form-control select2">
-                            <option selected="selected" value="0">بدون برند</option>
+                        <select name="brand" class="form-control select2">
+                            <option selected="selected" value="سایر">سایر</option>
                             @foreach($brands as $u)
-                                <option value="{{ $u->id }}">{{ $u->title }}</option>
+                                <option value="{{ $u->title }}">{{ $u->title }}</option>
 
                             @endforeach
 
@@ -64,7 +72,8 @@
                     <div class="form-group">
                         <label for="">تیم کاری</label>
                         <select name="users[]" class="form-control select2" multiple>
-                            @foreach($users as $u)
+
+                        @foreach($users as $u)
                                 <option value="{{ $u->id }}">{{ $u->name }}</option>
 
                             @endforeach
@@ -75,21 +84,10 @@
                     </div>
                     <div class="form-group">
                         <label for="">متریال</label>
-                        <select name="materials[]" class="form-control select2">
-                            @foreach($materials as $u)
-                                <option value="{{ $u->id }}">{{ $u->title }}</option>
-
-                            @endforeach
-
-
-                        </select>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="">قطع کار</label>
-                        <select name="materials[]" class="form-control select2">
-                            @foreach($materials as $u)
-                                <option value="{{ $u->id }}">{{ $u->title }}</option>
+                        <select name="material" class="form-control select2">
+                            <option selected="selected" value="سایر">سایر</option>
+                        @foreach($materials as $u)
+                                <option value="{{ $u->title }}">{{ $u->title }}</option>
 
                             @endforeach
 
@@ -98,12 +96,31 @@
 
                     </div>
                     <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="">عرض کار</label>
+                        <input type="number" class="form-control" name="dx" placeholder="عرض">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="">طول کار</label>
+                        <input type="number" class="form-control" name="dy" placeholder="طول">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="">عمق کار</label>
+                        <input type="number" class="form-control" name="dz" placeholder="عمق">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="">توضیحات قطع کار</label>
+                        <input type="text" class="form-control" name="dDesc" placeholder="واحد">
+                    </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group col-6">
                             <label for="">نوع</label>
-                            <select name="categories[]" class="form-control select2">
-                                <option value="0">بدون موضوع</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            <select name="isType" class="form-control select2">
+
+                                <option selected="selected" value="سایر">سایر</option>
+                                @foreach($types as $type)
+                                    <option value="{{ $type->id }}">{{ $type->title }}</option>
 
                                 @endforeach
 
@@ -113,9 +130,11 @@
                         </div>
                         <div class="form-group col-6">
                             <label for="">برای محصول</label>
-                            <select name="categories[]" class="form-control select2">
-                                @foreach($childCategories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            <select name="forProduct" class="form-control select2">
+                                <option selected="selected" value="سایر">سایر</option>
+
+                            @foreach($childCategories as $category)
+                                    <option value="{{ $category->title }}">{{ $category->title }}</option>
 
                                 @endforeach
 
@@ -135,12 +154,12 @@
 
                         </div>
 
-                        <div class="form-group col-sm-6">
-                        <label for="" class="file-upload btn btn-info btn-block">تصویر شاخص پروژه
+                        {{--<div class="form-group col-sm-6">--}}
+                        {{--<label for="" class="file-upload btn btn-info btn-block">تصویر شاخص پروژه--}}
 
-                        <input type="file" name="medias[]">
-                            </label>
-                        </div>
+                        {{--<input type="file" name="medias[]">--}}
+                            {{--</label>--}}
+                        {{--</div>--}}
                         {{--<div class="form-group col-6">--}}
                             {{--<div class="custom-file">--}}
                                 {{--<input type="file" class="custom-file-input" id="customFile" name="medias[]" multiple>--}}
@@ -154,7 +173,7 @@
                                   placeholder="توضیحات کاری که باید انجام شود"></textarea>
 
                     </div>
-                    <button type="submit" class="btn btn-primary">بفرست به لیست</button>
+                    <button type="submit" class="btn btn-success btn-block btn-lg">بفرست به لیست الویت ها</button>
                 </form>
             </div>
         </div>
@@ -221,5 +240,9 @@
     // var fileName = $(this).val().split("\\").pop();
     // $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     // });
+
+
+
+
     </script>
 @endsection

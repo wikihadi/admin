@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('categories', 'CategoryController');
     Route::resource('brands', 'BrandController');
     Route::get('/materials', 'CategoryController@materials');
+    Route::get('/dimensions', 'CategoryController@dimensions');
+    Route::get('/types', 'CategoryController@types');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::resource('roles','RoleController');

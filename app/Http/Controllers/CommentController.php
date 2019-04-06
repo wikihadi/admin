@@ -55,7 +55,7 @@ class CommentController extends Controller
         $task = Task::find($task_id);
         $task->increment('commentCount');
 
-        return redirect('/tasks/'.'1')->with('success', 'Task has been added');
+        return back()->with('success', 'Task has been added');
     }
 
     /**
