@@ -25,19 +25,20 @@
                 <form  enctype="multipart/form-data" method="post" action="{{ route('tasks.store') }}">
                     @csrf
                     <div class="row">
-                        <div class="form-group col-sm-12">
+
+
+                        <div class="form-group col-sm-10">
                             <label for="title">عنوان</label>
                             <input type="text" class="form-control" name="title" placeholder="عنوان کامل کار"/>
 
                         </div>
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-2">
 
 
                             <label for="title">الویت</label>
 
                             <input type="number" class="form-control" name="orderTask" placeholder="From 1 to 10" min="1" max="10" value="10"/>
                         </div>
-
                         <div class="form-group col-sm-6">
                             <label for="deadline">تاریخ شروع</label>
 
@@ -57,23 +58,18 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">برند</label>
-                        <select name="brand" class="form-control select2">
-                            <option selected="selected" value="سایر">سایر</option>
-                            @foreach($brands as $u)
-                                <option value="{{ $u->title }}">{{ $u->title }}</option>
+                        <label for="">توضیحات پروژه </label>
 
-                            @endforeach
-
-
-                        </select>
+                        <textarea class="form-control" name="content"
+                                  placeholder="توضیحات کاری که باید انجام شود"></textarea>
 
                     </div>
-                    <div class="form-group">
+
+                    <div class="form-group col-sm-12">
                         <label for="">تیم کاری</label>
                         <select name="users[]" class="form-control select2" multiple>
 
-                        @foreach($users as $u)
+                            @foreach($users as $u)
                                 <option value="{{ $u->id }}">{{ $u->name }}</option>
 
                             @endforeach
@@ -82,97 +78,111 @@
                         </select>
 
                     </div>
-                    <div class="form-group">
-                        <label for="">متریال</label>
-                        <select name="material" class="form-control select2">
-                            <option selected="selected" value="سایر">سایر</option>
-                        @foreach($materials as $u)
-                                <option value="{{ $u->title }}">{{ $u->title }}</option>
 
-                            @endforeach
+<div class="text-left p-2 border-bottom">
+                                    <a class="text-success" data-toggle="collapse" href="#xtra">پیشرفته</a>
+</div>
+                            <div id="xtra" class="collapse row show fade">
 
 
-                        </select>
+                                    <div class="form-group col-sm-6">
+                                        <label for="">برند</label>
+                                        <select name="brand" class="form-control select2">
+                                            <option selected="selected" value="سایر">سایر</option>
+                                            @foreach($brands as $u)
+                                                <option value="{{ $u->title }}">{{ $u->title }}</option>
 
-                    </div>
-                    <div class="row">
-                    <div class="form-group col-sm-3">
-                        <label for="">عرض کار</label>
-                        <input type="number" class="form-control" name="dx" placeholder="عرض">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="">طول کار</label>
-                        <input type="number" class="form-control" name="dy" placeholder="طول">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="">عمق کار</label>
-                        <input type="number" class="form-control" name="dz" placeholder="عمق">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="">توضیحات قطع کار</label>
-                        <input type="text" class="form-control" name="dDesc" placeholder="واحد">
-                    </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-6">
-                            <label for="">نوع</label>
-                            <select name="isType" class="form-control select2">
-
-                                <option selected="selected" value="سایر">سایر</option>
-                                @foreach($types as $type)
-                                    <option value="{{ $type->id }}">{{ $type->title }}</option>
-
-                                @endforeach
+                                            @endforeach
 
 
-                            </select>
+                                        </select>
 
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="">برای محصول</label>
-                            <select name="forProduct" class="form-control select2">
-                                <option selected="selected" value="سایر">سایر</option>
+                                    </div>
 
-                            @foreach($childCategories as $category)
-                                    <option value="{{ $category->title }}">{{ $category->title }}</option>
+                                    <div class="form-group col-sm-6">
+                                        <label for="">متریال</label>
+                                        <select name="material" class="form-control select2">
+                                            <option selected="selected" value="سایر">سایر</option>
+                                            @foreach($materials as $u)
+                                                <option value="{{ $u->title }}">{{ $u->title }}</option>
 
-                                @endforeach
-
-
-                            </select>
-
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <span>آیا مشابه این کار قبلا انجام شده است؟</span>
-
-                            <label class="switch">
-                                <input type="checkbox" name="reTask" value="1">
-                                <span class="slider"></span>
-                            </label>
+                                            @endforeach
 
 
+                                        </select>
 
-                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="">عرض کار</label>
+                                        <input type="number" class="form-control" name="dx" placeholder="عرض">
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="">طول کار</label>
+                                        <input type="number" class="form-control" name="dy" placeholder="طول">
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="">عمق کار</label>
+                                        <input type="number" class="form-control" name="dz" placeholder="عمق">
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="">توضیحات قطع کار</label>
+                                        <input type="text" class="form-control" name="dDesc" placeholder="واحد">
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="">نوع</label>
+                                        <select name="isType" class="form-control select2">
 
-                        {{--<div class="form-group col-sm-6">--}}
-                        {{--<label for="" class="file-upload btn btn-info btn-block">تصویر شاخص پروژه--}}
+                                            <option selected="selected" value="سایر">سایر</option>
+                                            @foreach($types as $type)
+                                                <option value="{{ $type->id }}">{{ $type->title }}</option>
 
-                        {{--<input type="file" name="medias[]">--}}
-                            {{--</label>--}}
-                        {{--</div>--}}
-                        {{--<div class="form-group col-6">--}}
-                            {{--<div class="custom-file">--}}
-                                {{--<input type="file" class="custom-file-input" id="customFile" name="medias[]" multiple>--}}
-                                {{--<label class="custom-file-label" for="customFile">Choose file</label>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-                    <div class="form-group">
+                                            @endforeach
 
-                        <textarea class="form-control" name="content"
-                                  placeholder="توضیحات کاری که باید انجام شود"></textarea>
 
-                    </div>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="">برای محصول</label>
+                                        <select name="forProduct" class="form-control select2">
+                                            <option selected="selected" value="سایر">سایر</option>
+
+                                            @foreach($childCategories as $category)
+                                                <option value="{{ $category->title }}">{{ $category->title }}</option>
+
+                                            @endforeach
+
+
+                                        </select>
+
+                                    </div>
+
+
+                                    {{--<div class="form-group col-sm-6">--}}
+                                    {{--<label for="" class="file-upload btn btn-info btn-block">تصویر شاخص پروژه--}}
+
+                                    {{--<input type="file" name="medias[]">--}}
+                                    {{--</label>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="form-group col-6">--}}
+                                    {{--<div class="custom-file">--}}
+                                    {{--<input type="file" class="custom-file-input" id="customFile" name="medias[]" multiple>--}}
+                                    {{--<label class="custom-file-label" for="customFile">Choose file</label>--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
+                                <div class="form-group col-sm-12">
+                                    <span>پروژه تکراری</span>
+
+                                    <label class="switch">
+                                        <input type="checkbox" name="reTask" value="1">
+                                        <span class="slider"></span>
+                                    </label>
+
+
+
+                                </div>
+
+                            </div>
                     <button type="submit" class="btn btn-success btn-block btn-lg">بفرست به لیست الویت ها</button>
                 </form>
             </div>

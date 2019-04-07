@@ -29,10 +29,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/materials', 'CategoryController@materials');
     Route::get('/dimensions', 'CategoryController@dimensions');
     Route::get('/types', 'CategoryController@types');
-
+    Route::get('/all-tasks', 'TaskController@allTasks');
+    Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::resource('roles','RoleController');
-        Route::resource('users','UserController');
+
 
     });
 

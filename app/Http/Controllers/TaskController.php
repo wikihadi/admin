@@ -45,6 +45,22 @@ class TaskController extends Controller
 
 
     }
+    public function allTasks()
+    {
+
+
+        $tasks = Task::where('isDone', '0')->orderBy('orderTask','ASC')->orderBy('deadline','ASC')->paginate(10);
+
+        foreach ($tasks as $key => $loop)
+        {
+
+            $loop->rightNow = Carbon::now()->diffInDays($loop->deadline, false);
+        }
+
+        return view('tasks.index', compact('tasks'));
+
+
+    }
 
     /**
      * Show the form for creating a new resource.
