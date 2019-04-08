@@ -174,9 +174,9 @@
 
 
 
-
+<div class="row">
                         <!------------------------------------------------------------------>
-
+<div class="col-lg-6">
                             <div class="card card-border">
 
                                 <div class="
@@ -194,29 +194,18 @@
 
                                         card-header
                                         card-border" data-toggle="collapse" href="#desc">
-                                    <div class="row">
-                                        <div class="col-6 col-md-3 col-xl-2">+ مشخصات</div>
-                                        <div class="col-md-3 d-none d-md-block col-xl-1 text-center"></div>
-                                        <div class="col-md-3 d-none d-md-block col-xl-1 text-center"></div>
-                                        <div class="d-none d-xl-block col-xl-1 text-center"></div>
-                                        <div class="d-none d-xl-block col-xl-1 text-center"></div>
-                                        <div class="d-none d-xl-block col-xl-1 text-center"></div>
-                                        <div class="d-none d-xl-block col-xl-1 text-center"></div>
-                                        <div class="d-none d-xl-block col-xl-1 text-center"></div>
+                                        <div class="">+ مشخصات</div>
 
-
-
-                                    </div>
 
 
                                 </div>
                                 <div id="desc" class="collapse show" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-4 col-xl-3">
-                                                <img src="/img/login.png" class="img-thumbnail" alt="">
+                                            <div class="col-sm-12">
+                                                <img src="/img/dsp.png" class="img-fluid" alt="">
                                             </div>
-                                            <div class="col-sm-12 col-md-8 col-xl-3 table-responsive">
+                                            <div class="col-sm-12 table-responsive">
                                                 <table class="table table-borderless table-striped" style="width: 100%">
 
                                                     <tr>
@@ -256,7 +245,7 @@
 
 
                                             </div>
-                                            <div class="col-sm-12 col-md-12 col-xl-6">
+                                            <div class="col-sm-12">
                                                 <p class="text-justify">
                                                     {{ $task->content }}
 
@@ -274,13 +263,14 @@
                                     </div>
 
                                 </div>
-
+</div>
                         <!------------ Comment ------------------------------------------------------->
+    <div class="col-lg-6">
                             <div id="commentCard" class="card card-border">
 
                                 <div class="bg-secondary card-header card-border" data-toggle="collapse" href="#comments">
                                     <div class="row">
-                                        <div class="col-6 col-md-3 col-xl-2">+ نظرات
+                                        <div class="">+ نظرات
                                         <div class="badge-light badge badge-pill">{{$task->commentCount}}</div>
                                         </div>
 
@@ -294,7 +284,7 @@
                                 <div id="comments" class="collapse show" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-10 col-md-8 col-xl-6 m-auto" >
+                                            <div class="col-sm-10 m-auto" >
 
                                                         <div class="comment-wrapper">
                                                             <div class="panel panel-info">
@@ -325,7 +315,7 @@
 
                                                                         <li class="media">
                                                                             <a href="#" class="pull-left ml-3">
-                                                                                <img class="img-circle" style="" src="/storage/avatars/{{ $comment->user->avatar }}" />
+                                                                                <img class="img-circle" style="" src="/uploads/avatars/{{ $comment->user->avatar }}" />
                                                                             </a>
                                                                             <div class="media-body">
                                 <span class="text-muted pull-left">
@@ -358,7 +348,7 @@
 
                                         </div>
                                     </div>
-
+                    </div></div>
                                 </div>
                             </div>
 
