@@ -456,7 +456,7 @@
                                 </h1>
 
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-warning  progress-bar-animated" role="progressbar" style="width: {{ $task->prog }}%" aria-valuenow="{{ $task->prog }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div data-toggle="tooltip" title="{{ $task->prog }}%"  data-placement="top" class="progress-bar progress-bar-striped bg-warning  progress-bar-animated" role="progressbar" style="width: {{ $task->prog }}%" aria-valuenow="{{ $task->prog }}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div>
                                     <span class="badge badge-pill badge-primary"   data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</span>
