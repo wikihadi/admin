@@ -344,7 +344,7 @@
 
         <!------------------------------------------------------------------>
         @foreach($tasks as $task)
-        <div class="card card-border">
+11        <div class="card card-border">
                 <div class="
 @switch($task->orderTask)
                 @case(1)
