@@ -130,7 +130,114 @@
         
         @section('content')
 
+            <script>
+                function div(a, b) {
+                    return parseInt((a / b));
+                }
+                function gregorian_to_jalali(g_y, g_m, g_d) {
+                    var g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                    var j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+                    var jalali = [];
+                    var gy = g_y - 1600;
+                    var gm = g_m - 1;
+                    var gd = g_d - 1;
 
+                    var g_day_no = 365 * gy + div(gy + 3, 4) - div(gy + 99, 100) + div(gy + 399, 400);
+
+                    for (var i = 0; i < gm; ++i)
+                        g_day_no += g_days_in_month[i];
+                    if (gm > 1 && ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0)))
+                    /* leap and after Feb */
+                        g_day_no++;
+                    g_day_no += gd;
+
+                    var j_day_no = g_day_no - 79;
+
+                    var j_np = div(j_day_no, 12053);
+                    /* 12053 = 365*33 + 32/4 */
+                    j_day_no = j_day_no % 12053;
+
+                    var jy = 979 + 33 * j_np + 4 * div(j_day_no, 1461);
+                    /* 1461 = 365*4 + 4/4 */
+
+                    j_day_no %= 1461;
+
+                    if (j_day_no >= 366) {
+                        jy += div(j_day_no - 1, 365);
+                        j_day_no = (j_day_no - 1) % 365;
+                    }
+                    for (var i = 0; i < 11 && j_day_no >= j_days_in_month[i]; ++i)
+                        j_day_no -= j_days_in_month[i];
+                    var jm = i + 1;
+                    var jd = j_day_no + 1;
+                    jalali[0] = jy;
+                    jalali[1] = jm;
+                    jalali[2] = jd;
+                    return jalali;
+                    //return jalali[0] + "_" + jalali[1] + "_" + jalali[2];
+                    //return jy + "/" + jm + "/" + jd;
+                }
+                function get_year_month_day(date) {
+                    var convertDate;
+                    var y = date.substr(0, 4);
+                    var m = date.substr(5, 2);
+                    var d = date.substr(8, 2);
+                    convertDate = gregorian_to_jalali(y, m, d);
+                    return convertDate;
+                }
+                function get_hour_minute_second(time) {
+                    var convertTime = [];
+                    convertTime[0] = time.substr(0, 2);
+                    convertTime[1] = time.substr(3, 2);
+                    convertTime[2] = time.substr(6, 2);
+                    return convertTime;
+                }
+                function convertDate(date) {
+                    var convertDateTime = get_year_month_day(date.substr(0, 10));
+                    convertDateTime = convertDateTime[0] + "/" + convertDateTime[1] + "/" + convertDateTime[2] + " " + date.substr(10);
+                    return convertDateTime;
+                }
+                function get_persian_month(month) {
+                    switch (month) {
+                        case 1:
+                            return "فروردین";
+                            break;
+                        case 2:
+                            return "اردیبهشت";
+                            break;
+                        case 3:
+                            return "خرداد";
+                            break;
+                        case 4:
+                            return "تیر";
+                            break;
+                        case 5:
+                            return "مرداد";
+                            break;
+                        case 6:
+                            return "شهریور";
+                            break;
+                        case 7:
+                            return "مهر";
+                            break;
+                        case 8:
+                            return "آبان";
+                            break;
+                        case 9:
+                            return "آذر";
+                            break;
+                        case 10:
+                            return "دی";
+                            break;
+                        case 11:
+                            return "بهمن";
+                            break;
+                        case 12:
+                            return "اسفند";
+                            break;
+                    }
+                }
+            </script>
 
 
 
@@ -197,7 +304,7 @@
 </div>
 <div class="col-sm-12">
 
-    <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
+    <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
 
         <div class="text-left">
             {{--<button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>--}}
@@ -205,8 +312,7 @@
             <a href="/tasks/create" class="btn btn-link"><i class="fa fa-plus"></i></a></div>
 
         @if ($tasks->isEmpty())
-
-            <div class="alert table-success ">تبریک! شما همه الویت های خود را به پایان رسانده اید.</div>
+            <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
 
         @endif
         @if (!$tasks->isEmpty())
@@ -238,7 +344,7 @@
 
         <!------------------------------------------------------------------>
         @foreach($tasks as $task)
-
+            <div onclick="$(this).text(gregorian_to_jalali({{$task->startDate}}));">123</div>
         <div class="card card-border">
                 <div class="
 @switch($task->orderTask)
@@ -295,7 +401,7 @@
                                <i class="fa fa-clone" data-toggle="tooltip" title="Clone"  data-placement="right"></i>
                                    @endif
                                |
-                               <a href="/tasks/{{ $task->id }}"><i class="fa fa-link"></i></a>
+                               <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"  data-placement="right"></i></a>
                            </div>
 
                    </div>
@@ -304,65 +410,78 @@
                 </div>
                 <div id="collapse{{$task->id}}" class="collapse " data-parent="#accordion">
                     <div class="card-body">
+
                         <div class="row">
                             <div class="col-sm-12 col-md-4 col-xl-3">
-                                <img src="/img/login.png" class="img-thumbnail" alt="">
+                                <img src="/img/task.png" class="img-fluid" alt="">
                             </div>
                             <div class="col-sm-12 col-md-8 col-xl-3 table-responsive">
-                                 <table class="table table-borderless table-striped" style="width: 100%">
+
+                                 <table class="table table-borderless table-striped table-hover  " style="width: 100%;min-width: 100%">
 
                                      <tr>
-                                         <td>کد پروژه</td>
-                                         <td><a href="/tasks/{{$task->id}}">{{$task->id}}</a></td>
-                                     </tr>
-                                     <tr>
-                                         <td>عنوان</td>
                                          <td><a href="/tasks/{{$task->id}}">{{$task->title}}</a></td>
+
+                                         <td><a class="text-muted" href="/tasks/{{$task->id}}">{{$task->id}}</a></td>
                                      </tr>
 
+
                                      <tr>
-                                         <td>شروع پروژه</td>
-                                         <td>{{$task->startDate}}</td>
+                                         <td>شروع</td>
+
+                                         <td id="gregorian_to_jalali">
+                     
+                                         </td>
                                      </tr>
                                      <tr>
-                                         <td>پایان پروژه</td>
+                                         <td>پایان</td>
                                          <td>{{$task->deadline}}</td>
                                      </tr>
                                      <tr>
-                                         <td>فاز پروژه</td>
-                                         <td>{{$task->status}}</td>
-                                     </tr>
-                                     <tr>
-                                         <td>تعداد نظرات</td>
                                          <td>{{$task->commentCount}}</td>
-                                     </tr>
-                                     <tr>
-                                         <td>کاربر</td>
-                                         <td>{{$task->user_id}}</td>
-                                     </tr>
-                                     <tr>
                                          <td></td>
-                                         <td><a href="/tasks/{{$task->id}}" class="card-link">مشاهده بیشتر...</a></td>
                                      </tr>
+                                     <tr>
+                                         <td>مشاهده</td>
+                                         <td>{{$task->viewCount}}</td>
+                                     </tr>
+
                                  </table>
 
 
                                 </div>
                             <div class="col-sm-12 col-md-12 col-xl-6">
-                                <p class="text-justify">
+                                <h1>
+                                    {{ $task->title }}
+
+                                </h1>
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-warning  progress-bar-animated" role="progressbar" style="width: {{ $task->prog }}%" aria-valuenow="{{ $task->prog }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div>
+                                    <span class="badge badge-pill badge-primary"   data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</span>
+                                    <span class="badge badge-pill badge-secondary"  data-toggle="tooltip" title="برای برند"  data-placement="bottom">{{ $task->brand }}</span>
+                                    <span class="badge badge-pill badge-success"  data-toggle="tooltip" title="برای محصول"  data-placement="bottom">{{ $task->forProduct }}</span>
+                                    <span class="badge badge-pill badge-danger"  data-toggle="tooltip" title="روز باقیمانده"  data-placement="bottom">{{ $task->rightNow }} روز دیگر</span>
+                                    {{--<span class="badge badge-pill badge-warning"  data-toggle="tooltip" title="؟؟؟"  data-placement="bottom">Warning</span>--}}
+                                    <span class="badge badge-pill badge-info"  data-toggle="tooltip" title="متریال"  data-placement="bottom">{{ $task->material }}</span>
+                                    <span class="badge badge-pill badge-light"  data-toggle="tooltip" title="تعداد نظر"  data-placement="bottom">{{ $task->commentCount }}</span>
+                                    <span class="badge badge-pill badge-dark"  data-toggle="tooltip" title="تعداد مشاهده"  data-placement="bottom">{{ $task->viewCount }}</span>
+                                </div>
+                                <p class="text-justify pt-3">
                                     {{ $task->content }}
 
                                 </p>
 
 
                             </div>
-                            <div class="text-left col-12"><a href="/tasks/{{$task->id}}" class="card-link">مشاهده</a>
-                                <a href="/tasks/{{$task->id}}/edit" class="card-link mr-2 ">ویرایش</a></div>
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-12">
-
+                            <div class="text-left col-12">
+                                {{--<a href="/tasks/{{$task->id}}" class="card-link">مشاهده</a>--}}
+                                <a href="/tasks/{{$task->id}}" class="btn btn-link"><i class="fa fa-3x fa-arrow-left"></i></a>
                             </div>
+
+
                     </div>
                     </div>
 
@@ -390,5 +509,12 @@
         @endsection
         @section('JS')
 
+            <script>
 
+
+
+
+
+
+            </script>
         @endsection

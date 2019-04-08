@@ -210,7 +210,7 @@
 
 
                                 </div>
-                                <div id="desc" class="collapse" data-parent="#accordion">
+                                <div id="desc" class="collapse show" data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4 col-xl-3">
@@ -313,7 +313,7 @@
                                                                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                                         <input type="hidden" name="task_id" value="{{ $task->id }}">
                                                                         <button type="submit" class="btn btn-link pull-left">
-                                                                            <i class="fa fa-2x fa-arrow-down"></i>
+                                                                            <i class="fa fa-2x fa-plus-circle"></i>
                                                                         </button>
                                                                     </form>
                                                                     <div class="clearfix"></div>

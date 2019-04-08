@@ -205,9 +205,9 @@
 
 
 
-    cellWidth: 50,
-    cellHeight: 50,
-    fontSize: 18,
+    cellWidth: 30,
+    cellHeight: 30,
+    fontSize: 15,
     onSelect: function () {
     var start = $("#gStartDate").attr("data-gdate");
     $("#startDate").val(start);
@@ -219,9 +219,9 @@
     startDate: pd11.now().addDay(0).toString("YYYY/MM/DD"),
 
     endDate: pd11.now().addYear(1).toString("YYYY/MM/DD"),
-    cellWidth: 50,
-    cellHeight: 50,
-    fontSize: 18,
+    cellWidth: 30,
+    cellHeight: 30,
+    fontSize: 15,
     onSelect: function () {
 
 
