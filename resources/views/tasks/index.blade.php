@@ -344,7 +344,6 @@
 
         <!------------------------------------------------------------------>
         @foreach($tasks as $task)
-            <div onclick="$(this).text(gregorian_to_jalali({{$task->startDate}}));">123</div>
         <div class="card card-border">
                 <div class="
 @switch($task->orderTask)
