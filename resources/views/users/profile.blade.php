@@ -42,7 +42,7 @@
                             <div class="text-center">
                                 <img style="object-fit: cover; height: 10rem; width: 10rem;"
                                      class="profile-user-img img-fluid img-circle"
-                                     src="/uploads/avatars/{{ $user->avatar }}"
+                                     src="/storage/avatars/{{ $user->avatar }}"
                                      alt="User profile picture"
                                      data-toggle="collapse"
                                      data-target="#demo"
