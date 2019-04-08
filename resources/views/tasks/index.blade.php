@@ -408,7 +408,6 @@
 
                 </div>
                 <div id="collapse{{$task->id}}" class="collapse " data-parent="#accordion">
-                    123
                     <div class="card-body">
 
                         <div class="row">
