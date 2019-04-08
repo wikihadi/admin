@@ -510,7 +510,6 @@
 
             <script>
 
-alert('test');
 
 
 
