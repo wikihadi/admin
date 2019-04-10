@@ -20,8 +20,8 @@
 @section('content')
 
 
-    <div class="col-md-6 m-auto mt-sm-5" style="">
-    <div class="col-6 m-auto">
+    <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
+    <div class="col-md-10 col-lg-8 col-xl-6 m-auto">
         <div class="row m-0">
             <div class="col-4 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">

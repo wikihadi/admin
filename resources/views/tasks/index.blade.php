@@ -458,16 +458,24 @@
                                 <div class="progress">
                                     <div data-toggle="tooltip" title="{{ $task->prog }}%"  data-placement="top" class="progress-bar progress-bar-striped bg-warning  progress-bar-animated" role="progressbar" style="width: {{ $task->prog }}%" aria-valuenow="{{ $task->prog }}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <div>
-                                    <span class="badge badge-pill badge-primary"   data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</span>
-                                    <span class="badge badge-pill badge-secondary"  data-toggle="tooltip" title="برای برند"  data-placement="bottom">{{ $task->brand }}</span>
-                                    <span class="badge badge-pill badge-success"  data-toggle="tooltip" title="برای محصول"  data-placement="bottom">{{ $task->forProduct }}</span>
-                                    <span class="badge badge-pill badge-danger"  data-toggle="tooltip" title="روز باقیمانده"  data-placement="bottom">{{ $task->rightNow }} روز دیگر</span>
-                                    {{--<span class="badge badge-pill badge-warning"  data-toggle="tooltip" title="؟؟؟"  data-placement="bottom">Warning</span>--}}
-                                    <span class="badge badge-pill badge-info"  data-toggle="tooltip" title="متریال"  data-placement="bottom">{{ $task->material }}</span>
-                                    <span class="badge badge-pill badge-light"  data-toggle="tooltip" title="تعداد نظر"  data-placement="bottom">{{ $task->commentCount }}</span>
-                                    <span class="badge badge-pill badge-dark"  data-toggle="tooltip" title="تعداد مشاهده"  data-placement="bottom">{{ $task->viewCount }}</span>
+
+                                <div class="btn-group">
+                                    @if($task->type && $task->type != "سایر") <button class="btn btn-sm btn-link"  data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</button> @endif
+                                    @if($task->type && $task->brand != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="برند"  data-placement="bottom">{{ $task->brand }}</button> @endif
+                                    @if($task->type && $task->forProduct != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="محصول"  data-placement="bottom">{{ $task->forProduct }}</button> @endif
+                                    @if($task->type && $task->material != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="متریال"  data-placement="bottom">{{ $task->material }}</button> @endif
+                                    <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="نظر"  data-placement="bottom">{{ $task->commentCount }}</button>
+                                    <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="مشاهده"  data-placement="bottom">{{ $task->viewCount }}</button>
+
+                                    @if($task->reTask === 1)
+
+                                        <button class="btn btn-sm btn-primary"  data-toggle="tooltip" title="Clone" data-placement="bottom">
+                                            <i class="fa fa-clone"></i>
+                                        </button>
+                                    @endif
+
                                 </div>
+
                                 <p class="text-justify pt-3">
                                     {{ $task->content }}
 
@@ -479,6 +487,7 @@
                                 {{--<a href="/tasks/{{$task->id}}" class="card-link">مشاهده</a>--}}
                                 <a href="/tasks/{{$task->id}}" class="btn btn-link"><i class="fa fa-3x fa-arrow-left"></i></a>
                             </div>
+
 
 
                     </div>

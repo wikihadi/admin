@@ -5,10 +5,17 @@
 
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100 row">
+
             <div class=" col-md-12 user_card">
             <div class="row p-sm-5 p-lg-0 " style="height: 560px">
                 <div class="col-lg-6 d-none d-lg-block " ><img src="img/login.png" alt="" width="100%" style=""></div>
                 <div class="col-lg-6 align-content-center d-flex flex-column justify-content-center" >
+                    <div class="row mb-5">
+                        <div class="d-lg-none col-8 mx-auto my-5">
+                            <img src="/img/sad.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-start row">
                         <div class="col-lg-9">
                         <form class="mr-lg-0 m-auto" method="POST" action="{{ route('login') }}">
