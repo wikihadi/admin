@@ -1,8 +1,6 @@
 @extends('admincore.app')
 
 @section('css')
-    <link rel="stylesheet" href="/admin-core/persiandatapicker/persianDatepicker-default.css"/>
-
     <style>
     </style>
     @endsection
@@ -128,36 +126,34 @@
                                     </div>
                                     <div class="form-group col-sm-3">
                                         <label for="">توضیحات قطع کار</label>
-                                        <input type="text" class="form-control" name="dDesc" placeholder="توضیحات  - واحد">
+                                        <input type="text" class="form-control" name="dDesc" placeholder="واحد">
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="">نوع</label>
-                                        {{--<select name="isType" class="form-control select2">--}}
+                                        <select name="isType" class="form-control select2">
 
-                                            {{--<option selected="selected" value="سایر">سایر</option>--}}
-                                            {{--@foreach($types as $type)--}}
-                                                {{--<option value="{{ $type->id }}">{{ $type->title }}</option>--}}
+                                            <option selected="selected" value="سایر">سایر</option>
+                                            @foreach($types as $type)
+                                                <option value="{{ $type->id }}">{{ $type->title }}</option>
 
-                                            {{--@endforeach--}}
+                                            @endforeach
 
 
-                                        {{--</select>--}}
-                                        <input type="text" class="form-control"  name="isType" value="سایر">
+                                        </select>
 
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="">برای محصول</label>
-                                        {{--<select name="forProduct" class="form-control select2">--}}
-                                            {{--<option selected="selected" value="سایر">سایر</option>--}}
+                                        <select name="forProduct" class="form-control select2">
+                                            <option selected="selected" value="سایر">سایر</option>
 
-                                            {{--@foreach($childCategories as $category)--}}
-                                                {{--<option value="{{ $category->title }}">{{ $category->title }}</option>--}}
+                                            @foreach($childCategories as $category)
+                                                <option value="{{ $category->title }}">{{ $category->title }}</option>
 
-                                            {{--@endforeach--}}
+                                            @endforeach
 
 
-                                        {{--</select>--}}
-                                        <input type="text" class="form-control"  name="forProduct" value="سایر">
+                                        </select>
 
                                     </div>
 
@@ -201,8 +197,6 @@
 
 
 @section('JS')
-    <script src="/admin-core/persiandatapicker/persianDatepicker.min.js"></script>
-
     <script>
     $(function() {
     let pd11 = new persianDate();

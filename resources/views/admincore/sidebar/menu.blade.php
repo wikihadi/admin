@@ -44,24 +44,24 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="/roles" class="nav-link  @if(Request::is('roles*')) active @endif ">
-                        <i class="fa fa-users nav-icon"></i>
-                        <p>نقش ها</p>
-                    </a>
-                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a href="/roles" class="nav-link  @if(Request::is('roles*')) active @endif ">--}}
+                        {{--<i class="fa fa-users nav-icon"></i>--}}
+                        {{--<p>نقش ها</p>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
                 <li class="nav-item">
                     <a href="/brands" class="nav-link  @if(Request::is('brands*')) active @endif ">
                         <i class="fa fa-500px nav-icon"></i>
                         <p>برند ها</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/categories" class="nav-link  @if(Request::is('categories*')) active @endif ">
-                        <i class="fa fa-tree nav-icon"></i>
-                        <p>دسته بندی ها</p>
-                    </a>
-                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a href="/categories" class="nav-link  @if(Request::is('categories*')) active @endif ">--}}
+                        {{--<i class="fa fa-tree nav-icon"></i>--}}
+                        {{--<p>دسته بندی ها</p>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
                 <li class="nav-item">
                     <a href="/materials" class="nav-link  @if(Request::is('materials*')) active @endif ">
                         <i class="fa fa-barcode nav-icon"></i>

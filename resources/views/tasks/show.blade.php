@@ -167,36 +167,34 @@
         <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
             <h1 class="text-center">{{$task->title}}</h1>
             <div class="d-md-flex justify-content-center">
-                <div class="btn-group">
                     @if($task->type && $task->type != "سایر")
-                        <button class="btn btn-sm btn-link" data-toggle="tooltip" title="نوع کار"
+                        <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="نوع کار"
                                 data-placement="bottom">{{ $task->type }}</button> @endif
                     @if($task->type && $task->brand != "سایر")
-                        <button class="btn btn-sm btn-link" data-toggle="tooltip" title="برند"
+                        <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="برند"
                                 data-placement="bottom">{{ $task->brand }}</button> @endif
                     @if($task->type && $task->forProduct != "سایر")
-                        <button class="btn btn-sm btn-link" data-toggle="tooltip" title="محصول"
+                        <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="محصول"
                                 data-placement="bottom">{{ $task->forProduct }}</button> @endif
                     @if($task->type && $task->material != "سایر")
-                        <button class="btn btn-sm btn-link" data-toggle="tooltip" title="متریال"
+                        <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="متریال"
                                 data-placement="bottom">{{ $task->material }}</button> @endif
-                    <button class="btn btn-sm btn-link" data-toggle="tooltip" title="نظر"
+                    <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="نظر"
                             data-placement="bottom">{{ $task->commentCount }} <i class="fa fa-lg fa-commenting-o"></i></button>
-                    <button class="btn btn-sm btn-link" data-toggle="tooltip" title="مشاهده"
+                    <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="مشاهده"
                             data-placement="bottom">{{ $task->viewCount }} <i class="fa fa-lg fa-eye"></i></button>
-                    <button class="btn btn-sm btn-link" data-toggle="tooltip" title="{{$dead}} روز دیگر"
+                    <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="{{$dead}} روز دیگر"
                             data-placement="bottom">{{$dead}}
                         <i class="fa @if($dead < 0 ) fa-hourglass-end @elseif($dead <= 3) fa-hourglass-half @else fa-hourglass-start @endif "></i>
                     </button>
                     @if($task->reTask === 1)
 
-                        <button class="btn btn-sm btn-link" data-toggle="tooltip" title="Clone"
+                        <button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="Clone"
                                 data-placement="bottom">
                             <i class="fa fa-clone"></i>
                         </button>
                     @endif
 
-                </div>
             </div>
 
             <div class="text-left">
@@ -402,7 +400,7 @@
 
                     <!------------ setting ------------------------------------------------------->
 
-                    <div id="settingCard" class="card card-border">
+                    <div id="settingCard" class="card card-border d-none d-md-block">
 
                         <div class="bg-light card-header card-border" data-toggle="collapse" href="#setting">
                             <div class="">+ تنظیمات
