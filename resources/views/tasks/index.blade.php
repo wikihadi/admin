@@ -424,7 +424,7 @@
                         @if($task->rightNow < 0 )
                                        fa-hourglass-end infinite tada
 @elseif($task->rightNow <= 3)
-                                       fa-hourglass-half rubberBand 
+                                       fa-hourglass-half rubberBand
 
 @else
                                        fa-hourglass-start rubberBand
