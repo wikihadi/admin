@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -120,9 +121,9 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+//            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+//            'roles' => 'required'
         ]);
 
 
@@ -145,7 +146,9 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success','User updated successfully');
     }
+public function profileUpdate(){
 
+}
 
     /**
      * Remove the specified resource from storage.
@@ -163,8 +166,13 @@ class UserController extends Controller
     public function profile()
     {
 
+
         $user = Auth::user();
-        return view('users.profile',compact('user',$user));
+        $tasks = $user->tasks()->get();
+        $myTasks = Task::where('user_id', $user);
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
+        return view('users.profile',compact('user','roles','userRole','tasks','myTasks'));
 
     }
     public function update_avatar(Request $request){

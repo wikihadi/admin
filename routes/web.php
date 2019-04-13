@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function() {
         return redirect('/');
     });
     Route::get('/profile', 'UserController@profile');
+    Route::post('/profile', 'UserController@profileUpdate');
     Route::post('/profile', 'UserController@update_avatar');
     //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::resource('categories', 'CategoryController');

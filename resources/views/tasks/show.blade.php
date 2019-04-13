@@ -368,7 +368,7 @@
                                                             <li class="media">
                                                                 <a href="#" class="pull-left ml-3">
                                                                     <img class="img-circle" style=""
-                                                                         src="/uploads/avatars/{{ $comment->user->avatar }}"/>
+                                                                         src="/storage/avatars/{{ $comment->user->avatar }}"/>
                                                                 </a>
                                                                 <div class="media-body">
                                                                     <span class="text-muted pull-left">

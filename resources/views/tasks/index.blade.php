@@ -346,7 +346,11 @@
 
 
         <!------------------------------------------------------------------>
+        @php
+            $i = 1;
+        @endphp
         @foreach($tasks as $task)
+
             <div class="card card-border">
                 <div class="
 @switch($task->orderTask)
@@ -367,14 +371,14 @@
 
 
                 @default
-                        bg-light
+                        bg-secondary
 @endswitch
 
 
                 card-header
                 card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
                    <div class="row">
-                       <div class="d-none d-xl-block col-xl-1 text-right">{{$task->orderTask}}</div>
+                       <div class="d-none d-xl-block col-xl-1 text-right">{{$i++}}</div>
 
                        <div class="col-5 col-md-3 col-xl-2 text-right text-nowrap">{{$task->title}}</div>
                        <div class="col-md-3 d-none d-md-block col-xl-1 text-center">
@@ -415,15 +419,15 @@
                        @endif
                    </div>
                        <div class="d-none d-xl-block col-xl-1 text-center">{{$task->rightNow}} روز</div>
-                           <div class="col-6 col-md-3 text-left d-none d-md-block   ">
-                               <i class="fa
+                           <div class="col-6 col-md-3 text-left d-none d-md-block">
+                               <i class="fa  animated
                         @if($task->rightNow < 0 )
-                                       fa-hourglass-end
+                                       fa-hourglass-end infinite tada
 @elseif($task->rightNow <= 3)
-                                       fa-hourglass-half
+                                       fa-hourglass-half rubberBand 
 
 @else
-                                       fa-hourglass-start
+                                       fa-hourglass-start rubberBand
 
 @endif
 
@@ -442,7 +446,7 @@
 
 
                 </div>
-                <div id="collapse{{$task->id}}" class="collapse " data-parent="#accordion">
+                <div id="collapse{{$task->id}}" class="collapse" data-parent="#accordion">
                     <div class="card-body">
 
                         <div class="row">

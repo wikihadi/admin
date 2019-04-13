@@ -12,10 +12,15 @@
         {{--@include('admincore.topbar.message')--}}
         {{--@include('admincore.topbar.notification')--}}
 
+        @role('admin')
+
+
         <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
                         class="fa fa-th-large"></i></a>
         </li>
+        @endrole
+
     </ul>
 </nav>
 <!-- /.navbar -->
