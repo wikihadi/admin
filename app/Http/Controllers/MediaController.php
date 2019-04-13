@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class MediaController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('permission:media-list');
+        $this->middleware('permission:media-create', ['only' => ['create','store']]);
+        $this->middleware('permission:media-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:media-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
