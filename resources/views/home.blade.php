@@ -25,7 +25,7 @@
         <div class="row m-0">
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/profile" class="btn btn-dark btn-block">صفحه من</a>
+                    <a href="" title="بزودی" class="btn btn-dark btn-block">صفحه من</a>
                 </div>
             </div>
             <div class="m-2 col-12"></div>
