@@ -121,13 +121,46 @@
 
 
 
-                        <div class="form-group col-sm-2">
+                        <div class="form-group col-sm-1">
 
 
                             <label for="title">الویت</label>
+<select class="form-control" name="orderTask">
+    <option value="10">10</option>
+    <option value="9">9</option>
+    <option value="8">8</option>
+    <option value="7">7</option>
+    <option value="6">6</option>
+    <option value="5">5</option>
+    <option value="4">4</option>
+    <option value="3">3</option>
+    <option value="2">2</option>
+    <option value="1">1</option>
+</select>
+                            {{--<input type="number" class="form-control" name="orderTask" placeholder="From 1 to 10"--}}
+                                   {{--min="1" max="10" value="10"/>--}}
+                        </div>
+                        <div class="form-group col-sm-1">
 
-                            <input type="number" class="form-control" name="orderTask" placeholder="From 1 to 10"
-                                   min="1" max="10" value="10"/>
+
+                            <label for="title">وزن (ارزش)</label>
+
+                            <select class="form-control" name="weight">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+
+                                <option value="9">9</option>
+
+                                <option value="10">10</option>
+                            </select>
+                            {{--<input type="number" class="form-control" name="weight" placeholder="From 1 to 10"--}}
+                                   {{--min="1" max="10" value="10"/>--}}
                         </div>
                         <div class="form-group col-sm-5">
                             <label for="deadline">تاریخ شروع</label>
@@ -148,8 +181,8 @@
                         </div>
                     </div>
 
-                    <div class="text-left p-2 border-bottom formChange">
-                    <a class="text-success" data-toggle="collapse" href="#xtra">اندازه</a>
+                    <div class="p-2 border-bottom formChange">
+                    <a class="text-success btn btn-link" data-toggle="collapse" href="#xtra">ثبت اندازه</a>
                     </div>
                     <div id="xtra" class="collapse row fade ">
 
@@ -324,7 +357,7 @@
                 },
             });
             $("#gEndDate").persianDatepicker({
-                startDate: pd11.now().addDay(0).toString("YYYY/MM/DD"),
+                startDate: pd11.now().addDay(1).toString("YYYY/MM/DD"),
 
                 endDate: pd11.now().addYear(1).toString("YYYY/MM/DD"),
                 cellWidth: 30,

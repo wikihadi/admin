@@ -33,8 +33,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+$tasks = Task::all();
+        $data = User::orderBy('created_at','ASC')->paginate(25);
+        return view('users.index',compact('data','tasks'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -146,8 +147,27 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success','User updated successfully');
     }
-public function profileUpdate(){
+public function profileUpdate(Request $request, $id){
+    $this->validate($request, [
+        'name' => 'required',
+//            'email' => 'required|email|unique:users,email,'.$id,
+        'password' => 'same:confirm-password',
+//            'roles' => 'required'
+    ]);
 
+
+    $input = $request->all();
+    if(!empty($input['password'])){
+        $input['password'] = Hash::make($input['password']);
+    }else{
+        $input = array_except($input,array('password'));
+    }
+
+
+    $user = User::find($id);
+    $user->update($input);
+
+    return redirect(back())->with('success', 'User has been updated');
 }
 
     /**
@@ -168,7 +188,7 @@ public function profileUpdate(){
 
 
         $user = Auth::user();
-        $tasks = $user->tasks()->get();
+        $tasks = $user->tasks()->paginate(5);
         $myTasks = Task::where('user_id', $user);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
@@ -177,22 +197,71 @@ public function profileUpdate(){
     }
     public function update_avatar(Request $request){
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $request->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'password' => 'same:confirm-password'
         ]);
 
+
+
         $user = Auth::user();
+        $user->name = $request->get('name');
+        $user->experience = $request->get('experience');
+        if(!empty($request->avatar)) {
+            $avatarName = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
+            $request->avatar->storeAs('avatars', $avatarName);
+            $user->avatar = $avatarName;
+        }
+        if(!empty($request->password)){
+            $request->password = Hash::make($request->password);
+            $user->password = $request->password;
+        }
 
-        $avatarName = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
 
-        $request->avatar->storeAs('avatars',$avatarName);
-        //$request->file('avatar')->move(public_path("/uploads/avatars"), $avatarName);
-
-        $user->avatar = $avatarName;
         $user->save();
 
-        return back()
-            ->with('success','You have successfully upload image.');
+
+
+
+//        $input = $request->all();
+//        if(!empty($input['password'])){
+//            $input['password'] = Hash::make($input['password']);
+//        }else{
+//            $input = array_except($input,array('password'));
+//        }
+
+
+
+//        $user = User::find($id);
+//        $user->update($input);
+
+
+
+        //$request->file('avatar')->move(public_path("/uploads/avatars"), $avatarName);
+
+//        $user->save();
+
+//        $user->update($input);
+
+
+
+
+        return redirect()->back()->with('success', 'User has been updated');
 
     }
 

@@ -243,7 +243,7 @@
 
 
 
-<div class="col-sm-12">
+{{--<div class="col-sm-12">--}}
 {{--<div class="col-3 m-auto m-3 p-5 bg-white collapse fade" style="border-radius: 30px;" id="demo">--}}
     {{--<div class="row">--}}
         {{--<div class="col-3 text-center"><small>طراحی</small></div>--}}
@@ -303,16 +303,42 @@
             {{--<div class="col-10">تاریخ شروع</div>--}}
         {{--</div>--}}
     {{--</div>--}}
-</div>
+{{--</div>--}}
+
+
 <div class="col-sm-12">
+    <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white collapse profile" style="border-radius: 30px;">
+        <div class="row ">
+            <div class="col-lg-4 col-sm-6 row d-none d-xl-block">
+                <div class="col-sm">
+                   <center> <img style="object-fit: cover; height: 10rem; width: 10rem;" class="profile-user-img img-fluid img-circle" src="/storage/avatars/{{$user->avatar}}" alt="User profile picture">
+                    </center></div>
+                <div class="col-sm text-center h4 mt-2">{{$user->name}}
+                    <hr>
+                    {{$user->experience}}
+                </div>
+
+            </div>
+            <div class="col-sm-6 col-lg-8 text-left ">
+                تعداد تسکهای من: {{count($tasks)}}
+            </div>
+        </div>
+
+
+    </div>
+</div>
+    <div class="col-sm-12">
 
     <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
 
         <div class="text-left">
             {{--<button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>--}}
-            <a class="btn btn-link" data-toggle="collapse" href=".collapse"><i class="fa fa-arrows-alt"></i></a>
+            <a class="btn btn-link" data-toggle="collapse" href=".collapseTask"><i class="fa fa-arrows-alt"></i></a>
+            @role('admin')
 
-            <a href="/tasks/create" class="btn btn-link"><i class="fa fa-plus"></i></a></div>
+            <a href="/tasks/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
+        @endrole
+        <a href=".profile" class="btn btn-link" data-toggle="collapse"><i class="fa fa-user"></i></a></div>
 
         @if ($tasks->isEmpty())
             <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
@@ -439,14 +465,20 @@
                                <i class="fa fa-clone" data-toggle="tooltip" title="Clone"  data-placement="right"></i>
                                    @endif
                                |
+                               @role('admin')
+
+                               <a href="/tasks/{{ $task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $task->title }}"  data-placement="right"></i></a>
+                               |
+                               @endrole
                                <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"  data-placement="right"></i></a>
+
                            </div>
 
                    </div>
 
 
                 </div>
-                <div id="collapse{{$task->id}}" class="collapse" data-parent="#accordion">
+                <div id="collapse{{$task->id}}" class="collapse collapseTask" data-parent="#accordion">
                     <div class="card-body">
 
                         <div class="row">
@@ -468,7 +500,7 @@
                                          <td>شروع</td>
 
                                          <td id="gregorian_to_jalali">
-                     
+                                             {{$task->startDate}}
                                          </td>
                                      </tr>
                                      <tr>

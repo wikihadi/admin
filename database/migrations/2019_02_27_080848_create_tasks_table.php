@@ -21,6 +21,7 @@ class CreateTasksTable extends Migration
             $table->text('content');
             $table->string('status')->nullable()->default('new');
             $table->integer('orderTask')->nullable()->default('0');
+            $table->integer('weight')->nullable()->default('0');
             $table->integer('viewCount')->nullable()->default('0');
             $table->integer('commentCount')->nullable()->default('0');
             $table->date('startDate')->nullable();
@@ -35,6 +36,8 @@ class CreateTasksTable extends Migration
             $table->string('forProduct')->nullable();
             $table->boolean('reTask')->default(0)->nullable();
             $table->boolean('isDone')->default(0)->nullable();
+            $table->integer('done_user_id')->nullable()->default(0);
+            $table->dateTime('done_date')->nullable();
             $table->integer('reTask_id')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('brand_id')->unsigned()->nullable();

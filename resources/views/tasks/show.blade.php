@@ -165,6 +165,9 @@
     <div class="col-sm-12">
 
         <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
+            @if($task->isDone == 1)
+            <div class="alert-info alert text-center">این کار توسط کاربر {{$task->done_user_id}} در تاریخ {{$task->done_date}} به اتمام رسیده است</div>
+            @endif
             <h1 class="text-center">{{$task->title}}</h1>
             <div class="d-md-flex justify-content-center">
                     @if($task->type && $task->type != "سایر")
@@ -399,7 +402,6 @@
                     </div>
 
                     <!------------ setting ------------------------------------------------------->
-
                     <div id="settingCard" class="card card-border d-none d-md-block">
 
                         <div class="bg-light card-header card-border" data-toggle="collapse" href="#setting">
@@ -410,24 +412,34 @@
                         </div>
                         <div id="setting" class="collapse" data-parent="#accordion">
                             <div class="card-body">
-                                <div class="d-flex justify-content-center">
-                                    <div class="">
+                            <div class="d-flex justify-content-around">
+                                    @role('admin')
+
                                         <form action="{{ route('tasks.destroy', $task->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="badge badge-pill badge-danger" type="submit">حذف</button>
+                                            <button class="btn btn-danger my-2" type="submit">حذف</button>
                                         </form>
 
-                                    </div>
-                                    <div class="">
                                         <a href="/tasks/{{$task->id}}/edit"
-                                           class="badge badge-pill badge-info">ویرایش</a>
+                                           class="btn btn-warning my-2">ویرایش</a>
 
+                                <form action="{{ route('tasks.done', $task->id)}}" method="post">
+                                    @csrf
+                                    <input type="hidden" value="0" name="isDone">
+                                    <input type="hidden" value="{{$task->id}}" name="id">
+                                    <button class="btn btn-warning my-2" type="submit">برگردان به بخش اجرایی</button>
+                                </form>
+                                    @endrole
 
-                                    </div>
-                                </div>
-
-
+                                    <form action="{{ route('tasks.done', $task->id)}}" method="post">
+                                        @csrf
+                                        <input type="hidden" value="1" name="isDone">
+                                        <input type="hidden" value="{{$user->id}}" name="done_user_id">
+                                        <input type="hidden" value="{{$task->id}}" name="id">
+                                        <button class="btn btn-success my-2" type="submit">اتمام کار</button>
+                                    </form>
+                            </div>
                             </div>
 
 

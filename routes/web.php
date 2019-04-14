@@ -21,9 +21,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', function () {
         return redirect('/');
     });
-    Route::get('/profile', 'UserController@profile');
-    Route::post('/profile', 'UserController@profileUpdate');
-    Route::post('/profile', 'UserController@update_avatar');
+    Route::get('/profile', 'ProfileController@profile');
+    Route::post('/profile', 'ProfileController@update_avatar');
+    Route::post('/tasks/{task}', 'TaskController@done')->name('tasks.done');
     //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::resource('categories', 'CategoryController');
     Route::resource('brands', 'BrandController');
