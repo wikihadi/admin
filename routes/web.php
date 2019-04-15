@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/dimensions', 'CategoryController@dimensions');
     Route::get('/types', 'CategoryController@types');
     Route::get('/all-tasks', 'TaskController@allTasks');
+    Route::get('/done', 'TaskController@isDone');
+    Route::get('/done/{id}', 'TaskController@userIsDone');
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
     Route::group(['middleware' => ['role:admin']], function () {

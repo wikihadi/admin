@@ -19,6 +19,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="/done" class="nav-link @if(Request::is('done')) active @endif ">
+                        <i class="fa fa-list-ul nav-icon"></i>
+                        <p>کارهای پایان یافته</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/tasks/create" class="nav-link @if(Request::is('tasks/create')) active @endif ">
                         <i class="fa fa-lg fa-plus-square nav-icon"></i>
                         <p>کار جدید</p>

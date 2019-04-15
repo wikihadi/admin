@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use Illuminate\Support\Carbon;
 
 
 class UserController extends Controller
@@ -90,7 +91,27 @@ $tasks = Task::all();
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show',compact('user'));
+
+
+
+        $tasks = $user->tasks()->where('isDone', '0')->orderBy('orderTask','ASC')->orderBy('deadline','ASC')->paginate(10);
+//        $tasks = Task::orderBy('deadline','ASC')->paginate(9);
+//        $team = User::with('tasks');
+//
+        foreach ($tasks as $key => $loop)
+        {
+
+            $loop->rightNow = Carbon::now()->diffInDays($loop->deadline, false);
+            $loop->passNow = abs(Carbon::now()->diffInDays($loop->startDate, false));
+            $loop->passNowHours = abs(Carbon::now()->diffInHours($loop->startDate, false));
+            $loop->diffDate = abs(Carbon::parse($loop->startDate)->diffInHours($loop->deadline, false));
+            $diffdiff = (($loop->passNowHours) * 100) / ($loop->diffDate);
+            $loop->prog = floor($diffdiff);
+
+        }
+
+        return view('users.show', compact('tasks','user'));
+
     }
 
 

@@ -243,13 +243,14 @@
 
 
 
-{{--<div class="col-sm-12">--}}
-{{--<div class="col-3 m-auto m-3 p-5 bg-white collapse fade" style="border-radius: 30px;" id="demo">--}}
-    {{--<div class="row">--}}
-        {{--<div class="col-3 text-center"><small>طراحی</small></div>--}}
-        {{--<div class="col-3 text-center"><small>پیگیری</small></div>--}}
-        {{--<div class="col-3 text-center"><small>چاپ</small></div>--}}
-        {{--<div class="col-3 text-center"><small>پایان یافته</small></div>--}}
+<div class="col-sm-12">
+<div class="col-3 m-auto m-3 p-5 bg-white collapse fade" style="border-radius: 30px;" id="demo">
+
+    <div class="row">
+        <div class="col-3 text-center"><a href="/tasks"><small>طراحی</small></a></div>
+        <div class="col-3 text-center"><small>پیگیری</small></div>
+        <div class="col-3 text-center"><small>چاپ</small></div>
+        <div class="col-3 text-center"><a href="/done"><small>پایان یافته</small></a></div>
 
         {{--<div class="col-12 my-4 position-relative">--}}
 
@@ -262,9 +263,10 @@
         {{--</div>--}}
 
 
-    {{--</div>--}}
+    </div>
 
-{{--</div>--}}
+</div>
+</div>
 
     {{--<div class="m-3 p-5 bg-white" style="border-radius: 30px;">--}}
         {{--<div class="row">--}}
@@ -332,9 +334,9 @@
     <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
 
         <div class="text-left">
-            {{--<button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>--}}
             <a class="btn btn-link" data-toggle="collapse" href=".collapseTask"><i class="fa fa-arrows-alt"></i></a>
             @role('admin')
+            <button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>
 
             <a href="/tasks/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
         @endrole
@@ -379,6 +381,7 @@
 
             <div class="card card-border">
                 <div class="
+                @if($task->isDone == 0)
 @switch($task->orderTask)
                 @case(1)
                         card-danger bg-danger
@@ -399,10 +402,12 @@
                 @default
                         bg-secondary
 @endswitch
+@else
+                        bg-secondary
+@endif
 
-
-                card-header
-                card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
+card-header
+card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
                    <div class="row">
                        <div class="d-none d-xl-block col-xl-1 text-right">{{$i++}}</div>
 
