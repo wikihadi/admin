@@ -333,43 +333,45 @@
 
     <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
 
-        <div class="text-left">
+        <div class="text-left mb-3">
             <a class="btn btn-link" data-toggle="collapse" href=".collapseTask"><i class="fa fa-arrows-alt"></i></a>
             @role('admin')
             <button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>
 
             <a href="/tasks/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
+            <a href="/users" class="btn btn-link" ><i class="fa fa-users"></i></a>
         @endrole
-        <a href=".profile" class="btn btn-link" data-toggle="collapse"><i class="fa fa-user"></i></a></div>
+        <a href=".profile" class="btn btn-link" data-toggle="collapse"><i class="fa fa-user"></i></a>
+        </div>
 
         @if ($tasks->isEmpty())
             <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
 
         @endif
-        @if (!$tasks->isEmpty())
+        {{--@if (!$tasks->isEmpty())--}}
 
-            <div class="card border-0 d-none d-md-block" style="box-shadow: none">
-                <div class="card-header" style="border-bottom: 0">
-                    <div class="row">
-                        <div class="col-1 text-right">الویت</div>
-                        <div class="col-md-3 col-xl-2 text-right">عنوان</div>
-                        <div class="col-md-3 col-xl-1 text-center">نوع</div>
-                        <div class="col-md-3 col-xl-1 text-center">برند</div>
-                        <div class="d-none d-xl-block col-xl-1 text-center">برای</div>
-                        <div class="d-none d-xl-block col-xl-1 text-center">قطع</div>
-                        <div class="d-none d-xl-block col-xl-1 text-center">متریال</div>
-                        <div class="d-none d-xl-block col-xl-1 text-center">مهلت</div>
+            {{--<div class="card border-0 d-none d-md-block" style="box-shadow: none">--}}
+                {{--<div class="card-header" style="border-bottom: 0">--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-1 text-right">الویت</div>--}}
+                        {{--<div class="col-md-3 col-xl-2 text-right">عنوان</div>--}}
+                        {{--<div class="col-md-3 col-xl-1 text-center">نوع</div>--}}
+                        {{--<div class="col-md-3 col-xl-1 text-center">برند</div>--}}
+                        {{--<div class="d-none d-xl-block col-xl-1 text-center">برای</div>--}}
+                        {{--<div class="d-none d-xl-block col-xl-1 text-center">قطع</div>--}}
+                        {{--<div class="d-none d-xl-block col-xl-1 text-center">متریال</div>--}}
+                        {{--<div class="d-none d-xl-block col-xl-1 text-center">مهلت</div>--}}
 
 
-                        <div class="col-6 col-md-3 text-left">
+                        {{--<div class="col-6 col-md-3 text-left">--}}
 
-                        </div>
+                        {{--</div>--}}
 
-                    </div>
-                </div>
+                    {{--</div>--}}
+                {{--</div>--}}
 
-            </div>
-        @endif
+            {{--</div>--}}
+        {{--@endif--}}
 
 
 
@@ -407,26 +409,26 @@
 @endif
 
 card-header
-card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
+card-border" >
                    <div class="row">
-                       <div class="d-none d-xl-block col-xl-1 text-right">{{$i++}}</div>
+                       <div class="d-none d-xl-block col-xl-1 text-right" data-toggle="collapse" href="#collapse{{$task->id}}">{{$i++}}</div>
 
-                       <div class="col-5 col-md-3 col-xl-2 text-right text-nowrap">{{$task->title}}</div>
-                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">
+                       <div class="col-5 col-md-3 col-xl-2 text-right text-nowrap" data-toggle="collapse" href="#collapse{{$task->id}}">{{$task->title}}</div>
+                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
                            @if($task->type && $task->type != "سایر")
                                 {{$task->type}}
                                @else
                                -
                            @endif
                        </div>
-                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center">
+                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
                        @if($task->type && $task->brand != "سایر")
                        {{$task->brand}}
                            @else
                                -
                            @endif
                        </div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">
+                       <div class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
                        @if($task->type && $task->forProduct != "سایر")
                        {{$task->forProduct}}
                            @else
@@ -435,22 +437,23 @@ card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
                        </div>
 
 
-                       <div dir="ltr" class="d-none d-xl-block col-xl-1 text-center">
+                       <div dir="ltr" class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
                            @if($task->dx || $task->dy || $task->dz)
                                {{$task->dx}}|{{$task->dy}}|{{$task->dz}}
                            @else
                                -
                        @endif
                        </div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">
+                       <div class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
                        @if($task->type && $task->material != "سایر")
                        {{$task->material}}
                            @else
                                -
                        @endif
                    </div>
-                       <div class="d-none d-xl-block col-xl-1 text-center">{{$task->rightNow}} روز</div>
+                       <div class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">{{$task->rightNow}} روز</div>
                            <div class="col-6 col-md-3 text-left d-none d-md-block">
+                               <div class="d-inline-block" data-toggle="collapse" href="#collapse{{$task->id}}">
                                <i class="fa  animated
                         @if($task->rightNow < 0 )
                                        fa-hourglass-end infinite tada
@@ -469,6 +472,8 @@ card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
                                 |
                                <i class="fa fa-clone" data-toggle="tooltip" title="Clone"  data-placement="right"></i>
                                    @endif
+                               </div>
+                               <div class="d-inline-block">
                                |
                                @role('admin')
 
@@ -476,7 +481,7 @@ card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
                                |
                                @endrole
                                <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"  data-placement="right"></i></a>
-
+                           </div>
                            </div>
 
                    </div>

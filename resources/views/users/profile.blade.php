@@ -64,6 +64,11 @@
                                             <label for="name">نام و نام خانوادگی (فارسی)</label>
                                             <input class="form-control" type="text" name="name" value="{{ $user->name }}">
                                         </div>
+
+                                        <div class="form-group row">
+                                            <label for="name">تلفن همراه</label>
+                                            <input class="form-control" type="text" name="name" value="0912123456789" disabled="">
+                                        </div>
                                         {{--<div class="form-group row">--}}
                                         {{--<div class="col-2"><label for="email">ایمیل</label></div>--}}
                                         {{--<div class="col-10"><input disabled="disabled" class="form-control" type="email" name="email" value="{{ $user->email }}"></div>--}}

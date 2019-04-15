@@ -14,6 +14,8 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
 
+    Route::resource('posts', 'PostController');
+
     Route::resource('tasks', 'TaskController');
     Route::resource('media', 'MediaController');
     Route::resource('comments', 'CommentController');
