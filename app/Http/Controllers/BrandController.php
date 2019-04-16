@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use Illuminate\Http\Request;
 
+
 class BrandController extends Controller
 {
     function __construct()
@@ -73,9 +74,13 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit($id)
     {
-        //
+
+        $brand = Brand::find($id);
+        $brands = Brand::all();
+
+        return view('brands.edit', compact('brand', 'brands'));
     }
 
     /**
@@ -85,9 +90,22 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title'=>'required'
+        ]);
+
+
+
+        $brand = Brand::find($id);
+
+        $brand->title = $request->get('title');
+        $brand->description = $request->get('description');
+
+        $brand->update();
+
+        return redirect('/brands')->with('success', 'Brand has been updated');
     }
 
     /**
@@ -96,8 +114,10 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy($id)
     {
-        //
+        $brand = Brand::find($id);
+        $brand->delete();
+        return redirect()->back()->with('success','Brand deleted successfully');
     }
 }

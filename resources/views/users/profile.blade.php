@@ -54,8 +54,10 @@
                         <div id="demo" class="collapse">
 
                         @if(Auth::user()->id  == $user->id)
-                                    <form action="/profile" method="post" enctype="multipart/form-data">
-                                        @csrf
+
+                                <form action="" method="post" enctype="multipart/form-data">
+
+                                    @csrf
                                         <div class="form-group">
                                             <input type="file" class="form-control-file" name="avatar" id="avatarFile" aria-describedby="fileHelp">
                                             <small id="fileHelp" class="form-text text-muted">تا 2 مگابایت</small>
@@ -65,10 +67,10 @@
                                             <input class="form-control" type="text" name="name" value="{{ $user->name }}">
                                         </div>
 
-                                        <div class="form-group row">
-                                            <label for="name">تلفن همراه</label>
-                                            <input class="form-control" type="text" name="name" value="0912123456789" disabled="">
-                                        </div>
+                                        {{--<div class="form-group row">--}}
+                                            {{--<label for="phone">تلفن همراه</label>--}}
+                                            {{--<input class="form-control" type="tel" max="10" name="phone" value="{{ $user->phone }}">--}}
+                                        {{--</div>--}}
                                         {{--<div class="form-group row">--}}
                                         {{--<div class="col-2"><label for="email">ایمیل</label></div>--}}
                                         {{--<div class="col-10"><input disabled="disabled" class="form-control" type="email" name="email" value="{{ $user->email }}"></div>--}}
@@ -85,8 +87,7 @@
                                             <label for="experience">یادداشت</label>
                                             <textarea name="experience" class="form-control">{{ $user->experience }}</textarea>
                                         </div>
-                                        <div class="alert alert-info">اگر رمز خود را نمی خواهید تغییر دهید فیلدهای رمز و تکرار رمز را خالی رها کنید</div>
-                                        <button type="submit" class="btn btn-primary btn-block">ویرایش پروفایل</button>
+                                        <button type="submit" class="btn btn-success btn-block">ویرایش پروفایل</button>
                                     </form>
                                     @endif
                         </div>
@@ -103,6 +104,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <strong><i class="fa fa-phone mr-1"></i>تلفن</strong>
+                            <p class="text-muted">
+                                {{ $user->phone }}
+                            </p>
                             <strong><i class="fa fa-mail-forward mr-1"></i> ایمیل</strong>
 
                             <p class="text-muted">
@@ -131,45 +136,45 @@
                             >ویرایش پروفایل<i class="fa fa-edit"></i></button>
                         </div>
                     </div>
-                    <div class="card collapse" id="edit">
+                    {{--<div class="card collapse" id="edit">--}}
 
 
 
 
-                        <div class="card-header"><div class="card-title">ویرایش پروفایل</div></div>
+                        {{--<div class="card-header"><div class="card-title">ویرایش پروفایل</div></div>--}}
 
-                        <div class="card-body">
+                        {{--<div class="card-body">--}}
 
 
-                                <form method="post" action="">
+                                {{--<form method="post" action="">--}}
 
-                                    @csrf
-                                <div class="form-group row">
-                                    <label for="name">نام و نام خانوادگی (فارسی)</label>
-                                    <input class="form-control" type="text" name="name" value="{{ $user->name }}">
-                                </div>
+                                    {{--@csrf--}}
+                                {{--<div class="form-group row">--}}
+                                    {{--<label for="name">نام و نام خانوادگی (فارسی)</label>--}}
+                                    {{--<input class="form-control" type="text" name="name" value="{{ $user->name }}">--}}
+                                {{--</div>--}}
                                 {{--<div class="form-group row">--}}
                                 {{--<div class="col-2"><label for="email">ایمیل</label></div>--}}
                                 {{--<div class="col-10"><input disabled="disabled" class="form-control" type="email" name="email" value="{{ $user->email }}"></div>--}}
                                 {{--</div>--}}
-                                <div class="form-group row">
-                                    <label for="password">رمز</label>
-                                    <input class="form-control" type="password" name="password"  autocomplete="off">
-                                </div>
-                                <div class="form-group row">
-                                    <label for="password-confirm">تکرار رمز</label>
-                                    <input class="form-control" type="password" name="password-confirm"  autocomplete="off">
-                                </div>
-                                <div class="form-group row">
-                                    <label for="experience">یادداشت</label>
-                                    <textarea name="experience" class="form-control">{{ $user->experience }}</textarea>
-                                </div>
-                                <div class="alert alert-info">اگر رمز خود را نمی خواهید تغییر دهید فیلدهای رمز و تکرار رمز را خالی رها کنید</div>
+                                {{--<div class="form-group row">--}}
+                                    {{--<label for="password">رمز</label>--}}
+                                    {{--<input class="form-control" type="password" name="password"  autocomplete="off">--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group row">--}}
+                                    {{--<label for="password-confirm">تکرار رمز</label>--}}
+                                    {{--<input class="form-control" type="password" name="password-confirm"  autocomplete="off">--}}
+                                {{--</div>--}}
+                                {{--<div class="form-group row">--}}
+                                    {{--<label for="experience">یادداشت</label>--}}
+                                    {{--<textarea name="experience" class="form-control">{{ $user->experience }}</textarea>--}}
+                                {{--</div>--}}
+                                {{--<div class="alert alert-info">اگر رمز خود را نمی خواهید تغییر دهید فیلدهای رمز و تکرار رمز را خالی رها کنید</div>--}}
 
-                                <button type="submit" class="btn btn-block btn-success">ویرایش پروفایل</button>
-                            </form>
-                        </div>
-                    </div>
+                                {{--<button type="submit" class="btn btn-block btn-success">ویرایش پروفایل</button>--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->

@@ -15,6 +15,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('posts', 'PostController');
+    Route::post('verify/{post}', 'PostsController@verifyPost');
 
     Route::resource('tasks', 'TaskController');
     Route::resource('media', 'MediaController');

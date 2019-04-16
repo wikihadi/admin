@@ -43,17 +43,30 @@
 
                         <div class="form-group col-sm-4 formChange">
                             <label for="">نوع</label>
-                            {{--<select name="isType" class="form-control select2">--}}
+                            <select name="isType" class="form-control select2">
 
-                            {{--<option selected="selected" value="سایر">سایر</option>--}}
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+                            <option  value="سایر">سایر</option>
+
+                            <option value="استند رومیزی">استند رومیزی</option>
+                            <option value="استند ایستاده">استند ایستاده</option>
+                            <option value="استند خوابیده">استند خوابیده</option>
+
                             {{--@foreach($types as $type)--}}
                             {{--<option value="{{ $type->id }}">{{ $type->title }}</option>--}}
 
                             {{--@endforeach--}}
 
 
-                            {{--</select>--}}
-                            <input type="text" class="form-control" name="isType" value="سایر">
+                            </select>
+                            {{--<input type="text" class="form-control" name="isType" value="سایر">--}}
 
                         </div>
 

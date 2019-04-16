@@ -99,4 +99,11 @@ class PostController extends Controller
     {
         //
     }
+
+    public function verifyPost(Post $post)
+    {
+        Auth::user()->verify()->attach($post->id);
+
+        return back();
+    }
 }

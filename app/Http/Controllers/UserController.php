@@ -63,6 +63,7 @@ $tasks = Task::all();
     {
         $this->validate($request, [
             'name' => 'required',
+            'phone' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
@@ -243,6 +244,7 @@ public function profileUpdate(Request $request, $id){
         $user = Auth::user();
         $user->name = $request->get('name');
         $user->experience = $request->get('experience');
+        $user->tel = $request->get('tel');
         if(!empty($request->avatar)) {
             $avatarName = $user->id . '_avatar' . time() . '.' . request()->avatar->getClientOriginalExtension();
             $request->avatar->storeAs('avatars', $avatarName);

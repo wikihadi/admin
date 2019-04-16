@@ -25,26 +25,43 @@
         <div class="row m-0">
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/profile" title="" class="btn btn-dark btn-block">صفحه من</a>
+                    <a href="/profile" title="" class="btn btn-dark btn-block hvr-grow  animated fadeInDown">صفحه من</a>
                 </div>
             </div>
             <div class="m-2 col-12"></div>
 
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/posts" class="btn btn-info btn-block">اطلاعیه و قوانین</a>
+                    <a href="#" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی">اطلاعیه و قوانین</a>
                 </div>
             </div>
             <div class="m-2 col-12"></div>
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/tasks" class="btn btn-success btn-block">کارهای من</a>
+                    <a href="/tasks" class="btn btn-success btn-block hvr-grow animated fadeInDown">کارهای من</a>
+                </div>
+            </div>
+
+            @role('admin')
+            <div class="m-2 col-12"></div>
+
+            <div class="col-12 m-0 p-0">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/all-tasks" class="btn btn-light btn-block hvr-grow animated fadeInDown">همه کارها</a>
                 </div>
             </div>
             <div class="m-2 col-12"></div>
+
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a class="btn btn-danger btn-block" href="{{ route('logout') }}"
+                    <a href="/users" class="btn btn-light btn-block hvr-grow animated fadeInDown">کاربران</a>
+                </div>
+            </div>
+            @endrole
+            <div class="m-2 col-12"></div>
+            <div class="col-12 m-0 p-0">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a class="btn btn-danger btn-block hvr-grow animated fadeInDown" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         خروج

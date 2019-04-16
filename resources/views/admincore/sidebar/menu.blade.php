@@ -18,12 +18,7 @@
                         <p>کارهای من</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/done" class="nav-link @if(Request::is('done')) active @endif ">
-                        <i class="fa fa-list-ul nav-icon"></i>
-                        <p>کارهای پایان یافته</p>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="/tasks/create" class="nav-link @if(Request::is('tasks/create')) active @endif ">
                         <i class="fa fa-lg fa-plus-square nav-icon"></i>
@@ -68,26 +63,26 @@
                         {{--<p>دسته بندی ها</p>--}}
                     {{--</a>--}}
                 {{--</li>--}}
-                <li class="nav-item">
-                    <a href="/materials" class="nav-link  @if(Request::is('materials*')) active @endif ">
-                        <i class="fa fa-barcode nav-icon"></i>
-                        <p>متریال</p>
-                    </a>
-                </li>
+                {{--<li class="nav-item">--}}
+                    {{--<a href="/materials" class="nav-link  @if(Request::is('materials*')) active @endif ">--}}
+                        {{--<i class="fa fa-barcode nav-icon"></i>--}}
+                        {{--<p>متریال</p>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
 
             </ul>
         </li>
         {{--@endrole--}}
 
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-th"></i>
-                <p>
-                    آدرس
-                    <span class="right badge badge-danger">جدید</span>
-                </p>
-            </a>
-        </li>
+        {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+                {{--<i class="nav-icon fa fa-th"></i>--}}
+                {{--<p>--}}
+                    {{--آدرس--}}
+                    {{--<span class="right badge badge-danger">جدید</span>--}}
+                {{--</p>--}}
+            {{--</a>--}}
+        {{--</li>--}}
         <li class="nav-item">
             <a class="dropdown-item" href="{{ route('logout') }}"
                onclick="event.preventDefault();

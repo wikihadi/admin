@@ -40,6 +40,16 @@
                                     </span>
                                             @endif
                                         </div>
+                                        <div class="form-group position-relative">
+                                            <input placeholder="Phone" id="phone" type="phone" class="myInput form-control{{ $errors->has('phone') ? ' is-invalid' : '' }} validate" name="phone" value="{{ old('phone') }}" required>
+                                            <i class="fa fa-phone fa-2x myIcon"></i>
+
+                                            @if ($errors->has('tel'))
+                                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('tel') }}</strong>
+                                    </span>
+                                            @endif
+                                        </div>
 
 
 

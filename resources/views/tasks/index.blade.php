@@ -329,11 +329,25 @@
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+
     <div class="col-sm-12">
 
     <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
+        <div class="row  animated fadeIn delay-1s">
+<div class="text-right col">
+    <a href="{{url('/')}}" class="btn btn-link"><i class="fa fa-home"></i></a>
+    <a href=".profile" class="btn btn-link" data-toggle="collapse"><i class="fa fa-user"></i></a>
 
-        <div class="text-left mb-3">
+</div>
+        <div class="text-left mb-3 col">
             <a class="btn btn-link" data-toggle="collapse" href=".collapseTask"><i class="fa fa-arrows-alt"></i></a>
             @role('admin')
             <button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>
@@ -341,37 +355,37 @@
             <a href="/tasks/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
             <a href="/users" class="btn btn-link" ><i class="fa fa-users"></i></a>
         @endrole
-        <a href=".profile" class="btn btn-link" data-toggle="collapse"><i class="fa fa-user"></i></a>
         </div>
-
+    </div>
         @if ($tasks->isEmpty())
             <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
 
+        @else
+<div class="row">
+    <div class="col-md-9">
+        <div class="card border-0 d-none d-lg-block animated fadeIn delay-1s" style="box-shadow: none">
+            <div class="card-header" style="border-bottom: 0">
+                <div class="row">
+                    <div class="d-none d-lg-block col-lg-1 text-right">الویت</div>
+                    <div class="d-none d-lg-block col-12 col-md-3 text-center text-md-right">عنوان</div>
+                    <div class="d-none d-lg-block col-lg-2 text-center">نوع</div>
+                    <div class="d-none d-lg-block col-lg-2 text-center">برند</div>
+                    <div class="d-none d-lg-block col-lg-2 text-center">برای</div>
+                    {{--<div class="d-none d-xl-block col-xl-1 text-center">قطع</div>--}}
+                    {{--<div class="d-none d-xl-block col-xl-1 text-center">متریال</div>--}}
+                    <div class="d-none d-lg-block col-lg-2 text-center">مهلت</div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
         @endif
-        {{--@if (!$tasks->isEmpty())--}}
-
-            {{--<div class="card border-0 d-none d-md-block" style="box-shadow: none">--}}
-                {{--<div class="card-header" style="border-bottom: 0">--}}
-                    {{--<div class="row">--}}
-                        {{--<div class="col-1 text-right">الویت</div>--}}
-                        {{--<div class="col-md-3 col-xl-2 text-right">عنوان</div>--}}
-                        {{--<div class="col-md-3 col-xl-1 text-center">نوع</div>--}}
-                        {{--<div class="col-md-3 col-xl-1 text-center">برند</div>--}}
-                        {{--<div class="d-none d-xl-block col-xl-1 text-center">برای</div>--}}
-                        {{--<div class="d-none d-xl-block col-xl-1 text-center">قطع</div>--}}
-                        {{--<div class="d-none d-xl-block col-xl-1 text-center">متریال</div>--}}
-                        {{--<div class="d-none d-xl-block col-xl-1 text-center">مهلت</div>--}}
-
-
-                        {{--<div class="col-6 col-md-3 text-left">--}}
-
-                        {{--</div>--}}
-
-                    {{--</div>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-        {{--@endif--}}
 
 
 
@@ -380,55 +394,85 @@
             $i = 1;
         @endphp
         @foreach($tasks as $task)
+            @php
+            if($task->rightNow > 0){
+                            $timetogo = $task->rightNow . " روز";
 
-            <div class="card card-border">
+            }elseif($task->rightNow == 0){
+                            $timetogo = "امروز";
+
+            }
+            else{
+                            $timetogo = "اتمام زمان";
+
+            }
+
+            @endphp
+            @if($task->prog <= 20)
+                @php
+                    $progborder = "border-info bg-light";
+                    $progbg = "bg-info";
+                @endphp
+            @elseif($task->prog > 20 && $task->prog <= 50)
+                @php
+                    $progborder = "border-success bg-light";
+                    $progbg = "bg-success";
+                @endphp
+            @elseif($task->prog > 50 && $task->prog <= 80)
+                @php
+                    $progborder = "border-warning bg-light";
+                    $progbg = "bg-warning";
+                @endphp
+            @elseif($task->prog > 80 && $task->prog <= 100)
+                @php
+                    $progborder = "border-danger bg-light";
+                    $progbg = "bg-danger";
+                @endphp
+            @else
+                @php
+                    $progborder = "border-danger bg-dark";
+                    $progbg = "bg-danger";
+                @endphp
+            @endif
+            <div class="card card-border
+                    animated fadeInDown
+
+@if($task->prog > 100)
+@endif
+">
                 <div class="
                 @if($task->isDone == 0)
-@switch($task->orderTask)
-                @case(1)
-                        card-danger bg-danger
-@break
+{{$progborder}}
 
-                @case(2)
-                        card-danger bg-danger
-@break
-
-                @case(3)
-                        card-danger bg-warning
-@break
-
-
-
-
-
-                @default
-                        bg-secondary
-@endswitch
 @else
-                        bg-secondary
+                        bg-dark
+
 @endif
 
 card-header
-card-border" >
-                   <div class="row">
-                       <div class="d-none d-xl-block col-xl-1 text-right" data-toggle="collapse" href="#collapse{{$task->id}}">{{$i++}}</div>
+card-border
 
-                       <div class="col-5 col-md-3 col-xl-2 text-right text-nowrap" data-toggle="collapse" href="#collapse{{$task->id}}">{{$task->title}}</div>
-                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
+" >
+                    <div class="row">
+                   <div class="col-md-9 row " data-toggle="collapse" href="#collapse{{$task->id}}">
+                       <div class="d-none d-lg-block col-lg-1 text-right">{{$i++}}</div>
+
+                       <div class="col-12 col-md-3 text-center text-md-right ">{{$task->title}}</div>
+                       <div class="d-none d-lg-block col-lg-2 text-center">
                            @if($task->type && $task->type != "سایر")
                                 {{$task->type}}
                                @else
                                -
                            @endif
                        </div>
-                       <div class="col-md-3 d-none d-md-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
+                       <div class="d-none d-lg-block col-lg-2 text-center">
                        @if($task->type && $task->brand != "سایر")
                        {{$task->brand}}
                            @else
                                -
                            @endif
                        </div>
-                       <div class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
+                       <div class="d-none d-lg-block col-lg-2 text-center">
                        @if($task->type && $task->forProduct != "سایر")
                        {{$task->forProduct}}
                            @else
@@ -437,23 +481,25 @@ card-border" >
                        </div>
 
 
-                       <div dir="ltr" class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
-                           @if($task->dx || $task->dy || $task->dz)
-                               {{$task->dx}}|{{$task->dy}}|{{$task->dz}}
-                           @else
-                               -
-                       @endif
-                       </div>
-                       <div class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">
-                       @if($task->type && $task->material != "سایر")
-                       {{$task->material}}
-                           @else
-                               -
-                       @endif
+                       {{--<div dir="ltr" class="d-none d-xl-block col-xl-1 text-center">--}}
+                           {{--@if($task->dx || $task->dy || $task->dz)--}}
+                               {{--{{$task->dx}}|{{$task->dy}}|{{$task->dz}}--}}
+                           {{--@else--}}
+                               {{-----}}
+                       {{--@endif--}}
+                       {{--</div>--}}
+                       {{--<div class="d-none d-xl-block col-xl-1 text-center">--}}
+                       {{--@if($task->type && $task->material != "سایر")--}}
+                       {{--{{$task->material}}--}}
+                           {{--@else--}}
+                               {{-----}}
+                       {{--@endif--}}
+                   {{--</div>--}}
+                       <div class="d-none d-lg-block col-lg-2 text-center">{{$timetogo}}</div>
                    </div>
-                       <div class="d-none d-xl-block col-xl-1 text-center" data-toggle="collapse" href="#collapse{{$task->id}}">{{$task->rightNow}} روز</div>
-                           <div class="col-6 col-md-3 text-left d-none d-md-block">
-                               <div class="d-inline-block" data-toggle="collapse" href="#collapse{{$task->id}}">
+                    <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
+                        <div class="flex-grow-1"  data-toggle="collapse" href="#collapse{{$task->id}}"></div>
+                        <div class="mx-1">
                                <i class="fa  animated
                         @if($task->rightNow < 0 )
                                        fa-hourglass-end infinite tada
@@ -466,60 +512,89 @@ card-border" >
 @endif
 
 " data-toggle="tooltip" title="{{$task->rightNow}} روز دیگر"  data-placement="right"></i>
-                                |
+                    </div>
+                        <div class="mx-1">
                                <i class="fa fa-calendar" data-toggle="tooltip" title="{{$task->startDate}}"  data-placement="right"></i>
+                                </div>
                                @if($task->reTask === 1)
-                                |
+                            <div class="mx-1">
+
                                <i class="fa fa-clone" data-toggle="tooltip" title="Clone"  data-placement="right"></i>
+                                   </div>
                                    @endif
-                               </div>
-                               <div class="d-inline-block">
-                               |
+
                                @role('admin')
+                        <div class="mx-1 hvr-grow">
 
                                <a href="/tasks/{{ $task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $task->title }}"  data-placement="right"></i></a>
-                               |
+                        </div>
                                @endrole
-                               <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"  data-placement="right"></i></a>
-                           </div>
-                           </div>
+                        <div class="mx-1                     hvr-backward
+">
 
+                        <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"  data-placement="right"></i></a>
+                        </div>
                    </div>
-
+                </div>
 
                 </div>
                 <div id="collapse{{$task->id}}" class="collapse collapseTask" data-parent="#accordion">
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-4 col-xl-3">
-                                <img src="/img/task.png" class="img-fluid" alt="">
+                            <div class="col-sm-12 col-md-4 col-xl-3 d-none d-sm-block">
+                                <img src="/img/dsp.png" class="img-fluid" alt="">
                             </div>
                             <div class="col-sm-12 col-md-8 col-xl-3 table-responsive">
 
-                                 <table class="table table-borderless table-striped table-hover  " style="width: 100%;min-width: 100%">
+                                 <table class="table table-borderless table-striped table-hover text-center  " style="width: 100%;min-width: 100%">
 
                                      <tr>
-                                         <td><a href="/tasks/{{$task->id}}">{{$task->title}}</a></td>
+                                         <td><a href="/tasks/{{$task->id}}">کد</a></td>
 
                                          <td><a class="text-muted" href="/tasks/{{$task->id}}">{{$task->id}}</a></td>
                                      </tr>
 
 
-                                     <tr>
-                                         <td>شروع</td>
+                                     <tr class="d-md-none">
+                                         <td>نوع</td>
+                                         <td>{{$task->type}}</td>
+                                     </tr>
+                                     <tr class="d-md-none">
+                                         <td>برند</td>
+                                         <td>{{$task->brand}}</td>
+                                     </tr>
+                                     <tr class="d-md-none">
+                                         <td>برای</td>
+                                         <td>{{$task->forProduct}}</td>
+                                     </tr>
+                                     @if($task->dx || $task->dy || $task->dz || $task->dDesc)
 
-                                         <td id="gregorian_to_jalali">
-                                             {{$task->startDate}}
+                                     <tr>
+                                         <td>در قطع</td>
+                                         <td><span title="عرض">{{$task->dx}}</span>-<span title="طول">{{$task->dy}}</span>-<span title="عمق">{{$task->dz}}</span>-<span title="واحد">{{$task->dDesc}}</span>
                                          </td>
                                      </tr>
+                                     @endif
+                                     @if($task->material)
+
                                      <tr>
-                                         <td>پایان</td>
-                                         <td>{{$task->deadline}}</td>
+                                         <td>متریال</td>
+                                         <td>{{$task->material}}
+                                         </td>
                                      </tr>
+                                     @endif
+                                     <tr class="d-md-none">
+                                         <td>مهلت باقیمانده</td>
+
+                                         <td>
+                                             {{$timetogo}}
+                                         </td>
+                                     </tr>
+
                                      {{--<tr>--}}
-                                         {{--<td>{{$task->commentCount}}</td>--}}
                                          {{--<td></td>--}}
+                                         {{--<td>{{$task->commentCount}}</td>--}}
                                      {{--</tr>--}}
                                      {{--<tr>--}}
                                          {{--<td>مشاهده</td>--}}
@@ -531,31 +606,32 @@ card-border" >
 
                                 </div>
                             <div class="col-sm-12 col-md-12 col-xl-6">
-                                <h1>
-                                    {{ $task->title }}
+                                    {{--<h1>--}}
+                                        {{--{{ $task->title }}--}}
 
-                                </h1>
+                                    {{--</h1>--}}
 
                                 <div class="progress">
-                                    <div data-toggle="tooltip" title="{{ $task->prog }}%"  data-placement="top" class="progress-bar progress-bar-striped bg-warning  progress-bar-animated" role="progressbar" style="width: {{ $task->prog }}%" aria-valuenow="{{ $task->prog }}" aria-valuemin="0" aria-valuemax="100"></div>
+
+                                    <div data-toggle="tooltip" title="@if( $task->prog >100 )زمان مقرر این تسک پایان یافته است @elseزمان سپری شده {{$task->prog}}% @endif"  data-placement="top" class="progress-bar progress-bar-striped @if( $task->prog <= 100 ) progress-bar-animated @endif {{$progbg}}"  role="progressbar" style="width: {{ $task->prog }}%" aria-valuenow="{{ $task->prog }}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
 
-                                <div class="btn-group">
-                                    @if($task->type && $task->type != "سایر") <button class="btn btn-sm btn-link"  data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</button> @endif
-                                    @if($task->type && $task->brand != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="برند"  data-placement="bottom">{{ $task->brand }}</button> @endif
-                                    @if($task->type && $task->forProduct != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="محصول"  data-placement="bottom">{{ $task->forProduct }}</button> @endif
-                                    @if($task->type && $task->material != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="متریال"  data-placement="bottom">{{ $task->material }}</button> @endif
-                                    <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="نظر"  data-placement="bottom">{{ $task->commentCount }}</button>
-                                    <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="مشاهده"  data-placement="bottom">{{ $task->viewCount }}</button>
+                                {{--<div class="btn-group">--}}
+                                    {{--@if($task->type && $task->type != "سایر") <button class="btn btn-sm btn-link"  data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</button> @endif--}}
+                                    {{--@if($task->type && $task->brand != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="برند"  data-placement="bottom">{{ $task->brand }}</button> @endif--}}
+                                    {{--@if($task->type && $task->forProduct != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="محصول"  data-placement="bottom">{{ $task->forProduct }}</button> @endif--}}
+                                    {{--@if($task->type && $task->material != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="متریال"  data-placement="bottom">{{ $task->material }}</button> @endif--}}
+                                    {{--<button class="btn btn-sm btn-link"   data-toggle="tooltip" title="نظر"  data-placement="bottom">{{ $task->commentCount }}</button>--}}
+                                    {{--<button class="btn btn-sm btn-link"   data-toggle="tooltip" title="مشاهده"  data-placement="bottom">{{ $task->viewCount }}</button>--}}
 
-                                    @if($task->reTask === 1)
+                                    {{--@if($task->reTask === 1)--}}
 
-                                        <button class="btn btn-sm btn-link"  data-toggle="tooltip" title="Clone" data-placement="bottom">
-                                            <i class="fa fa-clone"></i>
-                                        </button>
-                                    @endif
+                                        {{--<button class="btn btn-sm btn-link"  data-toggle="tooltip" title="Clone" data-placement="bottom">--}}
+                                            {{--<i class="fa fa-clone"></i>--}}
+                                        {{--</button>--}}
+                                    {{--@endif--}}
 
-                                </div>
+                                {{--</div>--}}
 
                                 <p class="text-justify pt-3">
                                     {{ $task->content }}

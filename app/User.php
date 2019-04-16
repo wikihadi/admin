@@ -22,8 +22,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','phone', 'experience',
     ];
+//    protected $guarded=[];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -62,6 +63,10 @@ class User extends Authenticatable
     public function medias()
     {
         return $this->hasMany('App\Media');
+    }
+    public function verify()
+    {
+        return $this->belongsToMany(Post::class, 'post_verifies', 'user_id', 'post_id')->withTimeStamps();
     }
 
 }

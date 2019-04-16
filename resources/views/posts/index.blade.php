@@ -157,7 +157,12 @@
 
 
                     </div>
-
+                    <div class="panel-footer">
+                        <favorite
+                                :post={{ $post->id }}
+                                        :favorited={{ $post->verifyPost() ? 'true' : 'false' }}
+                        ></favorite>
+                    </div>
                 </div>
             </a>
             @endforeach

@@ -27,8 +27,8 @@ class CreatePostsTable extends Migration
 
         });
         Schema::create('post_verifies', function (Blueprint $table) {
-            $table->integer('post_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('post_id')->unsigned();
             $table->timestamps();
         });
     }

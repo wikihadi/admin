@@ -199,14 +199,18 @@
                     @endif
 
             </div>
+<div class="row">
+            <div class="text-right col">
+                <a href="{{url('/')}}" class="btn btn-link"><i class="fa fa-home"></i></a>
+                <a href="/tasks" class="btn btn-link" title="My Tasks"><i class="fa fa-list-ol"></i></a>
 
-            <div class="text-left">
+            </div>
+            <div class="text-left col">
 
                 {{--<a href="/tasks/create" class="btn btn-link" title="New"><i class="fa fa-plus"></i></a>--}}
                 <a class="btn btn-link" data-toggle="collapse" href=".collapse"><i class="fa fa-arrows-alt"></i></a>
-                <a href="/tasks" class="btn btn-link" title="My Tasks"><i class="fa fa-list-ul"></i></a>
             </div>
-
+            </div>
 
             <div class="row">
                 <!------------------------------------------------------------------>
