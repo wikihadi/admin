@@ -26,10 +26,12 @@
             <div class="card-header">
                 <div class="float-right">ثبت کار جدید</div>
                 <div class="float-left">
+                    اجرایی
                     <label class="switch">
                         <input type="checkbox" onchange="formToggle()">
                         <span class="slider"></span>
                     </label>
+                    طراحی
                     <span></span>
                 </div>
 
@@ -45,24 +47,13 @@
                             <label for="">نوع</label>
                             <select name="isType" class="form-control select2">
 
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
-                            <option  value="سایر">سایر</option>
+                            <option  value="سایر" selected>سایر</option>
 
-                            <option value="استند رومیزی">استند رومیزی</option>
-                            <option value="استند ایستاده">استند ایستاده</option>
-                            <option value="استند خوابیده">استند خوابیده</option>
 
-                            {{--@foreach($types as $type)--}}
-                            {{--<option value="{{ $type->id }}">{{ $type->title }}</option>--}}
+                            @foreach($types as $type)
+                            <option value="{{ $type->id }}">{{ $type->title }}</option>
 
-                            {{--@endforeach--}}
+                            @endforeach
 
 
                             </select>
@@ -133,8 +124,8 @@
 
 
 
-
-                        <div class="form-group col-sm-1">
+@role('admin')
+                        <div class="form-group col-sm-2">
 
 
                             <label for="title">الویت</label>
@@ -153,7 +144,7 @@
                             {{--<input type="number" class="form-control" name="orderTask" placeholder="From 1 to 10"--}}
                                    {{--min="1" max="10" value="10"/>--}}
                         </div>
-                        <div class="form-group col-sm-1">
+                        <div class="form-group col-sm-2">
 
 
                             <label for="title">وزن (ارزش)</label>
@@ -175,7 +166,11 @@
                             {{--<input type="number" class="form-control" name="weight" placeholder="From 1 to 10"--}}
                                    {{--min="1" max="10" value="10"/>--}}
                         </div>
-                        <div class="form-group col-sm-5">
+                        @else
+                            <input type="hidden" name="orderTask" value="10">
+                            <input type="hidden" name="weight" value="1">
+                            @endrole
+                        <div class="form-group col-sm">
                             <label for="deadline">تاریخ شروع</label>
 
                             <input type="text" class="form-control pdp-data-jdate" id="gStartDate" autocomplete="off"/>
@@ -183,7 +178,7 @@
                             {{--<input type="text" class="pdate form-control"  name="deadline"/>--}}
                             {{--<input type="date"  class="form-control" name="deadline"/>--}}
                         </div>
-                        <div class="form-group col-sm-5">
+                        <div class="form-group col-sm">
                             <label for="deadline">تاریخ پایان</label>
 
                             <input type="text" class="form-control pdp-data-jdate" id="gEndDate" name="deadline1"
@@ -194,8 +189,10 @@
                         </div>
                     </div>
 
-                    <div class="p-2 border-bottom formChange">
-                    <a class="text-success btn btn-link" data-toggle="collapse" href="#xtra">ثبت اندازه</a>
+                    <div class="p-2 formChange text-left">
+                        <label for="check">ثبت اندازه <input id="check" type="checkbox" class="" data-toggle="collapse" href="#xtra"></label>
+
+                    {{--<a class="btn btn-info" data-toggle="collapse" href="#xtra">ثبت اندازه</a>--}}
                     </div>
                     <div id="xtra" class="collapse row fade ">
 
@@ -243,6 +240,7 @@
                         <div class="form-group col-sm-3">
                             <label for="">واحد</label>
                             <select name="dDesc" class="form-control">
+                                <option>انتخاب واحد</option>
                                 <option value="cm">سانتیمتر | cm</option>
                                 <option value="mm">میلیمتر | mm</option>
                                 <option value="px">پیکسل | px</option>
@@ -311,7 +309,7 @@
                                   placeholder="توضیحات کاری که باید انجام شود">ندارد</textarea>
 
                     </div>
-
+@role('admin')
                     <div class="form-group col-sm-12">
                         <label for="">تیم کاری</label>
                         <select name="users[]" class="form-control select2" multiple>
@@ -325,6 +323,9 @@
                         </select>
 
                     </div>
+                    @else
+                        <input type="hidden" value="{{Auth::user()->id}}" name="users[]">
+                    @endrole
                     <div class="form-group col-sm-12">
                         <span>پروژه تکراری</span>
 

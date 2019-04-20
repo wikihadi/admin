@@ -345,14 +345,17 @@
 <div class="text-right col">
     <a href="{{url('/')}}" class="btn btn-link"><i class="fa fa-home"></i></a>
     <a href=".profile" class="btn btn-link" data-toggle="collapse"><i class="fa fa-user"></i></a>
+    @can('task-create')
+        <a href="/tasks/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
 
+    @endcan
 </div>
         <div class="text-left mb-3 col">
             <a class="btn btn-link" data-toggle="collapse" href=".collapseTask"><i class="fa fa-arrows-alt"></i></a>
+
             @role('admin')
             <button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>
 
-            <a href="/tasks/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
             <a href="/users" class="btn btn-link" ><i class="fa fa-users"></i></a>
         @endrole
         </div>
@@ -373,7 +376,7 @@
                     <div class="d-none d-lg-block col-lg-2 text-center">برای</div>
                     {{--<div class="d-none d-xl-block col-xl-1 text-center">قطع</div>--}}
                     {{--<div class="d-none d-xl-block col-xl-1 text-center">متریال</div>--}}
-                    <div class="d-none d-lg-block col-lg-2 text-center">مهلت</div>
+                    <div class="d-none d-lg-block col-lg-2 text-center"></div>
 
 
 
@@ -445,7 +448,7 @@
 {{$progborder}}
 
 @else
-                        bg-dark
+                        bg-success
 
 @endif
 
@@ -495,10 +498,11 @@ card-border
                                {{-----}}
                        {{--@endif--}}
                    {{--</div>--}}
-                       <div class="d-none d-lg-block col-lg-2 text-center">{{$timetogo}}</div>
+                       <div class="d-none d-lg-block col-lg-2 text-center"></div>
                    </div>
                     <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
                         <div class="flex-grow-1"  data-toggle="collapse" href="#collapse{{$task->id}}"></div>
+                        <div class="mx-1" title="مهلت" data-toggle="tooltip">{{$timetogo}}</div>
                         <div class="mx-1">
                                <i class="fa  animated
                         @if($task->rightNow < 0 )
@@ -511,28 +515,28 @@ card-border
 
 @endif
 
-" data-toggle="tooltip" title="{{$task->rightNow}} روز دیگر"  data-placement="right"></i>
+" data-toggle="tooltip" title="{{$task->rightNow}}"></i>
                     </div>
                         <div class="mx-1">
-                               <i class="fa fa-calendar" data-toggle="tooltip" title="{{$task->startDate}}"  data-placement="right"></i>
+                               <i class="fa fa-calendar" data-toggle="tooltip" title="{{$task->startDate}}"></i>
                                 </div>
                                @if($task->reTask === 1)
                             <div class="mx-1">
 
-                               <i class="fa fa-clone" data-toggle="tooltip" title="Clone"  data-placement="right"></i>
+                               <i class="fa fa-clone" data-toggle="tooltip" title="Clone"></i>
                                    </div>
                                    @endif
 
                                @role('admin')
                         <div class="mx-1 hvr-grow">
 
-                               <a href="/tasks/{{ $task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $task->title }}"  data-placement="right"></i></a>
+                               <a href="/tasks/{{ $task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $task->title }}"></i></a>
                         </div>
                                @endrole
                         <div class="mx-1                     hvr-backward
 ">
 
-                        <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"  data-placement="right"></i></a>
+                        <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"></i></a>
                         </div>
                    </div>
                 </div>
@@ -591,6 +595,26 @@ card-border
                                              {{$timetogo}}
                                          </td>
                                      </tr>
+                                     {{--<tr>--}}
+                                         {{--<td><span class="badge badge-info">{{$task->jStart}}</span></td>--}}
+
+                                         {{--<td><span class="badge badge-success">{{$task->jEnd}}</span>--}}
+                                         {{--</td>--}}
+                                     {{--</tr>--}}
+                                     {{--<tr>--}}
+                                         {{--<td>تاریخ اتمام کار</td>--}}
+
+                                         {{--<td>--}}
+                                             {{--{{$task->jEnd}}--}}
+                                         {{--</td>--}}
+                                     {{--</tr>--}}
+                                     @if($task->reTask === 1)
+                                         <tr>
+                                             <td colspan="2">مشابه این کار قبلا انجام شده</td>
+
+
+                                         </tr>
+                                     @endif
 
                                      {{--<tr>--}}
                                          {{--<td></td>--}}
@@ -610,10 +634,11 @@ card-border
                                         {{--{{ $task->title }}--}}
 
                                     {{--</h1>--}}
-
+<div class="d-flex justify-content-between"><span class="badge badge-white">{{$task->jStart}}</span><span class="badge badge-white">{{$task->jEnd}}</span></div>
                                 <div class="progress">
 
                                     <div data-toggle="tooltip" title="@if( $task->prog >100 )زمان مقرر این تسک پایان یافته است @elseزمان سپری شده {{$task->prog}}% @endif"  data-placement="top" class="progress-bar progress-bar-striped @if( $task->prog <= 100 ) progress-bar-animated @endif {{$progbg}}"  role="progressbar" style="width: {{ $task->prog }}%" aria-valuenow="{{ $task->prog }}" aria-valuemin="0" aria-valuemax="100"></div>
+
                                 </div>
 
                                 {{--<div class="btn-group">--}}

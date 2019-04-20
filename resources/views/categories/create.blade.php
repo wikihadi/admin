@@ -42,9 +42,9 @@
                                     <input type="text" class="form-control" name="title" placeholder="نام {{ $titleOfPage }}"/>
                                 </div>
                                 @if(isset($material) && ($material == '-1'))
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="description" placeholder="توضیحات {{ $titleOfPage }}"></textarea>
-                                    </div>
+                                    {{--<div class="form-group">--}}
+                                        {{--<textarea class="form-control" name="description" placeholder="توضیحات {{ $titleOfPage }}"></textarea>--}}
+                                    {{--</div>--}}
                                     <input type="hidden"
                                             @if(isset($dimen) && ($dimen == '-1'))
                                             name="isDimension"
@@ -72,7 +72,7 @@ value="1"/>
 
                                     </div>
                                 @endif
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary btn-block">Add</button>
                             </form>
                         </div>
                     </div>
@@ -90,39 +90,58 @@ value="1"/>
                                 <tr>
 
                                     <td>کد</td>
-                                    <td>نام {{ $titleOfPage }}</td>
-                                    <td>توضیحات</td>
-                                    @if(isset($material) && ($material != '-1'))
+                                    <td colspan="2">نام {{ $titleOfPage }}</td>
 
-                                    <td>زیرمجموعه ها</td>
-                                    @endif
+                                    {{--<td>توضیحات</td>--}}
+                                    {{--@if(isset($material) && ($material != '-1'))--}}
+
+                                    {{--<td>زیرمجموعه ها</td>--}}
+                                    {{--@endif--}}
 
                                 </tr>
                                 @foreach($categories->where('parent_id', -1)  as $category)
 
 
                                 <tr>
-                                    <td>{{ $category->id }}</td>
-                                    <td>{{ $category->title }}</td>
-                                    <td>{{ $category->description }}</td>
-                                    @if(isset($material) && ($material != '-1'))
-
-                                        <td>
-                                            <table>
-                                            @foreach($categories as $child)
-                                                <tr>
-                                                @if($child->parent_id == $category->id)
-                                                    <td>
-                                                    {{ $child->title }}
-                                                    </td>
-                                                @endif
-                                                    </tr>
-                                                @endforeach
-                                            </table>
+                                    <td>
 
 
-                                        </td>
-@endif
+                                        {{ $category->id }}
+
+                                    </td>
+                                    <td>{{ $category->title }}
+
+                                    </td>
+                                    <td>
+                                        <div class="dropdown position-absolute">
+                                            <button class="btn btn-link text-muted" type="button" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="btn btn-link text-warning" href="{{ route('categories.edit',$category->id) }}">ویرایش </a></li>
+                                                <li> {!! Form::open(['method' => 'DELETE','route' => ['categories.destroy', $category->id],'style'=>'display:inline']) !!}
+                                                    {!! Form::submit('حذف ', ['class' => 'btn btn-link text-danger']) !!}
+                                                    {!! Form::close() !!}</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+{{--                                    <td>{{ $category->description }}</td>--}}
+                                    {{--@if(isset($material) && ($material != '-1'))--}}
+
+                                        {{--<td>--}}
+                                            {{--<table>--}}
+                                            {{--@foreach($categories as $child)--}}
+                                                {{--<tr>--}}
+                                                {{--@if($child->parent_id == $category->id)--}}
+                                                    {{--<td>--}}
+                                                    {{--{{ $child->title }}--}}
+                                                    {{--</td>--}}
+                                                {{--@endif--}}
+                                                    {{--</tr>--}}
+                                                {{--@endforeach--}}
+                                            {{--</table>--}}
+
+
+                                        {{--</td>--}}
+{{--@endif--}}
                                 </tr>
 
                                     @endforeach

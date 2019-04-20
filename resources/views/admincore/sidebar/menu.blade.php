@@ -57,6 +57,12 @@
                         <p>برند ها</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/types" class="nav-link  @if(Request::is('types*')) active @endif ">
+                        <i class="fa fa-tree nav-icon"></i>
+                        <p>نوع کار</p>
+                    </a>
+                </li>
                 {{--<li class="nav-item">--}}
                     {{--<a href="/categories" class="nav-link  @if(Request::is('categories*')) active @endif ">--}}
                         {{--<i class="fa fa-tree nav-icon"></i>--}}

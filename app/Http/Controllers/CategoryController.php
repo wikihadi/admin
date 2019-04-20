@@ -24,8 +24,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-                $categories = Category::all();
-                return view('categories.create', compact('categories'));
+                $categories = Category::orderBy('title', 'asc')->get();
+                return view('categories.create', compact('categories','type'));
     }
 
     /**
@@ -79,7 +79,7 @@ class CategoryController extends Controller
     {
         $material = -1;
         $type = -1;
-        $categories = Category::where('isType', '=' , '1')->get();
+        $categories = Category::where('isType', '=' , '1')->orderBy('title', 'asc')->get();
         return view('categories.create', compact('categories','material', 'type'));
     }
     /**
@@ -122,8 +122,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect()->back()->with('success', 'Categories has been deleted Successfully');
     }
 }
