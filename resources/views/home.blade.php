@@ -32,7 +32,7 @@
 
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="#" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی">اطلاعیه و قوانین</a>
+                    <a href="#" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی">اطلاعیه و قوانین - بزودی</a>
                 </div>
             </div>
             <div class="m-2 col-12"></div>
@@ -41,6 +41,15 @@
                     <a href="/tasks" class="btn btn-success btn-block hvr-grow animated fadeInDown">کارهای من</a>
                 </div>
             </div>
+            @can('task-create')
+
+            <div class="m-2 col-12"></div>
+            <div class="col-12 m-0 p-0">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/tasks/create" class="btn btn-warning btn-block hvr-grow animated fadeInDown">کار جدید</a>
+                </div>
+            </div>
+            @endcan
 
             @role('admin')
             <div class="m-2 col-12"></div>

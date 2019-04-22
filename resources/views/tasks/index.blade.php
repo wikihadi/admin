@@ -547,7 +547,7 @@ card-border
 
                         <div class="row">
                             <div class="col-sm-12 col-md-4 col-xl-3 d-none d-sm-block">
-                                <img src="/img/dsp.png" class="img-fluid" alt="">
+                                <img src="/storage/uploads/{{$task->pic}}" class="img-fluid" alt="">
                             </div>
                             <div class="col-sm-12 col-md-8 col-xl-3 table-responsive">
 

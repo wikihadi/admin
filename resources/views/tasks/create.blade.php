@@ -326,7 +326,12 @@
                     @else
                         <input type="hidden" value="{{Auth::user()->id}}" name="users[]">
                     @endrole
-                    <div class="form-group col-sm-12">
+
+<div class="row">
+
+
+
+                    <div class="form-group col-sm-6">
                         <span>پروژه تکراری</span>
 
                         <label class="switch">
@@ -334,7 +339,21 @@
                             <span class="slider"></span>
                         </label>
 
+                    </div>
+    <div class="form-group col-sm-6">
 
+
+
+
+
+
+        <label for="pic" class="file-upload btn btn-info btn-block">تصویر شاخص پروژه
+
+            <input type="file" name="pic" id="pic" aria-describedby="fileHelp">
+            {{--<small id="fileHelp" class="form-text text-muted">تا 2 مگابایت</small>--}}
+
+        </label>
+    </div>
                     </div>
 
                     <button type="submit" class="btn btn-success btn-block btn-lg">بفرست به لیست الویت ها</button>

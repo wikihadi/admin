@@ -241,8 +241,8 @@
 
 
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <img src="/img/dsp.png" class="img-fluid" alt="">
+                                    <div class="col-sm-12 text-center">
+                                        <img src="/storage/uploads/{{$task->pic}}" class="img-fluid" alt="">
                                     </div>
                                     <div class="col-sm-12 table-responsive">
                                         <table class="table table-borderless table-striped" style="width: 100%">
@@ -353,17 +353,24 @@
                                                     <form method="post" action="{{ route('comments.store') }}">
                                                         <div class="form-group">
                                                             @csrf
-                                                            <textarea class="form-control" name="comment"
-                                                                      placeholder="به نظر من..." rows="3"></textarea>
+                                                            {{--<textarea class="form-control" name="comment"--}}
+                                                                      {{--placeholder="به نظر من..." rows="3"></textarea>--}}
+                                                            {{--<input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من...">--}}
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من..." aria-label="" aria-describedby="basic-addon1">
 
+                                                                <div class="input-group-append">
+                                                                    <button class="btn btn-outline-secondary" type="submit">ثبت نظر</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         <input type="hidden" name="user_id"
                                                                value="{{ Auth::user()->id }}">
                                                         <input type="hidden" name="task_id" value="{{ $task->id }}">
-                                                        <button type="submit" class="btn btn-link pull-left">
-                                                            <i class="fa fa-2x fa-plus-circle"></i>
-                                                        </button>
+                                                        {{--<button type="submit" class="btn btn-link pull-left">--}}
+                                                            {{--<i class="fa fa-2x fa-plus-circle"></i>--}}
+                                                        {{--</button>--}}
                                                     </form>
                                                     <div class="clearfix"></div>
                                                     <hr>
