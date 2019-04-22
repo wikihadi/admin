@@ -185,8 +185,9 @@
                         <div class="card-header bg-white card-border px-5">
 
                             <select class="form-control border-0" name="section">
-                                <option value="general">عمومی</option>
-                                <option value="design">واحد طراحی</option>
+                                <option value="عمومی">عمومی</option>
+                                <option value="طراحی">واحد طراحی</option>
+                                <option value="مالی">واحد مالی</option>
                             </select>
 
                         </div>
