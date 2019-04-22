@@ -158,6 +158,7 @@
 
                     </div>
                     <div class="panel-footer">
+
                         {{--<favorite--}}
                                 {{--:post={{ $post->id }}--}}
                                         {{--:favorited={{ $post->verifyPost() ? 'true' : 'false' }}--}}
@@ -167,6 +168,7 @@
             </a>
             @endforeach
             {{ $posts->links() }}
+            <a href="/" class="btn btn-block btn-link">برگشت به خانه</a>
 
 
         </div>

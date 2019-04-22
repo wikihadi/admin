@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\PostViewBy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -63,7 +65,16 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-
+        $user = Auth::user();
+        $oldView = PostViewBy::where('user_id', $user->id)->where('post_id', $id)->get();
+        if(count($oldView) == 0) {
+            $postView = new PostViewBy([
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'post_id' => $id
+            ]);
+            $postView->save();
+        }
         return view('posts.show', compact('post'));
     }
 

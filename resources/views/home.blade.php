@@ -32,7 +32,7 @@
 
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="#" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی">اطلاعیه و قوانین - بزودی</a>
+                    <a href="/posts" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی">اطلاعیه و قوانین</a>
                 </div>
             </div>
             <div class="m-2 col-12"></div>
