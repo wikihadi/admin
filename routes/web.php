@@ -26,6 +26,11 @@ Route::group(['middleware' => ['auth']], function() {
     });
     Route::get('/profile', 'ProfileController@profile');
     Route::post('/profile', 'ProfileController@update_avatar');
+
+    Route::get('/tasks/{id}/start', 'TaskMeterController@start');
+    Route::get('/tasks/{id}/end', 'TaskMeterController@end');
+
+
     Route::post('/tasks/{task}', 'TaskController@done')->name('tasks.done');
     //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::resource('categories', 'CategoryController');

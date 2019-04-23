@@ -364,6 +364,9 @@
             <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
 
         @else
+            @if($taskMeter && $taskMeter->end == 0)
+                <div class="alert alert-danger">{{$user->name}}، شما یک پروژه باز دارید. تا زمانی که پروژه متوقف نشده یک پروژه جدید باز نکنید. <a href="/tasks/{{$taskMeter->task_id}}" class="btn btn-link">مشاهده</a></div>
+                @endif
 <div class="row">
     <div class="col-md-9">
         <div class="card border-0 d-none d-lg-block animated fadeIn delay-1s" style="box-shadow: none">

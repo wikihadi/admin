@@ -168,6 +168,17 @@
             @if($task->isDone == 1)
             <div class="alert-info alert text-center">این کار توسط کاربر {{$task->done_user_id}} در تاریخ {{$task->done_date}} به اتمام رسیده است</div>
             @endif
+            @if($taskMeter && $taskMeter->end == 0)
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>شروع کار</strong> این کار در حال انجام است
+                    <a href="/tasks/{{$task->id}}/end"
+                       class="btn btn-link my-2 text-dark">توقف زمان کار</a>
+                    <strong>{{$taskMeter->created_at}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
             <h1 class="text-center">{{$task->title}}</h1>
             <div class="d-md-flex justify-content-center">
                     @if($task->type && $task->type != "سایر")
@@ -209,6 +220,15 @@
 
                 {{--<a href="/tasks/create" class="btn btn-link" title="New"><i class="fa fa-plus"></i></a>--}}
                 <a class="btn btn-link" data-toggle="collapse" href=".collapse"><i class="fa fa-arrows-alt"></i></a>
+                @if($taskMeter && $taskMeter->end == 1)
+                    <a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>
+
+                @elseif($taskMeter && $taskMeter->end == 0)
+                    <a href="/tasks/{{$task->id}}/end" class="btn btn-link"><i class="fa fa-pause"></i></a>
+                    @else
+                    <a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>
+
+                @endif
             </div>
             </div>
 
@@ -424,6 +444,7 @@
                         <div id="setting" class="collapse" data-parent="#accordion">
                             <div class="card-body">
                             <div class="d-flex justify-content-around">
+
                                     @role('admin')
 
                                         <form action="{{ route('tasks.destroy', $task->id)}}" method="post">
@@ -434,6 +455,8 @@
 
                                         <a href="/tasks/{{$task->id}}/edit"
                                            class="btn btn-warning my-2">ویرایش</a>
+
+
 
                                 <form action="{{ route('tasks.done', $task->id)}}" method="post">
                                     @csrf
@@ -457,11 +480,81 @@
                         </div>
                     </div>
 
+                    <!------------ timeSheet ------------------------------------------------------->
+                    @if(count($taskMeters) > 0)
+                    <div id="settingCard" class="card card-border d-none d-md-block">
+
+                        <div class="bg-light card-header card-border" data-toggle="collapse" href="#timing">
+                            <div class="">+ زمان کار
+                            </div>
+
+
+                        </div>
+                        <div id="timing" class="collapse" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="badge table-success"><i class="fa fa-2x fa-play-circle-o text-muted"></i></div>
+                                <div class="badge table-secondary"><i class="fa fa-2x fa-pause-circle-o text-muted"></i></div>
+                                <table class="table table-hover text-center">
+                                    <tr>
+                                        <td>تاریخ</td>
+                                        <td>ساعت</td>
+                                        <td>کارکرد</td>
+                                    </tr>
+                                    @php
+                                    $totalH = 0;
+                                    $totalM = 0;
+                                    $totalS = 0;
+                                    @endphp
+
+                                    @foreach($taskMeters as $tm)
+                                        @if($tm->end == 0)
+                                            @php
+                                            $dateDiff = "-";
+                                            @endphp
+                                    <tr class="table-success">
+                                        @else
+
+
+                                        @php
+
+                                        //$dateDiff = $tm->diffM;
+                                        $tmm = $tm->diffM % 60;
+                                        $tms = $tm->diffS % 60;
+                                        $dateDiff = $tm->diffH . ":" . $tmm . ":" . $tms;
+                                        $totalH += $tm->diffH;
+                                        $totalM += $tm->diffM;
+                                        $totalS += $tm->diffS;
+
+
+
+                                            @endphp
+                                    <tr class="table-secondary">
+                                        @endif
+                                        <td>{{$tm->jDate}}</td>
+                                        <td>{{date('H:i:s', strtotime($tm->created_at))}}</td>
+                                        <td>{{$dateDiff}}</td>
+                                    </tr>
+                                        @endforeach
+                                        @php
+                                            $total = $totalH . ":" . $totalM % 60 . ":" . $totalS % 60;
+                                        @endphp
+                                            <tr class="table-info">
+                                                <td colspan="2">مجموع</td>
+                                                <td>{{$total}}</td>
+                                            </tr>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                        @endif
+
                 </div>
             </div>
         </div>
     </div>
-
 
 
 
