@@ -20,7 +20,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::with('user')->orderBy('id','DESC')->get();
+
+        return view('comments.index', compact('comments'));
     }
 
     /**

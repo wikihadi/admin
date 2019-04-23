@@ -66,6 +66,13 @@
                     <a href="/users" class="btn btn-light btn-block hvr-grow animated fadeInDown">کاربران</a>
                 </div>
             </div>
+            <div class="m-2 col-12"></div>
+
+            <div class="col-12 m-0 p-0">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/comments" class="btn btn-dark btn-block hvr-grow animated fadeInDown">گفتگوها</a>
+                </div>
+            </div>
             @endrole
             <div class="m-2 col-12"></div>
             <div class="col-12 m-0 p-0">

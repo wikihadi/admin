@@ -168,7 +168,7 @@
             @if($task->isDone == 1)
             <div class="alert-info alert text-center">این کار توسط کاربر {{$task->done_user_id}} در تاریخ {{$task->done_date}} به اتمام رسیده است</div>
             @endif
-            @if($taskMeter && $taskMeter->end == 0)
+            @if(isset($taskMeter) && $taskMeter->end == 0)
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>شروع کار</strong> این کار در حال انجام است
                     <a href="/tasks/{{$task->id}}/end"
@@ -220,10 +220,10 @@
 
                 {{--<a href="/tasks/create" class="btn btn-link" title="New"><i class="fa fa-plus"></i></a>--}}
                 <a class="btn btn-link" data-toggle="collapse" href=".collapse"><i class="fa fa-arrows-alt"></i></a>
-                @if($taskMeter && $taskMeter->end == 1)
+                @if(isset($taskMeter) && $taskMeter->end == 1)
                     <a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>
 
-                @elseif($taskMeter && $taskMeter->end == 0)
+                @elseif(isset($taskMeter) && $taskMeter->end == 0)
                     <a href="/tasks/{{$task->id}}/end" class="btn btn-link"><i class="fa fa-pause"></i></a>
                     @else
                     <a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>
