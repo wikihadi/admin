@@ -75,6 +75,13 @@
             </div>
             @endrole
             <div class="m-2 col-12"></div>
+
+            <div class="col-12 m-0 p-0">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/tasks/28" class="btn table-danger btn-block hvr-grow animated fadeInDown">گزارش خطا و پیشنهادات</a>
+                </div>
+            </div>
+            <div class="m-2 col-12"></div>
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a class="btn btn-danger btn-block hvr-grow animated fadeInDown" href="{{ route('logout') }}"

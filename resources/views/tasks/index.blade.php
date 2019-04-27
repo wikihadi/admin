@@ -400,20 +400,8 @@
             $i = 1;
         @endphp
         @foreach($tasks as $task)
-            @php
-            if($task->rightNow > 0){
-                            $timetogo = $task->rightNow . " روز";
 
-            }elseif($task->rightNow == 0){
-                            $timetogo = "امروز";
 
-            }
-            else{
-                            $timetogo = "اتمام زمان";
-
-            }
-
-            @endphp
             @if($task->prog <= 20)
                 @php
                     $progborder = "border-info bg-light";
@@ -505,7 +493,7 @@ card-border
                    </div>
                     <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
                         <div class="flex-grow-1"  data-toggle="collapse" href="#collapse{{$task->id}}"></div>
-                        <div class="mx-1" title="مهلت" data-toggle="tooltip">{{$timetogo}}</div>
+                        <div class="mx-1" title="مهلت" data-toggle="tooltip">{{$task->diffDead}}</div>
                         <div class="mx-1">
                                <i class="fa  animated
                         @if($task->rightNow < 0 )
@@ -518,7 +506,7 @@ card-border
 
 @endif
 
-" data-toggle="tooltip" title="{{$task->rightNow}}"></i>
+" data-toggle="tooltip" title="{{$task->diffDead}}"></i>
                     </div>
                         <div class="mx-1">
                                <i class="fa fa-calendar" data-toggle="tooltip" title="{{$task->startDate}}"></i>
@@ -595,7 +583,7 @@ card-border
                                          <td>مهلت باقیمانده</td>
 
                                          <td>
-                                             {{$timetogo}}
+                                             {{$task->diffDead}}
                                          </td>
                                      </tr>
                                      {{--<tr>--}}

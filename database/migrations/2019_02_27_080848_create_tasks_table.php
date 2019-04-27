@@ -24,8 +24,8 @@ class CreateTasksTable extends Migration
             $table->integer('weight')->nullable()->default('0');
             $table->integer('viewCount')->nullable()->default('0');
             $table->integer('commentCount')->nullable()->default('0');
-            $table->date('startDate')->nullable();
-            $table->date('deadline')->nullable();
+            $table->dateTime('startDate')->nullable();
+            $table->dateTime('deadline')->nullable();
             $table->string('material')->nullable();
             $table->string('brand')->nullable();
             $table->string('dx')->nullable();

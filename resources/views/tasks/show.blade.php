@@ -278,11 +278,11 @@
 
                                             <tr>
                                                 <td>شروع پروژه</td>
-                                                <td>{{$task->startDate}}</td>
+                                                <td>{{$task->jStartDate}}</td>
                                             </tr>
                                             <tr>
                                                 <td>پایان پروژه</td>
-                                                <td>{{$task->deadline}}</td>
+                                                <td>{{$task->jDeadline}}</td>
                                             </tr>
                                             <tr>
                                                 <td>فاز پروژه</td>
@@ -305,7 +305,7 @@
 
                                     </div>
 
-                                    <a href="/tasks/{{$task->id}}/edit" class="card-link mr-2 ">ویرایش</a></div>
+                                   </div>
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-12">
@@ -407,7 +407,7 @@
                                                                 <div class="media-body">
                                                                     <span class="text-muted pull-left">
                                                                         <small dir="ltr"
-                                                                               class="text-muted">{{$comment->created_at->diffForHumans()}}</small>
+                                                                               class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->created_at->diffForHumans()}}</small>
                                                                     </span>
                                                                     <strong class="text-success">{{ $comment->user->name }}</strong>
                                                                     <div class="clearfix"></div>
@@ -445,18 +445,22 @@
                             <div class="card-body">
                             <div class="d-flex justify-content-around">
 
-                                    @role('admin')
+                                @can('task-delete')
 
                                         <form action="{{ route('tasks.destroy', $task->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger my-2" type="submit">حذف</button>
                                         </form>
+                                @endcan
+                                @can('task-edit')
 
-                                        <a href="/tasks/{{$task->id}}/edit"
+                                <a href="/tasks/{{$task->id}}/edit"
                                            class="btn btn-warning my-2">ویرایش</a>
 
+                                @endcan
 
+                                    @role('admin')
 
                                 <form action="{{ route('tasks.done', $task->id)}}" method="post">
                                     @csrf
@@ -518,12 +522,29 @@
                                         @php
 
                                         //$dateDiff = $tm->diffM;
-                                        $tmm = $tm->diffM % 60;
+                                        /*$tmm = $tm->diffM % 60;
+                                        $tmmd = floor($tm->diffM / 60);
+
+
                                         $tms = $tm->diffS % 60;
-                                        $dateDiff = $tm->diffH . ":" . $tmm . ":" . $tms;
-                                        $totalH += $tm->diffH;
-                                        $totalM += $tm->diffM;
+                                        $tmsd = floor($tm->diffS / 60);
+
+                                        $tmmf = $tmsd + $tms;
+                                        $tmhf = $tm->diffH + $tmmd;*/
+
+
+                                        $tms = $tm->diffS % 60;
+                                        $tmm = floor($tm->diffS / 60) % 60;
+                                        $tmh = floor(floor($tm->diffS / 60) / 60);
+
+
+
+                                        $dateDiff = $tmh . ":" . $tmm . ":" . $tms;
+
+
                                         $totalS += $tm->diffS;
+
+
 
 
 
@@ -536,7 +557,7 @@
                                     </tr>
                                         @endforeach
                                         @php
-                                            $total = $totalH . ":" . $totalM % 60 . ":" . $totalS % 60;
+                                            $total = floor(floor($totalS / 60) / 60) . ":" . floor($totalS / 60) % 60 . ":" . $totalS % 60;
                                         @endphp
                                             <tr class="table-info">
                                                 <td colspan="2">مجموع</td>

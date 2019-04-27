@@ -4,7 +4,12 @@
     <link rel="stylesheet" href="/admin-core/persiandatapicker/persianDatepicker-default.css"/>
 
     <style>
-
+#selectType{
+    display: none;
+}
+        #selectType2{
+            display: block;
+        }
 
     </style>
 @endsection
@@ -45,19 +50,21 @@
 
                         <div class="form-group col-sm-4 formChange">
                             <label for="">نوع</label>
-                            <select name="isType" class="form-control select2">
+                            <select name="isType" class="form-control select2 selectType" id="selectType2">
 
                             <option  value="سایر" selected>سایر</option>
 
 
                             @foreach($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->title }}</option>
+                            <option value="{{ $type->title }}">{{ $type->title }}</option>
 
                             @endforeach
 
 
                             </select>
-                            {{--<input type="text" class="form-control" name="isType" value="سایر">--}}
+                            <input  id="selectType" type="text" class="form-control selectType" name="isType" value="سایر">
+
+                                <input type="checkbox" onchange="selectToggle()"> جدید
 
                         </div>
 
@@ -170,19 +177,26 @@
                             <input type="hidden" name="orderTask" value="10">
                             <input type="hidden" name="weight" value="1">
                             @endrole
-                        <div class="form-group col-sm">
-                            <label for="deadline">تاریخ شروع</label>
 
-                            <input type="text" class="form-control pdp-data-jdate" id="gStartDate" autocomplete="off"/>
+                        <div class="form-group col-sm">
+                            <label for="deadline">شروع</label>
+                            <div class="input-group">
+                                    <input type="text" class="form-control pdp-data-jdate" id="gStartDate" autocomplete="off" value="{{$jNow}}"/>
+                                                          <input type="time" value="now" name="startTime" step="900" class="form-control">
+
+                            </div>
                             <input type="hidden" id="startDate" name="startDate" required/>
                             {{--<input type="text" class="pdate form-control"  name="deadline"/>--}}
                             {{--<input type="date"  class="form-control" name="deadline"/>--}}
                         </div>
                         <div class="form-group col-sm">
-                            <label for="deadline">تاریخ پایان</label>
-
+                            <label for="deadline">پایان</label>
+<div class="input-group">
                             <input type="text" class="form-control pdp-data-jdate" id="gEndDate" name="deadline1"
-                                   autocomplete="off" required/>
+                                   autocomplete="off" required value="{{$jNow}}"/>
+     <input type="time" value="now" name="endTime"  step="900" class="form-control">
+
+                        </div>
                             <input type="hidden" id="endDate" name="endDate"/>
                             {{--<input type="text" class="pdate form-control"  name="deadline"/>--}}
                             {{--<input type="date"  class="form-control" name="deadline"/>--}}
@@ -306,7 +320,7 @@
                         <label for="">توضیحات پروژه </label>
 
                         <textarea class="form-control" name="content"
-                                  placeholder="توضیحات کاری که باید انجام شود">ندارد</textarea>
+                                  placeholder="توضیحات کاری که باید انجام شود"  onfocus="clearContents(this);">ندارد</textarea>
 
                     </div>
 @role('admin')
@@ -357,6 +371,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-success btn-block btn-lg">بفرست به لیست الویت ها</button>
+
                 </form>
             </div>
         </div>
@@ -390,7 +405,7 @@
                 },
             });
             $("#gEndDate").persianDatepicker({
-                startDate: pd11.now().addDay(1).toString("YYYY/MM/DD"),
+                startDate: pd11.now().toString("YYYY/MM/DD"),
 
                 endDate: pd11.now().addYear(1).toString("YYYY/MM/DD"),
                 cellWidth: 30,
@@ -427,6 +442,32 @@
             $(".formChange").toggle();
         }
 
+        function selectToggle() {
+            $(".selectType").toggle();
+        }
+        $(function(){
+            var d = new Date(),
+                h = d.getHours(),
+                m = d.getMinutes();
+            if(h < 10) h = '0' + h;
+            if(m < 10) m = '0' + m;
+            $('input[type="time"][value="now"]').each(function(){
+                $(this).attr({'value': h + ':' + m});
+            });
+        });
+        $(function () {
+            let today = new Date().toISOString().substr(0, 10);
+            $('#startDate').val(today);
+        })
+        $(function () {
+            let today = new Date().toISOString().substr(0, 10);
+            $('#endDate').val(today);
+        })
+
+
+        function clearContents(element) {
+            element.value = '';
+        }
 
     </script>
 @endsection
