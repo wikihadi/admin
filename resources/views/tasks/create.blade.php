@@ -1,6 +1,8 @@
 @extends('admincore.app')
 
 @section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+
     <link rel="stylesheet" href="/admin-core/persiandatapicker/persianDatepicker-default.css"/>
 
     <style>
@@ -181,23 +183,23 @@
                         <div class="form-group col-sm">
                             <label for="deadline">شروع</label>
                             <div class="input-group">
-                                    <input type="text" class="form-control pdp-data-jdate" id="gStartDate" autocomplete="off" value="{{$jNow}}"/>
-                                                          <input type="time" value="now" name="startTime" step="900" class="form-control">
+                                    <input readonly type="text" class="form-control pdp-data-jdate text-center" id="gStartDate" autocomplete="off" value="{{$jNow}}"/>
+                                                          <input type="text"  name="startTime" class="form-control text-center timepicker">
 
                             </div>
-                            <input type="hidden" id="startDate" name="startDate" required/>
+                            <input type="hidden"  id="startDate" name="startDate" required/>
                             {{--<input type="text" class="pdate form-control"  name="deadline"/>--}}
                             {{--<input type="date"  class="form-control" name="deadline"/>--}}
                         </div>
                         <div class="form-group col-sm">
                             <label for="deadline">پایان</label>
 <div class="input-group">
-                            <input type="text" class="form-control pdp-data-jdate" id="gEndDate" name="deadline1"
+                            <input readonly type="text" class="form-control pdp-data-jdate text-center" id="gEndDate" name="deadline1"
                                    autocomplete="off" required value="{{$jNow}}"/>
-     <input type="time" value="now" name="endTime"  step="900" class="form-control">
+     <input type="text"  name="endTime"  class="form-control timepicker2 text-center">
 
                         </div>
-                            <input type="hidden" id="endDate" name="endDate"/>
+                            <input type="hidden"  id="endDate" name="endDate"/>
                             {{--<input type="text" class="pdate form-control"  name="deadline"/>--}}
                             {{--<input type="date"  class="form-control" name="deadline"/>--}}
                         </div>
@@ -386,6 +388,7 @@
 
 @section('JS')
     <script src="/admin-core/persiandatapicker/persianDatepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
     <script>
         $(function () {
@@ -445,6 +448,7 @@
         function selectToggle() {
             $(".selectType").toggle();
         }
+
         $(function(){
             var d = new Date(),
                 h = d.getHours(),
@@ -468,6 +472,28 @@
         function clearContents(element) {
             element.value = '';
         }
+        $('.timepicker').timepicker({
+            timeFormat: 'H:mm',
+            interval: 30,
+            minTime: '8',
+            maxTime: '7:00pm',
+            defaultTime: '8',
+            startTime: '8:00',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
+        $('.timepicker2').timepicker({
+            timeFormat: 'H:mm',
+            interval: 30,
+            minTime: '8',
+            maxTime: '7:00pm',
+            defaultTime: '19',
+            startTime: '8:00',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
+        });
 
     </script>
 @endsection

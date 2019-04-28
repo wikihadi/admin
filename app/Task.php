@@ -18,6 +18,11 @@ class Task extends Model
         {
             return $this->hasMany('App\Comment');
         }
+     public function taskMeters()
+        {
+            return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');
+        }
+
      public function medias()
         {
             return $this->hasMany('App\Media');

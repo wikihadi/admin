@@ -293,8 +293,16 @@
                                                 <td>{{$task->commentCount}}</td>
                                             </tr>
                                             <tr>
-                                                <td>کاربر</td>
-                                                <td>{{$task->user_id}}</td>
+                                                <td>ایجاد کننده</td>
+                                                <td>{{$admin->name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>تیم کاری</td>
+                                                <td>
+                                                @foreach($users as $user)
+                                                    {{$user->name}}
+                                                    @endforeach
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td></td>
@@ -496,8 +504,8 @@
                         </div>
                         <div id="timing" class="collapse" data-parent="#accordion">
                             <div class="card-body">
-                                <div class="badge table-success"><i class="fa fa-2x fa-play-circle-o text-muted"></i></div>
-                                <div class="badge table-secondary"><i class="fa fa-2x fa-pause-circle-o text-muted"></i></div>
+                                    <a href="/tasks/{{$task->id}}/start" class="badge table-success"><i class="fa fa-2x fa-play-circle-o text-muted"></i></a>
+                                <a href="/tasks/{{$task->id}}/end" class="badge table-secondary"><i class="fa fa-2x fa-pause-circle-o text-muted"></i></a>
                                 <table class="table table-hover text-center">
                                     <tr>
                                         <td>تاریخ</td>

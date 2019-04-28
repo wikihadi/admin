@@ -68,5 +68,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Post::class, 'post_verifies', 'user_id', 'post_id')->withTimeStamps();
     }
+    public function taskMeters()
+    {
+        return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');
+    }
 
 }
