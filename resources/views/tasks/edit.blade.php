@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="form-group col-sm-3 formChange">
-                            <label for="">برای محصول</label>
+                            <label for="">برای</label>
                             <input type="text" class="form-control" name="forProduct" value="{{ $task->forProduct }}">
 
                         </div>
@@ -262,6 +262,7 @@
                             {{--</div>--}}
                         </div>
 
+                    <input type="hidden" name="urlP" value="{{$urlP}}">
                         <button type="submit" class="btn btn-success btn-block btn-lg">ثبت ویرایش</button>
 
                 </form>

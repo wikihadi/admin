@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="form-group col-sm-3 formChange">
-                            <label for="">برای محصول</label>
+                            <label for="">برای</label>
                             {{--<select name="forProduct" class="form-control select2">--}}
                             {{--<option selected="selected" value="سایر">سایر</option>--}}
 
