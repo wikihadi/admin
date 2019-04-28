@@ -415,7 +415,7 @@
                                                                 <div class="media-body">
                                                                     <span class="text-muted pull-left">
                                                                         <small dir="ltr"
-                                                                               class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->created_at->diffForHumans()}}</small>
+                                                                               class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->diff}}</small>
                                                                     </span>
                                                                     <strong class="text-success">{{ $comment->user->name }}</strong>
                                                                     <div class="clearfix"></div>
