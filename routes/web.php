@@ -40,6 +40,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/types', 'CategoryController@types');
     Route::get('/all-tasks', 'TaskController@allTasks');
     Route::get('/task-meters', 'TaskController@taskMeters');
+
+    Route::group(['middleware' => ['role:modir|admin']], function () {
+
+        Route::get('/jobs', 'TaskController@modir');
+        Route::get('/jobs/{id}', 'TaskController@modirUser');
+    });
+
+
     Route::get('/done', 'TaskController@isDone');
     Route::get('/done/{id}', 'TaskController@userIsDone');
     Route::resource('roles','RoleController');

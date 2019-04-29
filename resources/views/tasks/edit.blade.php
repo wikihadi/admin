@@ -33,12 +33,12 @@
             <div class="card-header">
                 <div class="float-right">ویرایش {{ $task->id }}</div>
                 <div class="float-left">
-                    اجرایی
-                    <label class="switch">
-                        <input type="checkbox" onchange="formToggle()">
-                        <span class="slider"></span>
-                    </label>
-                    طراحی
+                    {{--اجرایی--}}
+                    {{--<label class="switch">--}}
+                        {{--<input type="checkbox" onchange="formToggle()">--}}
+                        {{--<span class="slider"></span>--}}
+                    {{--</label>--}}
+                    {{--طراحی--}}
                     <span></span>
                 </div>
 
@@ -50,7 +50,11 @@
                     @method('PATCH')
                     @csrf
                     <div class="row">
+                        <div class="form-group col-sm-12 formChange" >
+                            <label for="title">عنوان</label>
+                            <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="{{$task->title}}"/>
 
+                        </div>
                         <div class="form-group col-sm-4 formChange">
                             <label for="">نوع</label>
                             <input type="text" class="form-control" name="isType" value="{{ $task->type }}">
@@ -60,7 +64,7 @@
                         <div class="form-group col-sm-2 formChange">
                             <label for="">برند</label>
                             <select name="brand" class="form-control select2">
-                                <option selected="selected" value="{{ $task->brand }}">سایر</option>
+                                <option selected="selected" value="{{ $task->brand }}">{{ $task->brand }}</option>
                                 @foreach($brands as $u)
                                     <option value="{{ $u->title }}">{{ $u->title }}</option>
 
@@ -86,11 +90,7 @@
 
 
 
-                        <div class="form-group col-sm-12 formChange" style="display: none">
-                            <label for="title">عنوان</label>
-                            <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="{{$task->title}}"/>
 
-                        </div>
 
 
 

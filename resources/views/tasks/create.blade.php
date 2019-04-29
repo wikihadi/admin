@@ -33,12 +33,12 @@
             <div class="card-header">
                 <div class="float-right">ثبت کار جدید</div>
                 <div class="float-left">
-                    اجرایی
+طراحی
                     <label class="switch">
                         <input type="checkbox" onchange="formToggle()">
                         <span class="slider"></span>
                     </label>
-                    طراحی
+                    اجرایی
                     <span></span>
                 </div>
 
@@ -48,10 +48,20 @@
                 <form enctype="multipart/form-data" method="post" action="{{ route('tasks.store') }}">
                     @csrf
                     <div class="row">
+                        <div class="form-group col-sm-12 formChange" style="display: none">
 
+                            <div class="alert alert-warning">شما در حال ساخت یک پروژه در واحد طراحی هستید.</div>
 
-                        <div class="form-group col-sm-4 formChange">
+                        </div>
+                        <div class="form-group col-sm-12 formChange">
+                            <label for="title">عنوان</label>
+                            <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="ندارد"  onfocus="clearContents(this);"/>
+
+                        </div>
+
+                        <div class="form-group col-sm-4">
                             <label for="">نوع</label>
+                            <div class="selectType">
                             <select name="isType" class="form-control select2 selectType" id="selectType2">
 
                             <option  value="سایر" selected>سایر</option>
@@ -64,13 +74,14 @@
 
 
                             </select>
-                            <input  id="selectType" type="text" class="form-control selectType" name="isType" value="سایر">
+                            </div>
+                            <input  id="selectType" type="text" class="form-control selectType" name="isType" placeholder="نوع جدید را در وارد کنید">
 
-                                <input type="checkbox" onchange="selectToggle()"> جدید
+                                <input type="checkbox" onchange="selectToggle()">نوع جدید
 
                         </div>
 
-                        <div class="form-group col-sm-2 formChange">
+                        <div class="form-group col-sm-2">
                             <label for="">برند</label>
                             <select name="brand" class="form-control select2">
                                 <option selected="selected" value="سایر">سایر</option>
@@ -84,7 +95,7 @@
 
                         </div>
 
-                        <div class="form-group col-sm-3 formChange">
+                        <div class="form-group col-sm-3">
                             <label for="">برای</label>
                             {{--<select name="forProduct" class="form-control select2">--}}
                             {{--<option selected="selected" value="سایر">سایر</option>--}}
@@ -100,7 +111,7 @@
 
                         </div>
 
-                        <div class="form-group col-sm-3 formChange">
+                        <div class="form-group col-sm-3">
                             <label for="">متریال</label>
                             <input type="text" name="material" class="form-control" value="سایر">
                             {{--<select name="material" class="form-control select2">--}}
@@ -116,11 +127,7 @@
                         </div>
 
 
-                        <div class="form-group col-sm-12 formChange" style="display: none">
-                            <label for="title">عنوان</label>
-                            <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="ندارد"/>
 
-                        </div>
 
 
 
@@ -206,7 +213,8 @@
                     </div>
 
                     <div class="p-2 formChange text-left">
-                        <label for="check">ثبت اندازه <input id="check" type="checkbox" class="" data-toggle="collapse" href="#xtra"></label>
+                        <button data-toggle="collapse" href="#xtra" class="btn btn-sm btn-outline-dark" type="button">اندازه</button>
+                        {{--<label for="check">ثبت اندازه <input id="check" type="checkbox" class="" data-toggle="collapse" href="#xtra"></label>--}}
 
                     {{--<a class="btn btn-info" data-toggle="collapse" href="#xtra">ثبت اندازه</a>--}}
                     </div>
@@ -373,6 +381,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-success btn-block btn-lg">بفرست به لیست الویت ها</button>
+                    <button type="reset" class="btn btn-link">فرم تازه</button>
 
                 </form>
             </div>

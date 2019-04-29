@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -77,9 +79,23 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+        $comment = Comment::find($id);
+        $dateBefore = Carbon::now();
+        $diffM = abs(Carbon::parse($comment->created_at)->diffInMinutes($dateBefore, false));
+
+        if($comment->user_id == $user->id && $diffM <= 5){
+
+
+
+            return view('comments.edit', compact('comment','user'));
+
+        }else{
+            return redirect()->back();
+        }
+
     }
 
     /**
@@ -89,9 +105,27 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request,$id)
     {
-        //
+
+
+        $user = Auth::user();
+        $comment = Comment::find($id);
+        $rep = "/tasks/". $request->input('task_id');
+
+        if($request->input('user_id') == $user->id){
+            $comment->comment = $request->input('comment');
+            $comment->save();
+
+        }
+
+
+
+
+
+
+
+        return redirect($rep);
     }
 
     /**

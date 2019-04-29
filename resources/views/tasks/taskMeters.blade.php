@@ -201,7 +201,7 @@
                     @endforeach
         </u>
     </div>
-    <div class="card-footer"><a href="/users/1" class="btn btn-link btn-block">{{$u->name}}</a></div>
+    <div class="card-footer"><a href="/users/{{$u->id}}" class="btn btn-link btn-block">{{$u->name}}</a></div>
 </div>
 </div>
                 @endforeach

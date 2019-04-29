@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Task;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -102,12 +103,30 @@ $tasks = Task::all();
         foreach ($tasks as $key => $loop)
         {
 
-            $loop->rightNow = Carbon::now()->diffInDays($loop->deadline, false);
+            date_default_timezone_set("Asia/Tehran");
+
+//            $now = new Carbon();
+//            $dt = new Carbon($this->created_at);
+//            $dt->setLocale('es');
+//            return $dt->diffForHumans($now);
+            $loop->nowt = "The time is " . date("h:i:sa");
+            $loop->rightNow = Carbon::now()->diffInMinutes($loop->deadline, false);
+//            $diffDead = Carbon::now()->diffForHumans($loop->deadline, false);
+            $loop->diffDead = verta($loop->deadline)->formatDifference();
             $loop->passNow = abs(Carbon::now()->diffInDays($loop->startDate, false));
-            $loop->passNowHours = abs(Carbon::now()->diffInHours($loop->startDate, false));
-            $loop->diffDate = abs(Carbon::parse($loop->startDate)->diffInHours($loop->deadline, false));
+
+            $loop->passNowHours = abs(Carbon::now()->diffInMinutes($loop->startDate, false));
+            $loop->diffDate = abs(Carbon::parse($loop->startDate)->diffInMinutes($loop->deadline, false)) + 1;
             $diffdiff = (($loop->passNowHours) * 100) / ($loop->diffDate);
             $loop->prog = floor($diffdiff);
+
+
+
+            $v = new Verta($loop->startDate);
+            $loop->jStart = $v->year . "/" . $v->month . "/" . $v->day;
+            $v = new Verta($loop->deadline);
+            $loop->jEnd = $v->year . "/" . $v->month . "/" . $v->day;
+
 
         }
 

@@ -250,7 +250,7 @@
                             card-header
                             card-border" data-toggle="collapse" href="#collapse{{$task->id}}">
                         <div class="row">
-                            <div class="d-none d-xl-block col-xl-1 text-right">{{$i++}}</div>
+                            <div class="d-none d-xl-block col-xl-1 text-right">{{$task->orderTask}}</div>
 
                             <div class="col-5 col-md-3 col-xl-2 text-right text-nowrap">{{$task->title}}</div>
                             <div class="col-md-3 d-none d-md-block col-xl-1 text-center">

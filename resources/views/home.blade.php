@@ -21,13 +21,17 @@
 
 
     <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
-    <div class="col-md-10 col-lg-8 col-xl-6 m-auto">
+
+        <div class="col-md-10 col-lg-8 col-xl-6 m-auto">
         <div class="row m-0">
+            @hasanyrole('designer|admin')
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a href="/profile" title="" class="btn btn-dark btn-block hvr-grow  animated fadeInDown">صفحه من</a>
                 </div>
             </div>
+                @endhasanyrole
+
             <div class="m-2 col-12"></div>
 
             <div class="col-12 m-0 p-0">
@@ -35,12 +39,24 @@
                     <a href="/posts" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی">اطلاعیه و قوانین</a>
                 </div>
             </div>
+            @hasanyrole('designer|admin')
+
             <div class="m-2 col-12"></div>
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a href="/tasks" class="btn btn-success btn-block hvr-grow animated fadeInDown">کارهای من</a>
                 </div>
             </div>
+
+            @endhasanyrole
+            @hasanyrole('modir|admin')
+            <div class="m-2 col-12"></div>
+            <div class="col-12 m-0 p-0">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/jobs" class="btn btn-success btn-block hvr-grow animated fadeInDown">مشاهده کارها</a>
+                </div>
+            </div>
+            @endhasanyrole
             @can('task-create')
 
             <div class="m-2 col-12"></div>
@@ -70,17 +86,18 @@
 
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/comments" class="btn btn-dark btn-block hvr-grow animated fadeInDown">گفتگوها</a>
+                    <a href="/task-meters" class="btn btn-light btn-block hvr-grow animated fadeInDown">Task Meter - موقت</a>
                 </div>
             </div>
-            @endrole
             <div class="m-2 col-12"></div>
 
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/tasks/28" class="btn table-danger btn-block hvr-grow animated fadeInDown">گزارش خطا و پیشنهادات</a>
+                    <a href="/comments" class="btn btn-dark btn-block hvr-grow animated fadeInDown">گفتگوها</a>
                 </div>
             </div>
+            @endrole
+
             <div class="m-2 col-12"></div>
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
@@ -141,7 +158,9 @@
 
         </div>
         </div>
+        <div class="alert alert-info mt-5 text-center">لطفا در صورت مشاهده هرگونه خطا، از این طریق ما را باخبر نمایید. متشکرم <a href="/tasks/28" class="btn-outline-warning btn">گزارش خطا</a></div>
 
-</div>
+
+    </div>
 
 @endsection

@@ -373,6 +373,11 @@
 
                                         <div class="comment-wrapper">
                                             <div class="panel panel-info">
+                                                <p class="text-justify bg-light-gradient p-2">
+                                                    توضیحات:
+                                                    {{ $task->content }}
+
+                                                </p>
                                                 <div class="panel-heading">
                                                     {{$task->commentCount}} نظر
                                                 </div>
@@ -414,12 +419,25 @@
                                                                 </a>
                                                                 <div class="media-body">
                                                                     <span class="text-muted pull-left">
-                                                                        <small dir="ltr"
-                                                                               class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->diff}}</small>
+                                                                        <small dir="ltr" class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->diff}}</small>
+
                                                                     </span>
                                                                     <strong class="text-success">{{ $comment->user->name }}</strong>
                                                                     <div class="clearfix"></div>
-                                                                    <p>{{ $comment->comment }}</p>
+                                                                    <div>{{ $comment->comment }}
+                                                                    @if($comment->diffM < 5)
+                                                                        {{--<form class="d-inline" action="{{ route('comments.edit',$comment->id)}}" method="post">--}}
+
+                                                                            {{--<input name="diffM" type="hidden" value="{{$comment->diffM}}">--}}
+
+                                                                            {{--@csrf--}}
+                                                                            {{--<input type="hidden" value="{{$user->id}}" name="user_id">--}}
+                                                                            {{--<input type="hidden" value="{{$comment->id}}" name="id">--}}
+                                                                            <a class="btn btn-link my-2 text-muted" href="/comments/{{$comment->id}}/edit"><i class="fa fa-edit"></i></a>
+                                                                        {{--</form>--}}
+                                                                        @endif
+                                                                    </div>
+
                                                                 </div>
                                                             </li>
                                                         @endforeach
@@ -478,6 +496,9 @@
                                 </form>
                                     @endrole
 
+                                    @role('modir')
+                                    @else
+
                                     <form action="{{ route('tasks.done', $task->id)}}" method="post">
                                         @csrf
                                         <input type="hidden" value="1" name="isDone">
@@ -485,6 +506,7 @@
                                         <input type="hidden" value="{{$task->id}}" name="id">
                                         <button class="btn btn-success my-2" type="submit">اتمام کار</button>
                                     </form>
+                                        @endrole
                             </div>
                             </div>
 
