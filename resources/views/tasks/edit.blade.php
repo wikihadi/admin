@@ -350,14 +350,8 @@
                 $(this).attr({'value': h + ':' + m});
             });
         });
-        $(function () {
-            let today = new Date().toISOString().substr(0, 10);
-            $('#startDate').val(today);
-        })
-        $(function () {
-            let today = new Date().toISOString().substr(0, 10);
-            $('#endDate').val(today);
-        })
+
+
 
 
         function clearContents(element) {

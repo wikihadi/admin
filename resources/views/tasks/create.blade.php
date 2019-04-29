@@ -55,16 +55,16 @@
                         </div>
                         <div class="form-group col-sm-12 formChange">
                             <label for="title">عنوان</label>
-                            <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="ندارد"  onfocus="clearContents(this);"/>
+                            <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="ندارد" />
 
                         </div>
 
                         <div class="form-group col-sm-4">
                             <label for="">نوع</label>
                             <div class="selectType">
-                            <select name="isType" class="form-control select2 selectType" id="selectType2">
+                            <select name="isType" class="form-control select2 selectType">
 
-                            <option  value="سایر" selected>سایر</option>
+                            <option id="type1"  value="سایر" selected>سایر</option>
 
 
                             @foreach($types as $type)
@@ -75,7 +75,7 @@
 
                             </select>
                             </div>
-                            <input  id="selectType" type="text" class="form-control selectType" name="isType" placeholder="نوع جدید را در وارد کنید">
+                            <input  type="text" class="form-control selectType" name="isType2" placeholder="نوع جدید را در وارد کنید" style="display: none;">
 
                                 <input type="checkbox" onchange="selectToggle()">نوع جدید
 
@@ -503,6 +503,8 @@
             dropdown: true,
             scrollbar: true
         });
+
+
 
     </script>
 @endsection

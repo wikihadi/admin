@@ -417,9 +417,12 @@
 
                                 </div>
 
+                                @role('admin')
 
-
-
+                                <div class="text-left col-12">
+                                    <a href="/tasks/{{$task->id}}" class="btn btn-link"><i class="fa fa-3x fa-arrow-left"></i></a>
+                                </div>
+                                @endrole
 
                             </div>
                         </div>
