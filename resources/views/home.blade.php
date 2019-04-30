@@ -49,6 +49,12 @@
             </div>
 
             @endhasanyrole
+            <div class="m-2 col-12"></div>
+            <div class="col-12 m-0 p-0">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/pending" class="btn table-success btn-block hvr-grow animated fadeInDown">کارهای در انتظار</a>
+                </div>
+            </div>
             @hasanyrole('modir|admin')
             <div class="m-2 col-12"></div>
             <div class="col-12 m-0 p-0">

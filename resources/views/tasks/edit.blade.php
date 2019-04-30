@@ -236,9 +236,19 @@
                         </select>
 
                     </div>
+                        @else
+                            <input type="hidden" name="isUser" value="1">
 
 
                         @endrole
+                        <div class="form-group">
+
+
+                            <label for="list1">در لیست</label>
+                            <input id="list1" type="radio" name="pending" value="0" @if($task->pending == 0) checked @endif>
+                            <label for="pending">در انتظار</label>
+                            <input id="pending" type="radio" name="pending" value="1" @if($task->pending == 1) checked @endif>
+                        </div>
 
                         <div class="row">
 

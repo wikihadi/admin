@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/tasks/{id}/start', 'TaskMeterController@start');
     Route::get('/tasks/{id}/end', 'TaskMeterController@end');
 
+    Route::get('/pending', 'TaskController@pending');
+
 
     Route::post('/tasks/{task}', 'TaskController@done')->name('tasks.done');
     //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

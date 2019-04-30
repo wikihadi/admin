@@ -58,7 +58,6 @@
                             <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="ندارد" />
 
                         </div>
-
                         <div class="form-group col-sm-4">
                             <label for="">نوع</label>
                             <div class="selectType">
@@ -125,7 +124,6 @@
                             {{--</select>--}}
 
                         </div>
-
 
 
 
@@ -348,9 +346,19 @@
 
                     </div>
                     @else
-                        <input type="hidden" value="{{Auth::user()->id}}" name="users[]">
-                    @endrole
 
+                        <input type="hidden" name="users[]" value="{{Auth::user()->id}}" >
+
+
+                    @endrole
+                        <div class="form-group">
+
+
+                            <label for="list1">در لیست</label>
+                            <input id="list1" type="radio" name="pending" value="0" checked>
+                            <label for="pending">در انتظار</label>
+                            <input id="pending" type="radio" name="pending" value="1">
+                        </div>
 <div class="row">
 
 
@@ -479,7 +487,9 @@
 
 
         function clearContents(element) {
-            element.value = '';
+
+                // element.value = "";
+
         }
         $('.timepicker').timepicker({
             timeFormat: 'H:mm',

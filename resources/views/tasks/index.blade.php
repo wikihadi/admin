@@ -316,6 +316,11 @@
                     $progborder = "border-danger bg-light";
                     $progbg = "bg-danger";
                 @endphp
+            @elseif($task->prog <= 0)
+                @php
+                    $progborder = "border-secondary bg-light";
+                    $progbg = "bg-light";
+                @endphp
             @else
                 @php
                     $progborder = "border-danger bg-dark";
@@ -400,6 +405,16 @@ card-border
                    </div>
                     <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
                         <div class="flex-grow-1"  data-toggle="collapse" href="#collapse{{$task->id}}"></div>
+                        @if(isset($usersInTasks))
+                            @foreach($usersInTasks->where('task_id', $task->id) as $ut)
+                                @foreach($users->where('id', $ut->user_id) as $u)
+
+                                    <div class="mx-1">
+                                        <a href="/jobs/{{$u->id}}"><img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle" style="object-fit: cover; width: 29px;height: 29px; border: 1px solid #a9a9a9;" title="{{$u->name}}" data-toggle="tooltip"></a>
+                                    </div>
+                                @endforeach
+                            @endforeach
+                        @endif
                         <div class="mx-1" title="مهلت" data-toggle="tooltip">{{$task->diffDead}}</div>
                         <div class="mx-1">
                                <i class="fa  animated
