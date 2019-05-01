@@ -22,9 +22,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::with('user')->orderBy('id','DESC')->get();
+        $comments = Comment::with('user','tasks')->orderBy('id','DESC')->get();
+        $tasks = Task::all();
 
-        return view('comments.index', compact('comments'));
+        return view('comments.index', compact('comments','tasks'));
     }
 
     /**

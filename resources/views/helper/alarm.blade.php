@@ -1,0 +1,1 @@
+<div class="alert alert-warning" dir="rtl">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{$user->name}} عزیز در حال حاضر کارهای تیمی امکان ثبت زمان ندارند. در حال برطرف کردن این مشکل هستیم. متشکرم</div>

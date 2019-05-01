@@ -25,14 +25,21 @@
 
                 @foreach ($comments as $comment)
                     <tr>
-                        <td><img class="img-circle" style="width: 50px"
-                                 src="/storage/avatars/{{ $comment->user->avatar }}" title="{{$comment->user->name}}"/></td>
+                        <td><a href="/jobs/{{$comment->user->id}}"><img class="img-circle" style="width: 50px"
+                                 src="/storage/avatars/{{ $comment->user->avatar }}" title="{{$comment->user->name}}"/></a></td>
 
                         <td class="text-left"><small dir="ltr"
                                     class="text-muted">{{$comment->created_at->diffForHumans()}}</small><a target="_blank" class="btn btn-link" href="/tasks/{{$comment->task_id}}"><i class="fa fa-arrow-left"></i></a></td>
                     </tr>
                     <tr>
-                        <td colspan="2">{{$comment->comment}}</td>
+
+                        <td colspan="2">
+                            @foreach($tasks->where('id',$comment->task_id) as $t)
+                                <a href="/tasks/{{$comment->task_id}}" target="_blank"><small>{{$t->title}}</small></a>
+                            @endforeach
+                            <div class="">{{$comment->comment}}</div>
+
+                        </td>
 
                     </tr>
 

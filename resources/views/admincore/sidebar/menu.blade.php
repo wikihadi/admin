@@ -1,9 +1,18 @@
-<nav class="mt-2">
+<nav class="mt-2 text-light">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-item has-treeview @if(Request::is('tasks*')) menu-open @endif ">
-            <a href="#" class="nav-link @if(Request::is('tasks*')) active @endif ">
+        <li class="nav-item">
+            <a href="/" class="nav-link @if(Request::is('/')) active text-light @endif">
+                <i class="nav-icon fa fa-home"></i>
+                <p>
+                    داشبورد
+                </p>
+            </a>
+        </li>
+        @can('task-list')
+        <li class="nav-item has-treeview @if(Request::is('tasks*') || Request::is('jobs*')) menu-open @endif ">
+            <a href="#" class="nav-link @if(Request::is('tasks*') || Request::is('jobs*')) active @endif ">
                 <i class="nav-icon fa fa-tasks"></i>
 
                 <p>
@@ -12,12 +21,24 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                @can('task-allTasks')
+                    <li class="nav-item">
+                        <a href="/jobs" class="nav-link @if(Request::is('jobs*')) active @endif ">
+                            <i class="fa fa-list-ul nav-icon"></i>
+                            <p>مشاهده کارها</p>
+                        </a>
+                    </li>
+                @endcan
+                    @can('task-list')
                 <li class="nav-item">
                     <a href="/tasks" class="nav-link @if(Request::is('tasks')) active @endif ">
                         <i class="fa fa-list-ul nav-icon"></i>
                         <p>کارهای من</p>
                     </a>
                 </li>
+                @endcan
+
+                @can('task-create')
 
                 <li class="nav-item">
                     <a href="/tasks/create" class="nav-link @if(Request::is('tasks/create')) active @endif ">
@@ -25,9 +46,12 @@
                         <p>کار جدید</p>
                     </a>
                 </li>
+                    @endcan
             </ul>
         </li>
-        {{--@role('admin')--}}
+        @endcan
+
+        @role('admin')
         <li class="nav-item has-treeview @if(Request::is('users*') || Request::is('roles*')) menu-open @endif ">
             <a href="#" class="nav-link @if(Request::is('users*') || Request::is('roles*')) active @endif ">
                 <i class="nav-icon fa fa-user"></i>
@@ -78,17 +102,16 @@
 
             </ul>
         </li>
-        {{--@endrole--}}
+        @endrole
 
-        {{--<li class="nav-item">--}}
-            {{--<a href="#" class="nav-link">--}}
-                {{--<i class="nav-icon fa fa-th"></i>--}}
-                {{--<p>--}}
-                    {{--آدرس--}}
-                    {{--<span class="right badge badge-danger">جدید</span>--}}
-                {{--</p>--}}
-            {{--</a>--}}
-        {{--</li>--}}
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-th"></i>
+                <p>
+                    اطلاعیه و قوانین - بزودی
+                </p>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="dropdown-item" href="{{ route('logout') }}"
                onclick="event.preventDefault();

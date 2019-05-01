@@ -24,6 +24,13 @@
 
         <div class="col-md-10 col-lg-8 col-xl-6 m-auto">
         <div class="row m-0">
+            {{--<div class="">--}}
+                {{--<div class="wrimagecard wrimagecard-topimage">--}}
+                    {{--<button type="button" class="btn btn-dark btn-block hvr-grow  animated fadeInDown" data-toggle="modal" data-target="#crateStatus">Open Large Modal</button>--}}
+
+{{--@include('statuses.modalCreate')--}}
+                {{--</div>--}}
+            {{--</div>--}}
             @hasanyrole('designer|admin')
             <div class="col-12 m-0 p-0">
                 <div class="wrimagecard wrimagecard-topimage">
@@ -49,12 +56,6 @@
             </div>
 
             @endhasanyrole
-            <div class="m-2 col-12"></div>
-            <div class="col-12 m-0 p-0">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/pending" class="btn table-success btn-block hvr-grow animated fadeInDown">کارهای در انتظار</a>
-                </div>
-            </div>
             @hasanyrole('modir|admin')
             <div class="m-2 col-12"></div>
             <div class="col-12 m-0 p-0">
