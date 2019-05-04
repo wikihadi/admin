@@ -43,7 +43,6 @@
         </div>
         <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
             <div class="flex-grow-1"  data-toggle="collapse" href="#collapse{{$task->id}}"></div>
-            @if($task->pending == 0)
             @if(isset($usersInTasks))
                 @foreach($usersInTasks->where('task_id', $task->id) as $ut)
                     @foreach($users->where('id', $ut->user_id) as $u)
@@ -53,6 +52,8 @@
                     @endforeach
                 @endforeach
             @endif
+            @if($task->pending == 0 && $task->isDone == 0)
+
             @can('task-edit')
 
             <div class="mx-1" title="مهلت" data-toggle="tooltip">{{$task->diffDead}}</div>

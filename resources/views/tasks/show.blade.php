@@ -140,13 +140,18 @@
                                             </tr>
                                             <tr>
                                                 <td>ایجاد کننده</td>
-                                                <td>{{$admin->name}}</td>
+                                                <td>
+                                                    <img src="/storage/avatars/{{ $admin->avatar }}" alt="" class="img-circle mx-1" style="object-fit: cover; width: 30px;height: 30px; border: 1px solid #a9a9a9;" title="{{$admin->name}}" data-toggle="tooltip">
+
+                                                    </td>
                                             </tr>
                                             <tr>
                                                 <td>تیم کاری</td>
-                                                <td>
-                                                @foreach($users as $user)
-                                                    {{$user->name}}
+                                                <td class="d-flex">
+                                                @foreach($users as $u)
+                                                        <div class="mx-1">
+                                                            <img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle" style="object-fit: cover; width: 30px;height: 30px; border: 1px solid #a9a9a9;" title="{{$u->name}}" data-toggle="tooltip">
+                                                        </div>
                                                     @endforeach
                                                 </td>
                                             </tr>
@@ -328,6 +333,8 @@
                                         <form action="{{ route('tasks.destroy', $task->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
+                                            <input type="hidden" name="urlP" value="{{$urlP}}">
+
                                             <button class="btn btn-danger my-2" type="submit">حذف</button>
                                         </form>
                                 @endcan

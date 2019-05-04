@@ -8,11 +8,14 @@
     @include('helper.profileTasks2')
 
     <div class="col-sm-12">
-
         <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
+            @if(!isset($_GET['nouser']))
 
             @include('helper.tasksUsers')
-            @if ($tasks->isEmpty())
+
+            @endif
+
+        @if ($tasks->isEmpty())
                 <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
             @else
                 @include('helper.titleTasks')
@@ -64,7 +67,7 @@
                             $progbg = "bg-info";
                         @endphp
                     @endif
-                <!-----------------must to controller------------------------------->
+            <!-----------------must to controller------------------------------->
                 <div class="card card-border animated fadeInDown">
                     @include('helper.mainlineTask')
                     @include('helper.mainCollapseTasks')

@@ -37,7 +37,7 @@ class CreateTasksTable extends Migration
             $table->string('forProduct')->nullable();
             $table->boolean('reTask')->default(0)->nullable();
             $table->boolean('isDone')->default(0)->nullable();
-            $table->boolean('pending')->default(0)->nullable();
+            $table->integer('pending')->default(0)->nullable();
             $table->integer('done_user_id')->nullable()->default(0);
             $table->dateTime('done_date')->nullable();
             $table->integer('reTask_id')->nullable();

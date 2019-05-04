@@ -286,8 +286,9 @@
     </div>
     @role('admin')
     <div class="form-group col-sm-12">
-        <label for="">تیم کاری</label>
+        <label for="">تیم کاری - مخصوص ادمین</label>
         <select name="users[]" class="form-control select2" multiple>
+            <option id="meInUsers" value="{{$user->id}}" selected>{{$user->name}}</option>
 
             @foreach($users as $u)
                 <option value="{{ $u->id }}">{{ $u->name }}</option>
@@ -307,10 +308,15 @@
         <div class="form-group">
 
 
-            <label for="list1">در لیست</label>
+            <label for="list1">در لیست خودم</label>
             <input id="list1" type="radio" name="pending" value="0" checked>
-            <label for="pending">در انتظار</label>
+            <label for="pending">در لیست انتظار خودم</label>
             <input id="pending" type="radio" name="pending" value="1">
+            @role('admin|modir')
+            <label for="pending2">در لیست انتظار</label>
+            <input id="pending2" type="radio" name="pending" value="2">
+            @endrole
+
         </div>
         <div class="row">
 
@@ -343,5 +349,6 @@
 
         <button type="submit" class="btn btn-success btn-block btn-lg">بفرست به لیست الویت ها</button>
         <button type="reset" class="btn btn-link">فرم تازه</button>
+        <input type="hidden" name="urlP" value="{{$urlP}}">
 
 </form>

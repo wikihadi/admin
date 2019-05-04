@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/tasks/{id}/end', 'TaskMeterController@end');
 
     Route::get('/pending', 'TaskController@pending');
+    Route::get('/pending/{id}', 'TaskController@pendingUser');
 
 
     Route::post('/tasks/{task}', 'TaskController@done')->name('tasks.done');

@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('tasks.update', $task->id) }}">
+<form enctype="multipart/form-data" method="post" action="{{ route('tasks.update', $task->id) }}">
     @method('PATCH')
     @csrf
     <div class="row">
@@ -215,13 +215,13 @@
             {{--</label>--}}
 
             {{--</div>--}}
-            {{--<div class="form-group col-sm-6">--}}
-            {{--<label for="pic" class="file-upload btn btn-info btn-block">تصویر شاخص پروژه--}}
+            <div class="form-group col-sm-12">
+            <label for="pic" class="file-upload btn btn-light btn-block">تصویر شاخص پروژه - برای عدم تغییر رها کنید
 
-            {{--<input type="file" name="pic" id="pic" aria-describedby="fileHelp">--}}
+            <input type="file" name="pic" id="pic" aria-describedby="fileHelp">
 
-            {{--</label>--}}
-            {{--</div>--}}
+            </label>
+            </div>
         </div>
 
         <input type="hidden" name="urlP" value="{{$urlP}}">
