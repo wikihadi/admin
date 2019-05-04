@@ -18,7 +18,7 @@
     </style>
 @endsection
 @section('content')
-
+@include('statuses.modalCreate')
 
     <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
 
@@ -171,3 +171,7 @@
     </div>
 
 @endsection
+@section('JS')
+    <script type="text/javascript" src="/js/status.js"></script>
+
+    @endsection

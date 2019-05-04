@@ -285,7 +285,7 @@
 
     </div>
     @role('admin')
-    <div class="form-group col-sm-12">
+    <div class="form-group col-sm-12" id="team">
         <label for="">تیم کاری - مخصوص ادمین</label>
         <select name="users[]" class="form-control select2" multiple>
             <option id="meInUsers" value="{{$user->id}}" selected>{{$user->name}}</option>
@@ -308,13 +308,13 @@
         <div class="form-group">
 
 
-            <label for="list1">در لیست خودم</label>
-            <input id="list1" type="radio" name="pending" value="0" checked>
-            <label for="pending">در لیست انتظار خودم</label>
-            <input id="pending" type="radio" name="pending" value="1">
+            <label for="list1">@role('admin')در لیست @else در لیست خودم@endrole</label>
+            <input id="list1" type="radio" name="pending" value="0" checked onclick="addTeam()">
+            <label for="pending">@role('admin') در لیست انتظار @else در لیست انتظار خودم @endrole</label>
+            <input id="pending" type="radio" name="pending" value="1" onclick="addTeam()">
             @role('admin|modir')
-            <label for="pending2">در لیست انتظار</label>
-            <input id="pending2" type="radio" name="pending" value="2">
+            <label for="pending2">کارهای آتی</label>
+            <input id="pending2" type="radio" name="pending" value="2" onclick="clearTeam()">
             @endrole
 
         </div>

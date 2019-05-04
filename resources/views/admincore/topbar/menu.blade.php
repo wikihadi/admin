@@ -12,20 +12,15 @@
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/comments" class="nav-link">گفتگوها</a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
-        <a href="/pending" class="nav-link">در انتظار</a>
-    </li>
     @endrole
     @role('admin|modir')
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/jobs" class="nav-link">مشاهده کارها</a>
     </li>
-    @endrole
 
-    @role('modir')
 
     <li class="nav-item d-none d-sm-inline-block">
-        <a href="/pending?nouser" class="nav-link">در انتظار</a>
+        <a href="/pending?nouser" class="nav-link">کارهای آتی</a>
     </li>
 
 

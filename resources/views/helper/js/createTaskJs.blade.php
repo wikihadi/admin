@@ -108,6 +108,12 @@
         scrollbar: true
     });
 
+    function clearTeam() {
+        $('#team').hide();
+    }
+    function addTeam() {
+        $('#team').show();
+    }
 
 
 </script>

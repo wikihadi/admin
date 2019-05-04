@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/pending/{id}', 'TaskController@pendingUser');
 
 
+
+
     Route::post('/tasks/{task}', 'TaskController@done')->name('tasks.done');
     //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::resource('categories', 'CategoryController');

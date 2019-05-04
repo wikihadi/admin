@@ -195,11 +195,16 @@
         @endrole
         <div class="form-group">
 
+            <label for="list1">در لیست خودم</label>
+            <input id="list1" type="radio" name="pending" onclick="addTeam()" value="0" @if($task->pending == 0) checked @endif>
+            <label for="pending">در لیست انتظار خودم</label>
+            <input id="pending" type="radio" name="pending" onclick="addTeam()" value="1" @if($task->pending == 1) checked @endif>
+            @role('admin|modir')
+            <label for="pending2">در لیست انتظار</label>
+            <input id="pending2" type="radio" name="pending" onclick="clearTeam()" value="2" @if($task->pending == 2) checked @endif>
+            @endrole
 
-            <label for="list1">در لیست</label>
-            <input id="list1" type="radio" name="pending" value="0" @if($task->pending == 0) checked @endif>
-            <label for="pending">در انتظار</label>
-            <input id="pending" type="radio" name="pending" value="1" @if($task->pending == 1) checked @endif>
+
         </div>
 
         <div class="row">

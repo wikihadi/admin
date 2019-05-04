@@ -29,4 +29,5 @@
 
 @section('JS')
     @include('helper.js.createTaskJs')
+
 @endsection
