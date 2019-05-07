@@ -41,6 +41,10 @@ class Task extends Model
     {
         return $this->belongsToMany('App\User', 'task_users', 'task_id', 'user_id');
     }
+    public function userOrder()
+    {
+        return $this->belongsToMany('App\User', 'task_order_users', 'task_id', 'user_id');
+    }
     public function brand()
     {
         return $this->belongsTo('App\Brand');

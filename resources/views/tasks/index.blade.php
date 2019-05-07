@@ -57,19 +57,25 @@
                     <!-----------------must to controller------------------------------->
 
                         @foreach($tasks as $task)
+                            @if($task->pastOr >= 0)
+                                @php
+                                    $progborder = "bg-light";
+                                    $progbg = "bg-light";
+                                @endphp
+                            @else
                             @if($task->prog <= 20)
                                 @php
-                                    $progborder = "border-info bg-light";
+                                    $progborder = "bg-light";
                                     $progbg = "bg-info";
                                 @endphp
                             @elseif($task->prog > 20 && $task->prog <= 50)
                                 @php
-                                    $progborder = "border-success bg-light";
+                                    $progborder = " bg-light";
                                     $progbg = "bg-success";
                                 @endphp
                             @elseif($task->prog > 50 && $task->prog <= 80)
                                 @php
-                                    $progborder = "border-warning bg-light";
+                                    $progborder = " bg-light";
                                     $progbg = "bg-warning";
                                 @endphp
                             @elseif($task->prog > 80 && $task->prog <= 100)
@@ -77,17 +83,14 @@
                                     $progborder = "border-danger bg-light";
                                     $progbg = "bg-danger";
                                 @endphp
-                            @elseif($task->prog <= 0)
-                                @php
-                                    $progborder = "border-secondary bg-light";
-                                    $progbg = "bg-light";
-                                @endphp
                             @else
                                 @php
-                                    $progborder = "border-danger bg-dark";
+                                    $progborder = " bg-pink text-dark";
                                     $progbg = "bg-danger";
                                 @endphp
                             @endif
+                            @endif
+
                             @if(isset($taskMeter) && ($taskMeter->end == 0) && ($taskMeter->task_id == $task->id) && ($taskMeter->user_id == $user->id))
                             @elseif(isset($taskMeter) && $taskMeter->end == 1)
                             @else
@@ -102,9 +105,11 @@
                                         $progbg = "bg-info";
                                     @endphp
                                 @endif
+
                         @include('helper.logicTasks')
                             <!------------------------------------------------------------------>
-                            <div class="card card-border animated fadeInDown">
+                            <div class="card card-border animated fadeInDown" >
+
 
                                 @include('helper.mainlineTask')
                                 @include('helper.mainCollapseTasks')
@@ -116,4 +121,5 @@
                 </div>
         @endsection
         @section('JS')
+
         @endsection

@@ -307,15 +307,21 @@
         @endrole
         <div class="form-group">
 
+            @role('modir')
+            <input type="hidden" name="pending" value="2">
 
-            <label for="list1">@role('admin')در لیست @else در لیست خودم@endrole</label>
-            <input id="list1" type="radio" name="pending" value="0" checked onclick="addTeam()">
-            <label for="pending">@role('admin') در لیست انتظار @else در لیست انتظار خودم @endrole</label>
-            <input id="pending" type="radio" name="pending" value="1" onclick="addTeam()">
-            @role('admin|modir')
-            <label for="pending2">کارهای آتی</label>
-            <input id="pending2" type="radio" name="pending" value="2" onclick="clearTeam()">
+
+        @else
+                <label for="list1">@role('admin')در لیست @else در لیست خودم@endrole</label>
+                <input id="list1" type="radio" name="pending" value="0" checked onclick="addTeam()">
+                <label for="pending">@role('admin') در لیست انتظار @else در لیست انتظار خودم @endrole</label>
+                <input id="pending" type="radio" name="pending" value="1" onclick="addTeam()">
+                @role('admin')
+                <label for="pending2">کارهای آتی</label>
+                <input id="pending2" type="radio" name="pending" value="2" onclick="clearTeam()">
+                @endrole
             @endrole
+
 
         </div>
         <div class="row">

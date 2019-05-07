@@ -134,4 +134,33 @@ input[type=range]:focus::-ms-fill-upper {
     border-bottom: 1px dashed #efefef;
     margin-bottom: 25px;
 }
+    .bg-pink{
+        background-color: #FFF4F4!important;
+        color: black!important;
+
+    }
+.bg-pink a{
+    color: black!important;
+
+}
+.userJobsImage{
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    filter: grayscale(1) ;
+
+    -webkit-filter: grayscale(1) ;
+
+    -moz-filter: grayscale(1) ;
+}
+.userJobsImage:hover{
+    filter: none;
+    transition: 0.5s ease-in-out;
+}
+.userJobsImageActive{
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+}
+
 </style>

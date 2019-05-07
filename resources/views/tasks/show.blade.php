@@ -2,6 +2,7 @@
 
 @section('css')
     @include('helper.css.mainTasksCss')
+
 @endsection
 
 @section('content')
@@ -111,6 +112,7 @@
                                         <img src="/storage/uploads/{{$task->pic}}" class="img-fluid" alt="">
                                     </div>
                                     <div class="col-sm-12 table-responsive">
+
                                         <table class="table table-borderless table-striped" style="width: 100%">
 
                                             <tr>
@@ -246,13 +248,14 @@
                                                             {{--<textarea class="form-control" name="comment"--}}
                                                                       {{--placeholder="به نظر من..." rows="3"></textarea>--}}
                                                             {{--<input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من...">--}}
-                                                            <div class="input-group mb-3">
-                                                                <input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من..." aria-label="" aria-describedby="basic-addon1">
+                                                            {{--<div class="input-group mb-3">--}}
+                                                                <textarea id="" name="comment" class="form-control" rows="3" placeholder="به نظر من..."></textarea>
+                                                                {{--<input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من..." aria-label="" aria-describedby="basic-addon1">--}}
 
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-outline-secondary" type="submit">ثبت نظر</button>
-                                                                </div>
-                                                            </div>
+                                                                {{--<div class="input-group-append">--}}
+                                                                    <button class="btn btn-success btn-block" type="submit">ثبت نظر</button>
+                                                                {{--</div>--}}
+                                                            {{--</div>--}}
                                                         </div>
 
                                                         <input type="hidden" name="user_id"
@@ -281,7 +284,8 @@
                                                                     </span>
                                                                     <strong class="text-success">{{ $comment->user->name }}</strong>
                                                                     <div class="clearfix"></div>
-                                                                    <div>{{ $comment->comment }}
+                                                                    <div style="white-space: pre-wrap;">{{ $comment->comment }}</div>
+                                                                    <div class="text-left">
                                                                     @if($comment->diffM < 5)
                                                                         {{--<form class="d-inline" action="{{ route('comments.edit',$comment->id)}}" method="post">--}}
 
@@ -466,5 +470,8 @@
             </div>
         </div>
     </div>
+
+@endsection
+@section('JS')
 
 @endsection

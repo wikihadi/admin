@@ -60,6 +60,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Task', 'task_users', 'user_id', 'task_id');
     }
+    public function taskOrder()
+    {
+        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id');
+    }
     public function medias()
     {
         return $this->hasMany('App\Media');

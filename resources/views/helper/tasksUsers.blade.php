@@ -17,7 +17,14 @@
             <div class="d-flex flex-wrap justify-content-center">
                 @foreach($users as $u)
                     <div class="mx-2">
-                        <a href="/{{$linked}}/{{$u->id}}"><img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle" style="object-fit: cover; width: 100px;height: 100px" title="{{$u->name}}" data-toggle="tooltip"></a>
+                        @if(Request::is('*/'.$u->id))
+                                <img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle userJobsImageActive animated pulse infinite delay-4s" title="{{$u->name}}" data-toggle="tooltip">
+                            @else
+                            <a href="/{{$linked}}/{{$u->id}}">
+                                <img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle userJobsImage hvr-push" title="{{$u->name}}" data-toggle="tooltip">
+                            </a>
+                            @endif
+
                     </div>
                 @endforeach
 

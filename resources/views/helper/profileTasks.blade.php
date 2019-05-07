@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="col-sm-6 col-lg-8 text-left ">
-                تعداد تسکهای من: {{count($tasks)}}
+                تعداد تسکها: {{count($tasks)}}
             </div>
         </div>
     </div>

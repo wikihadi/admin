@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\TaskMeter;
+use App\TaskOrderUser;
+use App\TaskUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,5 +71,13 @@ class TaskMeterController extends Controller
         return back();
 
     }
-
+//    public function upOrder(Request $request,$id){
+//        TaskOrderUser::where('task_id',$id)->first()->update($request->all());
+//
+////        $order = TaskOrderUser::where('task_id',$id)->where('user_id',1)->first()->get();
+////        $order->order_column = 2;
+////        $order->fill($request->all())->save();
+//
+//        return redirect()->back();
+//    }
 }

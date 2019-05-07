@@ -1,5 +1,6 @@
 <div class="card-header card-border @if($task->isDone == 0){{$progborder}}@else bg-success @endif">
     <div class="row">
+
         <div class="col-md-9 row " data-toggle="collapse" href="#collapse{{$task->id}}">
             {{--<div class="d-none d-lg-block col-lg-1 text-right"></div>--}}
             <div class="col-12 col-md-4 text-center text-md-right ">{{$task->i}}
@@ -54,7 +55,7 @@
             @endif
             @if($task->pending == 0 && $task->isDone == 0)
 
-            @can('task-edit')
+                @if($task->pastOr <= 0)
 
             <div class="mx-1" title="مهلت" data-toggle="tooltip">{{$task->diffDead}}</div>
             <div class="mx-1">
@@ -63,8 +64,9 @@
                                                 @elseif($task->rightNow <= 3) fa-hourglass-half rubberBand 
                                                 @else fa-hourglass-start rubberBand @endif "></i>
             </div>
-            @endcan
-
+                    @else
+                    <i data-toggle="tooltip" title="قبل از شروع مقرر" class="fa fa-hourglass-o"></i>
+                @endif
             @if($task->reTask === 1)
                 <div class="mx-1"><i class="fa fa-clone" data-toggle="tooltip" title="Clone"></i></div>
             @endif
@@ -85,12 +87,10 @@
                         <a href="/tasks/{{ $task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $task->title }}"></i></a>
                     </div>
                 @endcan
-                @can('task-edit')
 
                     <div class="mx-1 hvr-backward">
                         <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"></i></a>
                     </div>
-                @endcan
 
 
 
