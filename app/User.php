@@ -62,7 +62,11 @@ class User extends Authenticatable
     }
     public function taskOrder()
     {
-        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id');
+        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id')->orderBy('order_column','asc');//->where('order_column','!=',-1);
+    }
+    public function taskNotOrder()
+    {
+        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id')->orderBy('order_column','asc');//->where('order_column','!=',-1);
     }
     public function medias()
     {
@@ -76,5 +80,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');
     }
+
 
 }

@@ -15,7 +15,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('posts', 'PostController');
-    Route::post('verify/{post}', 'PostsController@verifyPost');
+    Route::post('verify/{post}', 'PostController@verifyPost');
 
     Route::resource('status', 'StatusController');
     Route::resource('tasks', 'TaskController');
@@ -32,11 +32,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/tasks/{id}/end', 'TaskMeterController@end');
 
 //    Route::post('/tasks/up', 'TaskMeterController@upOrder')->name('tasks.up');
+    Route::resource('taskorderusers', 'TaskOrderUserController');
+   // Route::post('taskorderusersup', array('as' => 'up', 'uses' => 'TaskOrderUserController@up'))->name('taskorderuser.up');
+//    Route::post('taskorderusersup',['uses'=>'TaskOrderUserController@up']);
 
 
     Route::get('/pending', 'TaskController@pending');
     Route::get('/pending/{id}', 'TaskController@pendingUser');
-
 
 
 
@@ -53,6 +55,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['middleware' => ['role:modir|admin']], function () {
 
         Route::get('/jobs', 'TaskController@modir');
+
+        Route::put('/jobs/updateAll','TaskOrderUserController@updaeAll')->name('tasks.updateAll');
+
         Route::get('/jobs/{id}', 'TaskController@modirUser');
     });
 

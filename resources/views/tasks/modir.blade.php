@@ -2,10 +2,19 @@
 
 @section('css')
     @include('helper.css.mainTasksCss')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
+    <style>
+
+        .upDown:last-child form > button.upKey,.upDown:nth-child(4) form > button.downKey
+         {
+            visibility: hidden;
+        }
+    </style>
 @endsection
 
 @section('content')
+
     @include('helper.profileTasks2')
 
     <div class="col-sm-12">
@@ -19,13 +28,16 @@
                 @include('helper.titleTasks')
             @endif
 
+            {{ csrf_field() }}
 
 
         <!-----------------must to controller------------------------------->
             @php
                 $i = 1;
             @endphp
-            @foreach($tasks as $task)
+            @foreach($order as $o)
+
+        @foreach($tasks->where('id', $o->task_id) as $task)
 
 
                 @if($task->pastOr >= 0)
@@ -68,15 +80,27 @@
                         @endphp
                     @endif
                 <!-----------------must to controller------------------------------->
-                <div class="card card-border animated fadeInDown ">
+                <div class="upDown">
+                <div class="card card-border animated fadeInDown">
+
                     @include('helper.mainlineTask')
                     @include('helper.mainCollapseTasks')
                 </div>
+                </div>
+                    @php
+                        $i += 1;
+                    @endphp
             @endforeach
 
-        <!---------------------------------------------------------->
+    @endforeach
+            <div id='app'>
 
-            {{ $tasks->links() }}
+
+                <tasks-component :order="{{$order}}" :tasks="{{$tasks}}"></tasks-component>
+
+            </div>
+            <!---------------------------------------------------------->
+            @if(isset($task->i)){{ $tasks->links() }}@endif
 
         </div>
 
@@ -84,5 +108,5 @@
     </div>
 @endsection
 @section('JS')
-
+    <script src="/js/app.js"></script>
 @endsection
