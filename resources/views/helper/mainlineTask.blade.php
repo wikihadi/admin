@@ -45,20 +45,7 @@
             </div>
         </div>
         <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
-            <div class="flex-grow-1">
-                @if(Request::is('jobs/*'))
-                    <form method="post" action="{{ route('taskorderusers.update', $task->id) }}">
-                        @method('PATCH')
-                        @csrf
-                        <input type="hidden" name="user_id" value="{{$user->id}}">
-                        {{--<input type="hidden" name="ordering" value="plus">--}}
-                        <button type="submit" class="btn btn-link upKey" name="ordering" value="plus"><i class="fa fa-minus"></i></button>
-                        <button type="submit" class="btn btn-link downKey " name="ordering" value="minus"><i class="fa fa-plus"></i></button>
-                    </form>
-                        {{--<button type="submit" class="btn btn-link upKey" name="ordering" value="plus"><i class="fa fa-minus"></i></button>--}}
-                        {{--<button type="submit" class="btn btn-link downKey " name="ordering" value="minus"><i class="fa fa-plus"></i></button>--}}
-                @endif
-            </div>
+            <div class="flex-grow-1"></div>
             @if(isset($usersInTasks))
                 @foreach($usersInTasks->where('task_id', $task->id) as $ut)
                     @foreach($users->where('id', $ut->user_id) as $u)

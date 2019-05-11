@@ -3,6 +3,7 @@
 @section('css')
     @include('helper.css.mainTasksCss')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="/js/app.css">
 
     <style>
 
@@ -30,8 +31,8 @@
 
             {{ csrf_field() }}
 
-
-            @if(Request::is('jobs'))
+            @if(Request::is('jobs') || isset($jobPage) && $jobPage == 'old')
+                <a href="/jobs/{{$user->id}}?page=new" class="btn btn-warning">New</a>
         <!-----------------must to controller------------------------------->
             @php
                 $i = 1;
@@ -91,12 +92,13 @@
                         $i += 1;
                     @endphp
             @endforeach
-            @endif
-            @if(Request::is('jobs/*'))
+            @elseif(isset($jobPage) && $jobPage == 'new')
+                <a href="/jobs/{{$user->id}}?page=old" class="btn btn-warning">Old</a>
+
                 <div id='app'>
 
 
-                    <tasks-component :order="{{$order}}" :tasks="{{$tasks}}" :userInTasks="{{$usersInTasks}}" :allUsers="{{$users}}"></tasks-component>
+                    <tasks-component v-bind:order="{{$order}}" v-bind:tasks="{{$tasks}}"></tasks-component>
 
                 </div>
             @endif
@@ -110,4 +112,5 @@
 @endsection
 @section('JS')
     <script src="/js/app.js"></script>
+
 @endsection
