@@ -134,17 +134,36 @@ class TaskOrderUserController extends Controller
     public function updateAll(Request $request)
     {
 
-        dd($request->order);
 
+        $taskOrders = TaskOrderUser::all();
+        foreach ($taskOrders as $to){
+            $id = $to->id;
+            foreach ($request->order as  $orderFrontEnd){
+                if($orderFrontEnd['id'] == $id){
+                    $to->update(['order_column' => $orderFrontEnd['order_column']]);
+                }
+            }
+        }
         return response('Updated.', 200);
 
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
+//    public function updateAll(Request $request)
+//    {
+//
+//        //dd($request->order);
+//        TaskOrderUser::truncate();
+//        foreach ($request->order as $o){
+//            TaskOrderUser::create([
+//               'task_id' => $o['task_id'],
+//               'user_id' => $o['user_id'],
+//               'order_column' => $o['order_column'],
+//            ]);
+//        }
+//        return response('Updated.', 200);
+//
+//    }
+
+
     public function destroy(Request $request,$id)
     {
         //

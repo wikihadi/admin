@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::get('/jobs', 'TaskController@modir');
 
-        Route::put('/jobs/updateAll','TaskOrderUserController@updaeAll')->name('tasks.updateAll');
+        Route::put('/jobs/updateAll','TaskOrderUserController@updateAll')->name('tasks.updateAll');
 
         Route::get('/jobs/{id}', 'TaskController@modirUser');
     });

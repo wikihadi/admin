@@ -6,7 +6,6 @@
             <div class="col-12 col-md-4 text-center text-md-right ">@if(isset($task->i)){{$task->i}}@else{{$i}}@endif
                 .{{ str_limit($task->title, 40) }}</div>
             <div class="d-none d-lg-block col-lg-2 text-center">
-                {{$o->order_column}}
                 @if($task->type && $task->brand != "سایر")
                     {{$task->brand}}
                 @else

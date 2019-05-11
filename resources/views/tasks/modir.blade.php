@@ -31,13 +31,13 @@
             {{ csrf_field() }}
 
 
+            @if(Request::is('jobs'))
         <!-----------------must to controller------------------------------->
             @php
                 $i = 1;
             @endphp
-            @foreach($order as $o)
+            @foreach($tasks as $task)
 
-        @foreach($tasks->where('id', $o->task_id) as $task)
 
 
                 @if($task->pastOr >= 0)
@@ -91,14 +91,15 @@
                         $i += 1;
                     @endphp
             @endforeach
+            @endif
+            @if(Request::is('jobs/*'))
+                <div id='app'>
 
-    @endforeach
-            <div id='app'>
 
+                    <tasks-component :order="{{$order}}" :tasks="{{$tasks}}" :userInTasks="{{$usersInTasks}}" :allUsers="{{$users}}"></tasks-component>
 
-                <tasks-component :order="{{$order}}" :tasks="{{$tasks}}"></tasks-component>
-
-            </div>
+                </div>
+            @endif
             <!---------------------------------------------------------->
             @if(isset($task->i)){{ $tasks->links() }}@endif
 
