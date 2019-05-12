@@ -54,7 +54,7 @@ class BrandController extends Controller
             'description'=> $request->get('description')
         ]);
         $brand->save();
-        return redirect('/brands')->with('success', 'Brand has been added');
+        return redirect('/brands')->with('success');
     }
 
     /**
@@ -105,7 +105,7 @@ class BrandController extends Controller
 
         $brand->update();
 
-        return redirect('/brands')->with('success', 'Brand has been updated');
+        return redirect('/brands')->with('success');
     }
 
     /**
@@ -118,6 +118,6 @@ class BrandController extends Controller
     {
         $brand = Brand::find($id);
         $brand->delete();
-        return redirect()->back()->with('success','Brand deleted successfully');
+        return redirect()->back()->with('success');
     }
 }

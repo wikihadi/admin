@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Status;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,22 @@ class StatusController extends Controller
 
     public function store(Request $request)
     {
-//
+
+        $request->validate([
+            'content'=>'required'
+        ]);
+        $status = new Status([
+            'status' => 'status',
+            'content' => $request->get('content'),
+        ]);
+        $status->save();
+
+
+
+
+        return back()->with('success', 'Done');
+
+
     }
 
     /**

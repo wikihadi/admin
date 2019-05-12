@@ -58,7 +58,7 @@ class CategoryController extends Controller
             'description'=> $request->get('description')
         ]);
         $category->save();
-        return back()->with('success', 'Task has been added');
+        return back()->with('success');
     }
 
 
@@ -127,6 +127,6 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->delete();
 
-        return redirect()->back()->with('success', 'Categories has been deleted Successfully');
+        return redirect()->back()->with('success');
     }
 }

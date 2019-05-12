@@ -40,10 +40,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         .nav-sidebar {
             overflow: visible!important;
         }
+        .modal-dialog {
+           z-index: 100000000;
+        }
+body{
+    padding-right: 0!important;
+}
+
     </style>
 
 </head>
 <body class="hold-transition sidebar-mini">
+
 <div class="wrapper">
     @include('admincore.topbar.index')
     <!-- Main Sidebar Container -->
@@ -58,8 +66,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
  <!-- Main content -->
      <div class="content mt-5">
+
          <div class="container-fluid">
              <div class="row">
+
 @yield('content')
              </div>
              </div>
@@ -140,6 +150,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         })
         $('[data-toggle="tooltip"]').tooltip();
 
+
+
+        $('.statusSmile').click(function(){
+            $('.InputToFocus').focus();
+        });
+        $(function () {
+            setTimeout(function() {
+                $('.timeout').fadeOut('fast');
+            }, 3000);
+        })
     </script>
 </body>
 </html>

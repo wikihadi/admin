@@ -57,10 +57,14 @@ class CommentController extends Controller
         $comment->save();
         $task_id = $request->input('task_id');
 
-        $task = Task::find($task_id);
-        $task->increment('commentCount');
+        if ($task_id != 0){
+            $task = Task::find($task_id);
+            $task->increment('commentCount');
+        }
 
-        return back()->with('success', 'Task has been added');
+
+
+        return back()->with('success');
     }
 
     /**
@@ -126,7 +130,7 @@ class CommentController extends Controller
 
 
 
-        return redirect($rep);
+        return redirect($rep)->with('success');
     }
 
     /**

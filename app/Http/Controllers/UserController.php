@@ -80,7 +80,7 @@ $tasks = Task::all();
 
 
         return redirect()->route('users.index')
-            ->with('success','User created successfully');
+            ->with('success');
     }
 
 
@@ -186,7 +186,7 @@ $tasks = Task::all();
 
 
         return redirect()->route('users.index')
-            ->with('success','User updated successfully');
+            ->with('success');
     }
 public function profileUpdate(Request $request, $id){
     $this->validate($request, [
@@ -208,7 +208,7 @@ public function profileUpdate(Request $request, $id){
     $user = User::find($id);
     $user->update($input);
 
-    return redirect(back())->with('success', 'User has been updated');
+    return redirect(back())->with('success');
 }
 
     /**
@@ -221,7 +221,7 @@ public function profileUpdate(Request $request, $id){
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-            ->with('success','User deleted successfully');
+            ->with('success');
     }
 
     public function profile()
@@ -303,7 +303,7 @@ public function profileUpdate(Request $request, $id){
 
 
 
-        return redirect()->back()->with('success', 'User has been updated');
+        return redirect()->back()->with('success');
 
     }
 

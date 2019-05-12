@@ -40,7 +40,7 @@ class TaskMeterController extends Controller
             $taskMeter->save();
         }
         }
-        return back();
+        return back()->with('success');
 
 
     }
@@ -68,7 +68,7 @@ class TaskMeterController extends Controller
 
 
 
-        return back();
+        return back()->with('success');
 
     }
 //    public function upOrder(Request $request,$id){

@@ -53,7 +53,7 @@ class PostController extends Controller
         ]);
 
         $post->save();
-        return redirect()->back()->with('success', 'Post has been added');
+        return redirect()->back()->with('success');
     }
 
     /**

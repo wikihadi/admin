@@ -75,7 +75,7 @@ class ProfileController extends Controller
 
 
 
-        return redirect()->back()->with('success', 'User has been updated');
+        return redirect()->back()->with('success');
 
     }
 }

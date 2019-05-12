@@ -75,13 +75,13 @@
             @endcan
 
             @role('admin')
-            <div class="m-2 col-12"></div>
+            {{--<div class="m-2 col-12"></div>--}}
 
-            <div class="col-12 m-0 p-0">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/all-tasks" class="btn btn-light btn-block hvr-grow animated fadeInDown">همه کارها</a>
-                </div>
-            </div>
+            {{--<div class="col-12 m-0 p-0">--}}
+                {{--<div class="wrimagecard wrimagecard-topimage">--}}
+                    {{--<a href="/all-tasks" class="btn btn-light btn-block hvr-grow animated fadeInDown">همه کارها</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <div class="m-2 col-12"></div>
 
             <div class="col-12 m-0 p-0">
@@ -89,13 +89,13 @@
                     <a href="/users" class="btn btn-light btn-block hvr-grow animated fadeInDown">کاربران</a>
                 </div>
             </div>
-            <div class="m-2 col-12"></div>
+            {{--<div class="m-2 col-12"></div>--}}
 
-            <div class="col-12 m-0 p-0">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/task-meters" class="btn btn-light btn-block hvr-grow animated fadeInDown">Task Meter - موقت</a>
-                </div>
-            </div>
+            {{--<div class="col-12 m-0 p-0">--}}
+                {{--<div class="wrimagecard wrimagecard-topimage">--}}
+                    {{--<a href="/task-meters" class="btn btn-light btn-block hvr-grow animated fadeInDown">Task Meter - موقت</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <div class="m-2 col-12"></div>
 
             <div class="col-12 m-0 p-0">
