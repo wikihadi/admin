@@ -13,6 +13,12 @@
             @endif
         @endrole
         <button data-toggle="collapse" href="#users" class="btn btn-link" ><i class="fa fa-users"></i></button>
+
+            @if(Request::is('jobs') || isset($jobPage) && $jobPage == 'old')
+                <a href="/jobs/{{$user->id}}?pageType=new" class="btn btn-link"><i class="fa fa-key"></i></a>
+            @elseif(isset($jobPage) && $jobPage == 'new')
+                <a href="/jobs/{{$user->id}}?pageType=old" class="btn btn-link"><i class="fa fa-key"></i></a>
+            @endif
         <div  id="users" class="collapse show" data-parent="#accordion">
             <div class="d-flex flex-wrap justify-content-center">
                 @foreach($users as $u)

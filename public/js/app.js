@@ -1837,11 +1837,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -39658,7 +39653,13 @@ var render = function() {
                 _c("div", { staticClass: "card card-border" }, [
                   _c(
                     "div",
-                    { staticClass: "card-header card-border bg-dark" },
+                    {
+                      staticClass: "card-header card-border",
+                      class: {
+                        "bg-info": task.pending == 1,
+                        "bg-dark": task.pending == 0
+                      }
+                    },
                     [
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-9 row" }, [
@@ -39687,9 +39688,9 @@ var render = function() {
                               task.type && task.brand != "سایر"
                                 ? _c("span", [
                                     _vm._v(
-                                      "\n                            " +
+                                      "\n                                " +
                                         _vm._s(task.brand) +
-                                        "\n                        "
+                                        "\n                            "
                                     )
                                   ])
                                 : _c("span", [_vm._v("-")])
@@ -39706,9 +39707,9 @@ var render = function() {
                               task.type && task.type != "سایر"
                                 ? _c("span", [
                                     _vm._v(
-                                      "\n                            " +
+                                      "\n                                " +
                                         _vm._s(task.type) +
-                                        "\n                        "
+                                        "\n                            "
                                     )
                                   ])
                                 : _c("span", [_vm._v("-")])
@@ -39725,9 +39726,9 @@ var render = function() {
                               task.type && task.forProduct != "سایر"
                                 ? _c("span", [
                                     _vm._v(
-                                      "\n                            " +
+                                      "\n                                " +
                                         _vm._s(task.forProduct) +
-                                        "\n                        "
+                                        "\n                            "
                                     )
                                   ])
                                 : _c("span", [_vm._v("-")])
@@ -39748,7 +39749,11 @@ var render = function() {
                           },
                           [
                             _c("div", { staticClass: "flex-grow-1" }),
-                            _vm._v(" "),
+                            _vm._v(
+                              "\n\n" +
+                                _vm._s(_vm.users) +
+                                "\n\n\n\n                        "
+                            ),
                             _c("div", { staticClass: "mx-1 hvr-grow" }, [
                               _c(
                                 "a",

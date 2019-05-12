@@ -1,10 +1,12 @@
 <template>
     <draggable :list="orderNew" :element="'div'" :options="{animation:300}" @change="update">
-    <div v-for="(ord, index) in orderNew">
+
+        <div v-for="(ord, index) in orderNew">
+
     <div v-for="(task, index) in tasks" v-if="task.id == ord.task_id">
         <div class="card card-border">
 
-            <div class="card-header card-border bg-dark">
+            <div class="card-header card-border" v-bind:class="{ 'bg-info' : task.pending == 1 , 'bg-dark' : task.pending == 0 }">
                 <div class="row">
 
                     <div class="col-md-9 row">
@@ -16,13 +18,13 @@
                             <span v-else>-</span>
                         </div>
                         <div class="d-none d-lg-block col-lg-2 text-center">
-                                                    <span v-if="task.type && task.type != 'سایر'">
+                            <span v-if="task.type && task.type != 'سایر'">
                                 {{task.type}}
                             </span>
                             <span v-else>-</span>
                         </div>
                         <div class="d-none d-lg-block col-lg-2 text-center">
-                                                    <span v-if="task.type && task.forProduct != 'سایر'">
+                            <span v-if="task.type && task.forProduct != 'سایر'">
                                 {{task.forProduct}}
                             </span>
                             <span v-else>-</span>
@@ -34,20 +36,13 @@
                         </div>
                     </div>
                     <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
-                        <div class="flex-grow-1"></div>
+                        <div class="flex-grow-1">
 
-                        <!--<div v-for="ut in user" v-if="ut.task_id === task.id">-->
 
-                            <!--<div v-for="u in users" v-if="u.id === ut.user_id">-->
-                                <!--<div class="mx-1">-->
-                                    <!--<img v-bind:src="'/storage/avatars/' + u.avatar"-->
-                                         <!--class="img-circle"-->
-                                         <!--style="object-fit: cover; width: 29px;height: 29px; border: 1px solid #a9a9a9;"-->
-                                         <!--v-bind:title="u.name"-->
-                                    <!--data-toggle="tooltip">-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                        </div>
+
+{{users}}
+
 
 
                         <div class="mx-1 hvr-grow">

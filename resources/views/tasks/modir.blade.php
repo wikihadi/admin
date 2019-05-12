@@ -32,7 +32,7 @@
             {{ csrf_field() }}
 
             @if(Request::is('jobs') || isset($jobPage) && $jobPage == 'old')
-                <a href="/jobs/{{$user->id}}?page=new" class="btn btn-warning">New</a>
+                {{--<a href="/jobs/{{$user->id}}?pageType=new" class="btn btn-warning">New</a>--}}
         <!-----------------must to controller------------------------------->
             @php
                 $i = 1;
@@ -93,12 +93,12 @@
                     @endphp
             @endforeach
             @elseif(isset($jobPage) && $jobPage == 'new')
-                <a href="/jobs/{{$user->id}}?page=old" class="btn btn-warning">Old</a>
+{{--                <a href="/jobs/{{$user->id}}?pageType=old" class="btn btn-warning">Old</a>--}}
 
                 <div id='app'>
 
 
-                    <tasks-component v-bind:order="{{$order}}" v-bind:tasks="{{$tasks}}"></tasks-component>
+                    <tasks-component :order="{{$order}}" :tasks="{{$tasks}}" :users="{{$users}}" :usersInTasks="{{$usersInTasks}}"></tasks-component>
 
                 </div>
             @endif
