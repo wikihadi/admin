@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Status;
 use App\Task;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
@@ -35,9 +36,25 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-$tasks = Task::all();
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
+
+        $tasks = Task::all();
         $data = User::orderBy('created_at','ASC')->paginate(25);
-        return view('users.index',compact('data','tasks'))
+        return view('users.index',compact('lastStartedStatus','data','tasks','statusesToMe','myTasksStatus','usersStatus'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -49,8 +66,24 @@ $tasks = Task::all();
      */
     public function create()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        return view('users.create',compact('lastStartedStatus','roles','statusesToMe','myTasksStatus','usersStatus'));
     }
 
 
@@ -92,6 +125,22 @@ $tasks = Task::all();
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
+
         $user = User::find($id);
 
 
@@ -130,35 +179,39 @@ $tasks = Task::all();
 
         }
 
-        return view('users.show', compact('tasks','user'));
+        return view('users.show', compact('lastStartedStatus','tasks','statusesToMe','user','myTasksStatus','usersStatus'));
 
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
+
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit',compact('user','lastStartedStatus','statusesToMe','roles','userRole','myTasksStatus','usersStatus'));
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -211,12 +264,6 @@ public function profileUpdate(Request $request, $id){
     return redirect(back())->with('success');
 }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         User::find($id)->delete();
@@ -224,18 +271,34 @@ public function profileUpdate(Request $request, $id){
             ->with('success');
     }
 
-    public function profile()
-    {
-
-
-        $user = Auth::user();
-        $tasks = $user->tasks()->paginate(5);
-        $myTasks = Task::where('user_id', $user);
-        $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
-        return view('users.profile',compact('user','roles','userRole','tasks','myTasks'));
-
-    }
+//    public function profile()
+//    {
+//        $user = Auth::user();
+//        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+//        $usersStatus = User::all();
+//        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+//        $dateBefore = Carbon::now();
+//
+//        foreach ($statusesToMe as $key => $loop){
+//            $loop->jCreated_at = new Verta($loop->created_at);
+//            $loop->diff = verta($loop->created_at)->formatDifference();
+//            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+//
+//
+//        }
+//
+//
+//        $user = Auth::user();
+//        $tasks = $user->tasks()->paginate(5);
+//        $myTasks = Task::where('user_id', $user);
+//        $roles = Role::pluck('name','name')->all();
+//        $userRole = $user->roles->pluck('name','name')->all();
+//
+//
+//
+//        return view('users.profile',compact('user','roles','statusesToMe','userRole','tasks','myTasks','myTasksStatus','usersStatus'));
+//
+//    }
     public function update_avatar(Request $request){
 
 

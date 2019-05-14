@@ -18,7 +18,6 @@
     </style>
 @endsection
 @section('content')
-@include('statuses.modalCreate')
 
     <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
 
@@ -96,13 +95,13 @@
                     {{--<a href="/task-meters" class="btn btn-light btn-block hvr-grow animated fadeInDown">Task Meter - موقت</a>--}}
                 {{--</div>--}}
             {{--</div>--}}
-            <div class="m-2 col-12"></div>
+            {{--<div class="m-2 col-12"></div>--}}
 
-            <div class="col-12 m-0 p-0">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/comments" class="btn btn-dark btn-block hvr-grow animated fadeInDown">گفتگوها</a>
-                </div>
-            </div>
+            {{--<div class="col-12 m-0 p-0">--}}
+                {{--<div class="wrimagecard wrimagecard-topimage">--}}
+                    {{--<a href="/comments" class="btn btn-dark btn-block hvr-grow animated fadeInDown">گفتگوها</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
             @endrole
 
             <div class="m-2 col-12"></div>

@@ -47,6 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Comment');
     }
+    public function status()
+    {
+        return $this->hasMany('App\Status');
+    }
 
 //    public function setPasswordAttribute($password)
 //    {

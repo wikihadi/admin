@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Status;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Verta;
+
 
 class CategoryController extends Controller
 {
@@ -24,8 +30,24 @@ class CategoryController extends Controller
      */
     public function index()
     {
-                $categories = Category::orderBy('title', 'asc')->get();
-                return view('categories.create', compact('categories','type'));
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
+
+        $categories = Category::orderBy('title', 'asc')->get();
+                return view('categories.create', compact('categories','type','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
 
     /**
@@ -64,23 +86,68 @@ class CategoryController extends Controller
 
     public function materials()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $material = -1;
         $categories = Category::where('isMaterial', '=' , '1')->get();
-        return view('categories.create', compact('categories','material'));
+        return view('categories.create', compact('categories','material','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
     public function dimensions()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $material = -1;
         $dimen = -1;
         $categories = Category::where('isDimension', '=' , '1')->get();
-        return view('categories.create', compact('categories','material', 'dimen'));
+        return view('categories.create', compact('categories','material', 'dimen','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
     public function types()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $material = -1;
         $type = -1;
         $categories = Category::where('isType', '=' , '1')->orderBy('title', 'asc')->get();
-        return view('categories.create', compact('categories','material', 'type'));
+        return view('categories.create', compact('categories','material', 'type','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
     /**
      * Display the specified resource.

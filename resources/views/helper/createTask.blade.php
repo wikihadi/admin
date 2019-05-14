@@ -284,7 +284,7 @@
                   placeholder="توضیحات کاری که باید انجام شود"  onfocus="clearContents(this);">ندارد</textarea>
 
     </div>
-    @role('admin')
+    {{--@role('admin')--}}
     <div class="form-group col-sm-12" id="team">
         <label for="">تیم کاری - مخصوص ادمین</label>
         <select name="users[]" class="form-control select2" multiple>
@@ -299,12 +299,12 @@
         </select>
 
     </div>
-    @else
+    {{--@else--}}
 
-        <input type="hidden" name="users[]" value="{{Auth::user()->id}}" >
+        {{--<input type="hidden" name="users[]" value="{{Auth::user()->id}}" >--}}
 
 
-        @endrole
+        {{--@endrole--}}
         <div class="form-group">
 
             @role('modir')

@@ -4,11 +4,15 @@
 namespace App\Http\Controllers;
 
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
+use Verta;
+
 
 
 class RoleController extends Controller
@@ -37,8 +41,23 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
+        return view('roles.index',compact('roles','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -50,8 +69,23 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $permission = Permission::get();
-        return view('roles.create',compact('permission'));
+        return view('roles.create',compact('permission','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
 
 
@@ -84,13 +118,28 @@ class RoleController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+
         $role = Role::find($id);
         $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
             ->where("role_has_permissions.role_id",$id)
             ->get();
 
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
-        return view('roles.show',compact('role','rolePermissions'));
+        return view('roles.show',compact('role','rolePermissions','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
 
 
@@ -102,14 +151,29 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+
         $role = Role::find($id);
         $permission = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
-        return view('roles.edit',compact('role','permission','rolePermissions'));
+        return view('roles.edit',compact('role','permission','rolePermissions','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
 
 

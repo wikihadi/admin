@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Status;
 use App\Task;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Verta;
+
 
 class CommentController extends Controller
 {
@@ -22,10 +26,24 @@ class CommentController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+
         $comments = Comment::with('user','tasks')->orderBy('id','DESC')->get();
         $tasks = Task::all();
 
-        return view('comments.index', compact('comments','tasks'));
+        return view('comments.index', compact('comments','tasks','myTasksStatus','usersStatus','statusesToMe'));
     }
 
     /**
@@ -57,10 +75,9 @@ class CommentController extends Controller
         $comment->save();
         $task_id = $request->input('task_id');
 
-        if ($task_id != 0){
             $task = Task::find($task_id);
             $task->increment('commentCount');
-        }
+
 
 
 
@@ -87,6 +104,20 @@ class CommentController extends Controller
     public function edit(Request $request, $id)
     {
         $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+
+        $user = Auth::user();
         $comment = Comment::find($id);
         $dateBefore = Carbon::now();
         $diffM = abs(Carbon::parse($comment->created_at)->diffInMinutes($dateBefore, false));
@@ -95,7 +126,7 @@ class CommentController extends Controller
 
 
 
-            return view('comments.edit', compact('comment','user'));
+            return view('comments.edit', compact('comment','user','myTasksStatus','usersStatus','statusesToMe'));
 
         }else{
             return redirect()->back();

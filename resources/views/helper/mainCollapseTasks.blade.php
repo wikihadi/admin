@@ -2,18 +2,66 @@
     <div class="card-body">
 
         <div class="row">
-            <div class="col-sm-12 col-md-4 col-xl-3 d-none d-sm-block">
+
+            <div class="col-md-2 d-none d-md-block">
                 <img src="/storage/uploads/{{$task->pic}}" class="img-fluid" alt="">
+
             </div>
-            <div class="col-sm-12 col-md-8 col-xl-3 table-responsive">
 
-                <table class="table table-borderless table-striped table-hover text-center  " style="width: 100%;min-width: 100%">
+            <div class="col-lg-5 col-xl-5">
+                {{--<div class="row">--}}
 
-                    <tr>
-                        <td><a href="/tasks/{{$task->id}}">کد</a></td>
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="کد کار" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-key text-muted"></i> {{ $task->id }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="{{ $task->commentCount }} نظر" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-barcode text-muted"></i> {{ $task->commentCount }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="نوع" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-comments text-muted"></i> {{ $task->type }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="نوع" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-bookmark text-muted"></i> {{ $task->type }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="برند" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-at text-muted"></i> {{ $task->brand }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="متریال" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-archive text-muted"></i> {{ $task->material }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="طول" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-arrows-alt-h text-muted"></i> {{ $task->dx }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="عرض" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-archive text-muted"></i> {{ $task->dy }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-4 hvr-underline-from-center p-3">--}}
+                        {{--<div class="text-center" title="ارتفاع" data-toggle="tooltip" data-placement="bottom">--}}
+                            {{--<i class="fa fa-archive text-muted"></i> {{ $task->dz }}--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                        <td><a class="text-muted" href="/tasks/{{$task->id}}">{{$task->id}}</a></td>
-                    </tr>
+
+                <table class="table table-bordered table-responsive table-hover text-center  " style="width: 100%;min-width: 100%">
+
+
 
 
                     <tr class="d-md-none">
@@ -51,19 +99,8 @@
                             {{$task->diffDead}}
                         </td>
                     </tr>
-                    {{--<tr>--}}
-                    {{--<td><span class="badge badge-info">{{$task->jStart}}</span></td>--}}
 
-                    {{--<td><span class="badge badge-success">{{$task->jEnd}}</span>--}}
-                    {{--</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                    {{--<td>تاریخ اتمام کار</td>--}}
 
-                    {{--<td>--}}
-                    {{--{{$task->jEnd}}--}}
-                    {{--</td>--}}
-                    {{--</tr>--}}
                     @if($task->reTask === 1)
                         <tr>
                             <td colspan="2">مشابه این کار قبلا انجام شده</td>
@@ -71,25 +108,45 @@
 
                         </tr>
                     @endif
+                    <tr>
+                        <td colspan="2">
+                            <span class="badge badge-secondary" title="شروع کار">{{$task->jStart}}</span>
+                            <i class="fa fa-arrow-left"></i>
+                            <span class="badge badge-success" title="ددلاین کار">{{$task->jEnd}}</span>
+                        </td>
 
-                    {{--<tr>--}}
-                    {{--<td></td>--}}
-                    {{--<td>{{$task->commentCount}}</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                    {{--<td>مشاهده</td>--}}
-                    {{--<td>{{$task->viewCount}}</td>--}}
-                    {{--</tr>--}}
+
+</tr>
 
                 </table>
 
+                <div class="btn-group text-center">
+                    @if($task->type && $task->type != "سایر") <button class="btn btn-sm btn-link"  data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</button> @endif
+                    @if($task->type && $task->brand != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="برند"  data-placement="bottom">{{ $task->brand }}</button> @endif
+                    @if($task->type && $task->forProduct != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="محصول"  data-placement="bottom">{{ $task->forProduct }}</button> @endif
+                    @if($task->type && $task->material != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="متریال"  data-placement="bottom">{{ $task->material }}</button> @endif
+                    <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="نظر"  data-placement="bottom">{{ $task->commentCount }}</button>
+
+                    @if($task->reTask === 1)
+
+                        <button class="btn btn-sm btn-link"  data-toggle="tooltip" title="Clone" data-placement="bottom">
+                            <i class="fa fa-clone"></i>
+                        </button>
+                    @endif
+
+                </div>
 
             </div>
-            <div class="col-sm-12 col-md-12 col-xl-6">
-                {{--<h1>--}}
-                {{--{{ $task->title }}--}}
 
-                {{--</h1>--}}
+
+            <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
+              @include('statuses.taskStatus')
+
+            </div>
+
+
+            <div class="col-sm-12 col-md-12 col-xl-12">
+
                 @if($task->pending == 0)
 
                 <div class="d-flex justify-content-between"><span class="badge badge-white">{{$task->jStart}}</span><span class="badge badge-white">{{$task->jEnd}}</span></div>
@@ -100,32 +157,13 @@
 
                 @endif
 
-                {{--<div class="btn-group">--}}
-                {{--@if($task->type && $task->type != "سایر") <button class="btn btn-sm btn-link"  data-toggle="tooltip" title="نوع کار"  data-placement="bottom">{{ $task->type }}</button> @endif--}}
-                {{--@if($task->type && $task->brand != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="برند"  data-placement="bottom">{{ $task->brand }}</button> @endif--}}
-                {{--@if($task->type && $task->forProduct != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="محصول"  data-placement="bottom">{{ $task->forProduct }}</button> @endif--}}
-                {{--@if($task->type && $task->material != "سایر") <button class="btn btn-sm btn-link"   data-toggle="tooltip" title="متریال"  data-placement="bottom">{{ $task->material }}</button> @endif--}}
-                {{--<button class="btn btn-sm btn-link"   data-toggle="tooltip" title="نظر"  data-placement="bottom">{{ $task->commentCount }}</button>--}}
-                {{--<button class="btn btn-sm btn-link"   data-toggle="tooltip" title="مشاهده"  data-placement="bottom">{{ $task->viewCount }}</button>--}}
 
-                {{--@if($task->reTask === 1)--}}
 
-                {{--<button class="btn btn-sm btn-link"  data-toggle="tooltip" title="Clone" data-placement="bottom">--}}
-                {{--<i class="fa fa-clone"></i>--}}
-                {{--</button>--}}
-                {{--@endif--}}
 
-                {{--</div>--}}
-
-                <p class="text-justify pt-3">
-                    {{ $task->content }}
-
-                </p>
 
 
             </div>
-            <div class="text-left col-12">
-                {{--<a href="/tasks/{{$task->id}}" class="card-link">مشاهده</a>--}}
+            <div class="text-left col-12 d-sm-none">
                 <a href="/tasks/{{$task->id}}" class="btn btn-link"><i class="fa fa-3x fa-arrow-left"></i></a>
             </div>
 

@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\PostViewBy;
+use App\Status;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Verta;
+
 
 class PostController extends Controller
 {
@@ -16,9 +21,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
         $posts = Post::orderBy('id','DESC')->paginate(10);
 
-        return view('posts.index',compact('posts'));
+        return view('posts.index',compact('posts','myTasksStatus','usersStatus'));
     }
 
     /**
@@ -64,6 +72,21 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $post = Post::find($id);
         $user = Auth::user();
         $oldView = PostViewBy::where('user_id', $user->id)->where('post_id', $id)->get();
@@ -75,7 +98,7 @@ class PostController extends Controller
             ]);
             $postView->save();
         }
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('post','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
 
     /**

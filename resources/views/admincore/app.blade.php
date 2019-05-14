@@ -160,6 +160,77 @@ body{
                 $('.timeout').fadeOut('fast');
             }, 3000);
         })
+
+
+        $(".playTask").click(function(){
+            var $selectUserStatus = $('.selectUserStatus');
+            var $inputUserStatus = $('.inputUserStatus');
+            var $statusStatus = $('.statusStatus');
+
+            $('.lableUserStatus').toggle();
+
+            if ($inputUserStatus.attr('readonly')) {
+                $inputUserStatus.removeAttr('readonly');
+                $inputUserStatus.removeAttr('value', '');
+
+            } else {
+                $inputUserStatus.attr('readonly', 'readonly');
+                $inputUserStatus.attr('value', 'شروع به کار');
+            }
+            if ($selectUserStatus.attr('disabled')) {
+                $selectUserStatus.removeAttr('disabled');
+            } else {
+                $selectUserStatus.attr('disabled', 'disabled');
+            }
+            if ($statusStatus.attr('value') == 'status') {
+                $statusStatus.attr('value','start');
+            } else {
+                $statusStatus.attr('value', 'status');
+            }
+
+        });
+
+            $(".endTask").click(function () {
+                var $selectUserStatus = $('.selectUserStatus');
+                var $inputUserStatus = $('.inputUserStatus');
+                var $statusStatus = $('.statusStatus');
+                var $selectTaskStatus = $('.selectTaskStatus');
+                var $endTaskId = $('.endTaskId');
+
+                $('.lableUserStatusEnd').toggle();
+
+                if ($inputUserStatus.attr('readonly')) {
+                    $inputUserStatus.removeAttr('readonly');
+                    $inputUserStatus.removeAttr('value', '');
+
+                } else {
+                    $inputUserStatus.attr('readonly', 'readonly');
+                    $inputUserStatus.attr('value', 'پایان کار');
+                }
+
+                if ($selectTaskStatus.attr('disabled')) {
+                    $selectTaskStatus.removeAttr('disabled');
+                } else {
+                    $selectTaskStatus.attr('disabled', 'disabled');
+                }
+                if ($endTaskId.attr('disabled')) {
+                    $endTaskId.removeAttr('disabled');
+                } else {
+                    $endTaskId.attr('disabled', 'disabled');
+                }
+                if ($selectUserStatus.attr('disabled')) {
+                    $selectUserStatus.removeAttr('disabled');
+                } else {
+                    $selectUserStatus.attr('disabled', 'disabled');
+                }
+                if ($statusStatus.attr('value') == 'status') {
+                    $statusStatus.attr('value', 'end');
+                } else {
+                    $statusStatus.attr('value', 'status');
+                }
+
+            });
+
     </script>
 </body>
 </html>

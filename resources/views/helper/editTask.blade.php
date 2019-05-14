@@ -171,7 +171,7 @@
 
     </div>
 
-    @role('admin')
+    {{--@role('admin')--}}
     <div class="form-group col-sm-12">
         <label for="">تیم کاری</label>
         <select name="users[]" class="form-control select2" multiple>
@@ -188,11 +188,11 @@
         </select>
 
     </div>
-    @else
-        <input type="hidden" name="isUser" value="1">
+    {{--@else--}}
+        {{--<input type="hidden" name="isUser" value="1">--}}
 
 
-        @endrole
+        {{--@endrole--}}
         <div class="form-group">
 
             <label for="list1">در لیست خودم</label>

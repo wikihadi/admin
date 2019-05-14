@@ -18,6 +18,7 @@ class CreateStatusesTable extends Migration
             $table->string('status');
             $table->text('content')->nullable();
             $table->integer('user_id')->nullable();
+            $table->integer('to_user')->nullable();
             $table->integer('task_id')->nullable();
             $table->integer('media_id')->nullable();
             $table->string('unit')->nullable();

@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Status;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Verta;
+
 
 
 class BrandController extends Controller
@@ -24,8 +30,23 @@ class BrandController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $brands = Brand::all();
-        return view('brands.create', compact('brands'));
+        return view('brands.create', compact('brands','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
 
     /**
@@ -77,10 +98,26 @@ class BrandController extends Controller
     public function edit($id)
     {
 
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
+
         $brand = Brand::find($id);
         $brands = Brand::all();
 
-        return view('brands.edit', compact('brand', 'brands'));
+        return view('brands.edit', compact('brand', 'brands','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
     }
 
     /**

@@ -177,31 +177,31 @@
 
                     </div>
 
-                    <div id="contentCard" class="card card-border">
+                    {{--<div id="contentCard" class="card card-border">--}}
 
-                        <div class="bg-light card-header card-border" data-toggle="collapse" href="#content">
-                            <div class="">+ توضیحات
-                            </div>
-
-
-                        </div>
-                        <div id="content" class="collapse noShow" data-parent="#accordion">
-                            <div class="card-body">
+                        {{--<div class="bg-light card-header card-border" data-toggle="collapse" href="#content">--}}
+                            {{--<div class="">+ توضیحات--}}
+                            {{--</div>--}}
 
 
-                                <div class="col-sm-12">
-                                    <p class="text-justify">
-                                        {{ $task->content }}
-
-                                    </p>
+                        {{--</div>--}}
+                        {{--<div id="content" class="collapse noShow" data-parent="#accordion">--}}
+                            {{--<div class="card-body">--}}
 
 
-                                </div>
-                            </div>
+                                {{--<div class="col-sm-12">--}}
+                                    {{--<p class="text-justify">--}}
+                                        {{--{{ $task->content }}--}}
+
+                                    {{--</p>--}}
 
 
-                        </div>
-                    </div>
+                                {{--</div>--}}
+                            {{--</div>--}}
+
+
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                 </div>
                 <!------------ Comment ------------------------------------------------------->
@@ -241,52 +241,53 @@
                                                     {{$task->commentCount}} نظر
                                                 </div>
                                                 <div class="panel-body">
+                                                    @include('statuses.taskStatus')
 
-                                                    <form method="post" action="{{ route('comments.store') }}">
-                                                        <div class="form-group">
-                                                            @csrf
+                                                    {{--<form method="post" action="{{ route('comments.store') }}">--}}
+                                                        {{--<div class="form-group">--}}
+                                                            {{--@csrf--}}
                                                             {{--<textarea class="form-control" name="comment"--}}
                                                                       {{--placeholder="به نظر من..." rows="3"></textarea>--}}
                                                             {{--<input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من...">--}}
                                                             {{--<div class="input-group mb-3">--}}
-                                                                <textarea id="" name="comment" class="form-control" rows="3" placeholder="به نظر من..."></textarea>
+                                                                {{--<textarea id="" name="comment" class="form-control" rows="3" placeholder="به نظر من..."></textarea>--}}
                                                                 {{--<input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من..." aria-label="" aria-describedby="basic-addon1">--}}
 
                                                                 {{--<div class="input-group-append">--}}
-                                                                    <button class="btn btn-success btn-block" type="submit">ثبت نظر</button>
+                                                                    {{--<button class="btn btn-success btn-block" type="submit">ثبت نظر</button>--}}
                                                                 {{--</div>--}}
                                                             {{--</div>--}}
-                                                        </div>
+                                                        {{--</div>--}}
 
-                                                        <input type="hidden" name="user_id"
-                                                               value="{{ Auth::user()->id }}">
-                                                        <input type="hidden" name="task_id" value="{{ $task->id }}">
+                                                        {{--<input type="hidden" name="user_id"--}}
+                                                               {{--value="{{ $user->id }}">--}}
+                                                        {{--<input type="hidden" name="task_id" value="{{ $task->id }}">--}}
                                                         {{--<button type="submit" class="btn btn-link pull-left">--}}
                                                             {{--<i class="fa fa-2x fa-plus-circle"></i>--}}
                                                         {{--</button>--}}
-                                                    </form>
-                                                    <div class="clearfix"></div>
-                                                    <hr>
-                                                    <ul class="media-list">
+                                                    {{--</form>--}}
+                                                    {{--<div class="clearfix"></div>--}}
+                                                    {{--<hr>--}}
+                                                    {{--<ul class="media-list">--}}
 
 
-                                                        @foreach($comments as $comment)
+                                                        {{--@foreach($comments as $comment)--}}
 
-                                                            <li class="media">
-                                                                <a href="#" class="pull-left ml-3">
-                                                                    <img class="img-circle" style=""
-                                                                         src="/storage/avatars/{{ $comment->user->avatar }}"/>
-                                                                </a>
-                                                                <div class="media-body">
-                                                                    <span class="text-muted pull-left">
-                                                                        <small dir="ltr" class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->diff}}</small>
+                                                            {{--<li class="media">--}}
+                                                                {{--<a href="#" class="pull-left ml-3">--}}
+                                                                    {{--<img class="img-circle" style=""--}}
+                                                                         {{--src="/storage/avatars/{{ $comment->user->avatar }}" />--}}
+                                                                {{--</a>--}}
+                                                                {{--<div class="media-body">--}}
+                                                                    {{--<span class="text-muted pull-left">--}}
+                                                                        {{--<small dir="ltr" class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->diff}}</small>--}}
 
-                                                                    </span>
-                                                                    <strong class="text-success">{{ $comment->user->name }}</strong>
-                                                                    <div class="clearfix"></div>
-                                                                    <div style="white-space: pre-wrap;">{{ $comment->comment }}</div>
-                                                                    <div class="text-left">
-                                                                    @if($comment->diffM < 5)
+                                                                    {{--</span>--}}
+                                                                    {{--<strong class="text-success">{{ $comment->user->name }}</strong>--}}
+                                                                    {{--<div class="clearfix"></div>--}}
+                                                                    {{--<div style="white-space: pre-wrap;">{{ $comment->comment }}</div>--}}
+                                                                    {{--<div class="text-left">--}}
+                                                                    {{--@if($comment->diffM < 5)--}}
                                                                         {{--<form class="d-inline" action="{{ route('comments.edit',$comment->id)}}" method="post">--}}
 
                                                                             {{--<input name="diffM" type="hidden" value="{{$comment->diffM}}">--}}
@@ -294,17 +295,17 @@
                                                                             {{--@csrf--}}
                                                                             {{--<input type="hidden" value="{{$user->id}}" name="user_id">--}}
                                                                             {{--<input type="hidden" value="{{$comment->id}}" name="id">--}}
-                                                                            <a class="btn btn-link my-2 text-muted" href="/comments/{{$comment->id}}/edit"><i class="fa fa-edit"></i></a>
+                                                                            {{--<a class="btn btn-link my-2 text-muted" href="/comments/{{$comment->id}}/edit"><i class="fa fa-edit"></i></a>--}}
                                                                         {{--</form>--}}
-                                                                        @endif
-                                                                    </div>
+                                                                        {{--@endif--}}
+                                                                    {{--</div>--}}
 
-                                                                </div>
-                                                            </li>
-                                                        @endforeach
+                                                                {{--</div>--}}
+                                                            {{--</li>--}}
+                                                        {{--@endforeach--}}
 
 
-                                                    </ul>
+                                                    {{--</ul>--}}
                                                 </div>
                                             </div>
                                         </div>

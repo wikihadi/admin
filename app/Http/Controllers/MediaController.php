@@ -25,6 +25,10 @@ class MediaController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $usersStatus = User::all();
+
         //$medias = Media::all();
         return view('medias.index');
     }

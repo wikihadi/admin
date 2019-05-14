@@ -178,9 +178,115 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
+
                 <div class="col-md-9">
 
+
+
                     <div class="card">
+                        <div class="">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="home" aria-selected="true">پیام های من</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="profile" aria-selected="false">فعالیت های من</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#sent" role="tab" aria-controls="contact" aria-selected="false">پیام های ارسالی</a>
+                        </li>
+                    </ul>
+                        </div>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active card-body" id="messages" role="tabpanel" aria-labelledby="home-tab">
+
+                            @if(count($myStatuses) == 0)
+                                <h5 class="text-center m-3">شما هیچ پیامی ندارید</h5>
+
+                            @else
+                                @foreach($myStatuses as $s)
+                                    <div class="dropdown-item">
+                                        <!-- Message Start -->
+                                        <div class="media">
+                                            <img src="/storage/avatars/{{ $s->user->avatar }}" alt="User Avatar" class="img-size-50 ml-3 img-circle">
+                                            <div class="media-body">
+                                                <h3 class="dropdown-item-title">
+
+                                                    <span class="float-left text-sm text-muted" title="{{$s->task_id}}"><i class="fa fa-clock-o"></i> {{$s->diff}}</span>
+                                                </h3>
+                                                <p class="text-sm">{{$s->content}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- Message End -->
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                @endforeach
+                                    {{ $myStatuses->links() }}
+
+                            @endif
+
+                        </div>
+                        <div class="tab-pane fade card-body" id="activity" role="tabpanel" aria-labelledby="profile-tab">
+
+
+                            @if(count($myActivities) == 0)
+                                <h5 class="text-center m-3">شما هیچ پیامی ندارید</h5>
+
+                            @else
+                                @foreach($myActivities as $s)
+                                    <div class="dropdown-item">
+                                        <!-- Message Start -->
+                                        <div class="media">
+                                            <img src="/storage/avatars/{{ $s->user->avatar }}" alt="User Avatar" class="img-size-50 ml-3 img-circle">
+                                            <div class="media-body">
+                                                <h3 class="dropdown-item-title">
+
+                                                    <span class="float-left text-sm text-muted" title="{{$s->task_id}}"><i class="fa fa-clock-o"></i> {{$s->diff}}</span>
+                                                </h3>
+                                                <p class="text-sm">{{$s->content}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- Message End -->
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                @endforeach
+
+                            @endif
+
+
+                        </div>
+                        <div class="tab-pane fade card-body" id="sent" role="tabpanel" aria-labelledby="contact-tab">
+
+                            @if(count($my) == 0)
+                                <h5 class="text-center m-3">شما هیچ پیامی ارسال نکرده اید</h5>
+
+                            @else
+                                @foreach($my as $s)
+                                    <div class="dropdown-item">
+                                        <!-- Message Start -->
+                                        <div class="media">
+                                            <img src="/storage/avatars/{{ $s->user->avatar }}" alt="User Avatar" class="img-size-50 ml-3 img-circle">
+                                            <div class="media-body">
+                                                <h3 class="dropdown-item-title">
+
+                                                    <span class="float-left text-sm text-muted" title="{{$s->task_id}}"><i class="fa fa-clock-o"></i> {{$s->diff}}</span>
+                                                </h3>
+                                                <p class="text-sm">{{$s->content}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- Message End -->
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                @endforeach
+
+                            @endif
+
+                        </div>
+                    </div>
+                    </div>
+
+                    {{--<div class="card">--}}
                         {{--<div class="card-header p-2">--}}
                             {{--<ul class="nav nav-pills">--}}
                                 {{--<li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">فعالیت‌های انجام شده</a></li>--}}
@@ -188,26 +294,23 @@
                                 {{--<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">تنظیمات</a></li>--}}
                             {{--</ul>--}}
                         {{--</div><!-- /.card-header -->--}}
-                            <div class="card-header"><div class="card-title">فعالیتهای اخیر من</div></div>
-                            <div class="card-body">
-                                @foreach($tasks as $task)
+                            {{--<div class="card-header"><div class="card-title">فعالیتهای اخیر من</div></div>--}}
+                            {{--<div class="card-body">--}}
+                                {{--@foreach($tasks as $task)--}}
 
-                                    <!-- Post -->
-                                    <div class="post w-100">
-                                        <div class="">
+                                    {{--<!-- Post -->--}}
+                                    {{--<div class="post w-100">--}}
+                                        {{--<div class="">--}}
                                             {{--<img class="img-circle img-bordered-sm" src="/storage/avatars/{{ $user->avatar }}" alt="user image">--}}
-                                            <span class="username">
-                          <a href="/tasks/{{$task->id}}" target="_blank">{{$task->title}}</a>
+                                            {{--<span class="username">--}}
+                          {{--<a href="/tasks/{{$task->id}}" target="_blank">{{$task->title}}</a>--}}
                           {{--<a href="#" class="float-left btn-tool"><i class="fa fa-times"></i></a>--}}
-                        </span>
+                        {{--</span>--}}
                                             {{--<span class="description">آخرین تغییر در {{$task->updated_at}}</span>--}}
-                                        </div>
-                                        <!-- /.user-block -->
-                                        {{--<p>--}}
-{{--{{$task->content}}--}}
-                                        {{--</p>--}}
+                                        {{--</div>--}}
 
-                                        <p>
+
+                                        {{--<p>--}}
                                             {{--<a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> اشتراک گذاری</a>--}}
                                             {{--<a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up mr-1"></i> لایک</a>--}}
                                             {{--<span class=" ">--}}
@@ -215,11 +318,11 @@
                             {{--<i class="fa fa-comments-o mr-1"></i> نظر ({{$task->commentCount}})--}}
                           {{--</a>--}}
                         {{--</span>--}}
-                                        </p>
+                                        {{--</p>--}}
 
-                                    </div>
-                                    <!-- /.post -->
-                                    @endforeach
+                                    {{--</div>--}}
+                                    {{--<!-- /.post -->--}}
+                                    {{--@endforeach--}}
 
 
                                     {{--<div class="post">--}}
@@ -238,9 +341,8 @@
 
 
 
-                            </div>
-
-                    </div>
+                            {{--</div>--}}
+                    {{--</div>--}}
 
                 </div>
                 </div>
