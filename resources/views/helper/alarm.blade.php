@@ -1,1 +1,2 @@
-<div class="alert alert-warning card-border" dir="rtl">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{$user->name}} عزیز در حال حاضر کارهای تیمی امکان ثبت زمان ندارند. در حال برطرف کردن این مشکل هستیم. متشکرم</div>
+<div class="alert alert-dark card-border animated shake delay-2s" dir="rtl">  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{$user->name}} عزیز! آپدیت جدید انجام شد. تغییرات را ببینید<a
+            href="/posts/4" class="btn btn-info">مطالعه بیشتر</a></div>

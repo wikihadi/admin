@@ -12,11 +12,13 @@
     <div class="col-sm-12">
 
         <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
+            <div class="alert alert-info">{{$user->name}}{{$lastStatus->content}}</div>
 
             @include('helper.tasksUsers')
             @if ($tasks->isEmpty())
                 <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
             @else
+
                 @include('helper.titleTasks')
             @endif
 

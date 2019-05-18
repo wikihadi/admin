@@ -137,7 +137,7 @@
 
         <div class="m-0 m-sm-3 p-0 p-sm-5 bg-light" style="border-radius: 30px;">
 
-<p class="text-justify">{{$post->content}}</p>
+<p class="text-justify" style="white-space: pre-wrap;">{{$post->content}}</p>
             <a href="/" class="btn btn-block btn-link">برگشت به خانه</a>
 
 

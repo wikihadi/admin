@@ -22,11 +22,23 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
         $posts = Post::orderBy('id','DESC')->paginate(10);
 
-        return view('posts.index',compact('posts','myTasksStatus','usersStatus'));
+        return view('posts.index',compact('posts','myTasksStatus','usersStatus','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
     }
 
     /**
@@ -36,7 +48,22 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
+        return view('posts.create', compact('myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
 
     }
 
@@ -73,7 +100,7 @@ class PostController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
         $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
         $dateBefore = Carbon::now();
@@ -98,7 +125,7 @@ class PostController extends Controller
             ]);
             $postView->save();
         }
-        return view('posts.show', compact('post','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
+        return view('posts.show', compact('post','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
     }
 
     /**
