@@ -18,7 +18,6 @@
                 @else
                     -
                 @endif
-
             </div>
             <div class="d-none d-lg-block col-lg-2 text-center">
                 @if($task->type && $task->forProduct != "سایر")
@@ -58,7 +57,6 @@
             @endif
 
 
-        @if($task->pending == 0 && $task->isDone == 0)
 
                 @if($task->pastOr <= 0)
 
@@ -76,51 +74,49 @@
                 <div class="mx-1"><i class="fa fa-clone" data-toggle="tooltip" title="Clone"></i></div>
             @endif
 
-                    @if(isset($userLastStatus) && $task->id != $userLastStatus->task_id)
-                        @include('statuses.playTaskForm')
-                    @endif
+        @if(!isset($_GET['sort']) && isset($userLastStatus) && $task->id != $userLastStatus->task_id)
+            @include('statuses.playTaskForm')
+        @endif
 
-                    {{--@if(count($task->statusInLine) != 0)--}}
-                        {{--@foreach($task->statusInLine as $t)--}}
-                            {{--@if($t->status == 'start')--}}
+        {{--@if(count($task->statusInLine) != 0)--}}
+            {{--@foreach($task->statusInLine as $t)--}}
+                {{--@if($t->status == 'start')--}}
 {{--                                @include('statuses.pauseTaskForm')--}}
 {{--                                @include('statuses.stopTaskForm')--}}
-                            {{--@elseif($t->status == 'pause')--}}
-                                {{--@include('statuses.playTaskForm')--}}
+                {{--@elseif($t->status == 'pause')--}}
+                    {{--@include('statuses.playTaskForm')--}}
 {{--                                @include('statuses.stopTaskForm')--}}
-                            {{--@endif--}}
-                                {{--@break--}}
-                        {{--@endforeach--}}
-                    {{--@else--}}
-                        {{--@include('statuses.playTaskForm')--}}
-                    {{--@endif--}}
+                {{--@endif--}}
+                    {{--@break--}}
+            {{--@endforeach--}}
+        {{--@else--}}
+            {{--@include('statuses.playTaskForm')--}}
+        {{--@endif--}}
 
 
 
 
-                        {{--@if(isset($taskMeter) && ($taskMeter->end == 0) && ($taskMeter->task_id == $task->id) && ($taskMeter->user_id == $user->id))--}}
-                {{--<div class="mx-1"><a href="/tasks/{{$task->id}}/end"><i class="fa fa-pause"></i></a></div>--}}
-            {{--@elseif(isset($taskMeter) && $taskMeter->end == 1)--}}
-                {{--<div class="mx-1">--}}
-                    {{--<a href="/tasks/{{$task->id}}/start"><i class="fa fa-play"></i></a>--}}
-                {{--</div>--}}
-            {{--@endif--}}
-
-            @else
-                <div class="mx-1">در انتظار</div>
-            @endif
-            @can('task-edit')
-                    <div class="mx-1 hvr-push">
-                        <a href="/tasks/{{ $task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $task->title }}"></i></a>
-                    </div>
-                @endcan
-
-                    <div class="mx-1 hvr-pop">
-                        <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"></i></a>
-                    </div>
+            {{--@if(isset($taskMeter) && ($taskMeter->end == 0) && ($taskMeter->task_id == $task->id) && ($taskMeter->user_id == $user->id))--}}
+    {{--<div class="mx-1"><a href="/tasks/{{$task->id}}/end"><i class="fa fa-pause"></i></a></div>--}}
+{{--@elseif(isset($taskMeter) && $taskMeter->end == 1)--}}
+    {{--<div class="mx-1">--}}
+        {{--<a href="/tasks/{{$task->id}}/start"><i class="fa fa-play"></i></a>--}}
+    {{--</div>--}}
+{{--@endif--}}
 
 
-
+@can('task-edit')
+        <div class="mx-1 hvr-push">
+            <a href="/tasks/{{ $task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $task->title }}"></i></a>
         </div>
-    </div>
+    @endcan
+
+        <div class="mx-1 hvr-pop">
+            <a href="/tasks/{{ $task->id }}"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو به {{ $task->title }}"></i></a>
+        </div>
+
+
+
+</div>
+</div>
 </div>

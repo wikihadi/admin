@@ -53,23 +53,11 @@ $i = 1;
                 <small class="text-success">{{ $status->user->name }}</small>
                 <div class="clearfix"></div>
                 <div style="white-space: pre-wrap;">{{ $status->content }}</div>
-                {{--<div class="text-left">--}}
-                {{--@if($status->diffM < 5)--}}
-                {{--<form class="d-inline" action="{{ route('comments.edit',$comment->id)}}" method="post">--}}
 
-                {{--<input name="diffM" type="hidden" value="{{$comment->diffM}}">--}}
-
-                {{--@csrf--}}
-                {{--<input type="hidden" value="{{$user->id}}" name="user_id">--}}
-                {{--<input type="hidden" value="{{$comment->id}}" name="id">--}}
-                {{--<a class="btn btn-link my-2 text-muted" href="/comments/{{$status->id}}/edit"><i class="fa fa-edit"></i></a>--}}
-                {{--</form>--}}
-                {{--@endif--}}
-                {{--</div>--}}
 
             </div>
         </li>
-@if(!Request::is('tasks/*'))
+@if(!Request::is('tasks'))
         @if($i++ >= 5)
             @break
             @endif

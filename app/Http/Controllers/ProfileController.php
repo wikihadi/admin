@@ -28,7 +28,7 @@ class ProfileController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
         $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
         $dateBefore = Carbon::now();

@@ -46,6 +46,16 @@
                 @include('statuses.desktopModal')
         </li>
 
+        <form  method="post" action="{{ route('status.store') }}">
+            @csrf
+            <input type="hidden" name="user_id" value="{{Auth::id()}}">
+            <input type="hidden" name="status" value="off">
+            <input type="hidden" name="content" value="توقف زمان برای  {{Auth::user()->name}}">
+        <li class="nav-item animated">
+            <button class="nav-link hvr-grow  animated fadeInUp btn btn-link" title="توقف" type="submit"><i class="fa fa-power-off" data-target="tooltip"></i></button>
+        </li>
+        </form>
+
         {{--<li class="nav-item">--}}
             {{--<a class="nav-link" href="#"><i--}}
                         {{--class="fa fa-meh-o"></i></a>--}}

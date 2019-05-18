@@ -229,30 +229,31 @@
                         </div>
                         <div class="tab-pane fade card-body" id="activity" role="tabpanel" aria-labelledby="profile-tab">
 
+                            <h5 class="text-center m-3">بزودی</h5>
 
-                            @if(count($myActivities) == 0)
-                                <h5 class="text-center m-3">شما هیچ پیامی ندارید</h5>
+                            {{--@if(count($myActivities) == 0)--}}
+                                {{--<h5 class="text-center m-3">شما هیچ پیامی ندارید</h5>--}}
 
-                            @else
-                                @foreach($myActivities as $s)
-                                    <div class="dropdown-item">
-                                        <!-- Message Start -->
-                                        <div class="media">
-                                            <img src="/storage/avatars/{{ $s->user->avatar }}" alt="User Avatar" class="img-size-50 ml-3 img-circle">
-                                            <div class="media-body">
-                                                <h3 class="dropdown-item-title">
+                            {{--@else--}}
+                                {{--@foreach($myActivities as $s)--}}
+                                    {{--<div class="dropdown-item">--}}
+                                        {{--<!-- Message Start -->--}}
+                                        {{--<div class="media">--}}
+                                            {{--<img src="/storage/avatars/{{ $s->user->avatar }}" alt="User Avatar" class="img-size-50 ml-3 img-circle">--}}
+                                            {{--<div class="media-body">--}}
+                                                {{--<h3 class="dropdown-item-title">--}}
 
-                                                    <span class="float-left text-sm text-muted" title="{{$s->task_id}}"><i class="fa fa-clock-o"></i> {{$s->diff}}</span>
-                                                </h3>
-                                                <p class="text-sm">{{$s->content}}</p>
-                                            </div>
-                                        </div>
-                                        <!-- Message End -->
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                @endforeach
+                                                    {{--<span class="float-left text-sm text-muted" title="{{$s->task_id}}"><i class="fa fa-clock-o"></i> {{$s->diff}}</span>--}}
+                                                {{--</h3>--}}
+                                                {{--<p class="text-sm">{{$s->content}}</p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<!-- Message End -->--}}
+                                    {{--</div>--}}
+                                    {{--<div class="dropdown-divider"></div>--}}
+                                {{--@endforeach--}}
 
-                            @endif
+                            {{--@endif--}}
 
 
                         </div>

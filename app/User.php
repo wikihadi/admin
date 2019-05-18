@@ -67,7 +67,15 @@ class User extends Authenticatable
 
     public function taskOrder()
     {
-        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id')->wherePivot('isDone',0)->orderBy('order_column','asc');//->where('order_column','!=',-1);
+        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id')->orderBy('order_column','asc')->wherePivot('isDone',0);//->where('order_column','!=',-1);
+    }
+    public function taskOrderDone()
+    {
+        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id')->orderBy('updated_at','desc')->wherePivot('isDone',1);//->where('order_column','!=',-1);
+    }
+    public function taskOrderLatest()
+    {
+        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id');//->where('order_column','!=',-1);
     }
     public function taskNotOrder()
     {

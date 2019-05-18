@@ -167,7 +167,10 @@
             <div class="text-left col-12">
 
                     <hr>
-                @include('statuses.stopTaskForm')
+                @if(isset($_GET['sort']) && $_GET['sort'] == 'done' || isset($_GET['sort']) && $_GET['sort'] == 'latest')
+                @elseif()
+                    @include('statuses.stopTaskForm')
+                @endif
 
                 <a href="/tasks/{{$task->id}}" class="btn btn-link d-sm-none"><i class="fa fa-3x fa-arrow-left"></i></a>
             </div>

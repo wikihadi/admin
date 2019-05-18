@@ -50,21 +50,21 @@
 
 
     <button class="btn btn-link float-right mt-2" data-toggle="collapse" data-target=".advanced" type="button"><i class="fa fa-bars"></i></button>
-@if(isset($lastStartedStatus) && $lastStartedStatus->status == 'start')
-    <button class="btn btn-link float-right mt-2 endTask" type="button" data-toggle="collapse" data-target=".advanced"><i class="fa fa-stop"></i></button>
-@elseif(isset($lastStartedStatus) && $lastStartedStatus->status == 'end')
-    <button class="btn btn-link float-right mt-2 playTask" type="button" data-toggle="collapse" data-target=".advanced"><i class="fa fa-play"></i></button>
-@else
-    <button class="btn btn-link float-right mt-2 playTask" type="button" data-toggle="collapse" data-target=".advanced"><i class="fa fa-play"></i></button>
-@endif
+{{--@if(isset($lastStartedStatus) && $lastStartedStatus->status == 'start')--}}
+    {{--<button class="btn btn-link float-right mt-2 endTask" type="button" data-toggle="collapse" data-target=".advanced"><i class="fa fa-stop"></i></button>--}}
+{{--@elseif(isset($lastStartedStatus) && $lastStartedStatus->status == 'end')--}}
+    {{--<button class="btn btn-link float-right mt-2 playTask" type="button" data-toggle="collapse" data-target=".advanced"><i class="fa fa-play"></i></button>--}}
+{{--@else--}}
+    {{--<button class="btn btn-link float-right mt-2 playTask" type="button" data-toggle="collapse" data-target=".advanced"><i class="fa fa-play"></i></button>--}}
+{{--@endif--}}
 
 
-<form  method="post" action="{{ route('status.store') }}">
-    @csrf
-    <input type="hidden" name="user_id" value="{{Auth::id()}}">
-    <input type="hidden" name="status" value="off">
-    <input type="hidden" name="content" value="زمان استراحت برای {{Auth::user()->name}}">
+{{--<form  method="post" action="{{ route('status.store') }}">--}}
+    {{--@csrf--}}
+    {{--<input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+    {{--<input type="hidden" name="status" value="off">--}}
+    {{--<input type="hidden" name="content" value="توقف زمان برای  {{Auth::user()->name}}">--}}
 
-    <button class="btn btn-link mt-2" title="استراحت" type="submit"><i class="fa fa-power-off"></i></button>
+    {{--<button class="btn btn-link mt-2" title="استراحت" type="submit"><i class="fa fa-power-off"></i></button>--}}
 
-</form>
+{{--</form>--}}
