@@ -38,7 +38,7 @@
 @php
 $i = 1;
 @endphp
-    @foreach($statuses->where('task_id', $task->id) as $status)
+    @foreach($statuses->where('task_id', $task->id)->where('status','status') as $status)
 
         <li class="media">
             <a href="#" class="pull-left ml-3">

@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration
             $table->softDeletes();
             $table->string('title');
             $table->text('content');
-            $table->string('status')->nullable()->default('new');
+//            $table->string('status')->nullable()->default('new');
             $table->integer('orderTask')->nullable()->default('0');
             $table->integer('weight')->nullable()->default('0');
             $table->integer('viewCount')->nullable()->default('0');

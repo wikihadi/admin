@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
         $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
@@ -48,9 +48,17 @@ class HomeController extends Controller
 
         }
 
-
+        $test = Status::where('user_id',Auth::id())->where('status','off')->orWhere('status','on')->orderBy('created_at','desc')->first();
+        if(empty($test->status) || $test->status == 'on'){
+            $off = 0;
+        }else{
+            $off = 1;
+        }
         $v = Verta::now();
-        return view('home',compact('v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus'));
+        
+        return view('home',compact('v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off'));
     }
+
+
 
 }

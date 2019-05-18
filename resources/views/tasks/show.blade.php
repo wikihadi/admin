@@ -12,20 +12,20 @@
     <div class="col-sm-12">
 
         <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
-            @if($task->isDone == 1)
-            <div class="alert-info alert text-center">این کار توسط کاربر {{$task->done_user_id}} در تاریخ {{$task->done_date}} به اتمام رسیده است</div>
-            @endif
-            @if(isset($taskMeter) && $taskMeter->end == 0)
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>شروع کار</strong> این کار در حال انجام است
-                    <a href="/tasks/{{$task->id}}/end"
-                       class="btn btn-link my-2 text-dark">توقف زمان کار</a>
-                    <strong>{{$taskMeter->created_at}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                @endif
+            {{--@if($task->isDone == 1)--}}
+            {{--<div class="alert-info alert text-center">این کار توسط کاربر {{$task->done_user_id}} در تاریخ {{$task->done_date}} به اتمام رسیده است</div>--}}
+            {{--@endif--}}
+            {{--@if(isset($taskMeter) && $taskMeter->end == 0)--}}
+                {{--<div class="alert alert-success alert-dismissible fade show" role="alert">--}}
+                    {{--<strong>شروع کار</strong> این کار در حال انجام است--}}
+                    {{--<a href="/tasks/{{$task->id}}/end"--}}
+                       {{--class="btn btn-link my-2 text-dark">توقف زمان کار</a>--}}
+                    {{--<strong>{{$taskMeter->created_at}}</strong>--}}
+                    {{--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
+                        {{--<span aria-hidden="true">&times;</span>--}}
+                    {{--</button>--}}
+                {{--</div>--}}
+                {{--@endif--}}
             <h1 class="text-center">{{$task->title}}</h1>
             <div class="d-md-flex justify-content-center">
                     @if($task->type && $task->type != "سایر")
@@ -63,19 +63,35 @@
                 <a href="/tasks" class="btn btn-link" title="My Tasks"><i class="fa fa-list-ol"></i></a>
 
             </div>
-            <div class="text-left col">
+            <div class="text-left col text-left">
+                @can('task-delete')
+
+                    <form class=""  action="{{ route('tasks.destroy', $task->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="urlP" value="{{$urlP}}">
+
+                        <button class="btn btn-link text-danger my-2" type="submit"><i class="fa fa-trash"></i></button>
+                        @can('task-edit')
+
+                            <a href="/tasks/{{$task->id}}/edit"
+                               class="btn btn-link text-warning my-2"><i class="fa fa-edit"></i></a>
+
+                        @endcan
+                    </form>
+                @endcan
 
                 {{--<a href="/tasks/create" class="btn btn-link" title="New"><i class="fa fa-plus"></i></a>--}}
-                <a class="btn btn-link" data-toggle="collapse" href=".collapse"><i class="fa fa-arrows-alt"></i></a>
-                @if(isset($taskMeter) && $taskMeter->end == 1)
-                    <a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>
+                {{--<a class="btn btn-link" data-toggle="collapse" href=".collapse"><i class="fa fa-arrows-alt"></i></a>--}}
+                {{--@if(isset($taskMeter) && $taskMeter->end == 1)--}}
+                    {{--<a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>--}}
 
-                @elseif(isset($taskMeter) && $taskMeter->end == 0)
-                    <a href="/tasks/{{$task->id}}/end" class="btn btn-link"><i class="fa fa-pause"></i></a>
-                    @else
-                    <a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>
+                {{--@elseif(isset($taskMeter) && $taskMeter->end == 0)--}}
+                    {{--<a href="/tasks/{{$task->id}}/end" class="btn btn-link"><i class="fa fa-pause"></i></a>--}}
+                    {{--@else--}}
+                    {{--<a href="/tasks/{{$task->id}}/start" class="btn btn-link"><i class="fa fa-play"></i></a>--}}
 
-                @endif
+                {{--@endif--}}
             </div>
             </div>
 
@@ -85,25 +101,21 @@
                     <div class="card card-border">
 
                         <div class="
-
                         @if($dead < 0 )
                                 card-danger bg-danger
-@elseif($dead <= 3)
+                        @elseif($dead <= 3)
                                 card-danger bg-warning
-
-@else
-
+                        @else
                                 bg-info
-
-@endif
-
-                                card-header
-                                card-border" data-toggle="collapse" href="#desc">
+                        @endif
+                                card-header card-border"
+                             data-toggle="collapse" data-target=".desc" aria-expanded="false" aria-controls="desc">
                             <div class="">+ مشخصات</div>
 
 
                         </div>
-                        <div id="desc" class="collapse show noShow" data-parent="#accordion">
+                        {{--<div id="desc" class="collapse show noShow" data-parent="#accordion">--}}
+                        <div id="desc" class="collapse show noShow desc">
                             <div class="card-body">
 
 
@@ -218,7 +230,7 @@
 
 
                         </div>
-                        <div id="comments" class="collapse show" data-parent="#accordion">
+                        <div id="comments" class="collapse show">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-10 m-auto">
@@ -242,6 +254,7 @@
                                                 </div>
                                                 <div class="panel-body">
                                                     @include('statuses.taskStatus')
+
 
                                                     {{--<form method="post" action="{{ route('comments.store') }}">--}}
                                                         {{--<div class="form-group">--}}
@@ -321,151 +334,151 @@
                     </div>
 
                     <!------------ setting ------------------------------------------------------->
-                    <div id="settingCard" class="card card-border d-none d-md-block">
+                    {{--<div id="settingCard" class="card card-border d-none d-md-block">--}}
 
-                        <div class="bg-light card-header card-border" data-toggle="collapse" href="#setting">
-                            <div class="">+ تنظیمات
-                            </div>
-
-
-                        </div>
-                        <div id="setting" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                            <div class="d-flex justify-content-around">
-
-                                @can('task-delete')
-
-                                        <form action="{{ route('tasks.destroy', $task->id)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="urlP" value="{{$urlP}}">
-
-                                            <button class="btn btn-danger my-2" type="submit">حذف</button>
-                                        </form>
-                                @endcan
-                                @can('task-edit')
-
-                                <a href="/tasks/{{$task->id}}/edit"
-                                           class="btn btn-warning my-2">ویرایش</a>
-
-                                @endcan
-@if($task->isDone == 1)
-                                    @role('admin|designer')
-
-                                <form action="{{ route('tasks.done', $task->id)}}" method="post">
-                                    @csrf
-                                    <input type="hidden" value="0" name="isDone">
-                                    <input type="hidden" value="{{$task->id}}" name="id">
-                                    <button class="btn btn-warning my-2" type="submit">برگردان به بخش اجرایی</button>
-                                </form>
-                                    @endrole
-@else
-                                    @role('modir')
-                                    @else
-
-                                    <form action="{{ route('tasks.done', $task->id)}}" method="post">
-                                        @csrf
-                                        <input type="hidden" value="1" name="isDone">
-                                        <input type="hidden" value="{{$user->id}}" name="done_user_id">
-                                        <input type="hidden" value="{{$task->id}}" name="id">
-                                        <button class="btn btn-success my-2" type="submit">اتمام کار</button>
-                                    </form>
-                                        @endrole
-    @endif
-                            </div>
-                            </div>
+                        {{--<div class="bg-light card-header card-border" data-toggle="collapse" href="#setting">--}}
+                            {{--<div class="">+ تنظیمات--}}
+                            {{--</div>--}}
 
 
-                        </div>
-                    </div>
+                        {{--</div>--}}
+                        {{--<div id="setting" class="collapse">--}}
+                            {{--<div class="card-body">--}}
+                            {{--<div class="d-flex justify-content-around">--}}
+
+                                {{--@can('task-delete')--}}
+
+                                        {{--<form action="{{ route('tasks.destroy', $task->id)}}" method="post">--}}
+                                            {{--@csrf--}}
+                                            {{--@method('DELETE')--}}
+                                            {{--<input type="hidden" name="urlP" value="{{$urlP}}">--}}
+
+                                            {{--<button class="btn btn-link text-danger my-2" type="submit"><i class="fa fa-trash"></i></button>--}}
+                                        {{--</form>--}}
+                                {{--@endcan--}}
+                                {{--@can('task-edit')--}}
+
+                                {{--<a href="/tasks/{{$task->id}}/edit"--}}
+                                           {{--class="btn btn-link text-warning my-2"><i class="fa fa-edit"></i></a>--}}
+
+                                {{--@endcan--}}
+{{--@if($task->isDone == 1)--}}
+                                    {{--@role('admin|designer')--}}
+
+                                {{--<form action="{{ route('tasks.done', $task->id)}}" method="post">--}}
+                                    {{--@csrf--}}
+                                    {{--<input type="hidden" value="0" name="isDone">--}}
+                                    {{--<input type="hidden" value="{{$task->id}}" name="id">--}}
+                                    {{--<button class="btn btn-warning my-2" type="submit">برگردان به بخش اجرایی</button>--}}
+                                {{--</form>--}}
+                                    {{--@endrole--}}
+{{--@else--}}
+                                    {{--@role('modir')--}}
+                                    {{--@else--}}
+
+                                    {{--<form action="{{ route('tasks.done', $task->id)}}" method="post">--}}
+                                        {{--@csrf--}}
+                                        {{--<input type="hidden" value="1" name="isDone">--}}
+                                        {{--<input type="hidden" value="{{$user->id}}" name="done_user_id">--}}
+                                        {{--<input type="hidden" value="{{$task->id}}" name="id">--}}
+                                        {{--<button class="btn btn-success my-2" type="submit">اتمام کار</button>--}}
+                                    {{--</form>--}}
+                                        {{--@endrole--}}
+    {{--@endif--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+
+
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                     <!------------ timeSheet ------------------------------------------------------->
-                    @if(count($taskMeters) > 0)
-                    <div id="settingCard" class="card card-border d-none d-md-block">
+                    {{--@if(count($taskMeters) > 0)--}}
+                    {{--<div id="settingCard" class="card card-border d-none d-md-block">--}}
 
-                        <div class="bg-light card-header card-border" data-toggle="collapse" href="#timing">
-                            <div class="">+ زمان کار
-                            </div>
-
-
-                        </div>
-                        <div id="timing" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                    <a href="/tasks/{{$task->id}}/start" class="badge table-success"><i class="fa fa-2x fa-play-circle-o text-muted"></i></a>
-                                <a href="/tasks/{{$task->id}}/end" class="badge table-secondary"><i class="fa fa-2x fa-pause-circle-o text-muted"></i></a>
-                                <table class="table table-hover text-center">
-                                    <tr>
-                                        <td>تاریخ</td>
-                                        <td>ساعت</td>
-                                        <td>کارکرد</td>
-                                    </tr>
-                                    @php
-                                    $totalH = 0;
-                                    $totalM = 0;
-                                    $totalS = 0;
-                                    @endphp
-
-                                    @foreach($taskMeters as $tm)
-                                        @if($tm->end == 0)
-                                            @php
-                                            $dateDiff = "-";
-                                            @endphp
-                                    <tr class="table-success">
-                                        @else
+                        {{--<div class="bg-light card-header card-border" data-toggle="collapse" href="#timing">--}}
+                            {{--<div class="">+ زمان کار--}}
+                            {{--</div>--}}
 
 
-                                        @php
+                        {{--</div>--}}
+                        {{--<div id="timing" class="collapse" data-parent="#accordion">--}}
+                            {{--<div class="card-body">--}}
+                                    {{--<a href="/tasks/{{$task->id}}/start" class="badge table-success"><i class="fa fa-2x fa-play-circle-o text-muted"></i></a>--}}
+                                {{--<a href="/tasks/{{$task->id}}/end" class="badge table-secondary"><i class="fa fa-2x fa-pause-circle-o text-muted"></i></a>--}}
+                                {{--<table class="table table-hover text-center">--}}
+                                    {{--<tr>--}}
+                                        {{--<td>تاریخ</td>--}}
+                                        {{--<td>ساعت</td>--}}
+                                        {{--<td>کارکرد</td>--}}
+                                    {{--</tr>--}}
+                                    {{--@php--}}
+                                    {{--$totalH = 0;--}}
+                                    {{--$totalM = 0;--}}
+                                    {{--$totalS = 0;--}}
+                                    {{--@endphp--}}
 
-                                        //$dateDiff = $tm->diffM;
-                                        /*$tmm = $tm->diffM % 60;
-                                        $tmmd = floor($tm->diffM / 60);
+                                    {{--@foreach($taskMeters as $tm)--}}
+                                        {{--@if($tm->end == 0)--}}
+                                            {{--@php--}}
+                                            {{--$dateDiff = "-";--}}
+                                            {{--@endphp--}}
+                                    {{--<tr class="table-success">--}}
+                                        {{--@else--}}
 
 
-                                        $tms = $tm->diffS % 60;
-                                        $tmsd = floor($tm->diffS / 60);
+                                        {{--@php--}}
 
-                                        $tmmf = $tmsd + $tms;
-                                        $tmhf = $tm->diffH + $tmmd;*/
-
-
-                                        $tms = $tm->diffS % 60;
-                                        $tmm = floor($tm->diffS / 60) % 60;
-                                        $tmh = floor(floor($tm->diffS / 60) / 60);
+                                        {{--//$dateDiff = $tm->diffM;--}}
+                                        {{--/*$tmm = $tm->diffM % 60;--}}
+                                        {{--$tmmd = floor($tm->diffM / 60);--}}
 
 
+                                        {{--$tms = $tm->diffS % 60;--}}
+                                        {{--$tmsd = floor($tm->diffS / 60);--}}
 
-                                        $dateDiff = $tmh . ":" . $tmm . ":" . $tms;
+                                        {{--$tmmf = $tmsd + $tms;--}}
+                                        {{--$tmhf = $tm->diffH + $tmmd;*/--}}
 
 
-                                        $totalS += $tm->diffS;
+                                        {{--$tms = $tm->diffS % 60;--}}
+                                        {{--$tmm = floor($tm->diffS / 60) % 60;--}}
+                                        {{--$tmh = floor(floor($tm->diffS / 60) / 60);--}}
 
 
 
+                                        {{--$dateDiff = $tmh . ":" . $tmm . ":" . $tms;--}}
 
 
-                                            @endphp
-                                    <tr class="table-secondary">
-                                        @endif
-                                        <td>{{$tm->jDate}}</td>
-                                        <td>{{date('H:i:s', strtotime($tm->created_at))}}</td>
-                                        <td>{{$dateDiff}}</td>
-                                    </tr>
-                                        @endforeach
-                                        @php
-                                            $total = floor(floor($totalS / 60) / 60) . ":" . floor($totalS / 60) % 60 . ":" . $totalS % 60;
-                                        @endphp
-                                            <tr class="table-info">
-                                                <td colspan="2">مجموع</td>
-                                                <td>{{$total}}</td>
-                                            </tr>
-                                </table>
-
-                            </div>
+                                        {{--$totalS += $tm->diffS;--}}
 
 
-                        </div>
-                    </div>
-                        @endif
+
+
+
+                                            {{--@endphp--}}
+                                    {{--<tr class="table-secondary">--}}
+                                        {{--@endif--}}
+                                        {{--<td>{{$tm->jDate}}</td>--}}
+                                        {{--<td>{{date('H:i:s', strtotime($tm->created_at))}}</td>--}}
+                                        {{--<td>{{$dateDiff}}</td>--}}
+                                    {{--</tr>--}}
+                                        {{--@endforeach--}}
+                                        {{--@php--}}
+                                            {{--$total = floor(floor($totalS / 60) / 60) . ":" . floor($totalS / 60) % 60 . ":" . $totalS % 60;--}}
+                                        {{--@endphp--}}
+                                            {{--<tr class="table-info">--}}
+                                                {{--<td colspan="2">مجموع</td>--}}
+                                                {{--<td>{{$total}}</td>--}}
+                                            {{--</tr>--}}
+                                {{--</table>--}}
+
+                            {{--</div>--}}
+
+
+                        {{--</div>--}}
+                    {{--</div>--}}
+                        {{--@endif--}}
 
                 </div>
             </div>

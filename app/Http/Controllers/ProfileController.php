@@ -53,7 +53,7 @@ class ProfileController extends Controller
 
 
         }
-        $myActivities = Status::with('user')->where('user_id',$user->id)->where('status','end')->orWhere('status','start')->orWhere('status','off')->orderBy('created_at','DESC')->get();
+        $myActivities = Status::with('user')->where('user_id',$user->id)->where('status','end')->orWhere('status','start')->orWhere('status','pause')->orWhere('status','off')->orWhere('status','on')->orderBy('created_at','DESC')->get();
         $myStatuses = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(25);
         foreach ($myStatuses as $key => $loop){
             $loop->jCreated_at = new Verta($loop->created_at);

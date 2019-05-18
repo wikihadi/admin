@@ -92,14 +92,16 @@ body{
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="/admin-core/jquery/jquery.min.js"></script>
+{{--<script src="/js/app.js"></script>--}}
+<script src="{{ asset('js/app.js') }}"></script>
+
+{{--<script src="/admin-core/jquery/jquery.min.js"></script>--}}
 <!-- Bootstrap 4 -->
-<script src="/admin-core/bootstrap/js/bootstrap.bundle.min.js"></script>
+{{--<script src="/admin-core/bootstrap/js/bootstrap.bundle.min.js"></script>--}}
 <!-- AdminLTE App -->
 <script src="/admin-core/js/adminlte.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/umd/tooltip.js"></script>.
-        @yield('JS')
 
     <script type="text/javascript">
         // $(document).ready(function() {
@@ -232,5 +234,7 @@ body{
             });
 
     </script>
+@yield('JS')
+
 </body>
 </html>

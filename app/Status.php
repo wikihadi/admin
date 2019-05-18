@@ -11,4 +11,8 @@ class Status extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function tasks()
+    {
+        return $this->belongsTo('App\Task');
+    }
 }

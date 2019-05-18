@@ -2,17 +2,8 @@
 
 @section('css')
     @include('helper.css.mainTasksCss')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <link rel="stylesheet" href="/js/app.css">
-
-    <style>
-
-        .upDown:last-child form > button.upKey,.upDown:nth-child(4) form > button.downKey
-         {
-            visibility: hidden;
-        }
-    </style>
 @endsection
+
 
 @section('content')
 
@@ -80,6 +71,7 @@
                             $progbg = "bg-info";
                         @endphp
                     @endif
+
                 <!-----------------must to controller------------------------------->
                 <div class="upDown">
                 <div class="card card-border animated fadeInDown">
@@ -109,8 +101,8 @@
 
 
     </div>
+
 @endsection
 @section('JS')
-    <script src="/js/app.js"></script>
 
 @endsection

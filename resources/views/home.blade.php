@@ -19,6 +19,35 @@
 @endsection
 @section('content')
 
+    @if($off === 1)
+
+        <div id="offUser" class="modal  fade" role="dialog" style="padding-right: 0!important;">
+            <div class="modal-dialog modal-dialog-centered">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                     <div class="modal-body">
+                        <form  method="post" action="{{ route('status.store') }}" class="text-center">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                            <input type="hidden" name="status" value="on">
+                            <input type="hidden" name="content" value="برگشت به کار {{Auth::user()->name}}">
+
+                            <button class="btn btn-link mt-2 text-info hvr-buzz-out" title="برگشت به کار" type="submit"><i class="fa fa-5x fa-power-off"></i></button>
+
+                        </form>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+    @endif
+
+
     <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
 
         <div class="col-md-10 col-lg-8 col-xl-6 m-auto">
@@ -172,5 +201,15 @@
 @endsection
 @section('JS')
     <script type="text/javascript" src="/js/status.js"></script>
+    <script>
+        $(window).on('load',function(){
+            $('#offUser').modal('show');
+
+        });
+        $(function () {
+            $('#offUser').modal({backdrop: 'static', keyboard: false})
+
+        })
+    </script>
 
     @endsection

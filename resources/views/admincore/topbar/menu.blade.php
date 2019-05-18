@@ -10,7 +10,7 @@
     </li>
     @role('admin')
     <li class="nav-item d-none d-sm-inline-block">
-        <a href="/comments" class="nav-link">گفتگوها</a>
+        <a href="/statuses" class="nav-link">فعالیتها</a>
     </li>
     @endrole
     @role('admin|modir')

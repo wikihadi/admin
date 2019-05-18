@@ -18,6 +18,22 @@ class Task extends Model
         {
             return $this->hasMany('App\Comment');
         }
+     public function status()
+        {
+            return $this->hasMany('App\Status','task_id');
+        }
+     public function statusInLine()
+        {
+            return $this->hasMany('App\Status','task_id')->where('status','start')->orWhere('status','pause')->orWhere('status','end')->orderBy('updated_at','desc');
+        }
+
+
+    public function lastStatusUser($user_id)
+    {
+        return $this->hasMany('App\Status','task_id')->wherHas('user_id',$user_id)->orderBy('updated_at','desc')->first();
+    }
+
+
      public function taskMeters()
         {
             return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');
@@ -44,7 +60,7 @@ class Task extends Model
 
     public function userOrder()
     {
-        return $this->belongsToMany('App\User', 'task_order_users', 'task_id', 'user_id');
+        return $this->belongsToMany('App\User', 'task_order_users', 'task_id', 'user_id')->withPivot('isDone');
     }
     public function brand()
     {

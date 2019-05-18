@@ -49,7 +49,7 @@ class User extends Authenticatable
     }
     public function status()
     {
-        return $this->hasMany('App\Status');
+        return $this->hasMany('App\Status', 'user_id');
     }
 
 //    public function setPasswordAttribute($password)
@@ -64,9 +64,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Task', 'task_users', 'user_id', 'task_id');
     }
+
     public function taskOrder()
     {
-        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id')->orderBy('order_column','asc');//->where('order_column','!=',-1);
+        return $this->belongsToMany('App\Task', 'task_order_users', 'user_id', 'task_id')->wherePivot('isDone',0)->orderBy('order_column','asc');//->where('order_column','!=',-1);
     }
     public function taskNotOrder()
     {
@@ -80,10 +81,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Post::class, 'post_verifies', 'user_id', 'post_id')->withTimeStamps();
     }
-    public function taskMeters()
+
+    public function lastStatusUser()
     {
-        return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');
+        return $this->hasMany('App\Status','user_id');
     }
+//    public function taskMeters()
+//    {
+//        return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');
+//    }
 
 
 }

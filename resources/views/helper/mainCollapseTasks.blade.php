@@ -1,4 +1,4 @@
-<div id="collapse{{$task->id}}" class="collapse collapseTask" data-parent="#accordion">
+<div id="collapse{{$task->id}}" class="collapse collapseTask">
     <div class="card-body">
 
         <div class="row">
@@ -163,8 +163,13 @@
 
 
             </div>
-            <div class="text-left col-12 d-sm-none">
-                <a href="/tasks/{{$task->id}}" class="btn btn-link"><i class="fa fa-3x fa-arrow-left"></i></a>
+
+            <div class="text-left col-12">
+
+                    <hr>
+                @include('statuses.stopTaskForm')
+
+                <a href="/tasks/{{$task->id}}" class="btn btn-link d-sm-none"><i class="fa fa-3x fa-arrow-left"></i></a>
             </div>
 
 

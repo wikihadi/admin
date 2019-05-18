@@ -105,8 +105,31 @@
                                         $progbg = "bg-info";
                                     @endphp
                                 @endif
+                                @if(count($task->statusInLine) == 0)
+                                    @php
+                                        $progborder = "border-info  bg-info";
+                                    @endphp
+                                @else
+                                    @php
+                                        $progborder = "border-success  bg-light";
+                                    @endphp
+                                @endif
+                                @foreach($task->statusInLine as $t)
+                                    @if($t->status == 'end')
+                                        @php
+                                            $progborder = "bg-secondary";
+                                        @endphp
+                                    @endif
+                                    @break
+                                @endforeach
+                            @if($task->id == $userLastStatus->task_id)
+                                                                        @php
 
-                        @include('helper.logicTasks')
+                                    $progborder = "bg-success";
+                                                                        @endphp
+
+                                @endif
+
                             <!------------------------------------------------------------------>
                             <div class="card card-border animated fadeInDown" >
 

@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Status;
 use App\Task;
+use App\TaskOrderUser;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Verta;
 
 class StatusController extends Controller
@@ -17,7 +21,24 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+
+        $statuses = Status::with('user','tasks')->orderBy('id','DESC')->get();
+        $tasks = Task::all();
+
+        return view('statuses.index', compact('statuses','tasks','myTasksStatus','usersStatus','statusesToMe'));
     }
 
     /**
@@ -57,6 +78,11 @@ class StatusController extends Controller
         if(!empty($task_id)){
             $task = Task::find($task_id);
             $task->increment('commentCount');
+        }
+        if($request->get('status') == 'end'){
+            $taskOrderUser = TaskOrderUser::where('user_id',$request->get('user_id'))->where('task_id',$request->get('task_id'))->first();
+            $taskOrderUser->isDone = 1;
+            $taskOrderUser->save();
         }
 
 

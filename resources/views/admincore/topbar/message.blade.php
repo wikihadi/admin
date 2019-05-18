@@ -5,6 +5,7 @@
         <span class="badge badge-danger navbar-badge"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
+
         @if(count($statusesToMe) == 0)
             <div href="#" class="dropdown-item dropdown-footer">شما هیچ پیامی ندارید</div>
 
