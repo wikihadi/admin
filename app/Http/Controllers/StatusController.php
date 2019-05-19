@@ -73,20 +73,33 @@ class StatusController extends Controller
         ]);
         $status->save();
 
-
-        $task_id = $request->get('task_id');
-        if(!empty($task_id)){
+        $taskOrderUser = TaskOrderUser::where('user_id',$request->get('user_id'))->where('task_id',$request->get('task_id'))->first();
+        if($request->get('status') == 'comment'){
+            $task_id = $request->get('task_id');
             $task = Task::find($task_id);
             $task->increment('commentCount');
-        }
-        if($request->get('status') == 'end'){
-            $taskOrderUser = TaskOrderUser::where('user_id',$request->get('user_id'))->where('task_id',$request->get('task_id'))->first();
+        }elseif($request->get('status') == 'end'){
             $taskOrderUser->isDone = 1;
+            $taskOrderUser->lastStatus = 3;
             $taskOrderUser->save();
+        }elseif($request->get('status') == 'start'){
+
+            $lastStatus = TaskOrderUser::where('lastStatus','2')->first();
+            if(!empty($lastStatus)){
+                $lastStatus->lastStatus = 1;
+                $lastStatus->save();
+                $taskOrderUser->lastStatus = 2;
+                $taskOrderUser->save();
+            }else{
+                $taskOrderUser->lastStatus = 2;
+                $taskOrderUser->save();
+            }
+
         }
-
-
-
+//lastStatus 0 Not yet
+//lastStatus 1 workerd not Done
+//lastStatus 2 working
+//lastStatus 3 Done
 
         return back()->with('success', 'Done');
 

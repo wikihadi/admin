@@ -1837,12 +1837,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: ['order', 'tasks'],
+  props: ['order', 'tasks', 'us', 'uts'],
   data: function data() {
     return {
       orderNew: this.order
@@ -39644,160 +39650,163 @@ var render = function() {
       },
       on: { change: _vm.update }
     },
-    _vm._l(_vm.orderNew, function(ord, index) {
-      return _c(
-        "div",
-        _vm._l(_vm.tasks, function(task, index) {
-          return task.id == ord.task_id
-            ? _c("div", [
-                _c("div", { staticClass: "card card-border" }, [
+    _vm._l(_vm.orderNew, function(ord) {
+      return _c("div", [
+        _c("div", { staticClass: "card card-border" }, [
+          _c(
+            "div",
+            {
+              staticClass: "card-header card-border",
+              class: {
+                "bg-info": ord.lastStatus === "0",
+                "bg-light": ord.lastStatus === "1",
+                "bg-success": ord.lastStatus === "2",
+                "bg-dark": ord.lastStatus === "3"
+              }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-9 row" }, [
                   _c(
                     "div",
                     {
-                      staticClass: "card-header card-border",
-                      class: {
-                        "bg-info": task.pending == 1,
-                        "bg-dark": task.pending == 0
-                      }
+                      staticClass: "col-12 col-md-4 text-center text-md-right"
                     },
                     [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-9 row" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "col-12 col-md-4 text-center text-md-right"
-                            },
-                            [
-                              _vm._v(
-                                _vm._s(ord.order_column) +
-                                  "." +
-                                  _vm._s(task.title.substring(0, 40) + "..")
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-none d-lg-block col-lg-2 text-center"
-                            },
-                            [
-                              task.type && task.brand != "سایر"
-                                ? _c("span", [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(task.brand) +
-                                        "\n                            "
-                                    )
-                                  ])
-                                : _c("span", [_vm._v("-")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-none d-lg-block col-lg-2 text-center"
-                            },
-                            [
-                              task.type && task.type != "سایر"
-                                ? _c("span", [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(task.type) +
-                                        "\n                            "
-                                    )
-                                  ])
-                                : _c("span", [_vm._v("-")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-none d-lg-block col-lg-2 text-center"
-                            },
-                            [
-                              task.type && task.forProduct != "سایر"
-                                ? _c("span", [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(task.forProduct) +
-                                        "\n                            "
-                                    )
-                                  ])
-                                : _c("span", [_vm._v("-")])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", {
-                            staticClass:
-                              "d-none d-lg-block col-lg-2 text-center"
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "col-md-3 row d-none d-md-flex justify-content-end align-items-center"
-                          },
-                          [
-                            _c("div", { staticClass: "flex-grow-1" }),
-                            _vm._v(
-                              "\n\n" +
-                                _vm._s(_vm.users) +
-                                "\n\n\n\n                        "
-                            ),
-                            _c("div", { staticClass: "mx-1 hvr-grow" }, [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "/tasks/" + task.id + "/edit" }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fa fa-edit",
-                                    attrs: {
-                                      "data-toggle": "tooltip",
-                                      title: " ویرایش"
-                                    }
-                                  })
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "mx-1 hvr-backward" }, [
-                              _c(
-                                "a",
-                                { attrs: { href: "/tasks/" + task.id } },
-                                [
-                                  _c("i", {
-                                    staticClass: "fa fa-arrow-left",
-                                    attrs: {
-                                      "data-toggle": "tooltip",
-                                      title: "برو"
-                                    }
-                                  })
-                                ]
-                              )
-                            ])
-                          ]
-                        )
-                      ])
+                      _c("span", {
+                        domProps: { textContent: _vm._s(ord.order_column) }
+                      }),
+                      _vm._v("."),
+                      _c("span", {
+                        domProps: { textContent: _vm._s(ord.task.title) }
+                      })
                     ]
-                  )
-                ])
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "d-none d-lg-block col-lg-2 text-center" },
+                    [
+                      ord.task.type && ord.task.brand != "سایر"
+                        ? _c("span", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(ord.task.brand) +
+                                "\n                        "
+                            )
+                          ])
+                        : _c("span", [_vm._v("-")])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "d-none d-lg-block col-lg-2 text-center" },
+                    [
+                      ord.task.type && ord.task.type != "سایر"
+                        ? _c("span", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(ord.task.type) +
+                                "\n                        "
+                            )
+                          ])
+                        : _c("span", [_vm._v("-")])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "d-none d-lg-block col-lg-2 text-center" },
+                    [
+                      ord.task.type && ord.task.forProduct != "سایر"
+                        ? _c("span", [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(ord.task.forProduct) +
+                                "\n                        "
+                            )
+                          ])
+                        : _c("span", [_vm._v("-")])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    staticClass: "d-none d-lg-block col-lg-2 text-center"
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-3 row d-none d-md-flex justify-content-end align-items-center"
+                  },
+                  [
+                    _c("div", { staticClass: "flex-grow-1" }),
+                    _vm._v(" "),
+                    _vm._l(_vm.uts, function(ut) {
+                      return ut.task_id === ord.task.id
+                        ? _c(
+                            "div",
+                            _vm._l(_vm.us, function(u) {
+                              return u.id === ut.user_id
+                                ? _c("div", { staticClass: "mx-1 hvr-pop" }, [
+                                    _c("img", {
+                                      staticClass: "img-circle",
+                                      staticStyle: {
+                                        "object-fit": "cover",
+                                        width: "29px",
+                                        height: "29px",
+                                        border: "1px solid #a9a9a9"
+                                      },
+                                      attrs: {
+                                        src: "/storage/avatars/" + u.avatar,
+                                        alt: "",
+                                        title: u.name,
+                                        "data-toggle": "tooltip"
+                                      }
+                                    })
+                                  ])
+                                : _vm._e()
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mx-1 hvr-grow" }, [
+                      _c(
+                        "a",
+                        { attrs: { href: "/tasks/" + ord.task.id + "/edit" } },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-edit",
+                            attrs: {
+                              "data-toggle": "tooltip",
+                              title: " ویرایش"
+                            }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mx-1 hvr-backward" }, [
+                      _c("a", { attrs: { href: "/tasks/" + ord.task.id } }, [
+                        _c("i", {
+                          staticClass: "fa fa-arrow-left",
+                          attrs: { "data-toggle": "tooltip", title: "برو" }
+                        })
+                      ])
+                    ])
+                  ],
+                  2
+                )
               ])
-            : _vm._e()
-        }),
-        0
-      )
+            ]
+          )
+        ])
+      ])
     }),
     0
   )

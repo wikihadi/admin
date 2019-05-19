@@ -56,53 +56,40 @@
 
                         @foreach($tasks as $task)
 
-                                @if(count($task->statusInLine) == 0)
-                                    @php
-                                        $progborder = "border-info  bg-info";
-                                        $progbg = "bg-info";
 
-                                    @endphp
-                                @else
+                                {{--@foreach($task->statusInLine as $t)--}}
+                                    {{--@if($t->status == 'end')--}}
+                                        {{--@php--}}
+                                            {{--$progborder = "bg-secondary";--}}
+                                            {{--$progbg = "bg-success";--}}
+
+                                        {{--@endphp--}}
+                                    {{--@endif--}}
+                                    {{--@break--}}
+                                {{--@endforeach--}}
+
+                                @if($task->id == $userLastStatus->task_id && $userLastStatus->lastStatus == 2)
                                     @php
-                                        $progborder = "border-success  bg-light";
+                                        $progborder = "bg-success";
                                         $progbg = "bg-success";
-
                                     @endphp
                                 @endif
-                                @foreach($task->statusInLine as $t)
-                                    @if($t->status == 'end')
-                                        @php
-                                            $progborder = "bg-secondary";
-                                            $progbg = "bg-success";
 
-                                        @endphp
-                                    @endif
-                                    @break
-                                @endforeach
-
-                            @if($task->id == $userLastStatus->task_id)
-                                @php
-                                    $progborder = "bg-success";
-                                    $progbg = "bg-success";
-                                @endphp
-                            @endif
-
-                        @if(isset($_GET['sort']) && $_GET['sort'] == 'done')
-                                @php
-
-                                    $progborder = "bg-success";
-                                    $progbg = "bg-success";
-
-                                @endphp
+                                @if(isset($_GET['sort']) && $_GET['sort'] == 'done')
+                                    @php
+                                        $progborder = "bg-success";
+                                        $progbg = "bg-success";
+                                    @endphp
                                 @elseif(isset($_GET['sort']) && $_GET['sort'] == 'latest')
+                                    @php
+                                        $progborder = "bg-dark";
+                                        $progbg = "bg-dark";
+                                    @endphp
+                                @endif
                             @php
-
                                 $progborder = "bg-dark";
                                 $progbg = "bg-dark";
-
                             @endphp
-                                @endif
-
                             <!------------------------------------------------------------------>
                             <div class="card card-border animated fadeInDown" >
 

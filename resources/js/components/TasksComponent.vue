@@ -1,34 +1,31 @@
 <template>
     <draggable :list="orderNew" :element="'div'" :options="{animation:300}" @change="update">
 
-        <div v-for="(ord, index) in orderNew">
+        <div v-for="ord in orderNew">
 
-    <div v-for="(task, index) in tasks" v-if="task.id == ord.task_id">
         <div class="card card-border">
-
-            <div class="card-header card-border" v-bind:class="{ 'bg-info' : task.pending == 1 , 'bg-dark' : task.pending == 0 }">
+            <div class="card-header card-border" v-bind:class="{ 'bg-info': ord.lastStatus === '0', 'bg-light': ord.lastStatus === '1', 'bg-success': ord.lastStatus === '2', 'bg-dark': ord.lastStatus === '3' }">
                 <div class="row">
 
                     <div class="col-md-9 row">
-                        <div class="col-12 col-md-4 text-center text-md-right">{{ord.order_column}}.{{ task.title.substring(0,40)+".."}}</div>
+                        <div class="col-12 col-md-4 text-center text-md-right"><span v-text="ord.order_column"></span>.<span v-text="ord.task.title"></span></div>
                         <div class="d-none d-lg-block col-lg-2 text-center">
-                            <span v-if="task.type && task.brand != 'سایر'">
-                                {{task.brand}}
+                            <span v-if="ord.task.type && ord.task.brand != 'سایر'">
+                                {{ord.task.brand}}
                             </span>
                             <span v-else>-</span>
                         </div>
                         <div class="d-none d-lg-block col-lg-2 text-center">
-                            <span v-if="task.type && task.type != 'سایر'">
-                                {{task.type}}
+                            <span v-if="ord.task.type && ord.task.type != 'سایر'">
+                                {{ord.task.type}}
                             </span>
                             <span v-else>-</span>
                         </div>
                         <div class="d-none d-lg-block col-lg-2 text-center">
-                            <span v-if="task.type && task.forProduct != 'سایر'">
-                                {{task.forProduct}}
+                            <span v-if="ord.task.type && ord.task.forProduct != 'سایر'">
+                                {{ord.task.forProduct}}
                             </span>
                             <span v-else>-</span>
-
                         </div>
 
                         <div class="d-none d-lg-block col-lg-2 text-center">
@@ -41,17 +38,27 @@
 
                         </div>
 
-{{users}}
+
+
+
+                        <div v-for="ut in uts" v-if="ut.task_id === ord.task.id">
+                            <div class="mx-1 hvr-pop" v-for="u in us" v-if="u.id === ut.user_id">
+                                <img :src="'/storage/avatars/' + u.avatar" alt="" class="img-circle" style="object-fit: cover; width: 29px;height: 29px; border: 1px solid #a9a9a9;" :title="u.name" data-toggle="tooltip">
+                            </div>
+
+                        </div>
+
+
 
 
 
                         <div class="mx-1 hvr-grow">
-                            <a :href="'/tasks/' + task.id + '/edit'">
+                            <a :href="'/tasks/' + ord.task.id + '/edit'">
                                 <i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش"></i></a>
                         </div>
 
                         <div class="mx-1 hvr-backward">
-                            <a :href="'/tasks/' + task.id"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو"></i></a>
+                            <a :href="'/tasks/' + ord.task.id"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو"></i></a>
                         </div>
 
 
@@ -63,7 +70,6 @@
 
 
 
-        </div>
 
     </div>
     </div>
@@ -76,13 +82,12 @@
         components: {
             draggable
         },
-        props: ['order','tasks'],
+        props: ['order','tasks','us','uts'],
         data(){
           return{
               orderNew: this.order,
           }
         },
-
         methods: {
             update() {
                 this.orderNew.map((ord, index) => {

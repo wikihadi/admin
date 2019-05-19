@@ -28,7 +28,7 @@
         </div>
     </div>
     <button class="btn btn-link" data-toggle="collapse" data-target=".advanced" type="button"><i class="fa fa-bars"></i></button>
-    <input type="hidden" name="status" value="status">
+    <input type="hidden" name="status" value="comment">
 
 </form>
 

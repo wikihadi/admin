@@ -26,6 +26,10 @@ class Task extends Model
         {
             return $this->hasMany('App\Status','task_id')->where('status','start')->orWhere('status','pause')->orWhere('status','end')->orderBy('updated_at','desc');
         }
+     public function lastStatusOrder()
+        {
+            return $this->hasMany('App\TaskOrderUser','id','task_id');
+        }
 
 
     public function lastStatusUser($user_id)

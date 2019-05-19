@@ -94,6 +94,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Status','user_id');
     }
+    public function usersInTasks()
+    {
+        return $this->hasMany('App\TaskOrderUser','user_id','id');
+    }
 //    public function taskMeters()
 //    {
 //        return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');

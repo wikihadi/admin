@@ -168,7 +168,7 @@
 
                     <hr>
                 @if(isset($_GET['sort']) && $_GET['sort'] == 'done' || isset($_GET['sort']) && $_GET['sort'] == 'latest')
-                @elseif()
+                @else
                     @include('statuses.stopTaskForm')
                 @endif
 

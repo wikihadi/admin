@@ -104,8 +104,7 @@
 
                 <div id='app'>
 
-
-                    <tasks-component :order="{{$order}}" :tasks="{{$tasks}}" :users="{{$users}}" :usersInTasks="{{$usersInTasks}}"></tasks-component>
+                    <tasks-component :order="{{$order}}" :tasks="{{$tasks}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></tasks-component>
 
                 </div>
             @endif
