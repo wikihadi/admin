@@ -38,7 +38,7 @@
 @php
 $i = 1;
 @endphp
-    @foreach($statuses->where('task_id', $task->id)->where('status','status') as $status)
+    @foreach($statuses->where('task_id', $task->id)->where('status','comment') as $status)
 
         <li class="media">
             <a href="#" class="pull-left ml-3">
@@ -57,7 +57,7 @@ $i = 1;
 
             </div>
         </li>
-@if(!Request::is('tasks'))
+@if(!Request::is('tasks/*'))
         @if($i++ >= 5)
             @break
             @endif

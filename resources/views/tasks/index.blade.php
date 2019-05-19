@@ -45,7 +45,7 @@
                         </nav>
                         @include('helper.navbarTasks')
 
-                            @if ($tasks->isEmpty())
+                            @if ($order->isEmpty())
                                 <div class="row"><div class="col-sm-6 m-auto m-5"><img class="img-fluid w-100" src="/img/dsp.png" alt=""></div></div>
                             @else
 
@@ -307,6 +307,10 @@
                                                 </form>
 
                                                 <hr>
+                                                <div class="comment-wrapper">
+                                                    <div class="panel panel-info">
+                                                <div class="panel-body">
+
                                                 <ul class="media-list">
 
                                                     @php
@@ -341,6 +345,9 @@
 
                                                 </ul>
 
+                                            </div>
+                                            </div>
+                                            </div>
                                             </div>
 
 
@@ -439,7 +446,7 @@
                             {{--</div>--}}
 
                         {{--@endforeach--}}
-                        {{--{{ $tasks->links() }}--}}
+                        {{ $order->links() }}
                     </div>
                 </div>
         @endsection
