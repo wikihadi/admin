@@ -92,25 +92,25 @@
 
 
         @role('admin')
-        <div class="form-group col-sm-2">
+        {{--<div class="form-group col-sm-2">--}}
 
 
-            <label for="title">الویت</label>
-            <select class="form-control" name="orderTask">
-                <option value="10">10</option>
-                <option value="9">9</option>
-                <option value="8">8</option>
-                <option value="7">7</option>
-                <option value="6">6</option>
-                <option value="5">5</option>
-                <option value="4">4</option>
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1">1</option>
-            </select>
+            {{--<label for="title">الویت</label>--}}
+            {{--<select class="form-control" name="orderTask">--}}
+                {{--<option value="10">10</option>--}}
+                {{--<option value="9">9</option>--}}
+                {{--<option value="8">8</option>--}}
+                {{--<option value="7">7</option>--}}
+                {{--<option value="6">6</option>--}}
+                {{--<option value="5">5</option>--}}
+                {{--<option value="4">4</option>--}}
+                {{--<option value="3">3</option>--}}
+                {{--<option value="2">2</option>--}}
+                {{--<option value="1">1</option>--}}
+            {{--</select>--}}
             {{--<input type="number" class="form-control" name="orderTask" placeholder="From 1 to 10"--}}
             {{--min="1" max="10" value="10"/>--}}
-        </div>
+        {{--</div>--}}
         <div class="form-group col-sm-2">
 
 
@@ -314,8 +314,8 @@
         @else
                 <label for="list1">@role('admin')در لیست @else در لیست خودم@endrole</label>
                 <input id="list1" type="radio" name="pending" value="0" checked onclick="addTeam()">
-                <label for="pending">@role('admin') در لیست انتظار @else در لیست انتظار خودم @endrole</label>
-                <input id="pending" type="radio" name="pending" value="1" onclick="addTeam()">
+                {{--<label for="pending">@role('admin') در لیست انتظار @else در لیست انتظار خودم @endrole</label>--}}
+                {{--<input id="pending" type="radio" name="pending" value="1" onclick="addTeam()">--}}
                 @role('admin')
                 <label for="pending2">کارهای آتی</label>
                 <input id="pending2" type="radio" name="pending" value="2" onclick="clearTeam()">

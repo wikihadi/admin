@@ -56,21 +56,21 @@
 
 
         @role('admin')
-        <div class="form-group col-sm-1">
+        {{--<div class="form-group col-sm-1">--}}
 
 
-            <label for="title">الویت</label>
-            <select class="form-control" name="orderTask">
-                <option value="{{$task->orderTask}}">{{$task->orderTask}}</option>
-                @for($i = 10; $i >= 1; $i--)
-                    @if($i == $task->orderTask)
-                        @continue
-                    @endif
-                    <option value="{{$i}}">{{$i}}</option>
-                @endfor
-            </select>
+            {{--<label for="title">الویت</label>--}}
+            {{--<select class="form-control" name="orderTask">--}}
+                {{--<option value="{{$task->orderTask}}">{{$task->orderTask}}</option>--}}
+                {{--@for($i = 10; $i >= 1; $i--)--}}
+                    {{--@if($i == $task->orderTask)--}}
+                        {{--@continue--}}
+                    {{--@endif--}}
+                    {{--<option value="{{$i}}">{{$i}}</option>--}}
+                {{--@endfor--}}
+            {{--</select>--}}
 
-        </div>
+        {{--</div>--}}
 
 
         <div class="form-group col-sm-1">
@@ -195,12 +195,12 @@
         {{--@endrole--}}
         <div class="form-group">
 
-            <label for="list1">در لیست خودم</label>
+            <label for="list1">در لیست من</label>
             <input id="list1" type="radio" name="pending" onclick="addTeam()" value="0" @if($task->pending == 0) checked @endif>
-            <label for="pending">در لیست انتظار خودم</label>
-            <input id="pending" type="radio" name="pending" onclick="addTeam()" value="1" @if($task->pending == 1) checked @endif>
+            {{--<label for="pending">در لیست انتظار خودم</label>--}}
+            {{--<input id="pending" type="radio" name="pending" onclick="addTeam()" value="1" @if($task->pending == 1) checked @endif>--}}
             @role('admin|modir')
-            <label for="pending2">در لیست انتظار</label>
+            <label for="pending2">کارهای آتی</label>
             <input id="pending2" type="radio" name="pending" onclick="clearTeam()" value="2" @if($task->pending == 2) checked @endif>
             @endrole
 

@@ -55,8 +55,17 @@ class HomeController extends Controller
             $off = 1;
         }
         $v = Verta::now();
+
+
+        $statusPost = Status::where('status','verifyPost')->where('user_id',$user->id)->where('post_id',15)->get();
+        if (count($statusPost) == 0){
+            $read = 0;
+        }else{
+            $read = 1;
+        }
+
         
-        return view('home',compact('v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off'));
+        return view('home',compact('v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off','read'));
     }
 
 

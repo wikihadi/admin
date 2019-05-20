@@ -144,10 +144,7 @@
                                                 <td>پایان پروژه</td>
                                                 <td>{{$task->jDeadline}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>فاز پروژه</td>
-                                                <td>{{$task->status}}</td>
-                                            </tr>
+
                                             <tr>
                                                 <td>تعداد نظرات</td>
                                                 <td>{{$task->commentCount}}</td>

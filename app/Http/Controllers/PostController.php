@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NewPost;
 use App\Post;
 use App\PostViewBy;
 use App\Status;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Notification;
 use Illuminate\Support\Facades\Auth;
 use Verta;
 
@@ -36,6 +38,8 @@ class PostController extends Controller
         }
         $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
+
+
         $posts = Post::orderBy('id','DESC')->paginate(10);
 
         return view('posts.index',compact('posts','myTasksStatus','usersStatus','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
@@ -63,6 +67,8 @@ class PostController extends Controller
         }
         $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
+
+
         return view('posts.create', compact('myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
 
     }
@@ -88,6 +94,13 @@ class PostController extends Controller
         ]);
 
         $post->save();
+
+        if (!empty($request->get('emailPost')) && $request->get('emailPost') == 1){
+            $users = User::all();
+            Notification::send($users, new NewPost($post));
+        }
+
+
         return redirect()->back()->with('success');
     }
 
@@ -116,16 +129,15 @@ class PostController extends Controller
 
         $post = Post::find($id);
         $user = Auth::user();
-        $oldView = PostViewBy::where('user_id', $user->id)->where('post_id', $id)->get();
-        if(count($oldView) == 0) {
-            $postView = new PostViewBy([
-                'user_id' => $user->id,
-                'user_name' => $user->name,
-                'post_id' => $id
-            ]);
-            $postView->save();
+        $statusPost = Status::where('status','verifyPost')->where('user_id',$user->id)->where('post_id',$post->id)->get();
+        if (count($statusPost) == 0){
+            $read = 0;
+        }else{
+            $read = 1;
         }
-        return view('posts.show', compact('post','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
+
+
+        return view('posts.show', compact('post','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe','read'));
     }
 
     /**
@@ -162,10 +174,5 @@ class PostController extends Controller
         //
     }
 
-    public function verifyPost(Post $post)
-    {
-        Auth::user()->verify()->attach($post->id);
 
-        return back();
-    }
 }

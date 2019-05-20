@@ -50,6 +50,10 @@ return [
             'driver' => 'log',
         ],
 
+        'gcm' => [
+            'key' => env('AIzaSyAVXLaMkIYTVPFHBY_beq004e6bmlA8_58'),
+        ],
+
         'null' => [
             'driver' => 'null',
         ],

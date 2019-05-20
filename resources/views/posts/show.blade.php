@@ -133,11 +133,35 @@
 
             </div>
         </div></div>
-    <div class="col-sm-6 m-auto">
+    <div class="col-sm-7 m-auto">
 
         <div class="m-0 m-sm-3 p-0 p-sm-5 bg-light" style="border-radius: 30px;">
 
 <p class="text-justify" style="white-space: pre-wrap;">{{$post->content}}</p>
+
+
+        </div>
+
+
+    </div>
+    <div class="col-sm-7 m-auto">
+
+        <div class="m-0 m-sm-3 p-0 p-sm-5 bg-light" style="border-radius: 30px;">
+            @if($read == 0)
+
+            <form class="d-inline"  method="post" action="{{ route('status.store') }}" onsubmit="confirm('من این اطلاعیه را خوانده و تایید می کنم')">
+                @csrf
+                <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                <input type="hidden" name="post_id" value="{{$post->id}}">
+                <input type="hidden" name="status" value="verifyPost">
+                <input type="hidden" name="content" value="{{Auth::user()->name}}  اطلاعیه {{$post->title}} را مطالعه و تایید نمود">
+                    <button class="nav-link animated pulse infinite btn btn-block btn-link" title="این اطلاعیه توسط اینجانب مطالعه و تایید شد" type="submit"><i class="fa fa-check"></i> تایید</button>
+            </form>
+            @else
+                <div class="alert alert-success"><strong>{{Auth::user()->name}} عزیز</strong> شما این پست را مطالعه و تایید کرده اید</div>
+                @endif
+
+
             <a href="/" class="btn btn-block btn-link">برگشت به خانه</a>
 
 

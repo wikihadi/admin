@@ -194,6 +194,17 @@
 
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <div class="card card-border">
+                        <div class="card-header bg-white card-border px-5 text-center">
+
+                            <label for="emailPost">ایمیل به تمام اعضا</label>
+                            <input type="checkbox" name="emailPost" id="emailPost" value="1">
+
+                        </div>
+
+                    </div>
+                </div>
 
 
             </div>

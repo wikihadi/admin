@@ -164,6 +164,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Hekmatinasser\Verta\VertaServiceProvider::class,
+        NotificationChannels\Gcm\GcmServiceProvider::class,
 
 
 

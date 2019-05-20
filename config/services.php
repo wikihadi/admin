@@ -29,7 +29,10 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
-
+    'onesignal' => [
+        'app_id' => env('ad18f93b-a4de-4d62-af21-25c23e6bd248'),
+        'rest_api_key' => env('YmJjZTE1NTUtNGMzNS00Yzk5LWE0OGItZGMwODYxZGZlN2Qw')
+    ],
     'stripe' => [
         'model' => App\User::class,
         'key' => env('STRIPE_KEY'),

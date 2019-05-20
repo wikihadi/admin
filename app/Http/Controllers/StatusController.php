@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
 use App\Status;
 use App\Task;
 use App\TaskOrderUser;
@@ -60,7 +59,7 @@ class StatusController extends Controller
 
     public function store(Request $request)
     {
-
+        $user = Auth::user();
         $request->validate([
             'content'=>'required'
         ]);
@@ -70,6 +69,7 @@ class StatusController extends Controller
             'to_user'   => $request->get('to_user'),
             'task_id'   => $request->get('task_id'),
             'user_id'   => $request->get('user_id'),
+            'post_id'   => $request->get('post_id'),
         ]);
         $status->save();
 
@@ -84,7 +84,7 @@ class StatusController extends Controller
             $taskOrderUser->save();
         }elseif($request->get('status') == 'start'){
 
-            $lastStatus = TaskOrderUser::where('lastStatus','2')->first();
+            $lastStatus = TaskOrderUser::where('lastStatus','2')->where('user_id',$user->id)->first();
             if(!empty($lastStatus)){
                 $lastStatus->lastStatus = 1;
                 $lastStatus->save();
@@ -123,36 +123,33 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function edit(Status $status)
+    public function edit(Request $request, $id)
     {
-//        $user = Auth::user();
-//        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
-//        $usersStatus = User::all();
-//        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
-//        $dateBefore = Carbon::now();
-//
-//        foreach ($statusesToMe as $key => $loop){
-//            $loop->jCreated_at = new Verta($loop->created_at);
-//            $loop->diff = verta($loop->created_at)->formatDifference();
-//            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
-//
-//
-//        }
-//
-//        $user = Auth::user();
-//        $comment = Comment::find($id);
-//        $dateBefore = Carbon::now();
-//        $diffM = abs(Carbon::parse($comment->created_at)->diffInMinutes($dateBefore, false));
-//
-//        if($comment->user_id == $user->id && $diffM <= 5){
-//
-//
-//
-//            return view('comments.edit', compact('comment','user','myTasksStatus','usersStatus','statusesToMe'));
-//
-//        }else{
-//            return redirect()->back();
-//        }
+//        Must Be in everywhere Start
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+//        Must Be in everywhere End
+
+        $user = Auth::user();
+        $status = Status::find($id);
+        $dateBefore = Carbon::now();
+        $diffM = abs(Carbon::parse($status->created_at)->diffInMinutes($dateBefore, false));
+
+        if($status->user_id == $user->id && $diffM <= 5){
+            return view('statuses.edit', compact('status','user','myTasksStatus','usersStatus','statusesToMe'));
+        }else{
+            return redirect()->back();
+        }
 
     }
 
@@ -163,9 +160,25 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Status $status)
+    public function update(Request $request,$id)
     {
-        //
+
+        $user = Auth::user();
+        $status = Status::find($id);
+
+        if($request->input('user_id') == $user->id){
+            $status->content = $request->input('content');
+            $status->save();
+
+        }
+
+
+
+
+
+
+
+        return redirect()->back()->with('success');
     }
 
     /**
@@ -174,8 +187,14 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Status $status)
+    public function destroy(Request $request,$id)
     {
-        //
+        $task = Status::find($id);
+        $task->delete();
+
+        $task = Task::find($request->get('task_id'));
+        $task->decrement('commentCount');
+
+        return redirect()->back()->with('success');
     }
 }

@@ -18,7 +18,13 @@
     </style>
 @endsection
 @section('content')
-
+    @if($read == 0)
+        <div class="position-fixed">
+            <a href="/posts/15">
+                <div class="alert alert-warning animated flash delay-1s"><strong><i class="fa fa-exclamation-triangle"></i></strong> لطفا مشاهده کنید</div>
+            </a>
+        </div>
+    @endif
     @if($off === 1)
 
         <div id="offUser" class="modal  fade" role="dialog" style="padding-right: 0!important;">

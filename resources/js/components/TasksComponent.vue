@@ -1,5 +1,5 @@
 <template>
-    <draggable :list="orderNew" :element="'div'" :options="{animation:300}" @change="update">
+    <draggable :list="orderNew" :element="'div'" :options="{animation:300}" handle=".handleTask" @change="update">
 
         <div v-for="ord in orderNew">
 
@@ -8,7 +8,18 @@
                 <div class="row">
 
                     <div class="col-md-9 row">
-                        <div class="col-12 col-md-4 text-center text-md-right"><span v-text="ord.order_column"></span>.<span v-text="ord.task.title"></span></div>
+                        <div class="col-12 col-md-4 row">
+                            <div class="col-2 d-none d-md-block handleTask text-center"><i class="fa fa-arrows-v"></i></div>
+                            <div class="col-10">
+                                <span v-text="ord.order_column"></span>
+                                <span>.</span>
+                                <span v-text="ord.task.title"></span>
+                            </div>
+                            <div class="col-2 d-md-none handleTask text-left"><i class="fa fa-arrows-v"></i></div>
+
+
+
+                        </div>
                         <div class="d-none d-lg-block col-lg-2 text-center">
                             <span v-if="ord.task.type && ord.task.brand != 'سایر'">
                                 {{ord.task.brand}}
