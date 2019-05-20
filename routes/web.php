@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::group(['middleware' => ['offUser']], function () {
         Route::post('verify/{post}', 'PostController@verifyPost');
-        Route::resource('media', 'MediaController');
+//        Route::resource('media', 'MediaController');
         Route::resource('posts', 'PostController');
 
 
@@ -33,19 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/profile', 'ProfileController@update_avatar');
 
         Route::resource('tasks', 'TaskController');
-        Route::get('/tasks/{id}/start', 'TaskMeterController@start');
-        Route::get('/tasks/{id}/end', 'TaskMeterController@end');
-        Route::post('/tasks/{task}', 'TaskController@done')->name('tasks.done');
 
-         Route::resource('statuses', 'StatusController');
-//         Route::resource('comments', 'CommentController');
-
-//    Route::post('/tasks/up', 'TaskMeterController@upOrder')->name('tasks.up');
-//    Route::post('taskorderusersup', array('as' => 'up', 'uses' => 'TaskOrderUserController@up'))->name('taskorderuser.up');
-//    Route::post('taskorderusersup',['uses'=>'TaskOrderUserController@up']);
-        //Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-//    Route::get('/all-tasks', 'TaskController@allTasks');
-//    Route::get('/task-meters', 'TaskController@taskMeters');
 
     Route::group(['middleware' => ['role:modir|admin']], function () {
 
