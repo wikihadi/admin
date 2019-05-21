@@ -69,12 +69,12 @@
                     </a>
                 </li>
 
-                {{--<li class="nav-item">--}}
-                    {{--<a href="/roles" class="nav-link  @if(Request::is('roles*')) active @endif ">--}}
-                        {{--<i class="fa fa-users nav-icon"></i>--}}
-                        {{--<p>نقش ها</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
+                <li class="nav-item">
+                    <a href="/status" class="nav-link">
+                        <i class="fa fa-users nav-icon"></i>
+                        <p>فعالیت ها</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="/brands" class="nav-link  @if(Request::is('brands*')) active @endif ">
                         <i class="fa fa-500px nav-icon"></i>
@@ -105,21 +105,14 @@
         @endrole
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/posts" class="nav-link">
                 <i class="nav-icon fa fa-th"></i>
                 <p>
-                    اطلاعیه و قوانین - بزودی
+                    اطلاعیه و قوانین
                 </p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="/tasks/28" class="nav-link">
-                <i class="nav-icon fa fa-exclamation-triangle"></i>
-                <p>
-                    گزارش خطا
-                </p>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a class="dropdown-item" href="{{ route('logout') }}"
                onclick="event.preventDefault();

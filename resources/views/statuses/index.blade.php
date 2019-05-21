@@ -26,9 +26,9 @@
                 @foreach ($statuses as $s)
                     <tr>
                         <td>
-                            <a href="/jobs/{{$s->user_id}}">{{$s->user_id}}</a>
+                            <a href="/jobs/{{$s->user_id}}">
 
-                            {{--<a href="#"><img class="img-circle" style="width: 50px" src="/storage/avatars/{{ $s->user->avatar }}" title="{{$s->user->name}}"/></a>--}}
+                            <img class="img-circle" style="width: 40px" src="/storage/avatars/{{$s->user->avatar}}" title="{{$s->user->name}}"/></a>
                         </td>
 
                         <td class="text-left"><small dir="ltr"
@@ -37,17 +37,26 @@
                     <tr>
 
                         <td colspan="2">
-                            @foreach($tasks->where('id',$s->task_id) as $t)
-                                <a href="/tasks/{{$s->task_id}}" target="_blank"><small>{{$t->title}}</small></a>
-                            @endforeach
-                            <div class="">{{$s->content}}</div>
 
+                            <div class="">{{$s->content}}</div>
+                            @if($s->task != null)
+
+                                <div class="text-left border-top">
+                                    <a href="/tasks/{{$s->task->id}}" target="_blank">
+                                        <small class="text-muted">
+                                            {{$s->task->title}}
+                                        </small>
+                                    </a>
+
+                                </div>
+                            @endif
                         </td>
 
                     </tr>
 
                 @endforeach
             </table>
+            {{ $statuses->links() }}
 
         </div>
 

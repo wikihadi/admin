@@ -20,13 +20,19 @@
                 {{--<a href="/jobs/{{$user->id}}?pageType=old" class="btn btn-link"><i class="fa fa-key"></i></a>--}}
             {{--@endif--}}
         <div  id="users" class="collapse show" data-parent="#accordion">
-            <div class="d-flex flex-wrap justify-content-center">
+            <div class="d-flex justify-content-center">
                 @foreach($users as $u)
+
                     <div class="mx-2">
-                        @if(Request::is('*/'.$u->id))
+
+                        {{--<span class="badge badge-info position-absolute"><i class="fa fa-clock-o"></i></span>--}}
+
+                    @if(Request::is('*/'.$u->id))
+
                                 <img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle userJobsImageActive animated pulse infinite delay-4s" title="{{$u->name}}" data-toggle="tooltip">
                             @else
                             <a href="/{{$linked}}/{{$u->id}}">
+
                                 <img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle userJobsImage hvr-push" title="{{$u->name}}" data-toggle="tooltip">
                             </a>
                             @endif

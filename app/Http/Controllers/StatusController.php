@@ -9,6 +9,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Null_;
 use Verta;
 
 class StatusController extends Controller
@@ -34,10 +35,9 @@ class StatusController extends Controller
 
         }
 
-        $statuses = Status::with('user','tasks')->orderBy('id','DESC')->get();
-        $tasks = Task::all();
-
-        return view('statuses.index', compact('statuses','tasks','myTasksStatus','usersStatus','statusesToMe'));
+        $statuses = Status::with('task','user')->whereNull('to_user')->orderBy('updated_at','DESC')->paginate(20);
+        //$tasks = Task::all();
+        return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe'));
     }
 
     /**

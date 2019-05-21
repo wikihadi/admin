@@ -134,6 +134,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\TaskOrderUser','user_id','id');
     }
+    public function usersOn()
+    {
+        return $this->hasOne('App\Status')->where('status','on')->orWhere('status','off')->orderBy('updated_at','desc')->select('status');
+    }
 //    public function taskMeters()
 //    {
 //        return $this->belongsToMany('App\TaskMeter','task_meters', 'user_id', 'task_id');

@@ -1,3 +1,5 @@
+<a href="#"  data-toggle="collapse" data-target=".advanced"><i class="fa fa-bars"></i> <small>شخص یا کار مورد نظر را انتخاب کنید</small></a>
+
 <form  method="post" action="{{ route('status.store') }}">
     @csrf
     <div class="row collapse form-group advanced w-100">
@@ -49,7 +51,7 @@
 </form>
 
 
-    <button class="btn btn-link float-right mt-2" data-toggle="collapse" data-target=".advanced" type="button"><i class="fa fa-bars"></i></button>
+    {{--<button class="btn btn-link float-right mt-2" data-toggle="collapse" data-target=".advanced" type="button"><i class="fa fa-bars"></i></button>--}}
 {{--@if(isset($lastStartedStatus) && $lastStartedStatus->status == 'start')--}}
     {{--<button class="btn btn-link float-right mt-2 endTask" type="button" data-toggle="collapse" data-target=".advanced"><i class="fa fa-stop"></i></button>--}}
 {{--@elseif(isset($lastStartedStatus) && $lastStartedStatus->status == 'end')--}}

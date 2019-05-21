@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostViewBiesTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatePostViewBiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_view_bies', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->nullable();
-            $table->integer('post_id')->nullable();
-            $table->string('user_name');
+            $table->integer('from', FALSE, TRUE);
+            $table->integer('to', FALSE, TRUE);
+            $table->text('message');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreatePostViewBiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_view_bies');
+        Schema::dropIfExists('messages');
     }
 }

@@ -9,10 +9,18 @@ class Status extends Model
     protected $guarded=[];
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User')->select('name','id','avatar');
     }
-    public function tasks()
+    public function toUser()
     {
-        return $this->belongsTo('App\Task');
+        return $this->belongsTo('App\User','to_user','id')->select('name','id','avatar');
+    }
+    public function usersOn()
+    {
+        return $this->belongsTo('App\User','user_id','id');
+    }
+    public function task()
+    {
+        return $this->belongsTo('App\Task','task_id','id')->select('title','id');
     }
 }

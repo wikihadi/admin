@@ -32,11 +32,11 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
-            'app_id' => env('PUSHER_APP_ID'),
+            'key' => env('a34e1ecd6001d50c92f3'),
+            'secret' => env('2ce3403051c655eec4fa'),
+            'app_id' => env('786948'),
             'options' => [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'cluster' => env('ap2'),
                 'encrypted' => true,
             ],
         ],
@@ -50,9 +50,9 @@ return [
             'driver' => 'log',
         ],
 
-        'gcm' => [
-            'key' => env('AIzaSyAVXLaMkIYTVPFHBY_beq004e6bmlA8_58'),
-        ],
+//        'gcm' => [
+//            'key' => env('AIzaSyAVXLaMkIYTVPFHBY_beq004e6bmlA8_58'),
+//        ],
 
         'null' => [
             'driver' => 'null',

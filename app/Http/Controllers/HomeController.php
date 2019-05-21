@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Status;
+use App\TaskOrderUser;
 use App\User;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
@@ -63,9 +64,15 @@ class HomeController extends Controller
         }else{
             $read = 1;
         }
+        $lastMyTaskStatus = Status::with('task')->where('user_id',$user->id)->where('status','start')->orderBy('updated_at','desc')->paginate(5);
+        $order= TaskOrderUser::where('user_id',$user->id)->get();
+        foreach($order as $k => $v) {
+            $a[] = $v['task_id'];
+        }
+        $lastMyComments = Status::with('task','user')->whereIn('task_id',$a)->where('status','comment')->orderBy('updated_at','desc')->paginate(5);
+        $messages = Status::with('user','toUser')->where('to_user',$user->id)->orWhere('user_id',$user->id)->whereNotNull('to_user')->orderBy('created_at','DESC')->paginate(5);
 
-        
-        return view('home',compact('v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off','read'));
+        return view('home',compact('v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off','read','lastMyTaskStatus','lastMyComments','messages'));
     }
 
 

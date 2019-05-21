@@ -26,4 +26,7 @@
 
     @endrole
 
+    <li class="nav-item d-none d-sm-inline-block">
+        <a href="/posts" class="nav-link">اطلاعیه ها</a>
+    </li>
 </ul>
