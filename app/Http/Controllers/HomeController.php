@@ -69,10 +69,16 @@ class HomeController extends Controller
         foreach($order as $k => $v) {
             $a[] = $v['task_id'];
         }
-        $lastMyComments = Status::with('task','user')->whereIn('task_id',$a)->where('status','comment')->orderBy('updated_at','desc')->paginate(5);
-        $messages = Status::with('user','toUser')->where('to_user',$user->id)->orWhere('user_id',$user->id)->whereNotNull('to_user')->orderBy('created_at','DESC')->paginate(5);
+        $lastMyComments = Status::where('user_id',$user->id);
+        if(isset($a)){
+            $lastMyComments = Status::with('task','user')->whereIn('task_id',$a)->where('status','comment')->orderBy('updated_at','desc')->paginate(5);
 
-        return view('home',compact('v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off','read','lastMyTaskStatus','lastMyComments','messages'));
+        }
+        $messages = Status::with('user','toUser')->where('to_user',$user->id)->orWhere('user_id',$user->id)->whereNotNull('to_user')->orderBy('created_at','DESC')->paginate(5);
+        $users = User::all();
+        $lastComments = Status::with('task','user')->whereNotNull('task_id')->where('status','comment')->orderBy('updated_at','desc')->paginate(10);
+        $currentJobs = TaskOrderUser::with('task','user')->where('lastStatus','2')->orderBy('updated_at','desc')->get();
+        return view('home',compact('currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off','read','lastMyTaskStatus','lastMyComments','messages'));
     }
 
 

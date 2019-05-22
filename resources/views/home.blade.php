@@ -25,6 +25,7 @@
             </a>
         </div>
     @endif
+
     @if($off === 1)
 
         <div id="offUser" class="modal  fade" role="dialog" style="padding-right: 0!important;">
@@ -55,7 +56,22 @@
 
 
     <div class="col-md-12 mt-sm-5 d-none d-md-block" style="">
+        @role('admin')
+        <div class="d-flex flex-wrap justify-content-center mb-4 animated fadeIn delay-1s">
+            @foreach($users as $u)
+                <div class="mx-2">
+                    @if($u->status == 'off')
+                    <span class="badge badge-info position-absolute"><i class="fa fa-clock-o"></i></span>
+                    @endif
+                    <a href="/jobs/{{$u->id}}" target="_blank">
+                    <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
+                    </a>
 
+                </div>
+            @endforeach
+
+        </div>
+        @endrole
         <div class="col-md-12">
         <div class="row d-flex justify-content-center">
             @hasanyrole('designer|admin')
@@ -172,12 +188,41 @@
 
     </div>
 
-    <div class="col-12 row mt-5">
-        <div class="col-md-4 animated zoomIn offset-md-2">
+    <div class="col-12 row mt-5 justify-content-center">
+@role('admin')
+        <div class="col-md-2 animated zoomIn">
+
             <div class="card bg-dark">
 
             <div class="card-header"  >
-            <div class="float-right " data-toggle="collapse" data-target="#myActivities" style="cursor: pointer">
+            <div class="float-right" data-toggle="collapse" data-target="#myActivities" style="cursor: pointer">
+                <i class="fa fa-arrow-circle-down"></i> کارهای باز
+            </div>
+                <div data-target="#crateStatus" data-toggle="modal" style="cursor: pointer" class="float-left" title="ارسال پیام" data-toggle="tooltip"><i class="fa fa-plus-circle"></i></div>
+            </div>
+
+                <ul class="list-group collapse show list-group-flush bg-dark" id="myActivities">
+
+                        @foreach($currentJobs as $c)
+
+                                    <li class="list-group-item bg-success py-1 px-2">
+                                        <a href="/tasks/{{$c->task->id}}" target="_blank">
+                                    <img src="/storage/avatars/{{$c->user->avatar}}" alt="" class="img-circle" style="width: 30px" title="{{$c->user->name}}" data-toggle="tooltip">
+                                        <small style="font-size: 75%">{{$c->task->title}}</small>
+                                        </a>
+
+                                    </li>
+                        @endforeach
+                </ul>
+        </div>
+        </div>
+        @endrole
+        <div class="col-md-3 animated zoomIn">
+
+            <div class="card bg-dark">
+
+            <div class="card-header"  >
+            <div class="float-right" data-toggle="collapse" data-target="#myActivities" style="cursor: pointer">
                 <i class="fa fa-arrow-circle-down"></i> آخرین پیامها
             </div>
                 <div data-target="#crateStatus" data-toggle="modal" style="cursor: pointer" class="float-left" title="ارسال پیام" data-toggle="tooltip"><i class="fa fa-plus-circle"></i></div>
@@ -186,16 +231,34 @@
                 <ul class="list-group collapse show list-group-flush bg-dark" id="myActivities">
                     @foreach($messages as $s)
 
-                        <li class="list-group-item bg-dark">
+                        <li class="list-group-item bg-dark" data-toggle="collapse" data-target="#reply-form-{{$s->id}}">
                             @if($s->toUser->id != Auth::id())
-                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="img-size-50 ml-3 img-circle " title="{{$s->user->name}} به {{$s->toUser->name}}">
+                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="img-size-50 ml-3 img-circle " title="به {{$s->toUser->name}}">
 
-                            <img src="/storage/avatars/{{$s->toUser->avatar}}" alt=""  style="width: 30px; top: 10px;right: 5px;" class=" ml-3 img-circle position-absolute" title="{{$s->user->name}} به {{$s->toUser->name}}">
+                            <img src="/storage/avatars/{{$s->toUser->avatar}}" alt=""  style="width: 30px; top: 10px;right: 5px;" class=" ml-3 img-circle position-absolute" title="به {{$s->toUser->name}}">
                             @else
-                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="img-size-50 ml-3 img-circle " title="{{$s->user->name}} به {{$s->toUser->name}}">
+                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="img-size-50 ml-3 img-circle " title="{{$s->user->name}}">
 
                             @endif
                             <small>{{$s->content}}</small>
+
+                        </li>
+                        <li class="list-group-item collapse " id="reply-form-{{$s->id}}">
+                            <form  method="post" action="{{ route('status.store') }}">
+                                @csrf
+                                <input type="hidden" name="to_user" value="{{$s->user->id}}">
+                                <input type="hidden" name="user_id" value="{{$s->toUser->id}}">
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control InputToFocus inputUserStatus" name="content" autocomplete="off" placeholder=".....">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-dark btn-add" type="submit"><i class="fa fa-arrow-circle-left"></i></button>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="status" value="status" class="statusStatus">
+
+
+                            </form>
                         </li>
                     @endforeach
                         <a href="/profile" class="dropdown-item dropdown-footer"><small>همه</small></a>
@@ -219,6 +282,36 @@
                 {{--</ul>--}}
         {{--</div>--}}
         {{--</div>--}}
+        @role('admin')
+        <div class="col-md-3 animated zoomIn " data-toggle="collapse" data-target="#admin">
+            <div class="card bg-info">
+                <div class="card-header"  >
+                    <div class="" style="cursor: pointer">
+                        <i class="fa fa-arrow-circle-down"></i>مشاهده ده نظر اخیر - مدیر
+                    </div>
+                </div>
+
+                <ul class="list-group collapse show list-group-flush bg-dark" id="admin">
+                    @foreach($lastComments as $l)
+                        <a href="/tasks/{{$l->task->id}}">
+                            <li class="list-group-item bg-dark">
+                                <div class="border-bottom mb-2">
+                                    <small class="text-muted">
+                                        <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 20px" class="ml-3 img-circle">
+                                        در  {{$l->task->title}}:</small>
+                                </div>
+
+                                <small>{{$l->content}}</small>
+                                <i class="fa fa-arrow-left float-left"></i>
+                            </li>
+                        </a>
+                    @endforeach
+
+                </ul>
+                {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
+            </div>
+        </div>
+        @else
         <div class="col-md-4 animated zoomIn" data-toggle="collapse" data-target="#myComments">
             <div class="card bg-dark">
             <div class="card-header"  >
@@ -247,6 +340,8 @@
             {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
         </div>
         </div>
+            @endrole
+
     </div>
 
 @endsection

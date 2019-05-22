@@ -14,9 +14,9 @@
     </li>
     @endrole
     @role('admin|modir')
-    <li class="nav-item d-none d-sm-inline-block">
-        <a href="/jobs" class="nav-link">مشاهده کارها</a>
-    </li>
+    {{--<li class="nav-item d-none d-sm-inline-block">--}}
+        {{--<a href="/jobs" class="nav-link">مشاهده کارها</a>--}}
+    {{--</li>--}}
 
 
     <li class="nav-item d-none d-sm-inline-block">

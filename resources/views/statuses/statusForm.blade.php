@@ -1,29 +1,18 @@
-<a href="#"  data-toggle="collapse" data-target=".advanced"><i class="fa fa-bars"></i> <small>شخص یا کار مورد نظر را انتخاب کنید</small></a>
 
 <form  method="post" action="{{ route('status.store') }}">
     @csrf
-    <div class="row collapse form-group advanced w-100">
-        <div class="alert alert-warning lableUserStatus w-100" style="display: none">.
-            <strong>حالت شروع به کار</strong>
-            بعد از انتخاب کار مورد نظر کلید تایید را فشار دهید
+    <div class="row form-group advanced w-100">
+           {{--<div class="col-md-6">--}}
+            {{--<select name="task_id" class="form-control form-control-sm selectTaskStatus" disabled>--}}
+                {{--<option selected="selected" value="">به کار</option>--}}
+                {{--@foreach($myTasksStatus as $myTask)--}}
+                    {{--<option value="{{ $myTask->id }}">{{ $myTask->title }}</option>--}}
 
-        </div>
-        <div class="alert alert-danger lableUserStatusEnd w-100" style="display: none">.
-            <strong>پایان کار</strong>
-            کلید تایید را فشار دهید
-
-        </div>
-        <div class="col-md-6">
-            <select name="task_id" class="form-control form-control-sm selectTaskStatus">
-                <option selected="selected" value="">به کار</option>
-                @foreach($myTasksStatus as $myTask)
-                    <option value="{{ $myTask->id }}">{{ $myTask->title }}</option>
-
-                @endforeach
+                {{--@endforeach--}}
 
 
-            </select>
-        </div>
+            {{--</select>--}}
+        {{--</div>--}}
         <div class="col-md-6">
             <select name="to_user" class="form-control form-control-sm selectUserStatus">
                 <option selected="selected" value="">به شخص</option>

@@ -78,56 +78,6 @@ class TaskOrderUserController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $user_id = $request->get('user_id');
-        $ordering = $request->get('ordering');
-        $lastOrder = TaskOrderUser::where('user_id',$user_id)->orderBy('order_column','desc')->first();
-        $item = TaskOrderUser::firstOrNew([
-            'task_id' => $id,
-            'user_id' => $user_id
-
-        ], [
-            'task_id' => $id,
-            'user_id' => $user_id
-        ]);
-        //$item = TaskOrderUser::where('task_id',$id)->where('user_id',$user_id)->first();
-        if (empty($lastOrder)){
-            $x = 0;
-        }else{
-            $x = $lastOrder->order_column;
-        }
-        if ($item->order_column <= 0){
-            $item->order_column = $x + 1;
-            $item->save();
-
-            return redirect()->back();
-        }else{
-            if ($ordering == 'plus') {
-                if ($item->order_column >= $lastOrder->order_column) {
-                    $item->save();
-
-                    return redirect()->back();
-                }else{
-                    $oldOrder = TaskOrderUser::where('order_column', $item->order_column + 1)->first();
-                    if (!empty($oldOrder)) {
-                        $item->order_column += 1;
-                        $oldOrder->order_column -= 1;
-                        $oldOrder->save();
-                    }
-                }
-            }elseif ($ordering == 'minus'){
-                $oldOrder = TaskOrderUser::where('order_column', $item->order_column - 1)->first();
-                    if(!empty($oldOrder)) {
-                    $oldOrder->order_column += 1;
-                    $oldOrder->save();
-                    $item->order_column -= 1;
-                }
-
-            }
-            $item->save();
-
-            return redirect()->back()->with('success');
-        }
-
 
     }
 
@@ -147,85 +97,15 @@ class TaskOrderUserController extends Controller
         return response('Updated.', 200);
 
     }
-//    public function updateAll(Request $request)
-//    {
-//
-//        //dd($request->order);
-//        TaskOrderUser::truncate();
-//        foreach ($request->order as $o){
-//            TaskOrderUser::create([
-//               'task_id' => $o['task_id'],
-//               'user_id' => $o['user_id'],
-//               'order_column' => $o['order_column'],
-//            ]);
-//        }
-//        return response('Updated.', 200);
-//
-//    }
+
+
 
 
     public function destroy(Request $request,$id)
     {
         //
     }
-//    public function up(Request $request)
-//    {
-//
-//        $user_id = $request->user_id;
-//        $user = User::find($user_id);
-//        $task_id = Input::get('id');
-//        $ordering = $request->ordering;
-//        $lastOrder = TaskOrderUser::where('user_id',$user_id)->orderBy('order_column','desc')->first();
-//        $item = TaskOrderUser::firstOrNew([
-//            'task_id' => $task_id,
-//            'user_id' => $user_id
-//
-//        ], [
-//            'task_id' => $task_id,
-//            'user_id' => $user_id
-//        ]);
-//        if (empty($lastOrder)){
-//            $x = 0;
-//        }else{
-//            $x = $lastOrder->order_column;
-//        }
-//        if ($item->order_column <= 0){
-//            $item->order_column = $x + 1;
-//            $item->save();
-//            $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
-//
-//            return response()->json($tasks);
-//        }else{
-//            if ($ordering == 'plus') {
-//                if ($item->order_column >= $lastOrder->order_column) {
-//                    $item->save();
-//                    $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
-//
-//                    return response()->json($tasks);
-//                }else{
-//                    $oldOrder = TaskOrderUser::where('order_column', $item->order_column + 1)->first();
-//                    if (!empty($oldOrder)) {
-//                        $item->order_column += 1;
-//                        $oldOrder->order_column -= 1;
-//                        $oldOrder->save();
-//                    }
-//                }
-//            }elseif ($ordering == 'minus'){
-//                $oldOrder = TaskOrderUser::where('order_column', $item->order_column - 1)->first();
-//                if(!empty($oldOrder)) {
-//                    $oldOrder->order_column += 1;
-//                    $oldOrder->save();
-//                    $item->order_column -= 1;
-//                }
-//
-//            }
-//            $item->save();
-//            $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
-//
-//            return response()->json($tasks);
-//        }
-//
-//
-//    }
+
+
 }
 

@@ -106,8 +106,11 @@
             {{--@endforeach--}}
             {{--@elseif(isset($jobPage) && $jobPage == 'new')--}}
 {{--                <a href="/jobs/{{$user->id}}?pageType=old" class="btn btn-warning">Old</a>--}}
+
                     <div id='app'>
 
+
+                        {{--<routine-component :order="{{$order}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></routine-component>--}}
                         <tasks-component :order="{{$order}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></tasks-component>
 
                     </div>

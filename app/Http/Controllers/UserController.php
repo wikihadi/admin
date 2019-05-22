@@ -37,7 +37,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
         $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
         $dateBefore = Carbon::now();
@@ -126,7 +126,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
         $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
         $dateBefore = Carbon::now();
@@ -145,7 +145,7 @@ class UserController extends Controller
 
 
 
-        $tasks = $user->tasks()->where('isDone', '0')->orderBy('orderTask','ASC')->orderBy('deadline','ASC')->paginate(10);
+        $tasks = $user->tasks()->orderBy('orderTask','ASC')->orderBy('deadline','ASC')->paginate(10);
 //        $tasks = Task::orderBy('deadline','ASC')->paginate(9);
 //        $team = User::with('tasks');
 //
@@ -187,7 +187,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $myTasksStatus = $user->taskOrder()->where('isDone',0)->get();
+        $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
         $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
         $dateBefore = Carbon::now();

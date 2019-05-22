@@ -96,6 +96,15 @@ class StatusController extends Controller
             }
 
         }
+
+        $inputStatus = $request->get('status');
+        $user_id = $request->get('user_id');
+        if($inputStatus == 'on' || $inputStatus == 'off'){
+            $user = User::find($user_id);
+            $user->status = $inputStatus;
+            $user->save();
+        }
+
 //lastStatus 0 Not yet
 //lastStatus 1 workerd not Done
 //lastStatus 2 working
