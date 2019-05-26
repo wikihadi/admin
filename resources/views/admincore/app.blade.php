@@ -57,6 +57,8 @@ body{
 </head>
 <body class="hold-transition sidebar-mini">
 
+@yield('afterBody')
+
 <div class="wrapper">
     @include('admincore.topbar.index')
     <!-- Main Sidebar Container -->
@@ -105,8 +107,8 @@ body{
 {{--<script src="/admin-core/bootstrap/js/bootstrap.bundle.min.js"></script>--}}
 <!-- AdminLTE App -->
 <script src="/admin-core/js/adminlte.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/umd/tooltip.js"></script>.
+    <script src="/js/select2.min.js"></script>
+        <script src="/js/tooltip.js"></script>.
 
     <script type="text/javascript">
         // $(document).ready(function() {

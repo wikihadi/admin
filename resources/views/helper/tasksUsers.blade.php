@@ -20,7 +20,7 @@
                 {{--<a href="/jobs/{{$user->id}}?pageType=old" class="btn btn-link"><i class="fa fa-key"></i></a>--}}
             {{--@endif--}}
         <div  id="users" class="collapse show" data-parent="#accordion">
-            <div class="d-flex flex-wrap-reverse justify-content-center">
+            <div class="d-flex flex-wrap justify-content-center">
                 @foreach($users as $u)
 
                     <div class="mx-2">

@@ -99,9 +99,9 @@ class StatusController extends Controller
 
         $inputStatus = $request->get('status');
         $user_id = $request->get('user_id');
-        if($inputStatus == 'on' || $inputStatus == 'off'){
+        if($inputStatus == 'on' || $inputStatus == 'off' || $inputStatus == 'in' || $inputStatus == 'out' || $inputStatus == 'lunch-start' || $inputStatus == 'lunch-end'){
             $user = User::find($user_id);
-            $user->status = $inputStatus;
+            $user->lastStatus = $inputStatus;
             $user->save();
         }
 

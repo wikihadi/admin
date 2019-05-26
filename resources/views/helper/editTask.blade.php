@@ -221,11 +221,22 @@
 
             {{--</div>--}}
             <div class="form-group col-sm-12">
-            <label for="pic" class="file-upload btn btn-light btn-block">تصویر شاخص پروژه - برای عدم تغییر رها کنید
+                <div>
+                <img src="/storage/uploads/{{$task->pic}}" style="width: 100px" data-toggle="modal" data-target="#img" style="cursor: zoom-in" id="img-input">
+                <button onclick="$('form').append('<input type=hidden name=pic2 value=dsp.png>');$(this).parent().remove();" class="btn btn-link text-danger" type="button">X</button>
+
+                <div class="modal" id="img" style="cursor: zoom-out">
+                    <div class="text-center animated bounceIn" data-dismiss="modal">
+                        <img src="/storage/uploads/{{$task->pic}}"  data-dismiss="modal">
+                    </div>
+                </div>
+
+            <label for="pic" class="file-upload btn btn-light btn-block" id="labelPic">تصویر شاخص پروژه - برای عدم تغییر رها کنید
 
             <input type="file" name="pic" id="pic" aria-describedby="fileHelp">
 
             </label>
+                </div>
             </div>
         </div>
 

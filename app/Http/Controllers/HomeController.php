@@ -49,12 +49,7 @@ class HomeController extends Controller
 
         }
 
-        $test = Status::where('user_id',Auth::id())->where('status','off')->orWhere('status','on')->orderBy('created_at','desc')->first();
-        if(empty($test->status) || $test->status == 'on'){
-            $off = 0;
-        }else{
-            $off = 1;
-        }
+
         $v = Verta::now();
 
 
@@ -78,7 +73,28 @@ class HomeController extends Controller
         $users = User::all();
         $lastComments = Status::with('task','user')->whereNotNull('task_id')->where('status','comment')->orderBy('updated_at','desc')->paginate(10);
         $currentJobs = TaskOrderUser::with('task','user')->where('lastStatus','2')->orderBy('updated_at','desc')->get();
-        return view('home',compact('currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','off','read','lastMyTaskStatus','lastMyComments','messages'));
+        $orderRoutine = TaskOrderUser::with('task','user')->where('user_id',$user->id)->whereHas('task')->where('isDone',0)->where('routine',1)->orderBy('updated_at','desc')->paginate(5);
+        $orderCurrent = TaskOrderUser::with('task','user')->where('user_id',$user->id)->whereHas('task')->where('isDone',0)->where('routine',0)->where('lastStatus',1)->orderBy('updated_at','desc')->paginate(4);
+        $myOrderCurrent =           TaskOrderUser::with('task')->where('user_id',$user->id)->whereHas("task", function($q){$q->where("routine","=","0");})->where('lastStatus',2)->first();
+        $orderFuture = TaskOrderUser::with('task','user')->where('user_id',$user->id)->whereHas('task')->where('isDone',0)->where('routine',0)->where('lastStatus',0)->orderBy('updated_at','desc')->paginate(5);
+//        $userTimeIn = Status::whereDate('created_at', Carbon::today())->where('user_id',$user->id)->where('status','in')->orderBy('created_at','desc')->first();
+//        $userTimeIn = Carbon::parse($userTimeIn->created_at);
+//        $userTimeIn = new Verta($userTimeIn);
+
+        foreach ($lastMyComments as $key => $loop) {
+            date_default_timezone_set("Asia/Tehran");
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
+        foreach ($lastComments as $key => $loop) {
+            date_default_timezone_set("Asia/Tehran");
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
+        foreach ($messages as $key => $loop) {
+            date_default_timezone_set("Asia/Tehran");
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
+
+        return view('home',compact('user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
     }
 
 

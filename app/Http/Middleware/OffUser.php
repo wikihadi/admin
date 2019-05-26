@@ -17,13 +17,11 @@ class OffUser
      */
     public function handle($request, Closure $next)
     {
-        $test = Status::where('user_id',Auth::id())->where('status','off')->orWhere('status','on')->orderBy('created_at','desc')->first();
-        if(empty($test->status) || $test->status == 'on'){
+//        $test = Status::where('user_id',Auth::id())->where('status','off')->orWhere('status','on')->orderBy('created_at','desc')->first();
+        $user = Auth::user();
+        if($user->lastStatus == 'on' || $user->lastStatus == 'in' || $user->lastStatus == 'lunch-end'){
             return $next($request);
-
         }
-
-
         return redirect('home');
     }
 }

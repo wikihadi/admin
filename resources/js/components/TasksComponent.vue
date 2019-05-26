@@ -63,9 +63,11 @@
 
 
 
-                        <div class="mx-1 hvr-grow">
-                                <i class="fa fa-bars" data-toggle="tooltip" title="" v-if="ord.routine == 0"></i>
-                                <i class="fa fa-edit" data-toggle="tooltip" title="" v-else></i>
+                        <div class="mx-1 hvr-grow" >
+                            <a :href="'/jobs/updateRoutine/' + ord.id">
+                                <i class="fa fa-bars" data-toggle="tooltip" title="TASK" v-if="ord.routine === 0"></i>
+                                <i class="fa fa-repeat" data-toggle="tooltip" title="ROUTINE" v-else></i>
+                            </a>
                         </div>
                         <div class="mx-1 hvr-grow">
                             <a :href="'/tasks/' + ord.task.id + '/edit'">
@@ -104,20 +106,19 @@
           }
         },
         methods: {
-            // formSubmit(e) {
-            //     e.preventDefault();
-            //     let currentObj = this;
-            //     this.axios.post('http://localhost:8000/yourPostApi', {
-            //         name: this.name,
-            //         description: this.description
-            //     })
-            //         .then(function (response) {
-            //             currentObj.output = response.data;
-            //         })
-            //         .catch(function (error) {
-            //             currentObj.output = error;
-            //         });
-            // },
+            routineToggle(id) {
+
+                const url = `/jobs/updateRoutine`;
+                axios.put(url,id).then((response) => {
+                    //
+                })
+            },
+            routineToggle(id){
+                let uri = '/jobs/updateRoutine/' + id;
+                this.axios.get(uri);
+
+
+            },
             update() {
                 this.orderNew.map((ord, index) => {
                   ord.order_column = index + 1;

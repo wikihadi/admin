@@ -325,6 +325,7 @@ public function profileUpdate(Request $request, $id){
 
         $user = Auth::user();
         $user->name = $request->get('name');
+        $user->lunch = $request->get('lunch');
         $user->experience = $request->get('experience');
         $user->tel = $request->get('tel');
         if(!empty($request->avatar)) {

@@ -79,8 +79,26 @@ class TaskOrderUserController extends Controller
     public function update(Request $request,$id)
     {
 
-    }
+}
 
+    public function updateRoutine($id)
+    {
+
+        $order = TaskOrderUser::find($id);
+        $t = $order->routine;
+
+        if($t == 0)
+        {
+            $t = 1;
+        }else{
+            $t = 0;
+        }
+        $order->routine = $t;
+        $order->save();
+        return back();
+
+
+    }
     public function updateAll(Request $request)
     {
 

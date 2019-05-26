@@ -7,7 +7,11 @@
 
 @section('content')
 
-
+    <div class="modal" id="img{{$task->id}}" style="cursor: zoom-out">
+        <div class="text-center animated bounceIn" data-dismiss="modal">
+            <img src="/storage/uploads/{{$task->pic}}"  data-dismiss="modal">
+        </div>
+    </div>
 
     <div class="col-sm-12">
 
@@ -64,22 +68,23 @@
 
             </div>
             <div class="text-left col text-left">
-                @can('task-delete')
 
                     <form class=""  action="{{ route('tasks.destroy', $task->id)}}" method="post">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="urlP" value="{{$urlP}}">
+                                        @can('task-delete')
 
                         <button class="btn btn-link text-danger my-2" type="submit"><i class="fa fa-trash"></i></button>
-                        @can('task-edit')
+                        @endcan
+
+                    @can('task-edit')
 
                             <a href="/tasks/{{$task->id}}/edit"
                                class="btn btn-link text-warning my-2"><i class="fa fa-edit"></i></a>
 
                         @endcan
                     </form>
-                @endcan
 
                 {{--<a href="/tasks/create" class="btn btn-link" title="New"><i class="fa fa-plus"></i></a>--}}
                 {{--<a class="btn btn-link" data-toggle="collapse" href=".collapse"><i class="fa fa-arrows-alt"></i></a>--}}
@@ -121,7 +126,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-12 text-center">
-                                        <img src="/storage/uploads/{{$task->pic}}" class="img-fluid" alt="">
+                                        <img src="/storage/uploads/{{$task->pic}}" class="img-fluid" alt="" data-toggle="modal" data-target="#img{{$task->id}}"  style="cursor: zoom-in">
                                     </div>
                                     <div class="col-sm-12 table-responsive">
 

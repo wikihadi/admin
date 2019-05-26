@@ -45,16 +45,42 @@
                 @include('statuses.fixedMobile')
                 @include('statuses.desktopModal')
         </li>
-
-        <form  method="post" action="{{ route('status.store') }}">
-            @csrf
-            <input type="hidden" name="user_id" value="{{Auth::id()}}">
-            <input type="hidden" name="status" value="off">
-            <input type="hidden" name="content" value="توقف زمان برای  {{Auth::user()->name}}">
-        <li class="nav-item animated">
-            <button class="nav-link hvr-grow  animated fadeInUp btn btn-link" title="توقف" type="submit"><i class="fa fa-power-off" data-target="tooltip"></i></button>
+        <li class="nav-item dropdown">
+            <a class="nav-link animated fadeInUp" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-power-off" data-target="tooltip"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <form  method="post" action="{{ route('status.store') }}">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                    <input type="hidden" name="status" value="lunch-start">
+                    <input type="hidden" name="content" value="ناهار {{Auth::user()->name}}">
+        <li class="dropdown-item">
+            <button class="nav-link btn btn-link" type="submit"><i class="fa fa-pause" data-target="tooltip"></i>ناهار</button>
         </li>
         </form>
+                <form  method="post" action="{{ route('status.store') }}">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                    <input type="hidden" name="status" value="off">
+                    <input type="hidden" name="content" value="توقف زمان برای  {{Auth::user()->name}}">
+        <li class="dropdown-item">
+            <button class="nav-link btn btn-link" type="submit"><i class="fa fa-pause" data-target="tooltip"></i> توقف کار</button>
+        </li>
+        </form>
+                <form  method="post" action="{{ route('status.store') }}">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                    <input type="hidden" name="status" value="out">
+                    <input type="hidden" name="content" value="خروج  {{Auth::user()->name}}">
+        <li class="dropdown-item">
+            <button class="nav-link btn btn-link text-danger" type="submit"><i class="fa fa-power-off" data-target="tooltip"></i> ثبت خروج</button>
+        </li>
+        </form>
+            </div>
+        </li>
+
+
 
         {{--<li class="nav-item">--}}
             {{--<a class="nav-link" href="#"><i--}}

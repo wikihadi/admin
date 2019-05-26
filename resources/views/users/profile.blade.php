@@ -66,6 +66,11 @@
                                             <label for="name">نام و نام خانوادگی (فارسی)</label>
                                             <input class="form-control" type="text" name="name" value="{{ $user->name }}">
                                         </div>
+                                    <div class="form-group row">
+                                        <label for="lunch">ساعت ناهار</label>
+                                        <input type="time" id="lunch" name="lunch" class="form-control">
+
+                                    </div>
 
                                         {{--<div class="form-group row">--}}
                                             {{--<label for="phone">تلفن همراه</label>--}}

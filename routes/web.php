@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::get('/jobs', 'TaskController@modir');
         Route::put('/jobs/updateAll','TaskOrderUserController@updateAll')->name('tasks.updateAll');
+        Route::get('/jobs/updateRoutine/{id}','TaskOrderUserController@updateRoutine')->name('tasks.updateRoutine');
         Route::get('/jobs/{id}', 'TaskController@modirUser');
         Route::resource('taskorderusers', 'TaskOrderUserController');
         Route::get('/pending', 'TaskController@pending');
