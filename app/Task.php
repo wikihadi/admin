@@ -70,6 +70,10 @@ class Task extends Model
     {
         return $this->belongsTo('App\Brand');
     }
+    public function checklists()
+    {
+        return $this->hasMany('App\Checklist','user_id');
+    }
 
 
 }

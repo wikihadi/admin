@@ -257,70 +257,6 @@
                                                 <div class="panel-body">
                                                     @include('statuses.taskStatus')
 
-
-                                                    {{--<form method="post" action="{{ route('comments.store') }}">--}}
-                                                        {{--<div class="form-group">--}}
-                                                            {{--@csrf--}}
-                                                            {{--<textarea class="form-control" name="comment"--}}
-                                                                      {{--placeholder="به نظر من..." rows="3"></textarea>--}}
-                                                            {{--<input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من...">--}}
-                                                            {{--<div class="input-group mb-3">--}}
-                                                                {{--<textarea id="" name="comment" class="form-control" rows="3" placeholder="به نظر من..."></textarea>--}}
-                                                                {{--<input type="text" name="comment" class="form-control" rows="3" placeholder="به نظر من..." aria-label="" aria-describedby="basic-addon1">--}}
-
-                                                                {{--<div class="input-group-append">--}}
-                                                                    {{--<button class="btn btn-success btn-block" type="submit">ثبت نظر</button>--}}
-                                                                {{--</div>--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-
-                                                        {{--<input type="hidden" name="user_id"--}}
-                                                               {{--value="{{ $user->id }}">--}}
-                                                        {{--<input type="hidden" name="task_id" value="{{ $task->id }}">--}}
-                                                        {{--<button type="submit" class="btn btn-link pull-left">--}}
-                                                            {{--<i class="fa fa-2x fa-plus-circle"></i>--}}
-                                                        {{--</button>--}}
-                                                    {{--</form>--}}
-                                                    {{--<div class="clearfix"></div>--}}
-                                                    {{--<hr>--}}
-                                                    {{--<ul class="media-list">--}}
-
-
-                                                        {{--@foreach($comments as $comment)--}}
-
-                                                            {{--<li class="media">--}}
-                                                                {{--<a href="#" class="pull-left ml-3">--}}
-                                                                    {{--<img class="img-circle" style=""--}}
-                                                                         {{--src="/storage/avatars/{{ $comment->user->avatar }}" />--}}
-                                                                {{--</a>--}}
-                                                                {{--<div class="media-body">--}}
-                                                                    {{--<span class="text-muted pull-left">--}}
-                                                                        {{--<small dir="ltr" class="text-muted" title="{{$comment->jCreated_at}}"  data-toggle="tooltip" data-placement="right">{{$comment->diff}}</small>--}}
-
-                                                                    {{--</span>--}}
-                                                                    {{--<strong class="text-success">{{ $comment->user->name }}</strong>--}}
-                                                                    {{--<div class="clearfix"></div>--}}
-                                                                    {{--<div style="white-space: pre-wrap;">{{ $comment->comment }}</div>--}}
-                                                                    {{--<div class="text-left">--}}
-                                                                    {{--@if($comment->diffM < 5)--}}
-                                                                        {{--<form class="d-inline" action="{{ route('comments.edit',$comment->id)}}" method="post">--}}
-
-                                                                            {{--<input name="diffM" type="hidden" value="{{$comment->diffM}}">--}}
-
-                                                                            {{--@csrf--}}
-                                                                            {{--<input type="hidden" value="{{$user->id}}" name="user_id">--}}
-                                                                            {{--<input type="hidden" value="{{$comment->id}}" name="id">--}}
-                                                                            {{--<a class="btn btn-link my-2 text-muted" href="/comments/{{$comment->id}}/edit"><i class="fa fa-edit"></i></a>--}}
-                                                                        {{--</form>--}}
-                                                                        {{--@endif--}}
-                                                                    {{--</div>--}}
-
-                                                                {{--</div>--}}
-                                                            {{--</li>--}}
-                                                        {{--@endforeach--}}
-
-
-                                                    {{--</ul>--}}
                                                 </div>
                                             </div>
                                         </div>
@@ -336,158 +272,286 @@
                     </div>
 
                     <!------------ setting ------------------------------------------------------->
-                    {{--<div id="settingCard" class="card card-border d-none d-md-block">--}}
+                    <div id="settingCard" class="card card-border d-none d-md-block">
 
-                        {{--<div class="bg-light card-header card-border" data-toggle="collapse" href="#setting">--}}
-                            {{--<div class="">+ تنظیمات--}}
-                            {{--</div>--}}
-
-
-                        {{--</div>--}}
-                        {{--<div id="setting" class="collapse">--}}
-                            {{--<div class="card-body">--}}
-                            {{--<div class="d-flex justify-content-around">--}}
-
-                                {{--@can('task-delete')--}}
-
-                                        {{--<form action="{{ route('tasks.destroy', $task->id)}}" method="post">--}}
-                                            {{--@csrf--}}
-                                            {{--@method('DELETE')--}}
-                                            {{--<input type="hidden" name="urlP" value="{{$urlP}}">--}}
-
-                                            {{--<button class="btn btn-link text-danger my-2" type="submit"><i class="fa fa-trash"></i></button>--}}
-                                        {{--</form>--}}
-                                {{--@endcan--}}
-                                {{--@can('task-edit')--}}
-
-                                {{--<a href="/tasks/{{$task->id}}/edit"--}}
-                                           {{--class="btn btn-link text-warning my-2"><i class="fa fa-edit"></i></a>--}}
-
-                                {{--@endcan--}}
-{{--@if($task->isDone == 1)--}}
-                                    {{--@role('admin|designer')--}}
-
-                                {{--<form action="{{ route('tasks.done', $task->id)}}" method="post">--}}
-                                    {{--@csrf--}}
-                                    {{--<input type="hidden" value="0" name="isDone">--}}
-                                    {{--<input type="hidden" value="{{$task->id}}" name="id">--}}
-                                    {{--<button class="btn btn-warning my-2" type="submit">برگردان به بخش اجرایی</button>--}}
-                                {{--</form>--}}
-                                    {{--@endrole--}}
-{{--@else--}}
-                                    {{--@role('modir')--}}
-                                    {{--@else--}}
-
-                                    {{--<form action="{{ route('tasks.done', $task->id)}}" method="post">--}}
-                                        {{--@csrf--}}
-                                        {{--<input type="hidden" value="1" name="isDone">--}}
-                                        {{--<input type="hidden" value="{{$user->id}}" name="done_user_id">--}}
-                                        {{--<input type="hidden" value="{{$task->id}}" name="id">--}}
-                                        {{--<button class="btn btn-success my-2" type="submit">اتمام کار</button>--}}
-                                    {{--</form>--}}
-                                        {{--@endrole--}}
-    {{--@endif--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
+                        <div class="bg-light card-header card-border" data-toggle="collapse" href="#checklist">
+                            <div class="">+ چک لیست
+                            </div>
 
 
-                        {{--</div>--}}
-                    {{--</div>--}}
+                        </div>
+                        <div id="checklist" class="collapse">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-10 m-auto">
 
-                    <!------------ timeSheet ------------------------------------------------------->
-                    {{--@if(count($taskMeters) > 0)--}}
-                    {{--<div id="settingCard" class="card card-border d-none d-md-block">--}}
-
-                        {{--<div class="bg-light card-header card-border" data-toggle="collapse" href="#timing">--}}
-                            {{--<div class="">+ زمان کار--}}
-                            {{--</div>--}}
-
-
-                        {{--</div>--}}
-                        {{--<div id="timing" class="collapse" data-parent="#accordion">--}}
-                            {{--<div class="card-body">--}}
-                                    {{--<a href="/tasks/{{$task->id}}/start" class="badge table-success"><i class="fa fa-2x fa-play-circle-o text-muted"></i></a>--}}
-                                {{--<a href="/tasks/{{$task->id}}/end" class="badge table-secondary"><i class="fa fa-2x fa-pause-circle-o text-muted"></i></a>--}}
-                                {{--<table class="table table-hover text-center">--}}
-                                    {{--<tr>--}}
-                                        {{--<td>تاریخ</td>--}}
-                                        {{--<td>ساعت</td>--}}
-                                        {{--<td>کارکرد</td>--}}
-                                    {{--</tr>--}}
-                                    {{--@php--}}
-                                    {{--$totalH = 0;--}}
-                                    {{--$totalM = 0;--}}
-                                    {{--$totalS = 0;--}}
-                                    {{--@endphp--}}
-
-                                    {{--@foreach($taskMeters as $tm)--}}
-                                        {{--@if($tm->end == 0)--}}
-                                            {{--@php--}}
-                                            {{--$dateDiff = "-";--}}
-                                            {{--@endphp--}}
-                                    {{--<tr class="table-success">--}}
-                                        {{--@else--}}
+                                        <div class="comment-wrapper">
+                                            <div class="panel panel-info">
+                                                <div class="panel-body">
 
 
-                                        {{--@php--}}
-
-                                        {{--//$dateDiff = $tm->diffM;--}}
-                                        {{--/*$tmm = $tm->diffM % 60;--}}
-                                        {{--$tmmd = floor($tm->diffM / 60);--}}
+                                                    <ul class="media-list" id="checklist-list">
 
 
-                                        {{--$tms = $tm->diffS % 60;--}}
-                                        {{--$tmsd = floor($tm->diffS / 60);--}}
+                                                        @foreach($checklist as $c)
 
-                                        {{--$tmmf = $tmsd + $tms;--}}
-                                        {{--$tmhf = $tm->diffH + $tmmd;*/--}}
+                                                            <li class="media">
+                                                                <div class="media-body">
+                                                                    <span class="text-muted pull-left">
+                                                                        <button type="button" dir="ltr" class="text-muted btn btn-link" onclick="editTaskForm({{$c->id}})"><i class="fa fa-edit"></i></button>
+                                                                        {{--<button type="button" dir="ltr" class="text-muted btn btn-link" onclick="deleteTaskForm({{$c->id}})"><i class="fa fa-trash"></i></button>--}}
 
+                                                                    </span>
+                                                                    {{--<div class="clearfix"></div>--}}
 
-                                        {{--$tms = $tm->diffS % 60;--}}
-                                        {{--$tmm = floor($tm->diffS / 60) % 60;--}}
-                                        {{--$tmh = floor(floor($tm->diffS / 60) / 60);--}}
+                                                                    <div style="white-space: pre-wrap;"><input type="checkbox" onclick="itemCheck({{$c->id}})"> {{ $c->content }}</div>
 
 
 
-                                        {{--$dateDiff = $tmh . ":" . $tmm . ":" . $tms;--}}
+                                                                </div>
+                                                            </li>
 
-
-                                        {{--$totalS += $tm->diffS;--}}
-
-
+                                                        @endforeach
 
 
 
-                                            {{--@endphp--}}
-                                    {{--<tr class="table-secondary">--}}
-                                        {{--@endif--}}
-                                        {{--<td>{{$tm->jDate}}</td>--}}
-                                        {{--<td>{{date('H:i:s', strtotime($tm->created_at))}}</td>--}}
-                                        {{--<td>{{$dateDiff}}</td>--}}
-                                    {{--</tr>--}}
-                                        {{--@endforeach--}}
-                                        {{--@php--}}
-                                            {{--$total = floor(floor($totalS / 60) / 60) . ":" . floor($totalS / 60) % 60 . ":" . $totalS % 60;--}}
-                                        {{--@endphp--}}
-                                            {{--<tr class="table-info">--}}
-                                                {{--<td colspan="2">مجموع</td>--}}
-                                                {{--<td>{{$total}}</td>--}}
-                                            {{--</tr>--}}
-                                {{--</table>--}}
+                                                    </ul>
 
-                            {{--</div>--}}
+                                                </div>
+                                                <form id="frmAddTask">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder=".." name="content" id="content" required>
+                                                        {{--<textarea class="form-control" placeholder=".." name="content" id="content" required></textarea>--}}
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-info" id="btn-add" type="button" value="add">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="task_id" value="{{$task->id}}">
+                                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+                                                    {{--<input type="hidden" name="type" value="task">--}}
+                                                    {{--<input type="hidden" name="CheckListStatus" value="new">--}}
+                                                </form>
+                                                </div>
+                                                </div>
+
+                            </div>
+                            </div>
 
 
-                        {{--</div>--}}
-                    {{--</div>--}}
-                        {{--@endif--}}
+                        </div>
+                    </div>
+
+
 
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
+
+
+    <!-- Edit Modal HTML -->
+    <div class="modal fade" id="editTaskModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="frmEditTask">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            Edit Task
+                        </h4>
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                            ×
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" id="edit-error-bag">
+                            <ul id="edit-task-errors">
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label>
+
+                            </label>
+                            <input class="form-control" id="content" name="content" required="" type="text">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input id="id" name="id" type="hidden" value="">
+                        <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel">
+                        <button class="btn btn-info" id="btn-edit" type="button" value="add">
+                            Update
+                        </button>
+                        </input>
+                        </input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Task Modal Form HTML -->
+    <div class="modal fade" id="deleteTaskModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="frmDeleteTask">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="delete-title" name="title">
+                            Delete Task
+                        </h4>
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                            ×
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Are you sure you want to delete this task?
+                        </p>
+                        <p class="text-warning">
+                            <small>
+                                This action cannot be undone.
+                            </small>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <input id="did" name="did" type="hidden" value="">
+                        <input class="btn btn-default" data-dismiss="modal" type="button" value="Cancel">
+                        <button class="btn btn-danger" id="btn-delete" type="button">
+                            Delete Task
+                        </button>
+                        </input>
+                        </input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('JS')
+            <script>
+                $(document).ready(function() {
 
+                    $("#btn-add").click(function () {
+                        let x = $("#frmAddTask input[name=content]").val();
+                        if(x != ''){
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                type: 'POST',
+                                url: '/checklist',
+                                data: {
+                                    content: $("#frmAddTask input[name=content]").val(),
+                                    task_id: $("#frmAddTask input[name=task_id]").val(),
+                                    user_id: $("#frmAddTask input[name=user_id]").val(),
+                                    type: 'task',
+                                    CheckListStatus: 'new'
+                                },
+                                dataType: 'json',
+                                success: function (data) {
+                                    $('#frmAddTask').trigger("reset");
+                                    $("#frmAddTask .close").click();
+                                   // window.location.reload();
+                                },
+                                error: function (data) {
+                                    var errors = $.parseJSON(data.responseText);
+                                    $('#add-task-errors').html('');
+                                    $.each(errors.messages, function (key, value) {
+                                        $('#add-task-errors').append('<li>' + value + '</li>');
+                                    });
+                                    $("#add-error-bag").show();
+                                }
+                            });
+                            $('#checklist-list').append('<li class="media"><div class="media-body"><div class="clearfix"></div><div style="white-space: pre-wrap;">' + x + '</div></div></li>');
+                            // $('#content').val('');
+                        }
+
+
+
+
+                    });
+                    $("#btn-edit").click(function() {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            type: 'PUT',
+                            url: '/checklist/' + $("#id").val(),
+                            data: {
+                                content: $("#frmEditTask input[name=content]").val(),
+                            },
+                            dataType: 'json',
+                            success: function(data) {
+                                $('#frmEditTask').trigger("reset");
+                                $("#frmEditTask .close").click();
+                                window.location.reload();
+                            },
+                            error: function(data) {
+                                var errors = $.parseJSON(data.responseText);
+                                $('#edit-task-errors').html('');
+                                $.each(errors.messages, function(key, value) {
+                                    $('#edit-task-errors').append('<li>' + value + '</li>');
+                                });
+                                $("#edit-error-bag").show();
+                            }
+                        });
+                    });
+                    $("#btn-delete").click(function() {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            type: 'DELETE',
+                            url: '/checklist/' + $("#did").val(),
+                            dataType: 'json',
+                            success: function(data) {
+                                $("#frmDeleteTask .close").click();
+                                window.location.reload();
+                            },
+                            error: function(data) {
+                                console.log(data);
+                            }
+                        });
+                    });
+                });
+                function editTaskForm(id) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/checklist/' + id,
+                        success: function(data) {
+                            $("#edit-error-bag").hide();
+                            $("#frmEditTask input[name=content]").val(data.checklist.content);
+                            $("#frmEditTask input[name=id]").val(data.checklist.id);
+                            $('#editTaskModal').modal('show');
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+
+                }
+                function deleteTaskForm(id) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/checklist/' + id,
+                        success: function(data) {
+                            $("#frmDeleteTask #delete-title").html("Delete (" + data.checklist.content + ")?");
+                            $("#frmDeleteTask input[name=id]").val(data.checklist.id);
+                            $('#deleteTaskModal').modal('show');
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        }
+                    });
+                }
+            </script>
 @endsection

@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//Route::resource('/checklist', 'CheckListController', [
+//    'except' => ['edit', 'show', 'store']
+//]);
+//Route::resource('checklist', 'CheckListController');

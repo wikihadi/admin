@@ -66,7 +66,7 @@
 @section('content')
     @if($read == 0)
         <div class="">
-            <a href="/posts/15">
+            <a href="/posts/16">
                 <div class="alert alert-warning animated flash delay-1s"><strong><i class="fa fa-exclamation-triangle"></i></strong> لطفا مشاهده کنید</div>
             </a>
         </div>
@@ -172,7 +172,7 @@
                     <div class="list-group collapse list-group-flush bg-dark tasks">
                         @foreach($orderRoutine as $or)
 
-                        <div class="list-group-item @if($or->lastStatus != 2) bg-dark @else bg-info @endif">
+                        <div class="list-group-item @if($or->lastStatus != 2) bg-dark @else bg-success @endif">
                             <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{Auth::id()}}">
@@ -300,9 +300,10 @@
                 <div class="list-group collapse show list-group-flush bg-dark" id="lastStatus">
 
                         @foreach($currentJobs as $c)
-                                    <a  href="/tasks/{{$c->task->id}}" target="_blank" class="list-group-item @if($c->user->lastStatus == 'off') bg-info @elseif($c->user->lastStatus == 'out') bg-secondary @else bg-success @endif py-1 px-2">
+                                    <a  href="/tasks/{{$c->task->id}}" target="_blank" class="list-group-item @if($c->user->lastStatus == 'off') bg-info @elseif($c->user->lastStatus == 'lunch-start') bg-warning @elseif($c->user->lastStatus == 'out') bg-secondary @else bg-success @endif py-1 px-2">
                                     <img src="/storage/avatars/{{$c->user->avatar}}" alt="" class="img-circle" style="width: 30px" title="{{$c->user->name}}" data-toggle="tooltip">
                                         <small style="font-size: 75%">{{$c->task->title}}</small>
+                                        <div class="float-left"><i class="fa @if($c->user->lastStatus == 'off') fa-clock-o @elseif($c->user->lastStatus == 'lunch-start') fa-cutlery @elseif($c->user->lastStatus == 'out') fa-power-off @endif "></i></div>
                                     </a>
                         @endforeach
                 </div>

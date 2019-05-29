@@ -23,8 +23,18 @@ Route::group(['middleware' => ['auth']], function() {
         return redirect('/');
     });
 
+        Route::resource('checklist', 'CheckListController');
+
+//    Route::get('/',function (){
+//        $user = Auth::user();
+//       event(new \App\Events\ArticleEvent($user));
+//       return 'Done';
+//    });
 
     Route::group(['middleware' => ['offUser']], function () {
+
+
+
         Route::post('verify/{post}', 'PostController@verifyPost');
 //        Route::resource('media', 'MediaController');
         Route::resource('posts', 'PostController');

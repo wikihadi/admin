@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ArticleEvent;
 use App\Status;
 use App\TaskOrderUser;
 use App\User;
@@ -53,7 +54,7 @@ class HomeController extends Controller
         $v = Verta::now();
 
 
-        $statusPost = Status::where('status','verifyPost')->where('user_id',$user->id)->where('post_id',15)->get();
+        $statusPost = Status::where('status','verifyPost')->where('user_id',$user->id)->where('post_id',16)->get();
         if (count($statusPost) == 0){
             $read = 0;
         }else{

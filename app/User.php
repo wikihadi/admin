@@ -130,6 +130,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Status','user_id');
     }
+    public function checklists()
+    {
+        return $this->hasMany('App\Checklist','user_id');
+    }
     public function usersInTasks()
     {
         return $this->hasMany('App\TaskOrderUser','user_id','id');

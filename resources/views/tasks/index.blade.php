@@ -54,8 +54,11 @@
                             @endif
                     <!-----------------must to controller------------------------------->
                         @if(count($orderRoutine) > 0 && !isset($_GET['sort']))
-<div class="jumbotron">
-                        @foreach($orderRoutine as $o)
+<div class="jumbotron ">
+    <h1 class="display-6 text-muted text-center animated fadeIn delay-1s">کارهای روتین</h1>
+    <hr class="my-4 animated fadeIn delay-1s">
+
+@foreach($orderRoutine as $o)
 
                             {{--Modal for Task IMGE--}}
                             <div class="modal" id="img{{$o->task->id}}" style="cursor: zoom-out">
@@ -66,8 +69,16 @@
 
                             <div class="card card-border animated fadeInDown" >
 
-                                <div class="card-header card-border bg-warning
-
+                                <div class="card-header card-border
+                                    @if($o->lastStatus == 0)
+                                        bg-info
+@elseif($o->lastStatus == 1)
+                                        bg-light
+@elseif($o->lastStatus == 2)
+                                        bg-success
+@elseif($o->lastStatus == 3)
+                                        bg-dark
+@endif
                                         ">
                                     <div class="row">
 
@@ -449,6 +460,9 @@
                         @endforeach
 </div>
                         @endif
+
+                        <h1 class="display-6 text-muted text-center animated fadeIn delay-1s">کارها</h1>
+                        <hr class="my-4 animated fadeIn delay-1s">
                     @foreach($order as $o)
 
                             {{--Modal for Task IMGE--}}
