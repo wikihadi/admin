@@ -23,7 +23,6 @@ Route::group(['middleware' => ['auth']], function() {
         return redirect('/');
     });
 
-        Route::resource('checklist', 'CheckListController');
 
 //    Route::get('/',function (){
 //        $user = Auth::user();

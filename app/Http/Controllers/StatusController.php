@@ -169,25 +169,32 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+//    public function update(Request $request,$id)
+//    {
+//
+//        $user = Auth::user();
+//        $status = Status::find($id);
+//
+//        if($request->input('user_id') == $user->id){
+//            $status->content = $request->input('content');
+//            $status->save();
+//
+//        }
+//
+//
+//
+//
+//
+//
+//
+//        return redirect()->back()->with('success');
+//    }
+    public function update(Request $request, $id)
     {
+        $status = Status::findOrFail($id);
+        $status->update($request->all());
 
-        $user = Auth::user();
-        $status = Status::find($id);
-
-        if($request->input('user_id') == $user->id){
-            $status->content = $request->input('content');
-            $status->save();
-
-        }
-
-
-
-
-
-
-
-        return redirect()->back()->with('success');
+        return $status;
     }
 
     /**
@@ -205,5 +212,31 @@ class StatusController extends Controller
         $task->decrement('commentCount');
 
         return redirect()->back()->with('success');
+    }
+
+
+//    public function homeStatusToMe(){
+//
+//       return $messages = Status::with('user','toUser')->where('to_user', 1)->orWhere('user_id', 1)->orderBy('created_at','DESC')->get();
+////        foreach ($messages as $key => $loop) {
+////            date_default_timezone_set("Asia/Tehran");
+////            $loop->diff = verta($loop->created_at)->formatDifference();
+////        }
+////
+////     return $messages;
+//
+//    }
+
+
+    public function addStatusToBox(Request $request){
+        Status::create($request->all());
+        return(['message' => 'Task Done']);
+    }
+    public function statusListBox(){
+        return Status::where('status','box')->latest()->get();
+    }
+    public function statusUpdate(Request $request, Status $status){
+        $status->status = 'boxed';
+        $status->save();
     }
 }

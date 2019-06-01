@@ -1,0 +1,83 @@
+<template>
+    <div>
+        <div class="list-group collapse list-group-flush bg-dark tasks">
+            <form @submit.prevent="addStatus(user)">
+                <input type="text" class="form-control bg-dark" name="content" v-model="content" placeholder="اینجا بنویس..." id="content" autofocus>
+            </form>
+
+            <div class="list-group-item bg-dark" v-for="item in loop" :id="'box-' + item.id">
+<!--                <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">-->
+<!--                    @csrf-->
+<!--                    <input type="hidden" name="user_id" value="{{Auth::id()}}">-->
+<!--                    <input type="hidden" name="task_id" value="{{$or->task->id}}">-->
+<!--                    <input type="hidden" name="status" value="start">-->
+<!--                    <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">-->
+<!--                    <a href="/tasks/{{$or->task->id}}">-->
+<!--                <button @click.prevent="CheckItem()" class="btn btn-link text-white"><i class="fa fa-check-circle"></i></button>-->
+                <small @click.prevent="CheckItem()">{{item.content}}</small>
+<!--                </a>-->
+<!--                    @if($or->lastStatus != 2)-->
+<!--                    <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>-->
+<!--                    @endif-->
+<!--                </form>-->
+        </div>
+<!--            <a href="/tasks?sort=routine" class="dropdown-footer"><small>همه</small></a>-->
+
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:['user'],
+        data(){
+            return{
+                loop: [],
+                content: ''
+            }
+        },
+        created: function () {
+            this.dataFetch();
+            this.timer = setInterval(this.dataFetch, 2500)
+        },
+        methods:{
+            CheckItem: function(){
+                {
+                    axios.post('/api/statusUpdateBox/' + this.id,{
+                        status: 'boxed'
+                    })
+                        .then(function (response) {
+                        console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            },
+            dataFetch: function(){
+                axios.get('/api/statusListBox').then(response => this.loop = response.data)
+            },
+            addStatus(user){
+                axios.post('/api/addStatusToBox',{
+                    content:this.content,
+                    user_id: user,
+                    status: 'box'
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                // Event.$emit('taskCreated',{title:this.title});
+                this.content = '';
+
+                // console.log('Adding');
+            }
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

@@ -22,7 +22,10 @@ window.Vue = require('vue');
 
 Vue.component('tasks-component', require('./components/TasksComponent.vue').default);
 Vue.component('routine-component', require('./components/TasksRoutineComponent').default);
-Vue.component('checklist', require('./components/ChecklistComponent').default);
+Vue.component('status-form-box', require('./components/status/StatusFormBox').default);
+Vue.component('status-list-box', require('./components/status/StatusListBox').default);
+// Vue.component('home-status-me', require('./components/status/HomeLastComment').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

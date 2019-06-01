@@ -25,6 +25,7 @@
         "vuedraggable": "^2.20.0"
     },
     "dependencies": {
+        "animate.css": "^3.7.1",
         "laravel-echo": "^1.5.3",
         "pusher-js": "^4.4.0"
     }

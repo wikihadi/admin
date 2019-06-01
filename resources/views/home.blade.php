@@ -164,7 +164,18 @@
 
         <div class="col-12 row mt-5 justify-content-center">
             @if(count($orderRoutine) > 0)
-            <div class="col-md-2 animated zoomIn">
+            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
+                <div class="card bg-dark">
+                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
+                        باکس
+                    </div>
+                        <status-list-box v-bind:user="{{Auth::id()}}"></status-list-box>
+
+                </div>
+            </div>
+            @endif
+            @if(count($orderRoutine) > 0)
+            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
                 <div class="card bg-dark">
                     <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
                         کارهای روتین
@@ -196,7 +207,7 @@
             @endif
                 @if(!empty($myOrderCurrent) || count($orderCurrent) > 0)
 
-                <div class="col-md-3 animated zoomIn">
+                <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
                 <div class="card bg-dark">
                     <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
                         کارهای جاری
@@ -250,7 +261,7 @@
             </div>
                 @endif
                 @if(count($orderFuture) > 0)
-            <div class="col-md-2 animated zoomIn">
+            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
                 <div class="card bg-dark">
                     <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
                         کارهای آتی
@@ -287,7 +298,7 @@
         <div class="col-12 mt-5 row justify-content-center">
 
         @role('admin|modir')
-        <div class="col-md-2 animated zoomIn">
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 animated zoomIn">
 
             <div class="card bg-dark">
 
@@ -310,7 +321,7 @@
         </div>
         </div>
         @endrole
-        <div class="col-md-3 animated zoomIn">
+        <div class="col-sm-6 col-md-4 animated zoomIn">
 
             <div class="card bg-dark">
 
@@ -321,7 +332,7 @@
                 <div data-target="#crateStatus" data-toggle="modal" style="cursor: pointer" class="float-left" title="ارسال پیام" data-toggle="tooltip"><i class="fa fa-plus-circle"></i></div>
 
             </div>
-
+{{--                <home-status-me></home-status-me>--}}
                 <div class="list-group collapse show list-group-flush bg-dark" id="myActivities">
                     @foreach($messages as $s)
 
@@ -347,7 +358,7 @@
 
                                 <div class="input-group">
                                     <textarea name="content" class="form-control"></textarea>
-                                    {{--<input type="text" class="form-control InputToFocus inputUserStatus" name="content" autocomplete="off" placeholder=".....">--}}
+                                    <input type="text" class="form-control InputToFocus inputUserStatus" name="content" autocomplete="off" placeholder=".....">
                                     <div class="input-group-append">
                                         <button class="btn btn-dark btn-add" type="submit"><i class="fa fa-arrow-circle-left"></i></button>
                                     </div>
@@ -380,7 +391,7 @@
         {{--</div>--}}
         {{--</div>--}}
         @role('admin|modir')
-        <div class="col-md-3 animated zoomIn " data-toggle="collapse" data-target="#admin">
+        <div class="col-sm-6 col-md-4 col-lg-3 animated zoomIn " data-toggle="collapse" data-target="#admin">
 
             <div class="card bg-info">
                 <div class="card-header"  >
@@ -411,7 +422,7 @@
             </div>
         </div>
         @else
-        <div class="col-md-4 animated zoomIn" data-toggle="collapse" data-target="#myComments">
+        <div class="col-sm-6 col-md-4 animated zoomIn" data-toggle="collapse" data-target="#myComments">
             <div class="card bg-dark">
             <div class="card-header"  >
             <div class="" style="cursor: pointer">
