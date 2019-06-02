@@ -14,6 +14,8 @@ use Verta;
 
 class StatusController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -169,33 +171,27 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-//    public function update(Request $request,$id)
-//    {
-//
-//        $user = Auth::user();
-//        $status = Status::find($id);
-//
-//        if($request->input('user_id') == $user->id){
-//            $status->content = $request->input('content');
-//            $status->save();
-//
-//        }
-//
-//
-//
-//
-//
-//
-//
-//        return redirect()->back()->with('success');
-//    }
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        $status = Status::findOrFail($id);
-        $status->update($request->all());
 
-        return $status;
+        $user = Auth::user();
+        $status = Status::find($id);
+
+        if($request->input('user_id') == $user->id){
+            $status->content = $request->input('content');
+            $status->save();
+
+        }
+
+
+
+
+
+
+
+        return redirect()->back()->with('success');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -233,10 +229,44 @@ class StatusController extends Controller
         return(['message' => 'Task Done']);
     }
     public function statusListBox(){
-        return Status::where('status','box')->latest()->get();
+        if (isset($_GET['ID'])) {
+            $status = Status::where('status', 'box')->where('user_id', $_GET['ID'])->latest()->get();
+        }else{
+            $status = Status::where('status', 'box')->where('user_id', 0)->latest()->get();
+        }
+        return $status;
     }
-    public function statusUpdate(Request $request, Status $status){
-        $status->status = 'boxed';
-        $status->save();
+//    public function statusUpdate(Request $request, Status $status, $id){
+//        $status->status = 'boxed';
+//        $status->save();
+//    }
+    public function statusUpdate($id, Request $request)
+    {
+        $post = Status::find($id);
+
+        $post->update($request->all());
+
+        return response()->json('successfully updated');
     }
+    public function userStatusCommentsCount(){
+        $data = Status::where('status', 'comment')->where('user_id', $_GET['ID'])->get()->count();
+        return $data;
+
+    }
+    public function userStatusCommentsToUserCount(){
+        $data = Status::where('status', 'status')->where('user_id', $_GET['ID'])->get()->count();
+        return $data;
+
+    }
+    public function userTasksCount(){
+        $data= Task::where('user_id', $_GET['ID'])->get()->count();
+        return $data;
+
+    }
+    public function userTasksSelf(){
+        $data= TaskOrderUser::where('user_id', $_GET['ID'])->get()->count();
+        return $data;
+
+    }
+
 }

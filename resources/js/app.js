@@ -24,6 +24,10 @@ Vue.component('tasks-component', require('./components/TasksComponent.vue').defa
 Vue.component('routine-component', require('./components/TasksRoutineComponent').default);
 Vue.component('status-form-box', require('./components/status/StatusFormBox').default);
 Vue.component('status-list-box', require('./components/status/StatusListBox').default);
+Vue.component('user-status-comments-count', require('./components/status/userStatusCommentsCount').default);
+Vue.component('user-status-comments-to-user-count', require('./components/status/userStatusCommentsToUserCount').default);
+Vue.component('user-tasks-count', require('./components/status/userTasksCount').default);
+Vue.component('user-tasks-self', require('./components/status/userTasksSelf').default);
 // Vue.component('home-status-me', require('./components/status/HomeLastComment').default);
 
 

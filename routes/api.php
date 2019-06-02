@@ -23,6 +23,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('homeStatusToMe','StatusController@homeStatusToMe');
 Route::post('addStatusToBox','StatusController@addStatusToBox');
 Route::get('statusListBox','StatusController@statusListBox');
-Route::put('statusUpdateBox/{id}','StatusController@statusUpdate');
-Route::resource('/apiStatus', 'StatusController');
+Route::post('statusUpdateBox/{id}','StatusController@statusUpdate');
+Route::get('userStatusCommentsCount','StatusController@userStatusCommentsCount');
+Route::get('userStatusCommentsToUserCount','StatusController@userStatusCommentsToUserCount');
+Route::get('userTasksCount','StatusController@userTasksCount');
+Route::get('userTasksSelf','StatusController@userTasksSelf');
+//Route::resource('/apiStatus', 'StatusController');
 

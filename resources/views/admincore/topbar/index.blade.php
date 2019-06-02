@@ -51,15 +51,15 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-                <form  method="post" action="{{ route('status.store') }}">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                    <input type="hidden" name="status" value="session">
-                    <input type="hidden" name="content" value="جلسه  {{Auth::user()->name}}">
-        <li class="dropdown-item">
-            <button class="nav-link btn btn-link" type="button"><i class="fa fa-users"  data-toggle="modal" data-target="#crateStatus" http="#"></i> جلسه</button>
-        </li>
-        </form>
+{{--                <form  method="post" action="{{ route('status.store') }}">--}}
+{{--                    @csrf--}}
+{{--                    <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+{{--                    <input type="hidden" name="status" value="session">--}}
+{{--                    <input type="hidden" name="content" value="جلسه  {{Auth::user()->name}}">--}}
+{{--        <li class="dropdown-item">--}}
+{{--            <button class="nav-link btn btn-link" type="button"><i class="fa fa-users"  data-toggle="modal" data-target="#crateStatus" http="#"></i> جلسه</button>--}}
+{{--        </li>--}}
+{{--        </form>--}}
 
         <form  method="post" action="{{ route('status.store') }}">
                     @csrf

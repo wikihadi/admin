@@ -82,6 +82,10 @@ class HomeController extends Controller
 //        $userTimeIn = Carbon::parse($userTimeIn->created_at);
 //        $userTimeIn = new Verta($userTimeIn);
 
+        foreach ($users as $key => $loop) {
+            date_default_timezone_set("Asia/Tehran");
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
         foreach ($lastMyComments as $key => $loop) {
             date_default_timezone_set("Asia/Tehran");
             $loop->diff = verta($loop->created_at)->formatDifference();

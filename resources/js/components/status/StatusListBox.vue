@@ -14,7 +14,7 @@
 <!--                    <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">-->
 <!--                    <a href="/tasks/{{$or->task->id}}">-->
 <!--                <button @click.prevent="CheckItem()" class="btn btn-link text-white"><i class="fa fa-check-circle"></i></button>-->
-                <small @click.prevent="CheckItem()">{{item.content}}</small>
+                <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, item.id)"></i> <small>{{item.content}}</small>
 <!--                </a>-->
 <!--                    @if($or->lastStatus != 2)-->
 <!--                    <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>-->
@@ -22,14 +22,18 @@
 <!--                </form>-->
         </div>
 <!--            <a href="/tasks?sort=routine" class="dropdown-footer"><small>همه</small></a>-->
-
         </div>
     </div>
 </template>
 
 <script>
     export default {
+
+
+
         props:['user'],
+
+
         data(){
             return{
                 loop: [],
@@ -38,13 +42,14 @@
         },
         created: function () {
             this.dataFetch();
-            this.timer = setInterval(this.dataFetch, 2500)
+            this.timer = setInterval(this.dataFetch, 10000)
         },
         methods:{
-            CheckItem: function(){
+            CheckItem: function(event,id){
                 {
-                    axios.post('/api/statusUpdateBox/' + this.id,{
-                        status: 'boxed'
+                    axios.post('/api/statusUpdateBox/' + id,{
+                        status: 'boxed',
+                        // _method: 'PATCH'
                     })
                         .then(function (response) {
                         console.log(response);
@@ -52,12 +57,18 @@
                         .catch(function (error) {
                             console.log(error);
                         });
+                    this.dataFetch();
+
                 }
             },
             dataFetch: function(){
-                axios.get('/api/statusListBox').then(response => this.loop = response.data)
+                let url = '/api/statusListBox?ID=' + this.user;
+                axios.get(url).then(response => this.loop = response.data)
             },
             addStatus(user){
+                if (this.content != ''){
+
+
                 axios.post('/api/addStatusToBox',{
                     content:this.content,
                     user_id: user,
@@ -70,9 +81,12 @@
                         console.log(error);
                     });
                 // Event.$emit('taskCreated',{title:this.title});
-                this.content = '';
+                    this.loop.splice(0, 0, {content: this.content});
+
+                    this.content = '';
 
                 // console.log('Adding');
+                }
             }
         },
     }
