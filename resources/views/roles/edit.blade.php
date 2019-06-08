@@ -1,4 +1,4 @@
-@extends('admincore.app')
+@extends('admincore.appLight')
 
 @section('content')
         <div class="col-lg-12 margin-tb">

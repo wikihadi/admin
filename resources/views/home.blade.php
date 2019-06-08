@@ -184,13 +184,12 @@
 
             <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
                 <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/users" class="btn btn-light btn-block hvr-grow animated fadeInDown">کاربران</a>
+                    <a href="/statics" class="btn btn-light btn-block hvr-grow animated fadeInDown">آمار کاربران</a>
                 </div>
             </div>
 
 
             @endrole
-
 
             {{--<div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
                 {{--<div class="wrimagecard wrimagecard-topimage">--}}
@@ -214,7 +213,8 @@
     </div>
 
         <div class="col-12 row mt-5 justify-content-center">
-            <i class="fa fa-arrows-v text-primary" data-toggle="collapse" data-target=".collapse"></i>
+{{--            <i class="fa fa-arrows-v text-primary" data-toggle="collapse" data-target=".collapse"></i>--}}
+            <div class="mb-2 text-light text-center col-12"><user-bar :user="{{Auth::id()}}"></user-bar></div>
 
             <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
                 <div class="card bg-dark">
@@ -382,48 +382,53 @@
             <div class="float-right" data-toggle="collapse" data-target="#myActivities" style="cursor: pointer">
                 <i class="fa fa-arrow-circle-down"></i> آخرین پیامها
             </div>
-                <div data-target="#crateStatus" data-toggle="modal" style="cursor: pointer" class="float-left" title="ارسال پیام" data-toggle="tooltip"><i class="fa fa-plus-circle"></i></div>
+{{--                <div data-target="#crateStatus" data-toggle="modal" style="cursor: pointer" class="float-left" title="ارسال پیام" data-toggle="tooltip"><i class="fa fa-plus-circle"></i></div>--}}
 
             </div>
+                <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
 {{--                <home-status-me></home-status-me>--}}
-                <div class="list-group collapse show list-group-flush bg-dark" id="myActivities">
-                    @foreach($messages as $s)
+{{--                <div class="list-group collapse show list-group-flush bg-dark" id="myActivities">--}}
+{{--                    @foreach($messages as $s)--}}
 
-                        <a class="list-group-item bg-dark" data-toggle="collapse" data-target="#reply-form-{{$s->id}}">
-                            @if($s->toUser->id != Auth::id())
-                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="ml-3 img-circle " style="width: 45px" title="به {{$s->toUser->name}}">
+{{--                        <a class="list-group-item bg-dark">--}}
+{{--                            @if($s->toUser->id != Auth::id())--}}
+{{--                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="ml-3 img-circle " style="width: 45px" title="به {{$s->toUser->name}}">--}}
 
-                            <img src="/storage/avatars/{{$s->toUser->avatar}}" alt=""  style="width: 28px; top: 10px;right: 5px;" class=" ml-3 img-circle position-absolute" title="به {{$s->toUser->name}}">
-                            @else
-                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="img-size-50 ml-3 img-circle " title="{{$s->user->name}}">
+{{--                            <img src="/storage/avatars/{{$s->toUser->avatar}}" alt=""  style="width: 28px; top: 10px;right: 5px;" class=" ml-3 img-circle position-absolute" title="به {{$s->toUser->name}}">--}}
+{{--                            @else--}}
+{{--                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="img-size-50 ml-3 img-circle " title="{{$s->user->name}}">--}}
 
-                            @endif
-                            <small>{{$s->content}}</small>
-                                <span class="float-left" style="font-size: 85%"><small>{{$s->diff}}</small></span>
-
-
-                        </a>
-                        <a class="list-group-item collapse " id="reply-form-{{$s->id}}">
-                            <form  method="post" action="{{ route('status.store') }}">
-                                @csrf
-                                <input type="hidden" name="to_user" value="{{$s->user->id}}">
-                                <input type="hidden" name="user_id" value="{{$s->toUser->id}}">
-
-                                <div class="input-group">
-                                    <textarea name="content" class="form-control"></textarea>
-                                    <input type="text" class="form-control InputToFocus inputUserStatus" name="content" autocomplete="off" placeholder=".....">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-dark btn-add" type="submit"><i class="fa fa-arrow-circle-left"></i></button>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="status" value="status" class="statusStatus">
+{{--                            @endif--}}
+{{--                            <small>{{$s->content}}</small>--}}
+{{--                                <span class="float-left" style="font-size: 85%">--}}
+{{--                                    <small>{{$s->diff}}--}}
+{{--                                    </small></span>--}}
+{{--                                <status-reply class="d-inline" :user="{{Auth::id()}}" :reply_id="{{$s->id}}" v-bind:user_id="{{$s->user_id}}"></status-reply>--}}
 
 
-                            </form>
-                        </a>
-                    @endforeach
-                        <a href="/profile" class="dropdown-item dropdown-footer"><small>همه</small></a>
-                </div>
+
+{{--                        </a>--}}
+{{--                        <a class="list-group-item collapse " id="reply-form-{{$s->id}}">--}}
+{{--                            <form  method="post" action="{{ route('status.store') }}">--}}
+{{--                                @csrf--}}
+{{--                                <input type="hidden" name="to_user" value="{{$s->user->id}}">--}}
+{{--                                <input type="hidden" name="user_id" value="{{$s->toUser->id}}">--}}
+
+{{--                                <div class="input-group">--}}
+{{--                                    <textarea name="content" class="form-control"></textarea>--}}
+{{--                                    <input type="text" class="form-control InputToFocus inputUserStatus" name="content" autocomplete="off" placeholder=".....">--}}
+{{--                                    <div class="input-group-append">--}}
+{{--                                        <button class="btn btn-dark btn-add" type="submit"><i class="fa fa-arrow-circle-left"></i></button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <input type="hidden" name="status" value="status" class="statusStatus">--}}
+
+
+{{--                            </form>--}}
+{{--                        </a>--}}
+{{--                    @endforeach--}}
+{{--                        <a href="/profile" class="dropdown-item dropdown-footer"><small>همه</small></a>--}}
+{{--                </div>--}}
         </div>
         </div>
         {{--<div class="col-md-4 animated zoomIn">--}}

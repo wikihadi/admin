@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     Route::group(['middleware' => ['role:modir|admin']], function () {
-
+        Route::get('statics', 'StatusController@statics');
         Route::get('/jobs', 'TaskController@modir');
         Route::put('/jobs/updateAll','TaskOrderUserController@updateAll')->name('tasks.updateAll');
         Route::get('/jobs/updateRoutine/{id}','TaskOrderUserController@updateRoutine')->name('tasks.updateRoutine');
@@ -64,10 +64,13 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('roles','RoleController');
         Route::resource('users','UserController');
     });
-
+        Route::group(['middleware' => ['role:finance|admin']], function () {
+            Route::get('finance', 'TaskController@finance');
+        });
 
 
     Route::group(['middleware' => ['role:admin']], function () {
+        Route::post('/financeUpdate/{id}', 'TaskController@financeUpdate')->name('tasks.financeUpdate');
 
 
         Route::get('storage/{filename}', function ($filename)

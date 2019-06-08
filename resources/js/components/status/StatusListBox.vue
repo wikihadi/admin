@@ -40,7 +40,7 @@
                 content: ''
             }
         },
-        created: function () {
+        mounted: function () {
             this.dataFetch();
             this.timer = setInterval(this.dataFetch, 10000)
         },

@@ -22,13 +22,14 @@ window.Vue = require('vue');
 
 Vue.component('tasks-component', require('./components/TasksComponent.vue').default);
 Vue.component('routine-component', require('./components/TasksRoutineComponent').default);
-Vue.component('status-form-box', require('./components/status/StatusFormBox').default);
 Vue.component('status-list-box', require('./components/status/StatusListBox').default);
-Vue.component('user-status-comments-count', require('./components/status/userStatusCommentsCount').default);
-Vue.component('user-status-comments-to-user-count', require('./components/status/userStatusCommentsToUserCount').default);
-Vue.component('user-tasks-count', require('./components/status/userTasksCount').default);
 Vue.component('user-tasks-self', require('./components/status/userTasksSelf').default);
-// Vue.component('home-status-me', require('./components/status/HomeLastComment').default);
+Vue.component('user-bar', require('./components/status/userBar').default);
+Vue.component('status-reply', require('./components/status/StatusReply').default);
+Vue.component('status-comment-form', require('./components/status/StatusCommentForm').default);
+Vue.component('user-statics', require('./components/status/userStatics').default);
+Vue.component('user-statics-boxes', require('./components/status/userStaticsBoxes').default);
+Vue.component('finance-task-form', require('./components/tasks/financeTasksForm').default);
 
 
 /**

@@ -12,6 +12,7 @@ use App\User;
 use App\Task;
 use App\Brand;
 use DateTime;
+use Illuminate\Support\Arr;
 use Verta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -723,5 +724,37 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 
         return redirect($urlP)->with('success');
     }
+    public function finance(){
+        if (isset($_GET['sort'])){
+            $sort = $_GET['sort'];
+            if ($sort == 'all'){
+                $tasks = Task::latest()->get();
+            }elseif ($sort == 'done'){
+                $taskDone1 = TaskOrderUser::where('isDone',1)->pluck('task_id')->toArray();
+                $taskDone0 = TaskOrderUser::where('isDone',0)->pluck('task_id')->toArray();
+//                $tasksHaveDone = TaskOrderUser::whereIn('task_id', $taskDone1)->pluck('task_id')->toArray();
+                $collection = collect($taskDone1);
+                $diff = $collection->diff($taskDone0);
+                $diff->all();
+                $tasks = Task::whereIn('id',$diff)->orderBy('updated_at','desc')->get();
 
+
+
+            }
+
+        }else{
+            $tasks = Task::latest()->where('cost' , '>' , 0)->get();
+
+        }
+        return view('tasks.finance', compact('tasks'));
+    }
+    public function financeUpdate($id,Request $request)
+    {
+        $item = Task::find($id);
+        $item->update($request->all());
+
+//        $tasks = Task::latest()->get();
+
+        return back();
+    }
 }

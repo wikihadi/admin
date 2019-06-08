@@ -236,6 +236,16 @@ class StatusController extends Controller
         }
         return $status;
     }
+    public function commentList(){
+
+        $data = Status::with('user','toUser')->where('to_user',$_GET['ID'])->orWhere('user_id',$_GET['ID'])->whereNotNull('to_user')->orderBy('created_at','DESC')->get();
+        foreach ($data as $key => $loop) {
+            date_default_timezone_set("Asia/Tehran");
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
+
+        return $data;
+    }
 //    public function statusUpdate(Request $request, Status $status, $id){
 //        $status->status = 'boxed';
 //        $status->save();
@@ -248,6 +258,7 @@ class StatusController extends Controller
 
         return response()->json('successfully updated');
     }
+
     public function userStatusCommentsCount(){
         $data = Status::where('status', 'comment')->where('user_id', $_GET['ID'])->get()->count();
         return $data;
@@ -268,5 +279,82 @@ class StatusController extends Controller
         return $data;
 
     }
+    public function userPostVerified(){
+        $data= Status::where('user_id', $_GET['ID'])->where('status','verifyPost')->get()->count();
+        return $data;
 
+    }
+    public function userOffCount(){
+        $data= Status::where('user_id', $_GET['ID'])->where('status','off')->get()->count();
+        return $data;
+
+    }
+    public function userBoxCount(){
+        $data= Status::where('user_id', $_GET['ID'])->where('status','box')->get()->count();
+        return $data;
+
+    }
+    public function userLunchCount(){
+        $data= Status::where('user_id', $_GET['ID'])->where('status','lunch-start')->get()->count();
+        return $data;
+    }
+    public function userDaysCount(){
+        $days= Status::where('user_id', $_GET['ID'])->where('status','in')->get()->count();
+        return $days;
+
+    }
+    public function userEndCount(){
+        $data= Status::where('user_id', $_GET['ID'])->where('status','end')->get()->count();
+        return $data;
+    }
+    public function allStatics(){
+        $userEndCount= Status::where('user_id', $_GET['ID'])->where('status','end')->get()->count();
+        $userDaysCount= Status::where('user_id', $_GET['ID'])->where('status','in')->get()->count();
+        $userLunchCount= Status::where('user_id', $_GET['ID'])->where('status','lunch-start')->get()->count();
+        $userBoxCount= Status::where('user_id', $_GET['ID'])->where('status','box')->get()->count();
+        $userOffCount= Status::where('user_id', $_GET['ID'])->where('status','off')->get()->count();
+        $userPostVerified= Status::where('user_id', $_GET['ID'])->where('status','verifyPost')->get()->count();
+        $userTasksSelf= TaskOrderUser::where('user_id', $_GET['ID'])->get()->count();
+        $userTasksCount= Task::where('user_id', $_GET['ID'])->get()->count();
+        $userStatusCommentsToUserCount = Status::where('status', 'status')->where('user_id', $_GET['ID'])->get()->count();
+        $userStatusCommentsCount = Status::where('status', 'comment')->where('user_id', $_GET['ID'])->get()->count();
+        return response()->json([
+            'userEndCount' => $userEndCount,
+            'userDaysCount' => $userDaysCount,
+            'userLunchCount' => $userLunchCount,
+            'userBoxCount' => $userBoxCount,
+            'userOffCount' => $userOffCount,
+            'userPostVerified' => $userPostVerified,
+            'userTasksSelf' => $userTasksSelf,
+            'userTasksCount' => $userTasksCount,
+            'userStatusCommentsToUserCount' => $userStatusCommentsToUserCount,
+            'userStatusCommentsCount' => $userStatusCommentsCount
+        ]);
+    }
+
+    public function allStaticsBoxes(){
+        $data= Status::where('user_id', $_GET['ID'])->where('status','box')->get();
+        return $data;
+    }
+
+//statics
+
+public function statics(){
+    $user = Auth::user();
+    $myTasksStatus = $user->taskOrder()->get();
+    $usersStatus = User::all();
+    $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+    $dateBefore = Carbon::now();
+
+    foreach ($statusesToMe as $key => $loop){
+        $loop->jCreated_at = new Verta($loop->created_at);
+        $loop->diff = verta($loop->created_at)->formatDifference();
+        $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+    }
+    $users = User::all();
+    return view('users.statics', compact('users','myTasksStatus','usersStatus','statusesToMe'));
+
+}
 }

@@ -24,9 +24,19 @@ Route::get('homeStatusToMe','StatusController@homeStatusToMe');
 Route::post('addStatusToBox','StatusController@addStatusToBox');
 Route::get('statusListBox','StatusController@statusListBox');
 Route::post('statusUpdateBox/{id}','StatusController@statusUpdate');
+Route::post('updateCost/{id}','StatusController@updateCost');
 Route::get('userStatusCommentsCount','StatusController@userStatusCommentsCount');
 Route::get('userStatusCommentsToUserCount','StatusController@userStatusCommentsToUserCount');
 Route::get('userTasksCount','StatusController@userTasksCount');
 Route::get('userTasksSelf','StatusController@userTasksSelf');
+Route::get('userPostVerified','StatusController@userPostVerified');
+Route::get('userOffCount','StatusController@userOffCount');
+Route::get('userBoxCount','StatusController@userBoxCount');
+Route::get('userLunchCount','StatusController@userLunchCount');
+Route::get('userDaysCount','StatusController@userDaysCount');
+Route::get('commentList','StatusController@commentList');
+Route::get('allStatics','StatusController@allStatics');
+Route::get('allStaticsBoxes','StatusController@allStaticsBoxes');
+
 //Route::resource('/apiStatus', 'StatusController');
 

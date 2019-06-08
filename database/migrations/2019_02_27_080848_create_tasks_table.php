@@ -43,6 +43,7 @@ class CreateTasksTable extends Migration
             $table->integer('reTask_id')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('brand_id')->unsigned()->nullable();
+            $table->bigInteger('cost')->nullable();
         });
 
         Schema::create('task_users', function (Blueprint $table) {

@@ -171,10 +171,22 @@
                                                     @endforeach
                                                 </td>
                                             </tr>
+                                            @role('admin')
                                             <tr>
-                                                <td></td>
-                                                <td></td>
+                                                <td colspan="2">
+                                                    <form  method="post" action="/financeUpdate/{{$task->id}}">
+                                                        @csrf
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" name="cost" class="form-control" required value="{{$task->cost}}" placeholder="هزینه پروژه (اگر هزینه ندارد خالی یا صفر باشد)">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">ريال</span>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </td>
+
                                             </tr>
+                                            @endrole
                                         </table>
 
 

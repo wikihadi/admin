@@ -34,8 +34,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {{--    <link rel="stylesheet" href="/admin-core/css/animate.css">--}}
     <!-- template rtl version -->
     <link rel="stylesheet" href="/admin-core/css/custom-style.css">
-    {{--<link rel="stylesheet" href="/admin-core/pdate/persian-datepicker.min.css"/>--}}
-    {{--<link rel="stylesheet" href="/admin-core/persiandatapicker/persianDatepicker-default.css"/>--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
     @yield('css')

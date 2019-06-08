@@ -1,4 +1,4 @@
-@extends('admincore.app')
+@extends('admincore.appLight')
 
 
 @section('content')
