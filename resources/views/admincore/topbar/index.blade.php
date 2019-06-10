@@ -9,7 +9,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav mr-auto">
 
-            {{--@include('admincore.topbar.notification')--}}
+{{--            @include('admincore.topbar.notification')--}}
 
 
         {{--@role('admin')--}}
@@ -34,17 +34,17 @@
         @endif
         @include('admincore.topbar.message')
 
-        <li class="nav-item animated">
-            <a class="nav-link hvr-grow  animated fadeInUp d-none d-md-block statusSmile" data-toggle="modal" data-target="#crateStatus" http="#"><i
-                        class="fa fa-smile-o" ></i></a>
-            <a class="nav-link hvr-grow  animated fadeInUp d-md-none statusSmile" data-toggle="collapse" data-target="#crateStatus2" http="#"><i
-                        class="fa fa-smile-o" ></i></a>
+{{--        <li class="nav-item animated">--}}
+{{--            <a class="nav-link hvr-grow  animated fadeInUp d-none d-md-block statusSmile" data-toggle="modal" data-target="#crateStatus" http="#"><i--}}
+{{--                        class="fa fa-smile-o" ></i></a>--}}
+{{--            <a class="nav-link hvr-grow  animated fadeInUp d-md-none statusSmile" data-toggle="collapse" data-target="#crateStatus2" http="#"><i--}}
+{{--                        class="fa fa-smile-o" ></i></a>--}}
 
 
 
-                @include('statuses.fixedMobile')
-                @include('statuses.desktopModal')
-        </li>
+{{--                @include('statuses.fixedMobile')--}}
+{{--                @include('statuses.desktopModal')--}}
+{{--        </li>--}}
         <li class="nav-item dropdown">
             <a class="nav-link animated fadeInUp" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-power-off" data-target="tooltip"></i>

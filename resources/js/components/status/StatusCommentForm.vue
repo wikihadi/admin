@@ -36,7 +36,8 @@
 
             </a>
 
-            <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><small>بیشتر</small></a>
+            <a @click.prevent="commentsToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="commentsToShow > 5"><i class="fa fa-arrow-up"></i></a>
+            <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-arrow-down"></i></a>
         </div>
     </div>
 </template>

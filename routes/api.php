@@ -37,6 +37,7 @@ Route::get('userDaysCount','StatusController@userDaysCount');
 Route::get('commentList','StatusController@commentList');
 Route::get('allStatics','StatusController@allStatics');
 Route::get('allStaticsBoxes','StatusController@allStaticsBoxes');
+Route::get('taskPayForm','TaskController@taskPayForm');
 
 //Route::resource('/apiStatus', 'StatusController');
 

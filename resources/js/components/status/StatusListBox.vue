@@ -4,8 +4,7 @@
             <form @submit.prevent="addStatus(user)">
                 <input type="text" class="form-control bg-dark" name="content" v-model="content" placeholder="اینجا بنویس..." id="content" autofocus>
             </form>
-
-            <div class="list-group-item bg-dark" v-for="item in loop" :id="'box-' + item.id">
+            <div class="list-group-item bg-dark" v-for="item in loop.slice(0, commentsToShow)" :id="'box-' + item.id">
 <!--                <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">-->
 <!--                    @csrf-->
 <!--                    <input type="hidden" name="user_id" value="{{Auth::id()}}">-->
@@ -22,7 +21,11 @@
 <!--                </form>-->
         </div>
 <!--            <a href="/tasks?sort=routine" class="dropdown-footer"><small>همه</small></a>-->
+            <a @click.prevent="commentsToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="commentsToShow > 5"><i class="fa fa-arrow-up"></i></a>
+            <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-arrow-down"></i></a>
+
         </div>
+
     </div>
 </template>
 
@@ -37,8 +40,10 @@
         data(){
             return{
                 loop: [],
-                content: ''
-            }
+                content: '',
+                commentsToShow: 5
+
+        }
         },
         mounted: function () {
             this.dataFetch();

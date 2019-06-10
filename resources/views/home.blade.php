@@ -179,7 +179,7 @@
             </div>
             @endcan
 
-            @role('admin')
+            @hasanyrole('admin')
 
 
             <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
@@ -189,7 +189,35 @@
             </div>
 
 
-            @endrole
+            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/finance" class="btn table-danger btn-block hvr-grow animated fadeInDown" target="_blank">مالی</a>
+                </div>
+            </div>
+
+
+            @endhasanyrole
+            @hasanyrole('finance')
+
+            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/finance-final" class="btn table-danger btn-block hvr-grow animated fadeInDown" target="_blank">مالی</a>
+                </div>
+            </div>
+
+
+            @endhasanyrole
+            @hasanyrole('modir')
+
+            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
+                <div class="wrimagecard wrimagecard-topimage">
+                    <a href="/finance-check" class="btn table-danger btn-block hvr-grow animated fadeInDown" target="_blank">مالی</a>
+                </div>
+            </div>
+
+
+            @endhasanyrole
+
 
             {{--<div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
                 {{--<div class="wrimagecard wrimagecard-topimage">--}}
@@ -350,7 +378,7 @@
 
         <div class="col-12 mt-5 row justify-content-center">
 
-        @role('admin|modir')
+            @hasanyrole('admin|modir')
         <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 animated zoomIn">
 
             <div class="card bg-dark">
@@ -373,7 +401,7 @@
                 </div>
         </div>
         </div>
-        @endrole
+        @endhasanyrole
         <div class="col-sm-6 col-md-4 animated zoomIn">
 
             <div class="card bg-dark">
@@ -448,7 +476,7 @@
                 {{--</ul>--}}
         {{--</div>--}}
         {{--</div>--}}
-        @role('admin|modir')
+        @hasanyrole('admin|modir')
         <div class="col-sm-6 col-md-4 col-lg-3 animated zoomIn " data-toggle="collapse" data-target="#admin">
 
             <div class="card bg-info">
@@ -509,7 +537,7 @@
             {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
         </div>
         </div>
-            @endrole
+            @endhasanyrole
 
 
 

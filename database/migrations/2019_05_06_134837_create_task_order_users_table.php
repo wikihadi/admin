@@ -17,7 +17,7 @@ class CreateTaskOrderUsersTable extends Migration
             $table->increments('id');
             $table->integer('task_id');
             $table->integer('user_id');
-            $table->integer('order_column')->default(99999999999);
+            $table->integer('order_column')->default(999);
             $table->integer('isDone')->default(0);
             $table->integer('routine')->default(0);
             $table->string('lastStatus')->nullable()->default(0);

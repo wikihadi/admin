@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\messageSent;
+use App\Notifications\RepliedToTask;
 use App\Status;
 use App\Task;
 use App\TaskOrderUser;
@@ -111,7 +113,8 @@ class StatusController extends Controller
 //lastStatus 1 workerd not Done
 //lastStatus 2 working
 //lastStatus 3 Done
-
+//        $user->notify(new RepliedToTask($status));
+//        Auth::user()->notify(new messageSent($status));
         return back()->with('success', 'Done');
 
 
@@ -226,6 +229,8 @@ class StatusController extends Controller
 
     public function addStatusToBox(Request $request){
         Status::create($request->all());
+//        $status->notify(new messageSent($status));
+
         return(['message' => 'Task Done']);
     }
     public function statusListBox(){

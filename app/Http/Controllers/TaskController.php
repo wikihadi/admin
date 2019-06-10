@@ -169,10 +169,16 @@ class TaskController extends Controller
             'content'=> 'required'
         ]);
 
+        $t = $request->input('isType2');
+        if(isset($t) && $t != ""){
+            $t = $request->input('isType2');
+        }else{
+            $t = $request->input('isType');
 
+        }
         $taskTitle = "";
-        if($request->get('title') == "ندارد"){
-            $taskTitle = $request->get('isType') ." ". $request->get('forProduct') ." ". $request->get('brand');
+        if($request->get('title') == "ندارد" || empty($request->get('title'))){
+            $taskTitle = $t ." ". $request->get('forProduct') ." ". $request->get('brand');
 
         }else{
             $taskTitle = $request->get('title');
@@ -725,27 +731,40 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         return redirect($urlP)->with('success');
     }
     public function finance(){
-        if (isset($_GET['sort'])){
+        if (isset($_GET['status'])){
+            $status = $_GET['status'];
             $sort = $_GET['sort'];
-            if ($sort == 'all'){
-                $tasks = Task::latest()->get();
-            }elseif ($sort == 'done'){
+            $order = $_GET['order'];
+            if ($status == 'all'){
+                $tasks = Task::orderBy($sort,$order)->get();
+            }elseif ($status == 'done'){
                 $taskDone1 = TaskOrderUser::where('isDone',1)->pluck('task_id')->toArray();
                 $taskDone0 = TaskOrderUser::where('isDone',0)->pluck('task_id')->toArray();
-//                $tasksHaveDone = TaskOrderUser::whereIn('task_id', $taskDone1)->pluck('task_id')->toArray();
                 $collection = collect($taskDone1);
                 $diff = $collection->diff($taskDone0);
                 $diff->all();
-                $tasks = Task::whereIn('id',$diff)->orderBy('updated_at','desc')->get();
-
-
-
+                $tasks = Task::whereIn('id',$diff)->orderBy($sort,$order)->get();
             }
-
         }else{
-            $tasks = Task::latest()->where('cost' , '>' , 0)->get();
+            $tasks = Task::orderBy('updated_at','desc')->where('cost' , '>' , 0)->get();
 
         }
+        return view('tasks.finance', compact('tasks'));
+    }
+    public function finance1(){
+        $taskDone1 = TaskOrderUser::where('isDone',1)->pluck('task_id')->toArray();
+        $taskDone0 = TaskOrderUser::where('isDone',0)->pluck('task_id')->toArray();
+        $collection = collect($taskDone1);
+        $diff = $collection->diff($taskDone0);
+        $diff->all();
+        $tasks = Task::whereIn('id',$diff)->where('cost' , '>' , 0)->where('payOK' , 0)->orderBy('updated_at','desc')->get();
+
+        return view('tasks.finance', compact('tasks'));
+    }
+    public function finance2(){
+
+            $tasks = Task::orderBy('updated_at','desc')->where('payOK', 1)->get();
+
         return view('tasks.finance', compact('tasks'));
     }
     public function financeUpdate($id,Request $request)
@@ -756,5 +775,17 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 //        $tasks = Task::latest()->get();
 
         return back();
+    }
+    public function taskPayForm(){
+        $id = $_GET['ID'];
+        $task = Task::find($id);
+        if ($task->paid === 0){
+            $task->paid = 1;
+        }elseif ($task->paid ===1){
+            $task->paid = 0;
+        }
+        $task->save();
+        return redirect()->back()->with('message', 'تغییرات '.$task->id.' با موفقیت ثبت شد');
+
     }
 }

@@ -46,6 +46,11 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     Route::group(['middleware' => ['role:modir|admin']], function () {
+
+        Route::get('finance-check', 'TaskController@finance1');
+        Route::get('taskPayForm','TaskController@taskPayForm');
+
+
         Route::get('statics', 'StatusController@statics');
         Route::get('/jobs', 'TaskController@modir');
         Route::put('/jobs/updateAll','TaskOrderUserController@updateAll')->name('tasks.updateAll');
@@ -65,11 +70,14 @@ Route::group(['middleware' => ['auth']], function() {
         Route::resource('users','UserController');
     });
         Route::group(['middleware' => ['role:finance|admin']], function () {
-            Route::get('finance', 'TaskController@finance');
+            Route::get('finance-final', 'TaskController@finance2');
+            Route::get('taskPayForm','TaskController@taskPayForm');
+
         });
 
 
     Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('finance', 'TaskController@finance');
         Route::post('/financeUpdate/{id}', 'TaskController@financeUpdate')->name('tasks.financeUpdate');
 
 
