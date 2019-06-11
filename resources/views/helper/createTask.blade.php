@@ -11,6 +11,21 @@
             <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="ندارد" />
 
         </div>
+        <div class="form-group col-sm-2">
+            <label for="">وضعیت</label>
+            <select name="subject" class="form-control select2">
+                <option value="" selected>انتخاب موضوع</option>
+                <option value="طراحی">طراحی</option>
+                <option value="اجرایی">اجرایی</option>
+                <option value="دیتا اینتری">دیتا اینتری</option>
+                <option value="مذاکرات">مذاکرات</option>
+                <option value="نظارتی">نظارتی</option>
+                <option value="مشاور">مشاور</option>
+                <option value="برنامه نویسی">برنامه نویسی</option>
+                <option value="خدماتی">خدماتی</option>
+                <option value="پیگیری">پیگیری</option>
+             </select>
+        </div>
         <div class="form-group col-sm-4">
             <label for="">نوع</label>
             <div class="selectType">
@@ -33,21 +48,9 @@
 
         </div>
 
+
+
         <div class="form-group col-sm-2">
-            <label for="">برند</label>
-            <select name="brand" class="form-control select2">
-                <option selected="selected" value="سایر">سایر</option>
-                @foreach($brands as $u)
-                    <option value="{{ $u->title }}">{{ $u->title }}</option>
-
-                @endforeach
-
-
-            </select>
-
-        </div>
-
-        <div class="form-group col-sm-3">
             <label for="">برای</label>
             {{--<select name="forProduct" class="form-control select2">--}}
             {{--<option selected="selected" value="سایر">سایر</option>--}}
@@ -62,8 +65,20 @@
             <input type="text" class="form-control" name="forProduct" value="سایر">
 
         </div>
+        <div class="form-group col-sm-2">
+            <label for="">برند</label>
+            <select name="brand" class="form-control select2">
+                <option selected="selected" value="سایر">سایر</option>
+                @foreach($brands as $u)
+                    <option value="{{ $u->title }}">{{ $u->title }}</option>
 
-        <div class="form-group col-sm-3">
+                @endforeach
+
+
+            </select>
+
+        </div>
+        <div class="form-group col-sm-2">
             <label for="">متریال</label>
             <input type="text" name="material" class="form-control" value="سایر">
             {{--<select name="material" class="form-control select2">--}}

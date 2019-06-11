@@ -34,7 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {{--    <link rel="stylesheet" href="/admin-core/css/animate.css">--}}
     <!-- template rtl version -->
     <link rel="stylesheet" href="/admin-core/css/custom-style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
 
     @yield('css')
     <style>
@@ -108,7 +108,7 @@ body{
 {{--<script src="/admin-core/bootstrap/js/bootstrap.bundle.min.js"></script>--}}
 <!-- AdminLTE App -->
 <script src="/admin-core/js/adminlte.min.js"></script>
-    <script src="/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
         <script src="/js/tooltip.js"></script>.
 
     <script type="text/javascript">

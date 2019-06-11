@@ -6,13 +6,33 @@
             <label for="title">عنوان</label>
             <input type="text" class="form-control" id="taskName" name="title" placeholder="عنوان کامل کار" value="{{$task->title}}"/>
 
+
+        </div>
+        <div class="form-group col-sm-2">
+            <label for="">وضعیت</label>
+            <select name="subject" class="form-control select2">
+                <option value="{{$task->subject}}" selected>{{$task->subject}}</option>
+                <option value="طراحی">طراحی</option>
+                <option value="اجرایی">اجرایی</option>
+                <option value="دیتا اینتری">دیتا اینتری</option>
+                <option value="مذاکرات">مذاکرات</option>
+                <option value="نظارتی">نظارتی</option>
+                <option value="مشاور">مشاور</option>
+                <option value="برنامه نویسی">برنامه نویسی</option>
+                <option value="خدماتی">خدماتی</option>
+                <option value="پیگیری">پیگیری</option>
+            </select>
         </div>
         <div class="form-group col-sm-4 formChange">
             <label for="">نوع</label>
             <input type="text" class="form-control" name="isType" value="{{ $task->type }}">
 
         </div>
+        <div class="form-group col-sm-2 formChange">
+            <label for="">برای</label>
+            <input type="text" class="form-control" name="forProduct" value="{{ $task->forProduct }}">
 
+        </div>
         <div class="form-group col-sm-2 formChange">
             <label for="">برند</label>
             <select name="brand" class="form-control select2">
@@ -27,13 +47,9 @@
 
         </div>
 
-        <div class="form-group col-sm-3 formChange">
-            <label for="">برای</label>
-            <input type="text" class="form-control" name="forProduct" value="{{ $task->forProduct }}">
 
-        </div>
 
-        <div class="form-group col-sm-3 formChange">
+        <div class="form-group col-sm-2 formChange">
             <label for="">متریال</label>
             <input type="text" name="material" class="form-control" value="{{ $task->material }}">
 

@@ -178,7 +178,7 @@ class TaskController extends Controller
         }
         $taskTitle = "";
         if($request->get('title') == "ندارد" || empty($request->get('title'))){
-            $taskTitle = $t ." ". $request->get('forProduct') ." ". $request->get('brand');
+            $taskTitle = $request->get('subject') ." ". $t ." ". $request->get('forProduct') ." ". $request->get('brand');
 
         }else{
             $taskTitle = $request->get('title');
@@ -217,6 +217,7 @@ class TaskController extends Controller
             'pending'=> $request->get('pending'),
             'type'=> $t,
             'forProduct'=> $request->get('forProduct'),
+            'subject'=> $request->get('subject'),
             'user_id'=> Auth::user()->id
         ]);
 
@@ -233,7 +234,13 @@ class TaskController extends Controller
 
         }
         $task->userOrder()->attach($request->users);
-
+        $status = new Status([
+            'status'    => 'new-task',
+            'content'   => 'ثبت کار جدید',
+            'task_id'   => $task->id,
+            'user_id'   => Auth::id(),
+        ]);
+        $status->save();
 
 
 
@@ -402,6 +409,7 @@ class TaskController extends Controller
         $task->forProduct = $request->get('forProduct');
         $task->title = $request->get('title');
         $task->content = $request->get('content');
+        $task->subject = $request->get('subject');
         if(!empty($request->pic)) {
             $picName = $task->id . '_task' . time() . '.' . request()->pic->getClientOriginalExtension();
             $request->pic->storeAs('uploads', $picName);
@@ -749,7 +757,12 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
             $tasks = Task::orderBy('updated_at','desc')->where('cost' , '>' , 0)->get();
 
         }
-        return view('tasks.finance', compact('tasks'));
+        $total = Task::where('paid',1)->pluck('cost')->toArray();
+        $sum = 0;
+        foreach ($total as $t){
+            $sum += $t;
+        }
+        return view('tasks.finance', compact('tasks','sum'));
     }
     public function finance1(){
         $taskDone1 = TaskOrderUser::where('isDone',1)->pluck('task_id')->toArray();
@@ -758,8 +771,12 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $diff = $collection->diff($taskDone0);
         $diff->all();
         $tasks = Task::whereIn('id',$diff)->where('cost' , '>' , 0)->where('payOK' , 0)->orderBy('updated_at','desc')->get();
-
-        return view('tasks.finance', compact('tasks'));
+        $total = Task::where('paid',1)->pluck('cost')->toArray();
+        $sum = 0;
+        foreach ($total as $t){
+            $sum += $t;
+        }
+        return view('tasks.finance', compact('tasks','sum'));
     }
     public function finance2(){
 
@@ -771,8 +788,21 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
     {
         $item = Task::find($id);
         $item->update($request->all());
+        if (isset($request->payOK)){
+            $statusTitle = 'pay-ok';
+            $content = 'تایید وضعیت مالی';
+        }else{
+            $statusTitle = 'cost-update';
+            $content = 'تغییر یا ثبت قیمت';
 
-//        $tasks = Task::latest()->get();
+        }
+        $status = new Status([
+            'status'    => $statusTitle,
+            'content'   => $content,
+            'task_id'   => $id,
+            'user_id'   => Auth::id(),
+        ]);
+        $status->save();
 
         return back();
     }
@@ -781,10 +811,27 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $task = Task::find($id);
         if ($task->paid === 0){
             $task->paid = 1;
+            $statusTitle = 'paid';
+            $content = 'تایید پرداخت';
         }elseif ($task->paid ===1){
             $task->paid = 0;
+            $statusTitle = 'un-paid';
+            $content = 'عدم تایید پرداخت';
+
+
         }
         $task->save();
+
+
+        $status = new Status([
+            'status'    => $statusTitle,
+            'content'   => $content,
+            'task_id'   => $task->id,
+            'user_id'   => Auth::id(),
+        ]);
+        $status->save();
+
+
         return redirect()->back()->with('message', 'تغییرات '.$task->id.' با موفقیت ثبت شد');
 
     }

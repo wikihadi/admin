@@ -48,7 +48,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['middleware' => ['role:modir|admin']], function () {
 
         Route::get('finance-check', 'TaskController@finance1');
-        Route::get('taskPayForm','TaskController@taskPayForm');
 
 
         Route::get('statics', 'StatusController@statics');

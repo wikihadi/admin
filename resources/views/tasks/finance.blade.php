@@ -25,6 +25,11 @@
                     <a class="nav-item nav-link" href="/finance?status=done&sort=updated_at&order=asc">کارهای پایان یافته</a>
                 </div>
             </div>
+            @if(isset($sum))
+            <span class="navbar-text badge badge-dark">
+                مجموع: {{number_format($sum)}} ريال
+            </span>
+                @endif
         </nav>
     </div>
     @endrole

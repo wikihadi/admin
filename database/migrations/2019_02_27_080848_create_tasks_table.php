@@ -33,6 +33,7 @@ class CreateTasksTable extends Migration
             $table->string('dz')->nullable();
             $table->string('dDesc')->nullable();
             $table->string('type')->nullable();
+            $table->string('subject')->nullable();
             $table->string('pic')->nullable()->default('task.jpg');
             $table->string('forProduct')->nullable();
             $table->boolean('reTask')->default(0)->nullable();
