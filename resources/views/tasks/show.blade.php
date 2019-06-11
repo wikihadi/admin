@@ -69,7 +69,7 @@
             </div>
             <div class="text-left col text-left">
 
-                    <form class=""  action="{{ route('tasks.destroy', $task->id)}}" method="post">
+                    <form class=""  action="{{ route('tasks.destroy', $task->id)}}" method="post" onsubmit="return confirm('Are you sure?')">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="urlP" value="{{$urlP}}">
@@ -177,9 +177,16 @@
                                                     <form  method="post" action="/financeUpdate/{{$task->id}}">
                                                         @csrf
                                                         <div class="input-group mb-3">
-                                                            <input type="text" name="cost" class="form-control" required value="{{$task->cost}}" placeholder="هزینه پروژه (اگر هزینه ندارد خالی یا صفر باشد)">
+                                                            <input onfocus="this.value = addComma( this.value );"
+                                                                   onblur="this.value = removeComma( this.value );"
+                                                                   onsubmit="this.value = removeComma( this.value );"
+                                                                   type="number"
+                                                                   id="cost"
+                                                                   name="cost"
+                                                                   class="form-control cost" required
+                                                                   value="{{$task->cost}}" placeholder="هزینه پروژه (اگر هزینه ندارد خالی یا صفر باشد)">
                                                             <div class="input-group-append">
-                                                                <span class="input-group-text">ريال</span>
+                                                                <span class="input-group-text">{{number_format($task->cost)}} ريال</span>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -366,9 +373,22 @@
             </div>
         </div>
     </div>
+    <form  class="form-inline float-right" method="post" action="{{ route('status.store') }}" onsubmit="return confirm('در صورت تایید، این کار از لیست کارهای جاری شما خارج خواهد شد. از پایان پروژه اطمینان دارید؟');">
+        @csrf
+        <input type="hidden" name="user_id" value="{{Auth::id()}}">
+        <input type="hidden" name="task_id" value="{{$task->id}}">
+        <input type="hidden" name="status" value="end">
+        <input type="hidden" name="content" value="پایان کار {{$task->id}} - {{$task->title}}">
+
+        <button class="btn btn-danger hvr-push my-auto" title="پایان کار و خروج از لیسست کارهای من" type="submit" data-toggle="tooltip"><i class="fa fa-stop"></i> پایان کار</button>
+
+    </form>
 @endsection
 @section('JS')
-            <script>
+
+    <script>
+                // import AutoNumeric from "autonumeric";
+
                 $(document).ready(function() {
 
                     $("#btn-add").click(function () {
@@ -490,5 +510,18 @@
                         }
                     });
                 }
+
+                // function addComma( str ) {
+                //     var objRegex = new RegExp( '(-?[0-9]+)([0-9]{3})' );
+                //
+                //     while( objRegex.test( str ) ) {
+                //         str = str.replace( objRegex, '$1,$2' );
+                //     }
+                //
+                //     return str;
+                // }
+                // function removeComma( str ) {
+                //     return str.replace( /,/g, '' );
+                // }
             </script>
 @endsection

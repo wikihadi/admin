@@ -100,7 +100,7 @@
             <td>
                 <div style="min-width: 50px">
                 @role('admin')
-                <i class="fa @if($task->paid == 0) text-danger fa-close @else text-success fa-check @endif"></i>.
+                <i class="fa @if($task->paid == 0) text-secondary fa-circle @else text-success fa-check-circle @endif"></i>.
                     @endrole
                 @role('finance')
                 <a href="/taskPayForm?ID={{$task->id}}">
@@ -116,17 +116,24 @@
 
             @role('admin')
             <td >
-                <form  method="post" action="/financeUpdate/{{$task->id}}">
+                <form  method="post" action="/financeUpdate/{{$task->id}}" onsubmit="return confirm('Are You Sure?')">
                     @csrf
-                                                    <div class="input-group mb-3"  style="min-width: 250px">
-                                                        <input type="text" name="cost" class="form-control" required value="{{$task->cost}}">
-                                                        <div class="input-group-append input-group-prepend">
-                                                            <span class="input-group-text">ريال</span>
-                                                        </div>
-                                                        @role('modir')
-                                                        <button class="btn btn-secondary input-group-append" type="submit" name="payOK" value="1"><i class="fa fa-check"></i></button>
-                                                        @endrole
-                                                    </div>
+                    <div class="input-group mb-3"  style="min-width: 250px">
+                        <input type="text" name="cost" class="form-control" required value="{{$task->cost}}"  onfocus="this.value = addComma( this.value );" onblur="this.value = removeComma( this.value );" onsubmit="this.value = removeComma( this.value );">
+                        <div class="input-group-append input-group-prepend">
+                            <span class="input-group-text">{{number_format($task->cost)}} ريال</span>
+                        </div>
+                        @role('admin')
+
+                        @if($task->paid == 0)
+                        @if($task->payOK == 0)
+                            <button class="btn btn-success input-group-append" type="submit" name="payOK" value="1"><i class="fa fa-check"></i></button>
+                        @else
+                        <button class="btn btn-danger input-group-append" type="submit" name="payOK" value="0"><i class="fa fa-close"></i></button>
+                        @endif
+                        @endif
+                        @endrole
+                    </div>
                 </form>
             </td>
             @endrole
@@ -139,9 +146,23 @@
             @endforeach
         </tbody>
     </table>
-        
+
     </div>
 @endsection
 
 @section('JS')
+    <script>
+        // function addComma( str ) {
+        //     var objRegex = new RegExp( '(-?[0-9]+)([0-9]{3})' );
+        //
+        //     while( objRegex.test( str ) ) {
+        //         str = str.replace( objRegex, '$1,$2' );
+        //     }
+        //
+        //     return str;
+        // }
+        // function removeComma( str ) {
+        //     return str.replace( /,/g, '' );
+        // }
+    </script>
 @endsection

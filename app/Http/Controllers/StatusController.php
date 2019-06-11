@@ -86,6 +86,10 @@ class StatusController extends Controller
             $taskOrderUser->isDone = 1;
             $taskOrderUser->lastStatus = 3;
             $taskOrderUser->save();
+        }elseif($request->get('status') == 'end-back'){
+            $taskOrderUser->isDone = 0;
+            $taskOrderUser->lastStatus = 1;
+            $taskOrderUser->save();
         }elseif($request->get('status') == 'start'){
 
             $lastStatus = TaskOrderUser::where('lastStatus','2')->where('user_id',$user->id)->first();

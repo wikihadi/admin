@@ -489,7 +489,17 @@
 
                 <div class="list-group collapse show list-group-flush bg-dark" id="admin">
                     @foreach($lastComments as $l)
-                            <a href="/tasks/{{$l->task->id}}" class="list-group-item bg-dark">
+                        <div  class="list-group-item bg-dark">
+                        <div class="text-left">
+                            <a title="Share on Whatsapp" data-toggle="tooltip" href="https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: http://i.sadiq-co.com/tasks/{{$l->task->id}}" class="mx-1 hvr-glow"><i class="fa fa-whatsapp text-muted"></i></a>
+                            <a title="Share on Telegram" data-toggle="tooltip" href="https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/{{$l->task->id}}&text=Please Check this Task on SADIQ" class="mx-1 hvr-glow"><i class="fa fa-telegram text-muted"></i></a>
+
+                            <a href="/tasks/{{$l->task->id}}" title="Go to Task" data-toggle="tooltip">
+                                <i class="fa fa-arrow-left mx-1 text-muted hvr-glow"></i>
+                            </a>
+
+                        </div>
+{{--                            <a href="/tasks/{{$l->task->id}}" class="list-group-item bg-dark">--}}
                                 <div class="border-bottom mb-2">
                                     <small class="text-muted">
                                         <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
@@ -497,10 +507,11 @@
                                 </div>
 
                                 <small>{{$l->content}}</small>
-                                <i class="fa fa-arrow-left float-left"></i>
+{{--                                <i class="fa fa-arrow-left float-left"></i>--}}
+                </div>
 
+{{--                            </a>--}}
 
-                            </a>
                     @endforeach
 
                 </div>
@@ -530,6 +541,8 @@
 
 
                             </a>
+                        <a href="https://api.whatsapp.com/send?phone=whatsappphonenumber&text=http://google.com">11</a>
+
 
                     @endforeach
 

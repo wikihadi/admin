@@ -24,6 +24,7 @@
                 <option value="برنامه نویسی">برنامه نویسی</option>
                 <option value="خدماتی">خدماتی</option>
                 <option value="پیگیری">پیگیری</option>
+                <option value="بازطراحی">بازطراحی</option>
              </select>
         </div>
         <div class="form-group col-sm-4">

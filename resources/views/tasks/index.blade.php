@@ -24,9 +24,9 @@
                                         <li class="nav-item active">
                                             <small><a class="nav-link" href="/tasks">الویتها</a></small>
                                         </li>
-                                        <li class="nav-item">
-                                            <small><a class="nav-link" href="/tasks?sort=latest">جدیدترین</a></small>
-                                        </li>
+{{--                                        <li class="nav-item">--}}
+{{--                                            <small><a class="nav-link" href="/tasks?sort=latest">جدیدترین</a></small>--}}
+{{--                                        </li>--}}
                                         {{--<li class="nav-item">--}}
                                             {{--<a class="nav-link" href="#">در جریان</a>--}}
                                         {{--</li>--}}
@@ -172,6 +172,7 @@
 
 
 
+
                                             @can('task-edit')
                                                 <div class="mx-1 hvr-push">
                                                     <a href="/tasks/{{ $o->task->id }}/edit"><i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش {{ $o->task->title }}"></i></a>
@@ -186,6 +187,7 @@
 
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div id="collapse{{$o->task->id}}" class="collapse collapseTask">
@@ -572,7 +574,18 @@
                                             </form>
                                         @endif
 
+                                                                                    @if(isset($_GET['sort']) && $_GET['sort'] == 'done')
+                                        <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('Are you sure?')">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                                            <input type="hidden" name="task_id" value="{{$o->task->id}}">
+                                            <input type="hidden" name="status" value="end-back">
+                                            <input type="hidden" name="content" value="برگشت از پایان کار {{$o->task->id}} - {{$o->task->title}}">
 
+                                            <button class="btn btn-link text-light p-0 mx-1 hvr-push my-auto" title="برگشت از پایان" type="submit" data-toggle="tooltip"><i class="fa fa-plug"></i></button>
+
+                                        </form>
+                                                                                    @endif
 
 
 

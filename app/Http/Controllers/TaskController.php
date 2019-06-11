@@ -786,7 +786,15 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
     }
     public function financeUpdate($id,Request $request)
     {
+//        $cost = $request->get('cost');
+//        $pay = $request->get('payOK');
+
         $item = Task::find($id);
+//        $item->cost = $cost;
+//        if (!empty($pay)){
+//            $item->payOK = $request->get('payOK');
+//        }
+//        $item->save();
         $item->update($request->all());
         if (isset($request->payOK)){
             $statusTitle = 'pay-ok';
