@@ -76,6 +76,8 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     Route::group(['middleware' => ['role:admin']], function () {
+
+        Route::get('admin/tasks', 'TaskController@adminIndex');
         Route::get('finance', 'TaskController@finance');
         Route::post('/financeUpdate/{id}', 'TaskController@financeUpdate')->name('tasks.financeUpdate');
 

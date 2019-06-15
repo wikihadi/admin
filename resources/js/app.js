@@ -32,6 +32,8 @@ Vue.component('user-statics', require('./components/status/userStatics').default
 Vue.component('user-statics-boxes', require('./components/status/userStaticsBoxes').default);
 Vue.component('finance-task-form', require('./components/tasks/financeTasksForm').default);
 Vue.component('task-pay-form', require('./components/tasks/taskPayForm').default);
+Vue.component('main-home-box', require('./components/MainHomeBox').default);
+
 
 
 /**

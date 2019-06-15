@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
+
 class TaskController extends Controller
 {
     public function __construct()
@@ -842,5 +843,15 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 
         return redirect()->back()->with('message', 'تغییرات '.$task->id.' با موفقیت ثبت شد');
 
+    }
+
+//    ADMIN SECTION
+
+
+    public function searchTasks(){
+//        $s = $_GET['s'];
+//        $tasks = Task::where('title', 'like', '%' . $s . '%')->get();
+//        return $tasks;
+        return Task::all();
     }
 }

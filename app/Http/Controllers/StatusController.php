@@ -366,4 +366,18 @@ public function statics(){
     return view('users.statics', compact('users','myTasksStatus','usersStatus','statusesToMe'));
 
 }
+    public function searchTasks(){
+        $s = $_GET['s'];
+        if(!empty($s) && strlen($s) > 3){
+            $tasks = Task::where('title', 'like', '%' . $s . '%')->get();
+            return $tasks;
+        }
+
+    }
+    public function fetchTasks(){
+            $u = $_GET['u'];
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->orderBy('updated_at' , 'desc')->get();
+            return $tasks;
+
+    }
 }

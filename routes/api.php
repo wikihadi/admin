@@ -38,6 +38,8 @@ Route::get('commentList','StatusController@commentList');
 Route::get('allStatics','StatusController@allStatics');
 Route::get('allStaticsBoxes','StatusController@allStaticsBoxes');
 Route::get('taskPayForm','TaskController@taskPayForm');
+Route::get('searchTasks','StatusController@searchTasks');
+Route::get('fetchTasks','StatusController@fetchTasks');
 
 //Route::resource('/apiStatus', 'StatusController');
 

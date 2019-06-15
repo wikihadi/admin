@@ -239,7 +239,9 @@
 
 
     </div>
-
+@role('admin')
+    <main-home-box v-bind:user="{{Auth::id()}}"></main-home-box>
+    @endrole
         <div class="col-12 row mt-5 justify-content-center">
 {{--            <i class="fa fa-arrows-v text-primary" data-toggle="collapse" data-target=".collapse"></i>--}}
             <div class="mb-2 text-light text-center col-12"><user-bar :user="{{Auth::id()}}"></user-bar></div>
@@ -541,7 +543,6 @@
 
 
                             </a>
-                        <a href="https://api.whatsapp.com/send?phone=whatsappphonenumber&text=http://google.com">11</a>
 
 
                     @endforeach
