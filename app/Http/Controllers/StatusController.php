@@ -234,7 +234,11 @@ class StatusController extends Controller
     public function addStatusToBox(Request $request){
         Status::create($request->all());
 //        $status->notify(new messageSent($status));
-
+        $task_id = $request->get('task_id');
+        if (!empty($task_id)){
+            $task = Task::find($task_id);
+            $task->increment('commentCount');
+        }
         return(['message' => 'Task Done']);
     }
     public function statusListBox(){
@@ -376,8 +380,21 @@ public function statics(){
     }
     public function fetchTasks(){
             $u = $_GET['u'];
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->orderBy('updated_at' , 'desc')->get();
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', '<=', 2)->orderBy('updated_at' , 'desc')->get();
             return $tasks;
 
+    }
+    public function commentFetch(){
+        $tasks = TaskOrderUser::where('lastStatus', 1)->pluck('task_id')->toArray();
+
+        $comments = Status::whereIn('task_id',$tasks)->with('user')->whereHas('user')->where('status','comment')->orderBy('updated_at','desc')->get();
+        $dateBefore = Carbon::now();
+
+        foreach ($comments as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+        }
+        return $comments;
     }
 }

@@ -503,7 +503,7 @@
                         </div>
 {{--                            <a href="/tasks/{{$l->task->id}}" class="list-group-item bg-dark">--}}
                                 <div class="border-bottom mb-2">
-                                    <small class="text-muted">
+                                    <small class="text-muted  ">
                                         <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
                                         در  {{$l->task->title}} - {{$l->diff}}:</small>
                                 </div>

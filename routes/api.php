@@ -40,6 +40,7 @@ Route::get('allStaticsBoxes','StatusController@allStaticsBoxes');
 Route::get('taskPayForm','TaskController@taskPayForm');
 Route::get('searchTasks','StatusController@searchTasks');
 Route::get('fetchTasks','StatusController@fetchTasks');
+Route::get('commentFetch','StatusController@commentFetch');
 
 //Route::resource('/apiStatus', 'StatusController');
 
