@@ -93,12 +93,23 @@ class StatusController extends Controller
         }elseif($request->get('status') == 'start'){
 
             $lastStatus = TaskOrderUser::where('lastStatus','2')->where('user_id',$user->id)->first();
+
             if(!empty($lastStatus)){
+                $lastStatusOther = TaskOrderUser::where('lastStatus','2')->where('user_id',$user->id)->get();
+                foreach ($lastStatusOther as $o){
+                    $o->lastStatus = 1;
+                    $o->save();
+                }
                 $lastStatus->lastStatus = 1;
                 $lastStatus->save();
                 $taskOrderUser->lastStatus = 2;
                 $taskOrderUser->save();
             }else{
+                $lastStatusOther = TaskOrderUser::where('lastStatus','2')->where('user_id',$user->id)->get();
+                foreach ($lastStatusOther as $o){
+                    $o->lastStatus = 1;
+                    $o->save();
+                }
                 $taskOrderUser->lastStatus = 2;
                 $taskOrderUser->save();
             }
@@ -232,14 +243,14 @@ class StatusController extends Controller
 
 
     public function addStatusToBox(Request $request){
-        Status::create($request->all());
+        $status = Status::create($request->all());
 //        $status->notify(new messageSent($status));
         $task_id = $request->get('task_id');
         if (!empty($task_id)){
             $task = Task::find($task_id);
             $task->increment('commentCount');
         }
-        return(['message' => 'Task Done']);
+        return $status;
     }
     public function statusListBox(){
         if (isset($_GET['ID'])) {
@@ -372,22 +383,44 @@ public function statics(){
 }
     public function searchTasks(){
         $s = $_GET['s'];
+        $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
+
         if(!empty($s) && strlen($s) > 3){
-            $tasks = Task::where('title', 'like', '%' . $s . '%')->get();
+            $tasks = Task::where(function ($q) use ($searchValues) {
+                foreach ($searchValues as $value) {
+                    $q->where('title', 'like', "%{$value}%");
+                }
+            })->get();
+//            $tasks = Task::where('title', 'like', '%' . $s . '%')->get();
             return $tasks;
         }
 
     }
     public function fetchTasks(){
             $u = $_GET['u'];
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', '<=', 2)->orderBy('updated_at' , 'desc')->get();
+            $el = $_GET['el'];
+            $op = $_GET['op'];
+            $val = $_GET['val'];
+            $ord = $_GET['ord'];
+            $ordOp = $_GET['ordOp'];
+
+//        if ($lastStatusOp == 'le'){
+//            $lastStatusOp = '<=';
+//        }elseif($lastStatusOp == 'be'){
+//            $lastStatusOp = '>=';
+//        }
+        if ($val == 2){
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', 1)->orWhere('lastStatus', 2)->where('user_id', $u)->orderBy('lastStatus','desc')->orderBy($ord , $ordOp)->get();
+        }else{
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where($el, $op, $val)->orderBy($ord , $ordOp)->get();
+
+        }
             return $tasks;
 
     }
     public function commentFetch(){
-        $tasks = TaskOrderUser::where('lastStatus', 1)->pluck('task_id')->toArray();
 
-        $comments = Status::whereIn('task_id',$tasks)->with('user')->whereHas('user')->where('status','comment')->orderBy('updated_at','desc')->get();
+        $comments = Status::where( 'created_at', '>', Carbon::now()->subDays(15))->with('user')->whereHas('user')->where('status','comment')->orderBy('updated_at','desc')->get();
         $dateBefore = Carbon::now();
 
         foreach ($comments as $key => $loop){

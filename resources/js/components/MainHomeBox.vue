@@ -9,13 +9,19 @@
                             <div class="pointer" @click.prevent="indicator()"><i class="fa fa-circle-o"></i></div>
                         </div>
 
-                        <div class="row justify-content-center" v-if="showMenu">
+                        <div class="row justify-content-around" v-if="showMenu">
+                            <button type="button" :class="{'text-success':activeTab === 0}" class="btn btn-dark" @click.prevent="tasks='',fetchTasks('routine','=',1,'order_column','asc'),commentFetch(),title='کارهای روتین',activeTab=0"><i :class="{'fa fa-circle':activeTab === 0,'fa fa-circle-o':activeTab !== 0}"></i> روتین</button>
+
                             <div class="btn-group">
-                            <a href="" class="btn btn-dark" @click.prevent="this.fetchTasks()" title="جاری"><i class="fa fa-circle-o"></i> جاری</a>
-<!--                            <div class=""><i class="fa fa-minus fa-2x text-muted"></i></div>-->
-                            <a href="" class="btn btn-dark"><i class="fa fa-circle-o"></i> پیگیری</a>
-<!--                            <div class=""><i class="fa fa-minus fa-2x text-muted"></i></div>-->
-                            <a href="" class="btn btn-dark"><i class="fa fa-circle-o"></i> نهایی</a>
+                                <button type="button" :class="{'text-success':activeTab === 1}" class="btn btn-dark" @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1"><i :class="{'fa fa-circle':activeTab === 1,'fa fa-circle-o':activeTab !== 1}"></i> در انتظار</button>
+                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-arrow-circle-left"></i></button>
+                                <button type="button" :class="{'text-success':activeTab === 2}" class="btn btn-dark" @click.prevent="tasks='',fetchTasks('lastStatus','<=',2,'order_column','asc'),commentFetch(),title='در حال انجام',activeTab=2"><i :class="{'fa fa-circle':activeTab === 2,'fa fa-circle-o':activeTab !== 2}"></i> درحال انجام</button>
+                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-arrow-circle-left"></i></button>
+<!--                                <button type="button" :class="{'text-success':activeTab === 4}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3"><i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 4}"></i> پیگیری</button>-->
+<!--                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-arrow-circle-left"></i></button>-->
+<!--                                <button type="button" :class="{'text-success':activeTab === 4}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='چاپ',activeTab=3"><i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 4}"></i> چاپ</button>-->
+<!--                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-arrow-circle-left"></i></button>-->
+                                <button type="button" :class="{'text-success':activeTab === 4}" class="btn btn-dark" @click.prevent="tasks='',spinner=true,fetchTasks('lastStatus','>=',3,'updated_at','desc'),commentFetch(),spinner=false,title='کارهای پایان یافته',activeTab=4"><i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i> نهایی</button>
 
                         </div>
                     </div>
@@ -67,11 +73,16 @@
                             نمایش {{toShow}} از {{loop.length}} <button class="btn btn-link btn-sm btn-block" type="button" @click.prevent="toShow+=5">بیشتر</button>
                         </div>
                     </div>
-
-                    <div class="card-body"   v-if="tasks.length > 0 && showTasks">
+                    <div class="card-body" v-if="spinner">
+                        <div class="text-center m-5">
+                            <i class="fa fa-3x fa-spinner fa-pulse"></i>
+                        </div>
+                    </div>
+                    <div class="card-body"   v-if="tasks.length > 0 && showTasks && !spinner">
+                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>
                         <div class="list-group bg-dark">
                             <div class="" v-for="(item , index) in tasks.slice(0, tasksToShow)">
-                                <a class="list-group-item list-group-item-action flex-column align-items-start bg-dark pointer"  data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()">
+                                <a data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()" :class="{'bg-secondary':item.lastStatus == 0,'bg-dark': item.lastStatus == 1,'bg-success text-dark': item.lastStatus == 2,'bg-dark text-light': item.lastStatus == 3}" class="list-group-item list-group-item-action flex-column align-items-start pointer">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h6 class="mb-1">{{item.task.title}}</h6>
                                         <small class="text-muted">{{item.task.id}}</small>
@@ -89,9 +100,8 @@
                                     <div class="card card-body">
                                         <div class="d-flex w-100 justify-content-end">
                                             <div class="">
-                                                <i class="fa fa-play text-success mx-2 pointer"></i>
-                                                <i class="fa fa-pause text-success mx-2 pointer"></i>
-                                                <i class="fa fa-circle-o text-success mx-2 pointer"></i>
+                                                <i class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','play',item.task.id)"></i>
+<!--                                                <i class="fa fa-circle-o text-success mx-2 pointer"></i>-->
 
                                             <a title="Share on Whatsapp" data-toggle="tooltip" target="_blank" :href="'https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: ' + item.task.title + 'http://i.sadiq-co.com/tasks/'+ item.task.id" class="mx-2 "><i class="fa fa-whatsapp text-muted"></i></a>
                                             <a title="Share on Telegram" data-toggle="tooltip" target="_blank" :href="'https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/' + item.task.id + '&text=Please Check this Task on SADIQ: ' + item.task.title" class="mx-2 "><i class="fa fa-telegram text-muted"></i></a>
@@ -127,14 +137,19 @@
 
                                                         </div>
                                                     </div>
+                                                    <a :href="'/tasks/' + item.task.id" class="text-dark" v-if="item.task.commentCount > 0"><div class="card-footer text-dark text-center">
+
+                                                            <p class="text-dark">  جهت مشاهده تمام نظرات این کار، اینجا کلیک کنید</p>
+                                                        <i class="fa fa-comments fa-3x text-dark"></i>
+                                                    </div></a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="d-flex w-100 justify-content-end">
                                             <div class="">
-                                                <i class="fa fa-stop text-secondary mx-2 pointer"></i>
-                                                <i class="fa fa-edit text-secondary mx-2 pointer"></i>
-                                                <i class="fa fa-trash text-secondary mx-2 pointer"></i>
+<!--                                                <i class="fa fa-stop text-secondary mx-2 pointer"></i>-->
+<!--                                                <i class="fa fa-edit text-secondary mx-2 pointer"></i>-->
+<!--                                                <i class="fa fa-trash text-secondary mx-2 pointer"></i>-->
                                             </div>
                                             <div class="">
                                             </div>
@@ -160,6 +175,10 @@
         props:['user'],
         data(){
             return{
+                spinner:false,
+                activeTab: 2,
+                title: '',
+                test: true,
                 content: '',
                 tasksToShow: 5,
                 toShow: 5,
@@ -170,31 +189,32 @@
                 searchValue:'',
                 loop:[],
                 tasks:[],
-                comments:[]
+                comments:[],
             }
         },
         mounted: function () {
-            this.fetchTasks();
+            this.fetchTasks('lastStatus','<=',2,'order_column','asc');
         },
         methods:{
-            addComment: function(task_id){
-                if (this.content !== ''){
+            newStatus: function(content,status,task_id){
                     axios.post('/api/addStatusToBox',{
+                        content: content,
+                        user_id: this.user,
+                        status: status,
+                        task_id: task_id
+                    });
+                    alert('ثبت شروع کار')
+            },
+            addComment: function(task_id){
+                if (this.content !== '') {
+                    axios.post('/api/addStatusToBox', {
                         content: this.content,
                         user_id: this.user,
                         status: 'comment',
                         task_id: task_id
                     })
-                        .then(function (response) {
-
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                    this.content = '';
+                        .then(console.log('response'),this.content = '',this.commentFetch())
                 }
-                this.commentFetch();
-
             },
             commentFetch: function(){
                 let url = '/api/commentFetch';
@@ -211,15 +231,14 @@
                 this.noRes = false;
                 this.loop = [];
                 this.showTasks = true;
-
             },
             searchTab: function(){
                 this.showTasks = false;
                 this.showMenu = false;
-
             },
-            fetchTasks: function(){
-                let url = 'api/fetchTasks?u=' + this.user;
+            fetchTasks: function(el,op,val,ord,ordOp){
+                let url = 'api/fetchTasks?u=' + this.user + '&el=' + el + '&op=' + op + '&val=' + val + '&ord=' + ord + '&ordOp=' + ordOp;
+                console.log(url);
                 axios.get(url).then(response => this.tasks = response.data);
             },
             searchTasks: function () {

@@ -1937,10 +1937,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
     return {
+      spinner: false,
+      activeTab: 2,
+      title: '',
+      test: true,
       content: '',
       tasksToShow: 5,
       toShow: 5,
@@ -1955,9 +1974,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.fetchTasks();
+    this.fetchTasks('lastStatus', '<=', 2, 'order_column', 'asc');
   },
   methods: {
+    newStatus: function newStatus(content, status, task_id) {
+      axios.post('/api/addStatusToBox', {
+        content: content,
+        user_id: this.user,
+        status: status,
+        task_id: task_id
+      });
+      alert('ثبت شروع کار');
+    },
     addComment: function addComment(task_id) {
       if (this.content !== '') {
         axios.post('/api/addStatusToBox', {
@@ -1965,13 +1993,8 @@ __webpack_require__.r(__webpack_exports__);
           user_id: this.user,
           status: 'comment',
           task_id: task_id
-        }).then(function (response) {})["catch"](function (error) {
-          console.log(error);
-        });
-        this.content = '';
+        }).then(console.log('response'), this.content = '', this.commentFetch());
       }
-
-      this.commentFetch();
     },
     commentFetch: function commentFetch() {
       var _this = this;
@@ -1998,10 +2021,11 @@ __webpack_require__.r(__webpack_exports__);
       this.showTasks = false;
       this.showMenu = false;
     },
-    fetchTasks: function fetchTasks() {
+    fetchTasks: function fetchTasks(el, op, val, ord, ordOp) {
       var _this2 = this;
 
-      var url = 'api/fetchTasks?u=' + this.user;
+      var url = 'api/fetchTasks?u=' + this.user + '&el=' + el + '&op=' + op + '&val=' + val + '&ord=' + ord + '&ordOp=' + ordOp;
+      console.log(url);
       axios.get(url).then(function (response) {
         return _this2.tasks = response.data;
       });
@@ -41574,29 +41598,149 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm.showMenu
-            ? _c("div", { staticClass: "row justify-content-center" }, [
+            ? _c("div", { staticClass: "row justify-content-around" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-dark",
+                    class: { "text-success": _vm.activeTab === 0 },
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        ;(_vm.tasks = ""),
+                          _vm.fetchTasks(
+                            "routine",
+                            "=",
+                            1,
+                            "order_column",
+                            "asc"
+                          ),
+                          _vm.commentFetch(),
+                          (_vm.title = "کارهای روتین"),
+                          (_vm.activeTab = 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      class: {
+                        "fa fa-circle": _vm.activeTab === 0,
+                        "fa fa-circle-o": _vm.activeTab !== 0
+                      }
+                    }),
+                    _vm._v(" روتین")
+                  ]
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "btn-group" }, [
                   _c(
-                    "a",
+                    "button",
                     {
                       staticClass: "btn btn-dark",
-                      attrs: { href: "", title: "جاری" },
+                      class: { "text-success": _vm.activeTab === 1 },
+                      attrs: { type: "button" },
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return this.fetchTasks()
+                          ;(_vm.tasks = ""),
+                            _vm.fetchTasks(
+                              "lastStatus",
+                              "=",
+                              0,
+                              "order_column",
+                              "asc"
+                            ),
+                            _vm.commentFetch(),
+                            (_vm.title = "کارهای در انتظار"),
+                            (_vm.activeTab = 1)
                         }
                       }
                     },
                     [
-                      _c("i", { staticClass: "fa fa-circle-o" }),
-                      _vm._v(" جاری")
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 1,
+                          "fa fa-circle-o": _vm.activeTab !== 1
+                        }
+                      }),
+                      _vm._v(" در انتظار")
                     ]
                   ),
                   _vm._v(" "),
                   _vm._m(0),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
+                      class: { "text-success": _vm.activeTab === 2 },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          ;(_vm.tasks = ""),
+                            _vm.fetchTasks(
+                              "lastStatus",
+                              "<=",
+                              2,
+                              "order_column",
+                              "asc"
+                            ),
+                            _vm.commentFetch(),
+                            (_vm.title = "در حال انجام"),
+                            (_vm.activeTab = 2)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 2,
+                          "fa fa-circle-o": _vm.activeTab !== 2
+                        }
+                      }),
+                      _vm._v(" درحال انجام")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
+                      class: { "text-success": _vm.activeTab === 4 },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          ;(_vm.tasks = ""),
+                            (_vm.spinner = true),
+                            _vm.fetchTasks(
+                              "lastStatus",
+                              ">=",
+                              3,
+                              "updated_at",
+                              "desc"
+                            ),
+                            _vm.commentFetch(),
+                            (_vm.spinner = false),
+                            (_vm.title = "کارهای پایان یافته"),
+                            (_vm.activeTab = 4)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 4,
+                          "fa fa-circle-o": _vm.activeTab !== 4
+                        }
+                      }),
+                      _vm._v(" نهایی")
+                    ]
+                  )
                 ])
               ])
             : _c("div", { staticClass: "row justify-content-center" }, [
@@ -41748,8 +41892,20 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.tasks.length > 0 && _vm.showTasks
+        _vm.spinner
+          ? _c("div", { staticClass: "card-body" }, [_vm._m(5)])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.tasks.length > 0 && _vm.showTasks && !_vm.spinner
           ? _c("div", { staticClass: "card-body" }, [
+              _vm.title != ""
+                ? _c("div", { staticClass: "card-header" }, [
+                    _c("h4", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(_vm.title))
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "list-group bg-dark" },
@@ -41762,7 +41918,13 @@ var render = function() {
                       "a",
                       {
                         staticClass:
-                          "list-group-item list-group-item-action flex-column align-items-start bg-dark pointer",
+                          "list-group-item list-group-item-action flex-column align-items-start pointer",
+                        class: {
+                          "bg-secondary": item.lastStatus == 0,
+                          "bg-dark": item.lastStatus == 1,
+                          "bg-success text-dark": item.lastStatus == 2,
+                          "bg-dark text-light": item.lastStatus == 3
+                        },
                         attrs: {
                           "data-toggle": "collapse",
                           href: "#col" + item.id,
@@ -41821,17 +41983,17 @@ var render = function() {
                               _c("div", {}, [
                                 _c("i", {
                                   staticClass:
-                                    "fa fa-play text-success mx-2 pointer"
-                                }),
-                                _vm._v(" "),
-                                _c("i", {
-                                  staticClass:
-                                    "fa fa-pause text-success mx-2 pointer"
-                                }),
-                                _vm._v(" "),
-                                _c("i", {
-                                  staticClass:
-                                    "fa fa-circle-o text-success mx-2 pointer"
+                                    "fa fa-play text-success mx-2 pointer",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.newStatus(
+                                        "شروع کار",
+                                        "play",
+                                        item.task.id
+                                      )
+                                    }
+                                  }
                                 }),
                                 _vm._v(" "),
                                 _c(
@@ -41956,7 +42118,7 @@ var render = function() {
                                             }
                                           }),
                                           _vm._v(" "),
-                                          _vm._m(5, true)
+                                          _vm._m(6, true)
                                         ]
                                       )
                                     ])
@@ -41971,97 +42133,117 @@ var render = function() {
                                       overflow: "auto"
                                     }
                                   },
-                                  _vm._l(_vm.comments, function(
-                                    comment,
-                                    index
-                                  ) {
-                                    return comment.task_id === item.task.id
-                                      ? _c(
-                                          "div",
-                                          { staticClass: "card-footer" },
-                                          [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "d-flex justify-content-between"
-                                              },
-                                              [
-                                                _c("div", [
-                                                  _c("img", {
-                                                    staticClass: "img-circle",
-                                                    staticStyle: {
-                                                      width: "20px"
-                                                    },
-                                                    attrs: {
-                                                      src:
-                                                        "/storage/avatars/" +
-                                                        comment.user.avatar,
-                                                      alt: comment.user.name
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "small",
-                                                    {
-                                                      staticClass: "text-dark"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          comment.user.name
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                ]),
-                                                _vm._v(" "),
-                                                _c("div", {}, [
-                                                  _c(
-                                                    "small",
-                                                    {
-                                                      staticClass: "text-muted"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(comment.diff)
-                                                      )
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c("i", {
-                                                    staticClass:
-                                                      "fa fa-ellipsis-v text-secondary"
-                                                  })
-                                                ])
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("div", { staticClass: "pr-4" }, [
+                                  [
+                                    _vm._l(_vm.comments, function(
+                                      comment,
+                                      index
+                                    ) {
+                                      return comment.task_id === item.task.id
+                                        ? _c(
+                                            "div",
+                                            { staticClass: "card-footer" },
+                                            [
                                               _c(
                                                 "div",
                                                 {
                                                   staticClass:
-                                                    "bg-secondary px-2 py-1 bulb d-inline-block"
+                                                    "d-flex justify-content-between"
                                                 },
                                                 [
-                                                  _vm._v(
-                                                    _vm._s(comment.content)
+                                                  _c("div", [
+                                                    _c("img", {
+                                                      staticClass: "img-circle",
+                                                      staticStyle: {
+                                                        width: "20px"
+                                                      },
+                                                      attrs: {
+                                                        src:
+                                                          "/storage/avatars/" +
+                                                          comment.user.avatar,
+                                                        alt: comment.user.name
+                                                      }
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "small",
+                                                      {
+                                                        staticClass: "text-dark"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            comment.user.name
+                                                          )
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("div", {}, [
+                                                    _c(
+                                                      "small",
+                                                      {
+                                                        staticClass:
+                                                          "text-muted"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(comment.diff)
+                                                        )
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fa fa-ellipsis-v text-secondary"
+                                                    })
+                                                  ])
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "pr-4" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "bg-secondary px-2 py-1 bulb d-inline-block"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(comment.content)
+                                                      )
+                                                    ]
                                                   )
                                                 ]
                                               )
-                                            ])
-                                          ]
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    }),
+                                    _vm._v(" "),
+                                    item.task.commentCount > 0
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass: "text-dark",
+                                            attrs: {
+                                              href: "/tasks/" + item.task.id
+                                            }
+                                          },
+                                          [_vm._m(7, true)]
                                         )
                                       : _vm._e()
-                                  }),
-                                  0
+                                  ],
+                                  2
                                 )
                               ]
                             )
                           ]),
                           _vm._v(" "),
-                          _vm._m(6, true)
+                          _vm._m(8, true)
                         ])
                       ]
                     )
@@ -42108,19 +42290,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "btn btn-dark", attrs: { href: "" } }, [
-      _c("i", { staticClass: "fa fa-circle-o" }),
-      _vm._v(" پیگیری")
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-dark", attrs: { type: "button", disabled: "" } },
+      [_c("i", { staticClass: "fa fa-arrow-circle-left" })]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "btn btn-dark", attrs: { href: "" } }, [
-      _c("i", { staticClass: "fa fa-circle-o" }),
-      _vm._v(" نهایی")
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-dark", attrs: { type: "button", disabled: "" } },
+      [_c("i", { staticClass: "fa fa-arrow-circle-left" })]
+    )
   },
   function() {
     var _vm = this
@@ -42163,6 +42347,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center m-5" }, [
+      _c("i", { staticClass: "fa fa-3x fa-spinner fa-pulse" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-append" }, [
       _c(
         "button",
@@ -42175,14 +42367,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex w-100 justify-content-end" }, [
-      _c("div", {}, [
-        _c("i", { staticClass: "fa fa-stop text-secondary mx-2 pointer" }),
-        _vm._v(" "),
-        _c("i", { staticClass: "fa fa-edit text-secondary mx-2 pointer" }),
-        _vm._v(" "),
-        _c("i", { staticClass: "fa fa-trash text-secondary mx-2 pointer" })
+    return _c("div", { staticClass: "card-footer text-dark text-center" }, [
+      _c("p", { staticClass: "text-dark" }, [
+        _vm._v("  جهت مشاهده تمام نظرات این کار، اینجا کلیک کنید")
       ]),
+      _vm._v(" "),
+      _c("i", { staticClass: "fa fa-comments fa-3x text-dark" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex w-100 justify-content-end" }, [
+      _c("div", {}),
       _vm._v(" "),
       _c("div", {})
     ])
