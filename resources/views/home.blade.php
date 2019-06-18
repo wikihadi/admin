@@ -75,8 +75,7 @@
 
 
 
-    <div class="col-md-12 mt-sm-5 d-none d-md-block" style="">
-
+    <div class="col-md-12 mt-sm-2 d-none d-md-block" style="">
         @role('admin|modir')
         <div class="d-flex flex-wrap justify-content-center mb-4 animated fadeIn delay-1s">
             @foreach($users as $u)
@@ -143,32 +142,32 @@
 
         </div>
         @endrole
-
+        @hasanyrole('admin|modir|finance')
         <div class="col-md-12">
 
         <div class="row d-flex justify-content-center">
-            @hasanyrole('designer|admin')
-            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/profile" title="" class="btn btn-dark btn-block hvr-grow  animated fadeInDown"><i class="fa fa-user"></i> صفحه من</a>
-                </div>
-            </div>
-                @endhasanyrole
+{{--            @hasanyrole('designer|admin')--}}
+{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/profile" title="" class="btn btn-dark btn-block hvr-grow  animated fadeInDown"><i class="fa fa-user"></i> صفحه من</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--                @endhasanyrole--}}
 
-            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/posts" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی"><i class="fa fa-info-circle"></i> اطلاعیه ها </a>
-                </div>
-            </div>
-            @hasanyrole('designer|admin')
+{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/posts" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی"><i class="fa fa-info-circle"></i> اطلاعیه ها </a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            @hasanyrole('designer|admin')--}}
 
-            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/tasks" class="btn btn-success btn-block hvr-grow animated fadeInDown">کارهای من</a>
-                </div>
-            </div>
+{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/tasks" class="btn btn-success btn-block hvr-grow animated fadeInDown">کارهای من</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-            @endhasanyrole
+{{--            @endhasanyrole--}}
 
             @can('task-create')
 
@@ -236,152 +235,150 @@
 
         </div>
         </div>
-
-
+        @endhasanyrole
     </div>
-@role('admin')
     <main-home-box v-bind:user="{{Auth::id()}}"></main-home-box>
-    @endrole
-        <div class="col-12 row mt-5 justify-content-center">
+{{--        <div class="col-12 row mt-5 justify-content-center">--}}
 {{--            <i class="fa fa-arrows-v text-primary" data-toggle="collapse" data-target=".collapse"></i>--}}
-            <div class="mb-2 text-light text-center col-12"><user-bar :user="{{Auth::id()}}"></user-bar></div>
+{{--            <div class="mb-2 text-light text-center col-12"><user-bar :user="{{Auth::id()}}"></user-bar></div>--}}
 
-            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
-                <div class="card bg-dark">
-                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
-                        باکس
-
-
-                    </div>
-                        <status-list-box v-bind:user="{{Auth::id()}}"></status-list-box>
-
-                </div>
-            </div>
-            @if(count($orderRoutine) > 0)
-            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
-                <div class="card bg-dark">
-                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
-                        کارهای روتین
-                    </div>
-                    <div class="list-group collapse list-group-flush bg-dark tasks">
-                        @foreach($orderRoutine as $or)
-
-                        <div class="list-group-item @if($or->lastStatus != 2) bg-dark @else bg-success @endif">
-                            <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">
-                                @csrf
-                                <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                                <input type="hidden" name="task_id" value="{{$or->task->id}}">
-                                <input type="hidden" name="status" value="start">
-                                <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">
-                                <a href="/tasks/{{$or->task->id}}"><small>{{$or->task->title}}</small></a>
-                                @if($or->lastStatus != 2)
-                                <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>
-                                @endif
-                            </form>
-                        </div>
-
-                        @endforeach
-                            <a href="/tasks?sort=routine" class="dropdown-footer"><small>همه</small></a>
-
-                    </div>
-
-                </div>
-            </div>
-            @endif
-                @if(!empty($myOrderCurrent) || count($orderCurrent) > 0)
-
-                <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
-                <div class="card bg-dark">
-                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
-                        کارهای جاری
-                    </div>
-                    <div class="list-group collapse list-group-flush bg-dark tasks">
-                        @if(!empty($myOrderCurrent))
-                            <div class="list-group-item bg-success">
+{{--            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
+{{--                <div class="card bg-dark">--}}
+{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
+{{--                        باکس--}}
 
 
-                                {{--<form  class="" method="post" action="{{ route('status.store') }}" onsubmit="return confirm('در صورت تایید، این کار از لیست کارهای جاری شما خارج خواهد شد. از پایان پروژه اطمینان دارید؟');">--}}
-                                    {{--@csrf--}}
-                                    {{--<input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
-                                    {{--<input type="hidden" name="task_id" value="{{$myOrderCurrent->task->id}}">--}}
-                                    {{--<input type="hidden" name="status" value="end">--}}
-                                    {{--<input type="hidden" name="content" value="پایان کار {{$myOrderCurrent->task->id}} - {{$myOrderCurrent->task->title}}">--}}
-                                    <a href="/tasks/{{$myOrderCurrent->task->id}}">
-                                        <small>{{$myOrderCurrent->task->title}}</small>
-                                    </a>
-                                    {{--<button class="btn btn-link text-light p-0 mx-1 float-left" title="پایان کار {{$myOrderCurrent->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-stop"></i></button>--}}
+{{--                    </div>--}}
+{{--                        <status-list-box v-bind:user="{{Auth::id()}}"></status-list-box>--}}
 
-                                {{--</form>--}}
-                            </div>
-                        @endif
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            @if(count($orderRoutine) > 0)--}}
+{{--            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
+{{--                <div class="card bg-dark">--}}
+{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
+{{--                        کارهای روتین--}}
+{{--                    </div>--}}
+{{--                    <div class="list-group collapse list-group-flush bg-dark tasks">--}}
+{{--                        @foreach($orderRoutine as $or)--}}
 
-                    @if(count($orderCurrent) > 0)
+{{--                        <div class="list-group-item @if($or->lastStatus != 2) bg-dark @else bg-success @endif">--}}
+{{--                            <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">--}}
+{{--                                @csrf--}}
+{{--                                <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+{{--                                <input type="hidden" name="task_id" value="{{$or->task->id}}">--}}
+{{--                                <input type="hidden" name="status" value="start">--}}
+{{--                                <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">--}}
+{{--                                <a href="/tasks/{{$or->task->id}}"><small>{{$or->task->title}}</small></a>--}}
+{{--                                @if($or->lastStatus != 2)--}}
+{{--                                <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>--}}
+{{--                                @endif--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
 
-                        @foreach($orderCurrent as $or)
-                                    <div class="list-group-item bg-dark">
-                                        <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                                            <input type="hidden" name="task_id" value="{{$or->task->id}}">
-                                            <input type="hidden" name="status" value="start">
-                                            <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">
-                                            <a href="/tasks/{{$or->task->id}}" >
-                                                <small>{{$or->task->title}}</small>
-                                            </a>
-                                            <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>
+{{--                        @endforeach--}}
+{{--                            <a href="/tasks?sort=routine" class="dropdown-footer"><small>همه</small></a>--}}
 
-                                        </form>
+{{--                    </div>--}}
 
-                                    </div>
-                            @endforeach
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            @endif--}}
+{{--                @if(!empty($myOrderCurrent) || count($orderCurrent) > 0)--}}
 
-                        <a href="/tasks" class="dropdown-footer"><small>همه</small></a>
-                        @endif
+{{--                <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
+{{--                <div class="card bg-dark">--}}
+{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
+{{--                        کارهای جاری--}}
+{{--                    </div>--}}
+{{--                    <div class="list-group collapse list-group-flush bg-dark tasks">--}}
+{{--                        @if(!empty($myOrderCurrent))--}}
+{{--                            <div class="list-group-item bg-success">--}}
 
-                    </div>
 
-                </div>
-            </div>
-                @endif
-                @if(count($orderFuture) > 0)
-            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">
-                <div class="card bg-dark">
-                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">
-                        کارهای آتی
-                    </div>
-                    <div class="list-group collapse list-group-flush bg-dark tasks">
-                        @foreach($orderFuture as $or)
-                            <div class="list-group-item bg-dark">
-                                <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">
-                                    @csrf
-                                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                                    <input type="hidden" name="task_id" value="{{$or->task->id}}">
-                                    <input type="hidden" name="status" value="start">
-                                    <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">
-                                    <a href="/tasks/{{$or->task->id}}">
-                                        <small>{{$or->task->title}}</small>
-                                    </a>
-                                    <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>
+{{--                                --}}{{--<form  class="" method="post" action="{{ route('status.store') }}" onsubmit="return confirm('در صورت تایید، این کار از لیست کارهای جاری شما خارج خواهد شد. از پایان پروژه اطمینان دارید؟');">--}}
+{{--                                    --}}{{--@csrf--}}
+{{--                                    --}}{{--<input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+{{--                                    --}}{{--<input type="hidden" name="task_id" value="{{$myOrderCurrent->task->id}}">--}}
+{{--                                    --}}{{--<input type="hidden" name="status" value="end">--}}
+{{--                                    --}}{{--<input type="hidden" name="content" value="پایان کار {{$myOrderCurrent->task->id}} - {{$myOrderCurrent->task->title}}">--}}
+{{--                                    <a href="/tasks/{{$myOrderCurrent->task->id}}">--}}
+{{--                                        <small>{{$myOrderCurrent->task->title}}</small>--}}
+{{--                                    </a>--}}
+{{--                                    --}}{{--<button class="btn btn-link text-light p-0 mx-1 float-left" title="پایان کار {{$myOrderCurrent->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-stop"></i></button>--}}
 
-                                </form>
+{{--                                --}}{{--</form>--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
 
-                            </div>
+{{--                    @if(count($orderCurrent) > 0)--}}
 
-                        @endforeach
-                            <a href="/tasks" class="dropdown-footer"><small>همه</small></a>
+{{--                        @foreach($orderCurrent as $or)--}}
+{{--                                    <div class="list-group-item bg-dark">--}}
+{{--                                        <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">--}}
+{{--                                            @csrf--}}
+{{--                                            <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+{{--                                            <input type="hidden" name="task_id" value="{{$or->task->id}}">--}}
+{{--                                            <input type="hidden" name="status" value="start">--}}
+{{--                                            <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">--}}
+{{--                                            <a href="/tasks/{{$or->task->id}}" >--}}
+{{--                                                <small>{{$or->task->title}}</small>--}}
+{{--                                            </a>--}}
+{{--                                            <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>--}}
 
-                    </div>
+{{--                                        </form>--}}
 
-                </div>
-            </div>
-                @endif
+{{--                                    </div>--}}
+{{--                            @endforeach--}}
 
-        </div>
+{{--                        <a href="/tasks" class="dropdown-footer"><small>همه</small></a>--}}
+{{--                        @endif--}}
+
+{{--                    </div>--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+{{--                @endif--}}
+{{--                @if(count($orderFuture) > 0)--}}
+{{--            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
+{{--                <div class="card bg-dark">--}}
+{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
+{{--                        کارهای آتی--}}
+{{--                    </div>--}}
+{{--                    <div class="list-group collapse list-group-flush bg-dark tasks">--}}
+{{--                        @foreach($orderFuture as $or)--}}
+{{--                            <div class="list-group-item bg-dark">--}}
+{{--                                <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">--}}
+{{--                                    @csrf--}}
+{{--                                    <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+{{--                                    <input type="hidden" name="task_id" value="{{$or->task->id}}">--}}
+{{--                                    <input type="hidden" name="status" value="start">--}}
+{{--                                    <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">--}}
+{{--                                    <a href="/tasks/{{$or->task->id}}">--}}
+{{--                                        <small>{{$or->task->title}}</small>--}}
+{{--                                    </a>--}}
+{{--                                    <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>--}}
+
+{{--                                </form>--}}
+
+{{--                            </div>--}}
+
+{{--                        @endforeach--}}
+{{--                            <a href="/tasks" class="dropdown-footer"><small>همه</small></a>--}}
+
+{{--                    </div>--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+{{--                @endif--}}
+
+{{--        </div>--}}
 
         <div class="col-12 mt-5 row justify-content-center">
+            <div class="col-xl-9 col-lg-10 row m-auto">
 
             @hasanyrole('admin|modir')
-        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 animated zoomIn">
+                <div class="col-sm-3 animated zoomIn">
 
             <div class="card bg-dark">
 
@@ -403,8 +400,8 @@
                 </div>
         </div>
         </div>
-        @endhasanyrole
-        <div class="col-sm-6 col-md-4 animated zoomIn">
+            @endhasanyrole
+                <div class="col-sm-5 animated zoomIn">
 
             <div class="card bg-dark">
 
@@ -461,25 +458,8 @@
 {{--                </div>--}}
         </div>
         </div>
-        {{--<div class="col-md-4 animated zoomIn">--}}
-            {{--<div class="card bg-dark">--}}
-            {{--<div class="card-header"  >--}}
-            {{--<div class="float-right " data-toggle="collapse" data-target="#myTasks" style="cursor: pointer">--}}
-                {{--<i class="fa fa-arrow-circle-down"></i> آخرین کارهای فعال--}}
-            {{--</div>--}}
-            {{--</div>--}}
-
-                {{--<ul class="list-group collapse list-group-flush bg-dark" id="myTasks">--}}
-                    {{--@foreach($lastMyTaskStatus as $l)--}}
-                        {{--<a href="/tasks/{{$l->task->id}}"><li class="list-group-item bg-dark"><small>{{$l->task->title}}</small><i class="fa fa-arrow-left float-left"></i></li></a>--}}
-                    {{--@endforeach--}}
-                        {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
-
-                {{--</ul>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        @hasanyrole('admin|modir')
-        <div class="col-sm-6 col-md-4 col-lg-3 animated zoomIn " data-toggle="collapse" data-target="#admin">
+            @hasanyrole('admin|modir')
+            <div class="col-sm-4 animated zoomIn " data-toggle="collapse" data-target="#admin">
 
             <div class="card bg-info">
                 <div class="card-header"  >
@@ -520,39 +500,39 @@
                 {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
             </div>
         </div>
-        @else
-        <div class="col-sm-6 col-md-4 animated zoomIn" data-toggle="collapse" data-target="#myComments">
-            <div class="card bg-dark">
-            <div class="card-header"  >
-            <div class="" style="cursor: pointer">
-                <i class="fa fa-arrow-circle-down"></i> آخرین نظرات
-            </div>
-            </div>
-
-                <div class="list-group collapse show list-group-flush bg-dark" id="myComments">
-                    @foreach($lastMyComments as $l)
-                            <a href="/tasks/{{$l->task->id}}" class="list-group-item bg-dark">
-                                <div class="border-bottom mb-2">
-                                    <small class="text-muted">
-                                        <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
-                                        در  {{$l->task->title}} - {{$l->diff}}:</small>
-                                </div>
-
-                                <small>{{$l->content}}</small>
-                                <i class="fa fa-arrow-left float-left"></i>
-
-
-                            </a>
-
-
-                    @endforeach
-
+            @else
+            <div class="col-sm-7 col-md-4 animated zoomIn" data-toggle="collapse" data-target="#myComments">
+                <div class="card bg-dark">
+                <div class="card-header"  >
+                <div class="" style="cursor: pointer">
+                    <i class="fa fa-arrow-circle-down"></i> آخرین نظرات
                 </div>
-            {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
-        </div>
-        </div>
-            @endhasanyrole
+                </div>
 
+                    <div class="list-group collapse show list-group-flush bg-dark" id="myComments">
+                        @foreach($lastMyComments as $l)
+                                <a href="/tasks/{{$l->task->id}}" class="list-group-item bg-dark">
+                                    <div class="border-bottom mb-2">
+                                        <small class="text-muted">
+                                            <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
+                                            در  {{$l->task->title}} - {{$l->diff}}:</small>
+                                    </div>
+
+                                    <small>{{$l->content}}</small>
+                                    <i class="fa fa-arrow-left float-left"></i>
+
+
+                                </a>
+
+
+                        @endforeach
+
+                    </div>
+                {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
+            </div>
+            </div>
+                    @endhasanyrole
+            </div>
 
 
     </div>

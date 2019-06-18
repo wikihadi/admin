@@ -243,13 +243,37 @@ class StatusController extends Controller
 
 
     public function addStatusToBox(Request $request){
+
         $status = Status::create($request->all());
 //        $status->notify(new messageSent($status));
-        $task_id = $request->get('task_id');
-        if (!empty($task_id)){
-            $task = Task::find($task_id);
-            $task->increment('commentCount');
+        if (!empty($status->task_id)){
+            $task_id = $request->get('task_id');
+            $user_id = $request->get('user_id');
+
+            if ($request->get('status') == 'comment'){
+                $task = Task::find($task_id);
+                $task->increment('commentCount');
+            }
+            $x = TaskOrderUser::where('user_id',$user_id)->where('task_id',$task_id)->first();
+            $x->lastStatus = 2;
+            $x->save();
+            $orderTaskOther = TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->where('task_id','!=',$task_id)->get();
+            foreach ($orderTaskOther as $o){
+                $o->lastStatus = 1;
+                $o->save();
+            }
         }
+
+
+
+
+//            $user = Auth::user();
+//
+//        $orderTask = TaskOrderUser::where('user_id',$user)->where('task_id',$task_id)->first();
+//        $orderTask->lastStatus = 2;
+//        $orderTask->save();
+//
+
         return $status;
     }
     public function statusListBox(){
@@ -383,9 +407,9 @@ public function statics(){
 }
     public function searchTasks(){
         $s = $_GET['s'];
-        $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
 
-        if(!empty($s) && strlen($s) > 3){
+        if(!empty($s) && strlen($s) > 5){
+            $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
             $tasks = Task::where(function ($q) use ($searchValues) {
                 foreach ($searchValues as $value) {
                     $q->where('title', 'like', "%{$value}%");
@@ -410,7 +434,7 @@ public function statics(){
 //            $lastStatusOp = '>=';
 //        }
         if ($val == 2){
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', 1)->orWhere('lastStatus', 2)->where('user_id', $u)->orderBy('lastStatus','desc')->orderBy($ord , $ordOp)->get();
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', 1)->where('routine', 0)->orWhere('lastStatus', 2)->where('user_id', $u)->where('routine', 0)->orderBy('lastStatus','desc')->orderBy($ord , $ordOp)->get();
         }else{
             $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where($el, $op, $val)->orderBy($ord , $ordOp)->get();
 
