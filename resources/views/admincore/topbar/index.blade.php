@@ -32,7 +32,7 @@
 
             </li>
         @endif
-        @include('admincore.topbar.message')
+{{--        @include('admincore.topbar.message')--}}
 
 {{--        <li class="nav-item animated">--}}
 {{--            <a class="nav-link hvr-grow  animated fadeInUp d-none d-md-block statusSmile" data-toggle="modal" data-target="#crateStatus" http="#"><i--}}

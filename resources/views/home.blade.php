@@ -61,7 +61,6 @@
         </div>
     @endif
     {{--<div class="text-muted position-fixed d-flex justify-content-center flex-row-reverse w-100" style="z-index: 10000000;top: 20px; font-weight: lighter"><div class="clockH"></div>:<div class="clockM"></div>:<div class="clockS"></div></div>--}}
-
 @endsection
 @section('content')
     @if($read == 0)
@@ -71,30 +70,24 @@
             </a>
         </div>
     @endif
-
-
-
-
     <div class="col-md-12 mt-sm-2 d-none d-md-block" style="">
         @role('admin|modir')
         <div class="d-flex flex-wrap justify-content-center mb-4 animated fadeIn delay-1s">
             @foreach($users as $u)
-
                 <div class="mx-2 text-center">
                     @if($u->lastStatus == 'off')
                     <span class="badge badge-info position-absolute"><i class="fa fa-clock-o"></i></span>
                     @endif
-
 {{--                        <div class="text-muted text-center" data-toggle="modal" data-target="#userModal{{$u->id}}"  style="cursor: pointer"><span>.</span></div>--}}
                        <div class="position-relative">
                            <a href="/jobs/{{$u->id}}" target="_blank">
-                                            <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
+                               <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
                            </a>
                            @role('admin')
-                           <div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">
-                               <i class="text-muted fa fa-ellipsis-h"></i>
-                           </div>
-@endrole
+                               <div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">
+                                   <i class="text-muted fa fa-ellipsis-h"></i>
+                               </div>
+                            @endrole
 
                        </div>
 
@@ -122,16 +115,8 @@
 {{--                                            <user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>--}}
                                             <user-tasks-self :user="{{$u->id}}" class="d-inline"></user-tasks-self>
 {{--                                            <user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>--}}
-
-
                                             <hr>
-
                                     </div>
-{{--                                    <div class="modal-footer">--}}
-{{--                                        @foreach($users as $u)--}}
-{{--                                            <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" data-toggle="modal" data-target="#userModal{{$u->id}}">--}}
-{{--                                        @endforeach--}}
-{{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -144,399 +129,130 @@
         @endrole
         @hasanyrole('admin|modir|finance')
         <div class="col-md-12">
-
         <div class="row d-flex justify-content-center">
-{{--            @hasanyrole('designer|admin')--}}
-{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
-{{--                <div class="wrimagecard wrimagecard-topimage">--}}
-{{--                    <a href="/profile" title="" class="btn btn-dark btn-block hvr-grow  animated fadeInDown"><i class="fa fa-user"></i> صفحه من</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--                @endhasanyrole--}}
-
-{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
-{{--                <div class="wrimagecard wrimagecard-topimage">--}}
-{{--                    <a href="/posts" class="btn btn-info btn-block hvr-grow animated fadeInDown" title="بزودی"><i class="fa fa-info-circle"></i> اطلاعیه ها </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            @hasanyrole('designer|admin')--}}
-
-{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
-{{--                <div class="wrimagecard wrimagecard-topimage">--}}
-{{--                    <a href="/tasks" class="btn btn-success btn-block hvr-grow animated fadeInDown">کارهای من</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            @endhasanyrole--}}
-
             @can('task-create')
-
                 <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a href="/tasks/create" class="btn btn-warning btn-block hvr-grow animated fadeInDown">کار جدید</a>
                 </div>
             </div>
             @endcan
-
             @hasanyrole('admin')
-
-
             <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a href="/statics" class="btn btn-light btn-block hvr-grow animated fadeInDown">آمار کاربران</a>
                 </div>
             </div>
-
-
             <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a href="/finance" class="btn table-danger btn-block hvr-grow animated fadeInDown" target="_blank">مالی</a>
                 </div>
             </div>
-
-
             @endhasanyrole
             @hasanyrole('finance')
-
             <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a href="/finance-final" class="btn table-danger btn-block hvr-grow animated fadeInDown" target="_blank">مالی</a>
                 </div>
             </div>
-
-
             @endhasanyrole
             @hasanyrole('modir')
-
             <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
                 <div class="wrimagecard wrimagecard-topimage">
                     <a href="/finance-check" class="btn table-danger btn-block hvr-grow animated fadeInDown" target="_blank">مالی</a>
                 </div>
             </div>
-
-
             @endhasanyrole
-
-
-            {{--<div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
-                {{--<div class="wrimagecard wrimagecard-topimage">--}}
-                    {{--<a class="btn btn-danger btn-block hvr-grow animated fadeInDown" href="{{ route('logout') }}"--}}
-                       {{--onclick="event.preventDefault();--}}
-                                                     {{--document.getElementById('logout-form').submit();">--}}
-                        {{--خروج--}}
-                    {{--</a>--}}
-                    {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                        {{--@csrf--}}
-                    {{--</form>                </div>--}}
-            {{--</div>--}}
-
-
-
-
         </div>
         </div>
         @endhasanyrole
     </div>
     <main-home-box v-bind:user="{{Auth::id()}}"></main-home-box>
-{{--        <div class="col-12 row mt-5 justify-content-center">--}}
-{{--            <i class="fa fa-arrows-v text-primary" data-toggle="collapse" data-target=".collapse"></i>--}}
-{{--            <div class="mb-2 text-light text-center col-12"><user-bar :user="{{Auth::id()}}"></user-bar></div>--}}
-
-{{--            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
-{{--                <div class="card bg-dark">--}}
-{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
-{{--                        باکس--}}
-
-
-{{--                    </div>--}}
-{{--                        <status-list-box v-bind:user="{{Auth::id()}}"></status-list-box>--}}
-
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            @if(count($orderRoutine) > 0)--}}
-{{--            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
-{{--                <div class="card bg-dark">--}}
-{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
-{{--                        کارهای روتین--}}
-{{--                    </div>--}}
-{{--                    <div class="list-group collapse list-group-flush bg-dark tasks">--}}
-{{--                        @foreach($orderRoutine as $or)--}}
-
-{{--                        <div class="list-group-item @if($or->lastStatus != 2) bg-dark @else bg-success @endif">--}}
-{{--                            <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">--}}
-{{--                                @csrf--}}
-{{--                                <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
-{{--                                <input type="hidden" name="task_id" value="{{$or->task->id}}">--}}
-{{--                                <input type="hidden" name="status" value="start">--}}
-{{--                                <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">--}}
-{{--                                <a href="/tasks/{{$or->task->id}}"><small>{{$or->task->title}}</small></a>--}}
-{{--                                @if($or->lastStatus != 2)--}}
-{{--                                <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>--}}
-{{--                                @endif--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-
-{{--                        @endforeach--}}
-{{--                            <a href="/tasks?sort=routine" class="dropdown-footer"><small>همه</small></a>--}}
-
-{{--                    </div>--}}
-
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            @endif--}}
-{{--                @if(!empty($myOrderCurrent) || count($orderCurrent) > 0)--}}
-
-{{--                <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
-{{--                <div class="card bg-dark">--}}
-{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
-{{--                        کارهای جاری--}}
-{{--                    </div>--}}
-{{--                    <div class="list-group collapse list-group-flush bg-dark tasks">--}}
-{{--                        @if(!empty($myOrderCurrent))--}}
-{{--                            <div class="list-group-item bg-success">--}}
-
-
-{{--                                --}}{{--<form  class="" method="post" action="{{ route('status.store') }}" onsubmit="return confirm('در صورت تایید، این کار از لیست کارهای جاری شما خارج خواهد شد. از پایان پروژه اطمینان دارید؟');">--}}
-{{--                                    --}}{{--@csrf--}}
-{{--                                    --}}{{--<input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
-{{--                                    --}}{{--<input type="hidden" name="task_id" value="{{$myOrderCurrent->task->id}}">--}}
-{{--                                    --}}{{--<input type="hidden" name="status" value="end">--}}
-{{--                                    --}}{{--<input type="hidden" name="content" value="پایان کار {{$myOrderCurrent->task->id}} - {{$myOrderCurrent->task->title}}">--}}
-{{--                                    <a href="/tasks/{{$myOrderCurrent->task->id}}">--}}
-{{--                                        <small>{{$myOrderCurrent->task->title}}</small>--}}
-{{--                                    </a>--}}
-{{--                                    --}}{{--<button class="btn btn-link text-light p-0 mx-1 float-left" title="پایان کار {{$myOrderCurrent->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-stop"></i></button>--}}
-
-{{--                                --}}{{--</form>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
-
-{{--                    @if(count($orderCurrent) > 0)--}}
-
-{{--                        @foreach($orderCurrent as $or)--}}
-{{--                                    <div class="list-group-item bg-dark">--}}
-{{--                                        <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">--}}
-{{--                                            @csrf--}}
-{{--                                            <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
-{{--                                            <input type="hidden" name="task_id" value="{{$or->task->id}}">--}}
-{{--                                            <input type="hidden" name="status" value="start">--}}
-{{--                                            <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">--}}
-{{--                                            <a href="/tasks/{{$or->task->id}}" >--}}
-{{--                                                <small>{{$or->task->title}}</small>--}}
-{{--                                            </a>--}}
-{{--                                            <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>--}}
-
-{{--                                        </form>--}}
-
-{{--                                    </div>--}}
-{{--                            @endforeach--}}
-
-{{--                        <a href="/tasks" class="dropdown-footer"><small>همه</small></a>--}}
-{{--                        @endif--}}
-
-{{--                    </div>--}}
-
-{{--                </div>--}}
-{{--            </div>--}}
-{{--                @endif--}}
-{{--                @if(count($orderFuture) > 0)--}}
-{{--            <div class="col-sm-6 col-md-4 col-xl-2 col-lg-3 animated zoomIn">--}}
-{{--                <div class="card bg-dark">--}}
-{{--                    <div class="card-header" data-toggle="collapse" data-target=".tasks" style="cursor: pointer">--}}
-{{--                        کارهای آتی--}}
-{{--                    </div>--}}
-{{--                    <div class="list-group collapse list-group-flush bg-dark tasks">--}}
-{{--                        @foreach($orderFuture as $or)--}}
-{{--                            <div class="list-group-item bg-dark">--}}
-{{--                                <form  method="post" action="{{ route('status.store') }}" onsubmit="return confirm('شروع پروژه . در صورتی که کاری باز از گذشته داشته باشید، به صورت خودکار زمان کار قبلی متوقف خواهد شد.');">--}}
-{{--                                    @csrf--}}
-{{--                                    <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
-{{--                                    <input type="hidden" name="task_id" value="{{$or->task->id}}">--}}
-{{--                                    <input type="hidden" name="status" value="start">--}}
-{{--                                    <input type="hidden" name="content" value="شروع کار {{$or->task->id}} - {{$or->task->title}}">--}}
-{{--                                    <a href="/tasks/{{$or->task->id}}">--}}
-{{--                                        <small>{{$or->task->title}}</small>--}}
-{{--                                    </a>--}}
-{{--                                    <button class="btn btn-link text-light p-0 mx-1 float-left" title="شروع کار {{$or->task->title}}" type="submit" data-toggle="tooltip"><i class="fa fa-play"></i></button>--}}
-
-{{--                                </form>--}}
-
-{{--                            </div>--}}
-
-{{--                        @endforeach--}}
-{{--                            <a href="/tasks" class="dropdown-footer"><small>همه</small></a>--}}
-
-{{--                    </div>--}}
-
-{{--                </div>--}}
-{{--            </div>--}}
-{{--                @endif--}}
-
-{{--        </div>--}}
-
-        <div class="col-12 mt-5 row justify-content-center">
-            <div class="col-xl-9 col-lg-10 row m-auto">
-
+    <user-chart></user-chart>
+    <div class="col-12 mt-5 row justify-content-center">
+        <div class="col-xl-9 col-lg-10 row m-auto">
             @hasanyrole('admin|modir')
                 <div class="col-sm-3 animated zoomIn">
-
-            <div class="card bg-dark">
-
-            <div class="card-header"  >
-            <div class="" data-toggle="collapse" data-target="#lastStatus" style="cursor: pointer">
-                <i class="fa fa-arrow-circle-down"></i> کارهای باز
-            </div>
-            </div>
-
-                <div class="list-group collapse show list-group-flush bg-dark" id="lastStatus">
-
-                        @foreach($currentJobs as $c)
-                                    <a  href="/tasks/{{$c->task->id}}" target="_blank" class="list-group-item @if($c->user->lastStatus == 'off') bg-info @elseif($c->user->lastStatus == 'lunch-start') bg-warning @elseif($c->user->lastStatus == 'out') bg-secondary @else bg-success @endif py-1 px-2">
-                                    <img src="/storage/avatars/{{$c->user->avatar}}" alt="" class="img-circle" style="width: 30px" title="{{$c->user->name}}" data-toggle="tooltip">
-                                        <small style="font-size: 75%">{{$c->task->title}}</small>
-                                        <div class="float-left"><i class="fa @if($c->user->lastStatus == 'off') fa-clock-o @elseif($c->user->lastStatus == 'lunch-start') fa-cutlery @elseif($c->user->lastStatus == 'out') fa-power-off @endif "></i></div>
-                                    </a>
-                        @endforeach
-                </div>
-        </div>
-        </div>
-            @endhasanyrole
-                <div class="col-sm-5 animated zoomIn">
-
-            <div class="card bg-dark">
-
-            <div class="card-header"  >
-            <div class="float-right" data-toggle="collapse" data-target="#myActivities" style="cursor: pointer">
-                <i class="fa fa-arrow-circle-down"></i> آخرین پیامها
-            </div>
-{{--                <div data-target="#crateStatus" data-toggle="modal" style="cursor: pointer" class="float-left" title="ارسال پیام" data-toggle="tooltip"><i class="fa fa-plus-circle"></i></div>--}}
-
-            </div>
-                <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
-{{--                <home-status-me></home-status-me>--}}
-{{--                <div class="list-group collapse show list-group-flush bg-dark" id="myActivities">--}}
-{{--                    @foreach($messages as $s)--}}
-
-{{--                        <a class="list-group-item bg-dark">--}}
-{{--                            @if($s->toUser->id != Auth::id())--}}
-{{--                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="ml-3 img-circle " style="width: 45px" title="به {{$s->toUser->name}}">--}}
-
-{{--                            <img src="/storage/avatars/{{$s->toUser->avatar}}" alt=""  style="width: 28px; top: 10px;right: 5px;" class=" ml-3 img-circle position-absolute" title="به {{$s->toUser->name}}">--}}
-{{--                            @else--}}
-{{--                                <img src="/storage/avatars/{{$s->user->avatar}}" alt="" class="img-size-50 ml-3 img-circle " title="{{$s->user->name}}">--}}
-
-{{--                            @endif--}}
-{{--                            <small>{{$s->content}}</small>--}}
-{{--                                <span class="float-left" style="font-size: 85%">--}}
-{{--                                    <small>{{$s->diff}}--}}
-{{--                                    </small></span>--}}
-{{--                                <status-reply class="d-inline" :user="{{Auth::id()}}" :reply_id="{{$s->id}}" v-bind:user_id="{{$s->user_id}}"></status-reply>--}}
-
-
-
-{{--                        </a>--}}
-{{--                        <a class="list-group-item collapse " id="reply-form-{{$s->id}}">--}}
-{{--                            <form  method="post" action="{{ route('status.store') }}">--}}
-{{--                                @csrf--}}
-{{--                                <input type="hidden" name="to_user" value="{{$s->user->id}}">--}}
-{{--                                <input type="hidden" name="user_id" value="{{$s->toUser->id}}">--}}
-
-{{--                                <div class="input-group">--}}
-{{--                                    <textarea name="content" class="form-control"></textarea>--}}
-{{--                                    <input type="text" class="form-control InputToFocus inputUserStatus" name="content" autocomplete="off" placeholder=".....">--}}
-{{--                                    <div class="input-group-append">--}}
-{{--                                        <button class="btn btn-dark btn-add" type="submit"><i class="fa fa-arrow-circle-left"></i></button>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <input type="hidden" name="status" value="status" class="statusStatus">--}}
-
-
-{{--                            </form>--}}
-{{--                        </a>--}}
-{{--                    @endforeach--}}
-{{--                        <a href="/profile" class="dropdown-item dropdown-footer"><small>همه</small></a>--}}
-{{--                </div>--}}
-        </div>
-        </div>
-            @hasanyrole('admin|modir')
-            <div class="col-sm-4 animated zoomIn " data-toggle="collapse" data-target="#admin">
-
-            <div class="card bg-info">
-                <div class="card-header"  >
-                    <div class="" style="cursor: pointer">
-                        <i class="fa fa-arrow-circle-down"></i>مشاهده ده نظر اخیر - مدیر
-
+                    <div class="card bg-dark">
+                        <div class="card-header"  >
+                            <div class="" data-toggle="collapse" data-target="#lastStatus" style="cursor: pointer">
+                                <i class="fa fa-arrow-circle-down"></i> کارهای باز
+                            </div>
+                        </div>
+                        <div class="list-group collapse show list-group-flush bg-dark" id="lastStatus">
+                            @foreach($currentJobs as $c)
+                                <a  href="/tasks/{{$c->task->id}}" target="_blank" class="list-group-item @if($c->user->lastStatus == 'off') bg-info @elseif($c->user->lastStatus == 'lunch-start') bg-warning @elseif($c->user->lastStatus == 'out') bg-secondary @else bg-success @endif py-1 px-2">
+                                <img src="/storage/avatars/{{$c->user->avatar}}" alt="" class="img-circle" style="width: 30px" title="{{$c->user->name}}" data-toggle="tooltip">
+                                <small style="font-size: 75%">{{$c->task->title}}</small>
+                                <div class="float-left"><i class="fa @if($c->user->lastStatus == 'off') fa-clock-o @elseif($c->user->lastStatus == 'lunch-start') fa-cutlery @elseif($c->user->lastStatus == 'out') fa-power-off @endif "></i></div>
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-
-                <div class="list-group collapse show list-group-flush bg-dark" id="admin">
-                    @foreach($lastComments as $l)
-                        <div  class="list-group-item bg-dark">
-                        <div class="text-left">
-                            <a title="Share on Whatsapp" data-toggle="tooltip" href="https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: http://i.sadiq-co.com/tasks/{{$l->task->id}}" class="mx-1 hvr-glow"><i class="fa fa-whatsapp text-muted"></i></a>
-                            <a title="Share on Telegram" data-toggle="tooltip" href="https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/{{$l->task->id}}&text=Please Check this Task on SADIQ" class="mx-1 hvr-glow"><i class="fa fa-telegram text-muted"></i></a>
-
-                            <a href="/tasks/{{$l->task->id}}" title="Go to Task" data-toggle="tooltip">
-                                <i class="fa fa-arrow-left mx-1 text-muted hvr-glow"></i>
-                            </a>
-
+            @endhasanyrole
+                <div class="col-sm-5 animated zoomIn">
+                    <div class="card bg-dark">
+                        <div class="card-header">
+                            <div class="float-right" data-toggle="collapse" data-target="#myActivities" style="cursor: pointer">
+                                <i class="fa fa-arrow-circle-down"></i> پیام
+                            </div>
                         </div>
-{{--                            <a href="/tasks/{{$l->task->id}}" class="list-group-item bg-dark">--}}
-                                <div class="border-bottom mb-2">
-                                    <small class="text-muted  ">
-                                        <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
-                                        در  {{$l->task->title}} - {{$l->diff}}:</small>
+                        <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
+                    </div>
+                </div>
+            @hasanyrole('admin|modir')
+                <div class="col-sm-4 animated zoomIn " data-toggle="collapse" data-target="#admin">
+                    <div class="card bg-info">
+                        <div class="card-header"  >
+                            <div class="" style="cursor: pointer">
+                                <i class="fa fa-arrow-circle-down"></i>مشاهده ده نظر اخیر - مدیر
+                            </div>
+                        </div>
+                        <div class="list-group collapse show list-group-flush bg-dark" id="admin">
+                            @foreach($lastComments as $l)
+                                <div  class="list-group-item bg-dark">
+                                    <div class="text-left">
+                                        <a href="/tasks/{{$l->task->id}}" title="Go to Task" data-toggle="tooltip"><i class="fa fa-arrow-left mx-1 text-muted hvr-glow"></i></a>
+                                    </div>
+                                    <div class="border-bottom mb-2">
+                                        <small class="text-muted">
+                                            <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
+                                            در  {{$l->task->title}} - {{$l->diff}}:
+                                        </small>
+                                    </div>
+                                    <small>{{$l->content}}</small>
                                 </div>
-
-                                <small>{{$l->content}}</small>
-{{--                                <i class="fa fa-arrow-left float-left"></i>--}}
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-
-{{--                            </a>--}}
-
-                    @endforeach
-
-                </div>
-                {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
-            </div>
-        </div>
             @else
-            <div class="col-sm-7 col-md-4 animated zoomIn" data-toggle="collapse" data-target="#myComments">
-                <div class="card bg-dark">
-                <div class="card-header"  >
-                <div class="" style="cursor: pointer">
-                    <i class="fa fa-arrow-circle-down"></i> آخرین نظرات
-                </div>
-                </div>
-
-                    <div class="list-group collapse show list-group-flush bg-dark" id="myComments">
-                        @foreach($lastMyComments as $l)
+                <div class="col-sm-7 col-md-7 animated zoomIn" data-toggle="collapse" data-target="#myComments">
+                    <div class="card bg-dark">
+                        <div class="card-header"  >
+                            <div class="" style="cursor: pointer">
+                                <i class="fa fa-arrow-circle-down"></i> آخرین نظرات
+                            </div>
+                        </div>
+                        <div class="list-group collapse show list-group-flush bg-dark" id="myComments">
+                            @foreach($lastMyComments as $l)
                                 <a href="/tasks/{{$l->task->id}}" class="list-group-item bg-dark">
                                     <div class="border-bottom mb-2">
                                         <small class="text-muted">
                                             <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
                                             در  {{$l->task->title}} - {{$l->diff}}:</small>
                                     </div>
-
                                     <small>{{$l->content}}</small>
                                     <i class="fa fa-arrow-left float-left"></i>
-
-
                                 </a>
-
-
-                        @endforeach
-
+                            @endforeach
+                        </div>
                     </div>
-                {{--<a href="/tasks" class="btn-block btn btn-sm btn-link"><small>همه</small></a>--}}
-            </div>
-            </div>
-                    @endhasanyrole
-            </div>
-
-
+                </div>
+            @endhasanyrole
+        </div>
     </div>
-
 @endsection
 @section('JS')
     <script type="text/javascript" src="/js/status.js"></script>

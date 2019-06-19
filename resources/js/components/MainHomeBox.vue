@@ -104,14 +104,23 @@
                     <div class="card-body"   v-if="tasks.length > 0 && isShow > 1">
 <!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
                         <div class="list-group bg-dark">
-                            <div class="" v-for="(item , index) in tasks.slice(0, tasksToShow)">
+                            <div class="border-danger" v-for="(item , index) in tasks.slice(0, tasksToShow)">
                                 <a data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()" :class="{'bg-secondary':item.lastStatus == 0,'bg-dark': item.lastStatus == 1,'bg-success text-dark': item.lastStatus == 2,'bg-dark text-light': item.lastStatus == 3}" class="list-group-item list-group-item-action flex-column align-items-start pointer">
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">{{item.task.title}}</h6>
-                                        <small class="text-muted">{{item.task.id}}</small>
+                                        <div>
+                                            <span class="badge badge-dark"><i :class="{'fa fa-users text-info': item.users.length > 1,'fa fa-user': item.users.length == 1}"></i></span> <span class="mb-1 h6">{{item.task.title}} <small class="text-muted ml-1">{{item.task.id}}</small></span>
+                                        </div>
+                                        <div class="">
+
+                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus < 2"></i>
+
+
+<!--                                            <a :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1"></i></a>-->
+                                        </div>
+
                                     </div>
-                                    <div>
-                                    <small class="mb-1">{{item.task.content}}</small>
+                                    <div class="">
+                                    <small class="mb-1 text-muted">{{item.task.content.substr(0,150)}}<span v-if="item.task.content.length > 150">...</span></small>
                                     </div>
                                     <div class="d-flex justify-content-start">
 <!--                                    <small class="text-muted" v-if="item.task.commentCount > 0">{{item.task.commentCount}} نظر</small>-->
@@ -121,21 +130,25 @@
                                 <div class="collapse" :id="'col'+item.id">
 
                                     <div class="card card-body">
-                                        <div class="d-flex w-100 justify-content-end">
-                                            <div class="">
-
-                                                <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus < 2"></i>
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <div class="text-center">
+                                                <img :title="u.name" :src="'/storage/avatars/' + u.avatar" alt="" style="width: 25px" class="img-circle mr-1" v-for="u in item.users">
                                             </div>
-
-
-
-                                        </div>
-
+                                            <div>
+                                                <a  class="text-muted" :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link ml-1 text-dark" ></i> <span class="text-dark">مشاهده</span></a>
+                                                <a  class="text-muted" :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1 text-dark"></i> <span class="text-dark">ویرایش</span></a>
+                                                <span class="bg-secondary bulb mr-3">
+                                                    <a title="Share on Whatsapp" data-toggle="tooltip" target="_blank" :href="'https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: ' + item.task.title + 'http://i.sadiq-co.com/tasks/'+ item.task.id" class="mx-2 "><i class="fa fa-whatsapp text-light"></i></a>
+                                                    <a title="Share on Telegram" data-toggle="tooltip" target="_blank" :href="'https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/' + item.task.id + '&text=Please Check this Task on SADIQ: ' + item.task.title" class="mx-2 "><i class="fa fa-telegram text-light"></i></a>
+                                                </span>
+<!--                                                <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus < 2"></i>-->
+                                        </div></div>
                                         <div class="row">
                                             <div class="col-xl-3 col-lg-4 col-md-6">
-                                                <a :href="'/storage/uploads/' + item.task.pic" target="_blank"><img class="img-fluid   " :src="'/storage/uploads/' + item.task.pic" :alt="item.task.id"></a>
+                                                 <a :href="'/storage/uploads/' + item.task.pic" target="_blank"><img class="img-fluid   " :src="'/storage/uploads/' + item.task.pic" :alt="item.task.id"></a>
                                             </div>
                                             <div class="col-xl-6 col-lg-8 col-md-6">
+                                                <p class="text-dark">توضیحات: {{item.task.content}}</p>
                                                 <form @submit.prevent="addComment(item.task.id)" autocomplete="off">
                                                     <div class="form-group">
                                                         <div class="input-group">
@@ -166,6 +179,8 @@
                                                     </div></a>
                                                 </div>
                                             </div>
+                                            <div class="col-xl-3">
+                                            </div>
                                         </div>
                                         <div class="d-flex w-100 justify-content-end">
                                             <div class="">
@@ -173,13 +188,10 @@
 <!--                                                <i class="fa fa-edit text-secondary mx-2 pointer"></i>-->
 <!--                                                <i class="fa fa-trash text-secondary mx-2 pointer"></i>-->
 
-                                                    <a :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link text-dark mx-2"></i></a>
-                                                    <a :href="'/tasks/' + item.task.id + 'edit'" target="_blank" title="ویرایش"><i class="fa fa-edit text-dark mx-2"></i></a>
+<!--                                                    <a :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link text-dark mx-2"></i></a>-->
+<!--                                                    <a :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit text-dark mx-2"></i></a>-->
                                             </div>
-                                                <div class="bg-success bulb mr-3">
-                                                    <a title="Share on Whatsapp" data-toggle="tooltip" target="_blank" :href="'https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: ' + item.task.title + 'http://i.sadiq-co.com/tasks/'+ item.task.id" class="mx-2 "><i class="fa fa-whatsapp text-light"></i></a>
-                                                    <a title="Share on Telegram" data-toggle="tooltip" target="_blank" :href="'https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/' + item.task.id + '&text=Please Check this Task on SADIQ: ' + item.task.title" class="mx-2 "><i class="fa fa-telegram text-light"></i></a>
-                                                </div>
+
 
                                             <div class="">
                                             </div>

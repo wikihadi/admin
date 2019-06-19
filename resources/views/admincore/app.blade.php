@@ -40,7 +40,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <style>
         .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
             color: #fff;
-            background-color: #676767!important;
+            background-color: #000000!important;
         }
         .nav-sidebar {
             overflow: visible!important;

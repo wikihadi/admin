@@ -437,7 +437,11 @@ public function statics(){
             $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', 1)->where('routine', 0)->orWhere('lastStatus', 2)->where('user_id', $u)->where('routine', 0)->orderBy('lastStatus','desc')->orderBy($ord , $ordOp)->get();
         }else{
             $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where($el, $op, $val)->orderBy($ord , $ordOp)->get();
-
+        }
+        foreach ($tasks as $key => $loop){
+            $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
+            $users = User::whereIn('id',$users)->get();
+            $loop->users = $users;
         }
             return $tasks;
 
