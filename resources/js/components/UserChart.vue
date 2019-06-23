@@ -1,5 +1,5 @@
 <template>
-    <div class="col-12 row mt-5 justify-content-center">
+    <div class="col-12 row mt-5 justify-content-center bg-light">
         <div class="col-sm-9 m-auto"><canvas id="myChart" width="100%"></canvas></div>
 
     </div>
@@ -45,7 +45,8 @@
                             'rgba(153, 102, 255, 1)',
                             'rgba(255, 159, 64, 1)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        steppedLine: false
                     }]
                 },
                 options: {

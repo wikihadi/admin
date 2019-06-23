@@ -17,7 +17,6 @@ use Verta;
 class StatusController extends Controller
 {
 
-
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +27,7 @@ class StatusController extends Controller
         $user = Auth::user();
         $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
-        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $statusesToMe = Status::with('user')->whereHas('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
         $dateBefore = Carbon::now();
 
         foreach ($statusesToMe as $key => $loop){
@@ -39,7 +38,7 @@ class StatusController extends Controller
 
         }
 
-        $statuses = Status::with('task','user')->whereNull('to_user')->orderBy('updated_at','DESC')->paginate(20);
+        $statuses = Status::with('task','user')->whereHas('user')->whereNull('to_user')->orderBy('updated_at','DESC')->paginate(20);
         //$tasks = Task::all();
         return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe'));
     }
@@ -242,6 +241,17 @@ class StatusController extends Controller
 //    }
 
 
+    public function addBoxToUsers(Request $request){
+            foreach ($request->get('to_user') as $t){
+              $status = new Status([
+                'status'    => 'box',
+                'content'   => $request->get('content'),
+                'to_user'   => $t,
+                'user_id'   => $request->get('user_id'),
+            ]);
+            $status->save();
+        }
+    }
     public function addStatusToBox(Request $request){
 
         $status = Status::create($request->all());
@@ -277,8 +287,29 @@ class StatusController extends Controller
         return $status;
     }
     public function statusListBox(){
-        if (isset($_GET['ID'])) {
-            $status = Status::where('status', 'box')->where('user_id', $_GET['ID'])->latest()->get();
+
+        if (isset($_GET['toid'])) {
+            $status = Status::with('user')->whereHas('user')->
+            where('status', 'box')->where('to_user', $_GET['toid'])->where('user_id', '!=', $_GET['toid'])
+                ->latest()->get();
+        }elseif (isset($_GET['fid'])) {
+            $status = Status::where('status', 'box')->where('to_user', $_GET['fid'])->where('forcedBox', 1)->latest()->get();
+        }elseif (isset($_GET['ID'])) {
+            $status = Status::where('status', 'box')->where('user_id', $_GET['ID'])->where('to_user', $_GET['ID'])->orWhere('user_id', $_GET['ID'])->where('to_user', null)->where('status', 'box')->latest()->get();
+        }elseif (isset($_GET['userPlayId'])) {
+            $status = Status::
+            where('user_id', $_GET['userPlayId'])->where('status','box-start')->
+            orWhere('user_id', $_GET['userPlayId'])->where('status','box-pause')->
+            orWhere('user_id', $_GET['userPlayId'])->where('status','box-end')->
+            latest()->first();
+        }elseif (isset($_GET['archiveBoxUserId'])) {
+            $status = Status::
+            where('user_id', $_GET['archiveBoxUserId'])->where('status','boxed')->
+            latest()->get();
+        }elseif (isset($_GET['archiveSentBoxUserId'])) {
+            $status = Status::with('toUser')->whereHas('toUser')->where('status','box')->
+            where('user_id', $_GET['archiveSentBoxUserId'])->where('to_user','!=',$_GET['archiveSentBoxUserId'])->
+            latest()->get();
         }else{
             $status = Status::where('status', 'box')->where('user_id', 0)->latest()->get();
         }
@@ -286,7 +317,7 @@ class StatusController extends Controller
     }
     public function commentList(){
 
-        $data = Status::with('user','toUser')->where('to_user',$_GET['ID'])->orWhere('user_id',$_GET['ID'])->whereNotNull('to_user')->orderBy('created_at','DESC')->get();
+        $data = Status::with('user','toUser')->where('status','status')->where('to_user',$_GET['ID'])->orWhere('user_id',$_GET['ID'])->where('status','status')->whereNotNull('to_user')->orderBy('created_at','DESC')->get();
         foreach ($data as $key => $loop) {
             date_default_timezone_set("Asia/Tehran");
             $loop->diff = verta($loop->created_at)->formatDifference();
@@ -433,7 +464,9 @@ public function statics(){
 //        }elseif($lastStatusOp == 'be'){
 //            $lastStatusOp = '>=';
 //        }
-        if ($val == 2){
+        if ($el == 'routine'){
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus','!=', 3)->where($el, $op, $val)->orderBy($ord , $ordOp)->get();
+        }else if ($val == 2){
             $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', 1)->where('routine', 0)->orWhere('lastStatus', 2)->where('user_id', $u)->where('routine', 0)->orderBy('lastStatus','desc')->orderBy($ord , $ordOp)->get();
         }else{
             $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where($el, $op, $val)->orderBy($ord , $ordOp)->get();
@@ -457,5 +490,19 @@ public function statics(){
             $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
         }
         return $comments;
+    }
+
+    public function newStatus($status,$content,$to_user,$task_id,$user_id,$post_id){
+        $s = new Status([
+            'status'    => $status,
+            'content'   => $content,
+            'to_user'   => $to_user,
+            'task_id'   => $task_id,
+            'user_id'   => $user_id,
+            'post_id'   => $post_id,
+        ]);
+        $s->save();
+//        Self::newStatus('boxed','test',null,1,null,null);
+
     }
 }

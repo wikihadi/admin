@@ -167,8 +167,8 @@
         </div>
         @endhasanyrole
     </div>
-    <main-home-box v-bind:user="{{Auth::id()}}"></main-home-box>
-    <user-chart></user-chart>
+    <main-home-box v-bind:user="{{Auth::id()}}" :users="{{$users}}"></main-home-box>
+{{--    <user-chart></user-chart>--}}
     <div class="col-12 mt-5 row justify-content-center">
         <div class="col-xl-9 col-lg-10 row m-auto">
             @hasanyrole('admin|modir')

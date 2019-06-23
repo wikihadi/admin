@@ -34,15 +34,17 @@
                                 <button type="button" :class="{'active':activeTab === 0}" class="btn btn-outline-info" @click.prevent="fetchRoutine()"><i :class="{'fa fa-circle':activeTab === 0,'fa fa-circle-o':activeTab !== 0}"></i> روتین</button>
                             </div>
                             <div class="mx-3"></div>
-                            <div class="btn-group">
+                            <div class="btn-group flex-wrap">
                                 <button type="button" :class="{'text-light':activeTab === 1,'text-muted':activeTab !== 1}" class="btn btn-dark" @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1,isShow=3"><i :class="{'fa fa-circle':activeTab === 1,'fa fa-circle-o':activeTab !== 1}"></i> در انتظار</button>
-                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button style="cursor: no-drop" disabled type="button" :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='معلق',activeTab=3,isShow=5"><i :class="{'fa fa-circle':activeTab === 7,'fa fa-circle-o':activeTab !== 7}"></i> معلق</button>
+                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
                                 <button type="button" :class="{'text-light':activeTab === 2,'text-muted':activeTab !== 2}" class="btn btn-dark" @click.prevent="fetchCurrentTasks()"><i :class="{'fa fa-circle':activeTab === 2,'fa fa-circle-o':activeTab !== 2}"></i> درحال انجام</button>
-                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
                                 <button style="cursor: no-drop" disabled type="button" :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5"><i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 3}"></i> پیگیری</button>
-                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
                                 <button style="cursor: no-drop" disabled type="button" :class="{'text-light':activeTab === 4,'text-muted':activeTab !== 4}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6"><i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i> چاپ</button>
-                                <button class="btn btn-dark" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
                                 <button type="button" :class="{'text-light':activeTab === 5,'text-muted':activeTab !== 5}" class="btn btn-dark" @click.prevent="tasks='',fetchTasks('lastStatus','>=',3,'updated_at','desc'),commentFetch(),title='کارهای پایان یافته',activeTab=5,isShow=7"><i :class="{'fa fa-circle':activeTab === 5,'fa fa-circle-o':activeTab !== 5}"></i> نهایی</button>
                             </div>
                         </div>
@@ -60,23 +62,110 @@
 <!--                    BOX------------------------------------------------------------------------------------------->
                     <div class="card-body"   v-if="isShow === 1">
 <!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
+                        <div class="row">
+                            <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>
+                            <transition name="fade">
+                            <div class="col-md-8 m-auto" v-if="showBoxForm">
+                                <form @submit.prevent="addStatus(user),boxFetch()">
+                                    <div class="input-group">
+        <!--                                <div class="form-group"  v-for="u in users">-->
+        <!--                                    <label :for="'toUserId' + u.id">{{u.name}}</label>-->
+        <!--                                    <input type="checkbox" :id="'toUserId' + u.id" :value="u.id" name="toUserId[]" v-model="toUserId">-->
+        <!--                                </div>-->
+                                        <div class="input-group-prepend">
+                                            <select name="to_user" v-model="toUserId" class="form-control bg-dark" placeholder="asd">
+                                                <option v-for="u in users" :value="u.id" class="bg-dark" v-if="u.id == user" selected>خودم</option>
+                                                <option disabled>--------------</option>
+                                                <option v-for="u in users" :value="u.id" class="bg-dark" v-if="u.id != user">{{u.name}}</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control bg-dark" name="content" v-model="newBox" placeholder="اینجا بنویس..." id="content" autocomplete="off" autofocus>
+                                        <div class="input-group-append">
 
-<!--                        <div class="alert">{{loop.length}} باکس</div>-->
-                        <form @submit.prevent="addStatus(user),boxFetch()">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-dark" name="content" v-model="newBox" placeholder="اینجا بنویس..." id="content" autocomplete="off" autofocus>
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-arrow-down"></i></button>
+                                            <button type="submit" class="btn btn-success"><i class="fa fa-arrow-down"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            </transition>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                        <div class="card-body">
+                            <div class="list-group-item bg-dark text-center text-muted">خودم <small class="text-muted">({{boxes.length}})</small></div>
+                            <div class="list-group-item bg-dark text-center" v-if="boxes.length <= 0"><i class="fa fa-minus"></i></div>
+
+                            <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
+                                <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i>
+                                <small>{{box.content}}</small>
+                                <small class="pull-left">
+                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
+                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('توقف باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
+                                </small>
+                            </div>
+                            <div class="text-center d-flex" v-if="boxes.length > 5">
+                                <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
+                                <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>
+                            </div>
+                        </div>
+                        </div>
+                            <div class="col">
+                        <div class="card-body">
+                            <div class="list-group-item bg-dark text-center text-muted">همکار <small class="text-muted">({{sentBoxes.length}})</small></div>
+                            <div class="list-group-item bg-dark text-center" v-if="sentBoxes.length <= 0"><i class="fa fa-minus"></i></div>
+                            <div class="list-group-item bg-dark" v-for="box in sentBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
+                                <img :src="'/storage/avatars/' + box.user.avatar" class="img-circle" style="width: 20px" alt="">
+                                <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{box.content}}</small>
+                                <small class="pull-left">
+                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
+                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
+                                </small>
+                            </div>
+                            <div class="text-center d-flex" v-if="sentBoxes.length > 5">
+                                <div @click.prevent="sentBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
+                                <div @click.prevent="sentBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow < sentBoxes.length"><i class="fa fa-plus"></i></div>
+                            </div>
+                        </div>
+                        </div>
+                            <div class="col">
+                        <div class="card-body">
+                            <div class="list-group-item bg-dark text-center text-muted">مدیریت <small class="text-muted">({{forcedBoxes.length}})</small></div>
+                            <div class="list-group-item bg-dark text-center" v-if="forcedBoxes.length <= 0"><i class="fa fa-minus"></i></div>
+                            <div class="list-group-item bg-dark" v-for="box in forcedBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
+                                <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{}}</small>
+                                <small class="pull-left">
+                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
+                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
+                                </small>
+                            </div>
+                            <div class="text-center" v-if="forcedBoxes.length > 5">
+                                <a @click.prevent="forcedBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-arrow-up"></i></a>
+                                <a @click.prevent="forcedBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow < forcedBoxes.length"><i class="fa fa-arrow-down"></i></a>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <button :class="{'text-muted':archiveShow !== 0,'text-light':archiveShow === 0}" class="btn btn-sm btn-link" @click="archiveBoxFetch"><i class="fa fa-refresh" v-if="archiveBoxes.length >0 && archiveShow == 0"></i> آرشیو باکس</button>
+                                <button :class="{'text-muted':archiveShow !== 1,'text-light':archiveShow === 1}" class="btn btn-sm btn-link" @click="archiveSentBoxFetch"><i class="fa fa-refresh" v-if="archiveBoxes.length >0 && archiveShow == 1"></i> باکس درخواستی</button>
+                                <div class="card-body" v-if="archiveBoxes.length >0">
+                                    <div class="list-group-item bg-dark text-center text-muted">{{archiveTitle}} <small class="text-muted">({{archiveBoxes.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="archiveBoxes.length <= 0"><i class="fa fa-minus"></i></div>
+                                    <div class="list-group-item bg-secondary" v-for="box in archiveBoxes.slice(0, archiveBoxToShow)" :id="'box-' + box.id">
+<!--                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i>-->
+                                        <img :src="'/storage/avatars/' + box.to_user.avatar" class="img-circle" style="width: 20px" alt="" v-if="archiveShow == 1">
+                                        <i class="fa fa-minus" v-if="archiveShow == 0"></i>
+                                        <small>{{box.content}}</small>
+                                    </div>
+                                    <div class="text-center d-flex" v-if="archiveBoxes.length > 5">
+                                        <div @click.prevent="archiveBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="archiveBoxToShow > 5"><i class="fa fa-minus"></i></div>
+                                        <div @click.prevent="archiveBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="archiveBoxToShow < archiveBoxes.length"></i></div>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                        <div class="list-group-item bg-dark" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
-                            <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id)"></i> <small>{{box.content}}</small>
-                         </div>
-                        <div class="text-center" v-if="boxes.length > 5">
-                            <a @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-arrow-up"></i></a>
-                            <a @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-arrow-down"></i></a>
-                        </div>
+                            </div>
                     </div>
 <!--                    SEARCH RESULT--------------------------------------------------------------------------------->
                     <div class="card-body"   v-if="loop.length > 0 && isShow === -1">
@@ -108,7 +197,7 @@
                                 <a data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()" :class="{'bg-secondary':item.lastStatus == 0,'bg-dark': item.lastStatus == 1,'bg-success text-dark': item.lastStatus == 2,'bg-dark text-light': item.lastStatus == 3}" class="list-group-item list-group-item-action flex-column align-items-start pointer">
                                     <div class="d-flex w-100 justify-content-between">
                                         <div>
-                                            <span class="badge badge-dark"><i :class="{'fa fa-users text-info': item.users.length > 1,'fa fa-user': item.users.length == 1}"></i></span> <span class="mb-1 h6">{{item.task.title}} <small class="text-muted ml-1">{{item.task.id}}</small></span>
+                                            <span class="badge badge-dark"><i :class="{'fa fa-users text-info': item.users.length > 1,'fa fa-user': item.users.length == 1}"></i></span> <span class="mb-1 h6"><span class="badge badge-info">{{item.task.subject}}</span> {{item.task.title}} <small class="text-muted ml-1">{{item.task.id}}</small></span>
                                         </div>
                                         <div class="">
 
@@ -215,12 +304,20 @@
 
 <script>
     export default {
-        props:['user'],
+        props:['user','users'],
         data(){
             return{
+                showBoxForm: false,
+                archiveTitle: 'آرشیو',
+                archiveShow: '',
+                boxStarted: '',
+                toUserId: this.user,
                 isShow: 0,
                 newBox:'',
                 boxes:[],
+                sentBoxes:[],
+                forcedBoxes:[],
+                archiveBoxes:[],
                 boxToShow:5,
                 showBox:false,
                 activeTab: 2,
@@ -229,6 +326,8 @@
                 content: '',
                 tasksToShow: 5,
                 toShow: 5,
+                archiveBoxToShow: 5,
+                played: true,
                 noRes: false,
                 showMenu: false,
                 showTasks: false,
@@ -239,9 +338,23 @@
             }
         },
         mounted: function () {
-            this.fetchCurrentTasks();
+            this.tasks='';
+            this.title='باکس';
+            this.activeTab=6;
+            this.isShow=1;
+            this.boxFetch();
+
+            this.boxStartedCheck();
+
         },
         methods:{
+            toggleBoxForm: function(){
+                if (this.showBoxForm === false){
+                    this.showBoxForm = true
+                }else{
+                    this.showBoxForm = false
+                }
+            },
             fetchCurrentTasks: function(){
                 this.tasks='';
                 this.fetchTasks('lastStatus','<=',2,'order_column','asc');
@@ -258,7 +371,7 @@
                 this.activeTab=0;
                 this.isShow=2
             },
-            CheckItem: function(event,id){
+            CheckItem: function(event,id,content){
                     axios.post('/api/statusUpdateBox/' + id,{
                         status: 'boxed',
                     })
@@ -268,17 +381,54 @@
                         .catch(function (error) {
                             console.log(error);
                         });
+                this.newStatus('پایان باکس ' + content,'box-end',null,null,id,0);
             },
             boxFetch: function(){
+                this.myboxFetch();
+                this.othersBoxFetch();
+                this.forcedBoxFetch();
+                this.boxStartedCheck();
+            },
+            archiveBoxFetch: function(){
+                let url = '/api/statusListBox?archiveBoxUserId=' + this.user;
+                axios.get(url).then(response => this.archiveBoxes = response.data);
+                this.archiveShow = 0;
+                this.archiveTitle = 'آرشیو'
+
+            },
+            archiveSentBoxFetch: function(){
+                let url = '/api/statusListBox?archiveSentBoxUserId=' + this.user;
+                axios.get(url).then(response => this.archiveBoxes = response.data);
+                this.archiveShow = 1;
+                this.archiveTitle = 'باکسهای درخواستی'
+
+            },
+            myboxFetch: function(){
                 let url = '/api/statusListBox?ID=' + this.user;
                 axios.get(url).then(response => this.boxes = response.data)
             },
+            othersBoxFetch: function(){
+                let url = '/api/statusListBox?toid=' + this.user;
+                axios.get(url).then(response => this.sentBoxes = response.data)
+            },
+            forcedBoxFetch: function(){
+                let url = '/api/statusListBox?fid=' + this.user;
+                axios.get(url).then(response => this.forcedBoxes = response.data)
+            },
+            boxStartedCheck: function(){
+                let url = '/api/statusListBox?userPlayId=' + this.user;
+                axios.get(url).then(response => this.boxStarted = response.data)
+            },
             addStatus(user){
                 if (this.newBox != ''){
+                        if (this.toUserId == ''){
+                            this.toUserId = user
+                        }
 
 
                     axios.post('/api/addStatusToBox',{
                         content:this.newBox,
+                        to_user: this.toUserId,
                         user_id: user,
                         status: 'box'
                     })
@@ -296,14 +446,36 @@
                     // console.log('Adding');
                 }
             },
-            newStatus: function(content,status,task_id,routine){
+            addBoxToUsers(user){
+                if (this.newBox != ''){
+                    axios.post('/api/addBoxToUsers',{
+                        content:this.newBox,
+                        to_user: this.toUserId,
+                        user_id: user,
+                        status: 'box'
+                    })
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    this.newBox = '';
+
+                }
+            },
+            newStatus: function(content,status,task_id,routine,re_id,forcedBox){
                     axios.post('/api/addStatusToBox',{
                         content: content,
                         user_id: this.user,
                         status: status,
-                        task_id: task_id
+                        task_id: task_id,
+                        re_id: re_id,
+                        forcedBox: forcedBox,
                     });
-                    if(routine === 1){
+                    if (status == 'box-start' || status == 'box-pause' || status == 'box-end'){
+                        this.boxFetch();
+                    }else if(routine === 1){
                         this.fetchRoutine();
                     }else{
                         this.fetchCurrentTasks();

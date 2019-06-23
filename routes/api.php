@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::resource('checklist', 'CheckListController');
 Route::get('homeStatusToMe','StatusController@homeStatusToMe');
 Route::post('addStatusToBox','StatusController@addStatusToBox');
+Route::post('addBoxToUsers','StatusController@addBoxToUsers');
 Route::get('statusListBox','StatusController@statusListBox');
 Route::post('statusUpdateBox/{id}','StatusController@statusUpdate');
 Route::post('updateCost/{id}','StatusController@updateCost');

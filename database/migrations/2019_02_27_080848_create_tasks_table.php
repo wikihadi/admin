@@ -47,6 +47,7 @@ class CreateTasksTable extends Migration
             $table->bigInteger('cost')->nullable();
             $table->integer('paid')->default(0);
             $table->integer('payOK')->default(0);
+
         });
 
         Schema::create('task_users', function (Blueprint $table) {

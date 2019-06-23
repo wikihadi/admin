@@ -1,20 +1,19 @@
 <template>
     <div>
         <div class="p-3">
-        <form @submit.prevent="addStatus()">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                <select name="to_user" v-model="toUserId" class="form-control form-control-sm bg-dark" placeholder="asd" required>
-                <option v-for="u in users" :value="u.id" class="bg-dark">{{u.name}}</option>
-            </select></div>
-            <input type="text" class="form-control form-control-sm bg-dark" name="content" v-model="content" id="content" placeholder="متن پیام" required>
-                <div class="input-group-append">
-                    <button class="btn btn-success btn-sm" type="submit">ارسال</button>
+            <form @submit.prevent="addStatus()">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <select name="to_user" v-model="toUserId" class="form-control form-control-sm bg-dark" placeholder="asd" required>
+                            <option v-for="u in users" :value="u.id" class="bg-dark">{{u.name}}</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control form-control-sm bg-dark" name="content" v-model="content" id="content" placeholder="متن پیام" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-success btn-sm" type="submit">ارسال</button>
+                    </div>
                 </div>
-
-
-            </div>
-        </form>
+            </form>
         </div>
         <div class="list-group collapse show list-group-flush bg-dark" id="myActivities">
 

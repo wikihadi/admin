@@ -33,6 +33,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $today = today();
+        $dates = [];
+
+        for($i=1; $i < $today->daysInMonth + 1; ++$i) {
+            $dates[] = \Carbon\Carbon::createFromDate($today->year, $today->month, $i)->format('l');
+        }
+
         $user = Auth::user();
         $myTasksStatus = $user->taskOrder()->get();
         $usersStatus = User::all();
@@ -99,7 +106,7 @@ class HomeController extends Controller
             $loop->diff = verta($loop->created_at)->formatDifference();
         }
 
-        return view('home',compact('user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
+        return view('home',compact('dates','user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
     }
 
 

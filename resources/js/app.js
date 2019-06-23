@@ -9,6 +9,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.vSelect = require('vue-select');
+import 'vue-select/dist/vue-select.css';
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +23,7 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Vue.component('v-select', vSelect);
 
 Vue.component('tasks-component', require('./components/TasksComponent.vue').default);
 Vue.component('routine-component', require('./components/TasksRoutineComponent').default);
