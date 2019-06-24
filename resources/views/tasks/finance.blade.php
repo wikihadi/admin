@@ -32,7 +32,55 @@
                 @endif
         </nav>
     </div>
+
     @endrole
+        @hasanyrole('finance|admin')
+
+    <div class="container">
+        <nav class="navbar navbar-expand-sm navbar-white bg-white">
+            {{--            <a class="navbar-brand" href="#">Navbar</a>--}}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#searchbar" aria-controls="searchbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="searchbar">
+                    @role('finance')
+                        <form action="/finance-final" class="form-inline">
+                    @endrole
+                            @role('admin')
+                            <form action="/finance" class="form-inline">
+
+                            @endrole
+
+
+                            <input type="text" name="s"
+{{--                                   value="@php if (isset($_GET['s'])){ echo $_GET['s']; } @endphp" --}}
+                                   class="form-control" placeholder="عنوان..." autofocus>
+                                <select name="type" class="form-control">
+                                    <option value="%%" selected>انتخاب نوع</option>
+                                    @foreach($type as $t)
+                                        <option value="{{$t}}">{{$t}}</option>
+                                    @endforeach
+                                </select>
+                                <select name="brand" class="form-control">
+                                    <option value="%%" selected>انتخاب برند</option>
+                                    @foreach($brand as $t)
+                                        <option value="{{$t}}">{{$t}}</option>
+                                    @endforeach
+                                </select>
+                                <select name="forProduct" class="form-control">
+                                    <option value="%%" selected>انتخاب برای</option>
+                                    @foreach($forProduct as $t)
+                                        <option value="{{$t}}">{{$t}}</option>
+                                    @endforeach
+                                </select>
+                    <button type="submit" class="btn btn-link"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </nav>
+    </div>
+    @endhasanyrole
+
+
     <div class="container-fluid">
 
     <table class="table table-striped table-hover">

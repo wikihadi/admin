@@ -740,7 +740,25 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         return redirect($urlP)->with('success');
     }
     public function finance(){
-        if (isset($_GET['status'])){
+
+
+
+        if (isset($_GET['s'])){
+            $s = $_GET['s'];
+            $stype = $_GET['type'];
+            $sbrand = $_GET['brand'];
+            $sforProduct = $_GET['forProduct'];
+            $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
+            $tasks = Task::
+            where('type', 'like', $stype)->
+            where('brand', 'like', $sbrand)->
+            where('forProduct', 'like', $sforProduct)
+                ->where(function ($q) use ($searchValues) {
+                    foreach ($searchValues as $value) {
+                        $q->where('title', 'like', "%{$value}%")
+                            ->where('payOK', 1);
+                    }
+                })->get();}else if (isset($_GET['status'])){
             $status = $_GET['status'];
             $sort = $_GET['sort'];
             $order = $_GET['order'];
@@ -763,7 +781,16 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         foreach ($total as $t){
             $sum += $t;
         }
-        return view('tasks.finance', compact('tasks','sum'));
+        $taskSearch = Task::orderBy('updated_at','desc')->get();
+
+        $types = $taskSearch->pluck('type')->toArray();
+        foreach ($types as $c) {$type[$c] = $c;}
+        $brands = $taskSearch->pluck('brand')->toArray();
+        foreach ($brands as $c) {$brand[$c] = $c;}
+        $forProducts = $taskSearch->pluck('forProduct')->toArray();
+        foreach ($forProducts as $c) {$forProduct[$c] = $c;}
+
+        return view('tasks.finance', compact('tasks','sum','type','brand','forProduct'));
     }
     public function finance1(){
         $taskDone1 = TaskOrderUser::where('isDone',1)->pluck('task_id')->toArray();
@@ -780,10 +807,35 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         return view('tasks.finance', compact('tasks','sum'));
     }
     public function finance2(){
-
+        if (isset($_GET['s'])){
+            $s = $_GET['s'];
+            $stype = $_GET['type'];
+            $sbrand = $_GET['brand'];
+            $sforProduct = $_GET['forProduct'];
+            $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
+            $tasks = Task::
+                where('type', 'like', $stype)->
+                where('brand', 'like', $sbrand)->
+                where('forProduct', 'like', $sforProduct)
+                ->where(function ($q) use ($searchValues) {
+                foreach ($searchValues as $value) {
+                    $q->where('title', 'like', "%{$value}%")
+                        ->where('payOK', 1);
+                }
+            })->get();}else{
             $tasks = Task::orderBy('updated_at','desc')->where('payOK', 1)->get();
+        }
 
-        return view('tasks.finance', compact('tasks'));
+        $taskSearch = Task::orderBy('updated_at','desc')->where('payOK', 1)->get();
+
+        $types = $taskSearch->pluck('type')->toArray();
+        foreach ($types as $c) {$type[$c] = $c;}
+        $brands = $taskSearch->pluck('brand')->toArray();
+        foreach ($brands as $c) {$brand[$c] = $c;}
+        $forProducts = $taskSearch->pluck('forProduct')->toArray();
+        foreach ($forProducts as $c) {$forProduct[$c] = $c;}
+
+        return view('tasks.finance', compact('tasks','type','brand','forProduct'));
     }
     public function financeUpdate($id,Request $request)
     {
