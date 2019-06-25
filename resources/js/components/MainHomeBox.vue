@@ -62,6 +62,34 @@
 <!--                    BOX------------------------------------------------------------------------------------------->
                     <div class="card-body"   v-if="isShow === 1">
 <!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
+                        <div class="row mb-3">
+                            <div class="col-12">
+
+
+                                <div class="alert alert-success" v-if="47.3>timePassed>52.6">ساعت ناهاری</div>
+
+<!--                                <div class="alert alert-danger" v-if="timePassed>100">ساعت کاری شما پایان یافته است. لطفا جهت محاسبه ساعت اضافه کار، قبل از خروج، ساعت پایان کار را اعلام کنید</div>-->
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">08:30</small>
+                                    <small class="text-muted">{{curTime}}</small>
+                                    <small class="text-muted">18:00</small>
+                                </div>
+
+                                <div class="progress" style="height: 2px;">
+                                    <div :class="{'bg-warning' :timePassed >85 , 'bg-info' :timePassed < 85, 'bg-danger' : timePassed >=100}" class="progress-bar progress-bar-striped progress-bar-animated" :title="curTime" role="progressbar" :aria-valuenow="timePassed" aria-valuemin="0" aria-valuemax="660" :style="'width:' + timePassed + '%'">
+                                    </div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-light" style="width:40%">
+                                    </div>
+                                    <div class="progress-bar bg-warning" style="width:10%">
+                                        Warning
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>
                             <transition name="fade">
@@ -335,6 +363,9 @@
                 loop:[],
                 tasks:[],
                 comments:[],
+                timePassed: '',
+                curTime:'',
+                mm:''
             }
         },
         mounted: function () {
@@ -345,9 +376,24 @@
             this.boxFetch();
 
             this.boxStartedCheck();
+            this.timing();
+            setInterval(this.timing, 1000)
 
         },
         methods:{
+            timing: function(){
+                let d = new Date();
+                let h = d.getHours();
+                let m = d.getMinutes();
+                let s = d.getSeconds();
+                this.mm = (h*60)+m;
+                this.timePassed = (((((h*60)+m)-510)*100)/570);
+
+                h = (h < 10) ? "0" + h : h;
+                m = (m < 10) ? "0" + m : m;
+                s = (s < 10) ? "0" + s : s;
+                this.curTime = h +':'+m+':'+s;
+            },
             toggleBoxForm: function(){
                 if (this.showBoxForm === false){
                     this.showBoxForm = true
@@ -388,6 +434,7 @@
                 this.othersBoxFetch();
                 this.forcedBoxFetch();
                 this.boxStartedCheck();
+
             },
             archiveBoxFetch: function(){
                 let url = '/api/statusListBox?archiveBoxUserId=' + this.user;

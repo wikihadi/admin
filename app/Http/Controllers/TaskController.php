@@ -783,11 +783,11 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         }
         $taskSearch = Task::orderBy('updated_at','desc')->get();
 
-        $types = $taskSearch->pluck('type')->toArray();
+        $types = $taskSearch->pluck('type')->sort()->toArray();
         foreach ($types as $c) {$type[$c] = $c;}
-        $brands = $taskSearch->pluck('brand')->toArray();
+        $brands = $taskSearch->pluck('brand')->sort()->toArray();
         foreach ($brands as $c) {$brand[$c] = $c;}
-        $forProducts = $taskSearch->pluck('forProduct')->toArray();
+        $forProducts = $taskSearch->pluck('forProduct')->sort()->toArray();
         foreach ($forProducts as $c) {$forProduct[$c] = $c;}
 
         return view('tasks.finance', compact('tasks','sum','type','brand','forProduct'));
@@ -828,11 +828,11 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 
         $taskSearch = Task::orderBy('updated_at','desc')->where('payOK', 1)->get();
 
-        $types = $taskSearch->pluck('type')->toArray();
+        $types = $taskSearch->pluck('type')->sort()->toArray();
         foreach ($types as $c) {$type[$c] = $c;}
-        $brands = $taskSearch->pluck('brand')->toArray();
+        $brands = $taskSearch->pluck('brand')->sort()->toArray();
         foreach ($brands as $c) {$brand[$c] = $c;}
-        $forProducts = $taskSearch->pluck('forProduct')->toArray();
+        $forProducts = $taskSearch->pluck('forProduct')->sort()->toArray();
         foreach ($forProducts as $c) {$forProduct[$c] = $c;}
 
         return view('tasks.finance', compact('tasks','type','brand','forProduct'));

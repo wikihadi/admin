@@ -2067,6 +2067,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'users'],
   data: function data() {
@@ -2098,7 +2126,10 @@ __webpack_require__.r(__webpack_exports__);
       searchValue: '',
       loop: [],
       tasks: [],
-      comments: []
+      comments: [],
+      timePassed: '',
+      curTime: '',
+      mm: ''
     };
   },
   mounted: function mounted() {
@@ -2108,8 +2139,22 @@ __webpack_require__.r(__webpack_exports__);
     this.isShow = 1;
     this.boxFetch();
     this.boxStartedCheck();
+    this.timing();
+    setInterval(this.timing, 1000);
   },
   methods: {
+    timing: function timing() {
+      var d = new Date();
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var s = d.getSeconds();
+      this.mm = h * 60 + m;
+      this.timePassed = (h * 60 + m - 510) * 100 / 570;
+      h = h < 10 ? "0" + h : h;
+      m = m < 10 ? "0" + m : m;
+      s = s < 10 ? "0" + s : s;
+      this.curTime = h + ':' + m + ':' + s;
+    },
     toggleBoxForm: function toggleBoxForm() {
       if (this.showBoxForm === false) {
         this.showBoxForm = true;
@@ -74547,6 +74592,63 @@ var render = function() {
           _vm._v(" "),
           _vm.isShow === 1
             ? _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("div", { staticClass: "col-12" }, [
+                    47.3 > _vm.timePassed > 52.6
+                      ? _c("div", { staticClass: "alert alert-success" }, [
+                          _vm._v("ساعت ناهاری")
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between" },
+                      [
+                        _c("small", { staticClass: "text-muted" }, [
+                          _vm._v("08:30")
+                        ]),
+                        _vm._v(" "),
+                        _c("small", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(_vm.curTime))
+                        ]),
+                        _vm._v(" "),
+                        _c("small", { staticClass: "text-muted" }, [
+                          _vm._v("18:00")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "progress",
+                        staticStyle: { height: "2px" }
+                      },
+                      [
+                        _c("div", {
+                          staticClass:
+                            "progress-bar progress-bar-striped progress-bar-animated",
+                          class: {
+                            "bg-warning": _vm.timePassed > 85,
+                            "bg-info": _vm.timePassed < 85,
+                            "bg-danger": _vm.timePassed >= 100
+                          },
+                          style: "width:" + _vm.timePassed + "%",
+                          attrs: {
+                            title: _vm.curTime,
+                            role: "progressbar",
+                            "aria-valuenow": _vm.timePassed,
+                            "aria-valuemin": "0",
+                            "aria-valuemax": "660"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(6)
+                  ])
+                ]),
+                _vm._v(" "),
                 _c(
                   "div",
                   { staticClass: "row" },
@@ -75360,7 +75462,7 @@ var render = function() {
                           "table table-hover table-striped table-borderless"
                       },
                       [
-                        _vm._m(6),
+                        _vm._m(7),
                         _vm._v(" "),
                         _vm._l(_vm.loop.slice(0, _vm.toShow), function(
                           item,
@@ -75747,7 +75849,7 @@ var render = function() {
                                               }
                                             }),
                                             _vm._v(" "),
-                                            _vm._m(7, true)
+                                            _vm._m(8, true)
                                           ]
                                         )
                                       ])
@@ -75866,7 +75968,7 @@ var render = function() {
                                                 href: "/tasks/" + item.task.id
                                               }
                                             },
-                                            [_vm._m(8, true)]
+                                            [_vm._m(9, true)]
                                           )
                                         : _vm._e()
                                     ],
@@ -75878,7 +75980,7 @@ var render = function() {
                               _c("div", { staticClass: "col-xl-3" })
                             ]),
                             _vm._v(" "),
-                            _vm._m(9, true)
+                            _vm._m(10, true)
                           ])
                         ]
                       )
@@ -76002,6 +76104,30 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fa fa-angle-double-left text-muted" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "progress" }, [
+      _c("div", {
+        staticClass: "progress-bar bg-light",
+        staticStyle: { width: "40%" }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "progress-bar bg-warning",
+          staticStyle: { width: "10%" }
+        },
+        [
+          _vm._v(
+            "\n                                        Warning\n                                    "
+          )
+        ]
+      )
+    ])
   },
   function() {
     var _vm = this
