@@ -11,7 +11,9 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.vSelect = require('vue-select');
 import 'vue-select/dist/vue-select.css';
+import VueRandomColor from 'vue-randomcolor';
 
+Vue.use(VueRandomColor);
 
 /**
  * The following block of code may be used to automatically register your

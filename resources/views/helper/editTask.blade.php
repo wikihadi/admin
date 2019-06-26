@@ -15,14 +15,13 @@
                 <option value="طراحی">طراحی</option>
                 <option value="اجرایی">اجرایی</option>
                 <option value="دیتا اینتری">دیتا اینتری</option>
-                <option value="مذاکرات">مذاکرات</option>
                 <option value="نظارتی">نظارتی</option>
                 <option value="مشاور">مشاور</option>
                 <option value="برنامه نویسی">برنامه نویسی</option>
-                <option value="خدماتی">خدماتی</option>
                 <option value="پیگیری">پیگیری</option>
                 <option value="بازطراحی">بازطراحی</option>
-
+                <option value="خرید">خرید</option>
+                <option value="جلسه با">جلسه با</option>
             </select>
         </div>
         <div class="form-group col-sm-4 formChange">

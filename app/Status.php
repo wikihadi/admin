@@ -23,4 +23,8 @@ class Status extends Model
     {
         return $this->belongsTo('App\Task','task_id','id')->select('title','id');
     }
+    public function box()
+    {
+        return $this->belongsTo('App\Status','re_id','id');
+    }
 }

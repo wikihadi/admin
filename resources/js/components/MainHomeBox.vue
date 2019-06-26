@@ -1,5 +1,5 @@
 <template>
-        <div class="col-12 row mt-5 justify-content-center">
+        <div class="col-12 row mt-5 justify-content-center" :style="'background:' + this.$randomColor()">
                 <div class="col-xl-9 col-lg-10">
                 <div class="card bg-dark">
                     <div class="card-header">
@@ -75,17 +75,22 @@
                                     <small class="text-muted">18:00</small>
                                 </div>
 
-                                <div class="progress" style="height: 2px;">
+                                <div class="progress" style="height: 2px;" @click="checkChartData()">
                                     <div :class="{'bg-warning' :timePassed >85 , 'bg-info' :timePassed < 85, 'bg-danger' : timePassed >=100}" class="progress-bar progress-bar-striped progress-bar-animated" :title="curTime" role="progressbar" :aria-valuenow="timePassed" aria-valuemin="0" aria-valuemax="660" :style="'width:' + timePassed + '%'">
                                     </div>
                                 </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-light" style="width:40%">
+<!--                                    <h1 v-for="s in chartData.startsToday">{{s.content}}</h1>-->
+                                <div v-if="!taskMeterToday">
+                                    <small class="text-muted">{{chartData[0].task.title}}</small>
+                                    <div class="progress" style="height: 2px;">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" :title="chartData[0].task.title" :style="'width:' + timePassed + '%'"></div>
                                     </div>
-                                    <div class="progress-bar bg-warning" style="width:10%">
-                                        Warning
+                                </div>
+                                <div v-if="taskMeterToday">
+                                    <small class="text-muted">1</small>
+                                    <div class="progress" style="height: 15px;">
+                                        <div v-for="s in chartData.startsToday" class="progress-bar progress-bar-striped progress-bar-animated" :title="s.task.title" :style="'width:10%;background:red'"></div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -365,7 +370,11 @@
                 comments:[],
                 timePassed: '',
                 curTime:'',
-                mm:''
+                chartData:[],
+                d:'',
+                taskMeterToday: true,
+                taskMeterEnd:''
+
             }
         },
         mounted: function () {
@@ -378,15 +387,17 @@
             this.boxStartedCheck();
             this.timing();
             setInterval(this.timing, 1000)
-
+            this.chartFetch();
+            // this.checkChartData();
         },
+
         methods:{
             timing: function(){
                 let d = new Date();
+                this.d = d;
                 let h = d.getHours();
                 let m = d.getMinutes();
                 let s = d.getSeconds();
-                this.mm = (h*60)+m;
                 this.timePassed = (((((h*60)+m)-510)*100)/570);
 
                 h = (h < 10) ? "0" + h : h;
@@ -448,6 +459,25 @@
                 axios.get(url).then(response => this.archiveBoxes = response.data);
                 this.archiveShow = 1;
                 this.archiveTitle = 'باکسهای درخواستی'
+
+            },
+            chartFetch: function(){
+                let url = '/api/chartFetch?ID=' + this.user;
+                axios.get(url).then(response => this.chartData = response.data);
+            },
+            checkChartData: function(){
+                // let d = new Date();
+                // let dd = this.chartData[0].created_at.substr(8, 2);
+                // let hh = parseInt(this.chartData[0].created_at.substr(11, 2));
+                // let mm = parseInt(this.chartData[0].created_at.substr(14, 2));
+                // console.log((hh*60)+mm);
+
+                // if(d.getDate() == dd){
+                //     this.taskMeterToday= true;
+                // }else{
+                //     this.taskMeterToday= false;
+                //     this.taskMeterEnd = 10
+                // }
 
             },
             myboxFetch: function(){

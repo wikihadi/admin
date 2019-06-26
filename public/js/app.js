@@ -2095,6 +2095,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'users'],
   data: function data() {
@@ -2129,7 +2134,10 @@ __webpack_require__.r(__webpack_exports__);
       comments: [],
       timePassed: '',
       curTime: '',
-      mm: ''
+      chartData: [],
+      d: '',
+      taskMeterToday: true,
+      taskMeterEnd: ''
     };
   },
   mounted: function mounted() {
@@ -2141,14 +2149,15 @@ __webpack_require__.r(__webpack_exports__);
     this.boxStartedCheck();
     this.timing();
     setInterval(this.timing, 1000);
+    this.chartFetch(); // this.checkChartData();
   },
   methods: {
     timing: function timing() {
       var d = new Date();
+      this.d = d;
       var h = d.getHours();
       var m = d.getMinutes();
       var s = d.getSeconds();
-      this.mm = h * 60 + m;
       this.timePassed = (h * 60 + m - 510) * 100 / 570;
       h = h < 10 ? "0" + h : h;
       m = m < 10 ? "0" + m : m;
@@ -2214,36 +2223,56 @@ __webpack_require__.r(__webpack_exports__);
       this.archiveShow = 1;
       this.archiveTitle = 'باکسهای درخواستی';
     },
-    myboxFetch: function myboxFetch() {
+    chartFetch: function chartFetch() {
       var _this3 = this;
+
+      var url = '/api/chartFetch?ID=' + this.user;
+      axios.get(url).then(function (response) {
+        return _this3.chartData = response.data;
+      });
+    },
+    checkChartData: function checkChartData() {// let d = new Date();
+      // let dd = this.chartData[0].created_at.substr(8, 2);
+      // let hh = parseInt(this.chartData[0].created_at.substr(11, 2));
+      // let mm = parseInt(this.chartData[0].created_at.substr(14, 2));
+      // console.log((hh*60)+mm);
+      // if(d.getDate() == dd){
+      //     this.taskMeterToday= true;
+      // }else{
+      //     this.taskMeterToday= false;
+      //     this.taskMeterEnd = 10
+      // }
+    },
+    myboxFetch: function myboxFetch() {
+      var _this4 = this;
 
       var url = '/api/statusListBox?ID=' + this.user;
       axios.get(url).then(function (response) {
-        return _this3.boxes = response.data;
+        return _this4.boxes = response.data;
       });
     },
     othersBoxFetch: function othersBoxFetch() {
-      var _this4 = this;
+      var _this5 = this;
 
       var url = '/api/statusListBox?toid=' + this.user;
       axios.get(url).then(function (response) {
-        return _this4.sentBoxes = response.data;
+        return _this5.sentBoxes = response.data;
       });
     },
     forcedBoxFetch: function forcedBoxFetch() {
-      var _this5 = this;
+      var _this6 = this;
 
       var url = '/api/statusListBox?fid=' + this.user;
       axios.get(url).then(function (response) {
-        return _this5.forcedBoxes = response.data;
+        return _this6.forcedBoxes = response.data;
       });
     },
     boxStartedCheck: function boxStartedCheck() {
-      var _this6 = this;
+      var _this7 = this;
 
       var url = '/api/statusListBox?userPlayId=' + this.user;
       axios.get(url).then(function (response) {
-        return _this6.boxStarted = response.data;
+        return _this7.boxStarted = response.data;
       });
     },
     addStatus: function addStatus(user) {
@@ -2311,11 +2340,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     commentFetch: function commentFetch() {
-      var _this7 = this;
+      var _this8 = this;
 
       var url = '/api/commentFetch';
       axios.get(url).then(function (response) {
-        return _this7.comments = response.data;
+        return _this8.comments = response.data;
       });
     },
     addTasksToShow: function addTasksToShow(qty) {
@@ -2336,20 +2365,20 @@ __webpack_require__.r(__webpack_exports__);
       this.showMenu = false;
     },
     fetchTasks: function fetchTasks(el, op, val, ord, ordOp) {
-      var _this8 = this;
+      var _this9 = this;
 
       var url = 'api/fetchTasks?u=' + this.user + '&el=' + el + '&op=' + op + '&val=' + val + '&ord=' + ord + '&ordOp=' + ordOp;
       console.log(url);
       axios.get(url).then(function (response) {
-        return _this8.tasks = response.data;
+        return _this9.tasks = response.data;
       });
     },
     searchTasks: function searchTasks() {
-      var _this9 = this;
+      var _this10 = this;
 
       var url = 'api/searchTasks?s=' + this.searchValue;
       axios.get(url).then(function (response) {
-        return _this9.loop = response.data;
+        return _this10.loop = response.data;
       });
 
       if (this.loop.length <= 0 && this.searchValue.length >= 3) {
@@ -70869,6 +70898,531 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/randomcolor/randomColor.js":
+/*!*************************************************!*\
+  !*** ./node_modules/randomcolor/randomColor.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {// randomColor by David Merfield under the CC0 license
+// https://github.com/davidmerfield/randomColor/
+
+;(function(root, factory) {
+
+  // Support CommonJS
+  if (true) {
+    var randomColor = factory();
+
+    // Support NodeJS & Component, which allow module.exports to be a function
+    if ( true && module && module.exports) {
+      exports = module.exports = randomColor;
+    }
+
+    // Support CommonJS 1.1.1 spec
+    exports.randomColor = randomColor;
+
+  // Support AMD
+  } else {}
+
+}(this, function() {
+
+  // Seed to get repeatable colors
+  var seed = null;
+
+  // Shared color dictionary
+  var colorDictionary = {};
+
+  // Populate the color dictionary
+  loadColorBounds();
+
+  // check if a range is taken
+  var colorRanges = [];
+
+  var randomColor = function (options) {
+
+    options = options || {};
+
+    // Check if there is a seed and ensure it's an
+    // integer. Otherwise, reset the seed value.
+    if (options.seed !== undefined && options.seed !== null && options.seed === parseInt(options.seed, 10)) {
+      seed = options.seed;
+
+    // A string was passed as a seed
+    } else if (typeof options.seed === 'string') {
+      seed = stringToInteger(options.seed);
+
+    // Something was passed as a seed but it wasn't an integer or string
+    } else if (options.seed !== undefined && options.seed !== null) {
+      throw new TypeError('The seed value must be an integer or string');
+
+    // No seed, reset the value outside.
+    } else {
+      seed = null;
+    }
+
+    var H,S,B;
+
+    // Check if we need to generate multiple colors
+    if (options.count !== null && options.count !== undefined) {
+
+      var totalColors = options.count,
+          colors = [];
+      // Value false at index i means the range i is not taken yet.
+      for (var i = 0; i < options.count; i++) {
+        colorRanges.push(false)
+        }
+      options.count = null;
+
+      while (totalColors > colors.length) {
+
+        // Since we're generating multiple colors,
+        // incremement the seed. Otherwise we'd just
+        // generate the same color each time...
+        if (seed && options.seed) options.seed += 1;
+
+        colors.push(randomColor(options));
+      }
+
+      options.count = totalColors;
+
+      return colors;
+    }
+
+    // First we pick a hue (H)
+    H = pickHue(options);
+
+    // Then use H to determine saturation (S)
+    S = pickSaturation(H, options);
+
+    // Then use S and H to determine brightness (B).
+    B = pickBrightness(H, S, options);
+
+    // Then we return the HSB color in the desired format
+    return setFormat([H,S,B], options);
+  };
+
+  function pickHue(options) {
+    if (colorRanges.length > 0) {
+      var hueRange = getRealHueRange(options.hue)
+
+      var hue = randomWithin(hueRange)
+
+      //Each of colorRanges.length ranges has a length equal approximatelly one step
+      var step = (hueRange[1] - hueRange[0]) / colorRanges.length
+
+      var j = parseInt((hue - hueRange[0]) / step)
+
+      //Check if the range j is taken
+      if (colorRanges[j] === true) {
+        j = (j + 2) % colorRanges.length
+      }
+      else {
+        colorRanges[j] = true
+           }
+
+      var min = (hueRange[0] + j * step) % 359,
+          max = (hueRange[0] + (j + 1) * step) % 359;
+
+      hueRange = [min, max]
+
+      hue = randomWithin(hueRange)
+
+      if (hue < 0) {hue = 360 + hue;}
+      return hue
+    }
+    else {
+      var hueRange = getHueRange(options.hue)
+
+      hue = randomWithin(hueRange);
+      // Instead of storing red as two seperate ranges,
+      // we group them, using negative numbers
+      if (hue < 0) {
+        hue = 360 + hue;
+      }
+
+      return hue;
+    }
+  }
+
+  function pickSaturation (hue, options) {
+
+    if (options.hue === 'monochrome') {
+      return 0;
+    }
+
+    if (options.luminosity === 'random') {
+      return randomWithin([0,100]);
+    }
+
+    var saturationRange = getSaturationRange(hue);
+
+    var sMin = saturationRange[0],
+        sMax = saturationRange[1];
+
+    switch (options.luminosity) {
+
+      case 'bright':
+        sMin = 55;
+        break;
+
+      case 'dark':
+        sMin = sMax - 10;
+        break;
+
+      case 'light':
+        sMax = 55;
+        break;
+   }
+
+    return randomWithin([sMin, sMax]);
+
+  }
+
+  function pickBrightness (H, S, options) {
+
+    var bMin = getMinimumBrightness(H, S),
+        bMax = 100;
+
+    switch (options.luminosity) {
+
+      case 'dark':
+        bMax = bMin + 20;
+        break;
+
+      case 'light':
+        bMin = (bMax + bMin)/2;
+        break;
+
+      case 'random':
+        bMin = 0;
+        bMax = 100;
+        break;
+    }
+
+    return randomWithin([bMin, bMax]);
+  }
+
+  function setFormat (hsv, options) {
+
+    switch (options.format) {
+
+      case 'hsvArray':
+        return hsv;
+
+      case 'hslArray':
+        return HSVtoHSL(hsv);
+
+      case 'hsl':
+        var hsl = HSVtoHSL(hsv);
+        return 'hsl('+hsl[0]+', '+hsl[1]+'%, '+hsl[2]+'%)';
+
+      case 'hsla':
+        var hslColor = HSVtoHSL(hsv);
+        var alpha = options.alpha || Math.random();
+        return 'hsla('+hslColor[0]+', '+hslColor[1]+'%, '+hslColor[2]+'%, ' + alpha + ')';
+
+      case 'rgbArray':
+        return HSVtoRGB(hsv);
+
+      case 'rgb':
+        var rgb = HSVtoRGB(hsv);
+        return 'rgb(' + rgb.join(', ') + ')';
+
+      case 'rgba':
+        var rgbColor = HSVtoRGB(hsv);
+        var alpha = options.alpha || Math.random();
+        return 'rgba(' + rgbColor.join(', ') + ', ' + alpha + ')';
+
+      default:
+        return HSVtoHex(hsv);
+    }
+
+  }
+
+  function getMinimumBrightness(H, S) {
+
+    var lowerBounds = getColorInfo(H).lowerBounds;
+
+    for (var i = 0; i < lowerBounds.length - 1; i++) {
+
+      var s1 = lowerBounds[i][0],
+          v1 = lowerBounds[i][1];
+
+      var s2 = lowerBounds[i+1][0],
+          v2 = lowerBounds[i+1][1];
+
+      if (S >= s1 && S <= s2) {
+
+         var m = (v2 - v1)/(s2 - s1),
+             b = v1 - m*s1;
+
+         return m*S + b;
+      }
+
+    }
+
+    return 0;
+  }
+
+  function getHueRange (colorInput) {
+
+    if (typeof parseInt(colorInput) === 'number') {
+
+      var number = parseInt(colorInput);
+
+      if (number < 360 && number > 0) {
+        return [number, number];
+      }
+
+    }
+
+    if (typeof colorInput === 'string') {
+
+      if (colorDictionary[colorInput]) {
+        var color = colorDictionary[colorInput];
+        if (color.hueRange) {return color.hueRange;}
+      } else if (colorInput.match(/^#?([0-9A-F]{3}|[0-9A-F]{6})$/i)) {
+        var hue = HexToHSB(colorInput)[0];
+        return [ hue, hue ];
+      }
+    }
+
+    return [0,360];
+
+  }
+
+  function getSaturationRange (hue) {
+    return getColorInfo(hue).saturationRange;
+  }
+
+  function getColorInfo (hue) {
+
+    // Maps red colors to make picking hue easier
+    if (hue >= 334 && hue <= 360) {
+      hue-= 360;
+    }
+
+    for (var colorName in colorDictionary) {
+       var color = colorDictionary[colorName];
+       if (color.hueRange &&
+           hue >= color.hueRange[0] &&
+           hue <= color.hueRange[1]) {
+          return colorDictionary[colorName];
+       }
+    } return 'Color not found';
+  }
+
+  function randomWithin (range) {
+    if (seed === null) {
+      //generate random evenly destinct number from : https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+      var golden_ratio = 0.618033988749895
+      var r=Math.random()
+      r += golden_ratio
+      r %= 1
+      return Math.floor(range[0] + r*(range[1] + 1 - range[0]));
+    } else {
+      //Seeded random algorithm from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
+      var max = range[1] || 1;
+      var min = range[0] || 0;
+      seed = (seed * 9301 + 49297) % 233280;
+      var rnd = seed / 233280.0;
+      return Math.floor(min + rnd * (max - min));
+}
+  }
+
+  function HSVtoHex (hsv){
+
+    var rgb = HSVtoRGB(hsv);
+
+    function componentToHex(c) {
+        var hex = c.toString(16);
+        return hex.length == 1 ? '0' + hex : hex;
+    }
+
+    var hex = '#' + componentToHex(rgb[0]) + componentToHex(rgb[1]) + componentToHex(rgb[2]);
+
+    return hex;
+
+  }
+
+  function defineColor (name, hueRange, lowerBounds) {
+
+    var sMin = lowerBounds[0][0],
+        sMax = lowerBounds[lowerBounds.length - 1][0],
+
+        bMin = lowerBounds[lowerBounds.length - 1][1],
+        bMax = lowerBounds[0][1];
+
+    colorDictionary[name] = {
+      hueRange: hueRange,
+      lowerBounds: lowerBounds,
+      saturationRange: [sMin, sMax],
+      brightnessRange: [bMin, bMax]
+    };
+
+  }
+
+  function loadColorBounds () {
+
+    defineColor(
+      'monochrome',
+      null,
+      [[0,0],[100,0]]
+    );
+
+    defineColor(
+      'red',
+      [-26,18],
+      [[20,100],[30,92],[40,89],[50,85],[60,78],[70,70],[80,60],[90,55],[100,50]]
+    );
+
+    defineColor(
+      'orange',
+      [19,46],
+      [[20,100],[30,93],[40,88],[50,86],[60,85],[70,70],[100,70]]
+    );
+
+    defineColor(
+      'yellow',
+      [47,62],
+      [[25,100],[40,94],[50,89],[60,86],[70,84],[80,82],[90,80],[100,75]]
+    );
+
+    defineColor(
+      'green',
+      [63,178],
+      [[30,100],[40,90],[50,85],[60,81],[70,74],[80,64],[90,50],[100,40]]
+    );
+
+    defineColor(
+      'blue',
+      [179, 257],
+      [[20,100],[30,86],[40,80],[50,74],[60,60],[70,52],[80,44],[90,39],[100,35]]
+    );
+
+    defineColor(
+      'purple',
+      [258, 282],
+      [[20,100],[30,87],[40,79],[50,70],[60,65],[70,59],[80,52],[90,45],[100,42]]
+    );
+
+    defineColor(
+      'pink',
+      [283, 334],
+      [[20,100],[30,90],[40,86],[60,84],[80,80],[90,75],[100,73]]
+    );
+
+  }
+
+  function HSVtoRGB (hsv) {
+
+    // this doesn't work for the values of 0 and 360
+    // here's the hacky fix
+    var h = hsv[0];
+    if (h === 0) {h = 1;}
+    if (h === 360) {h = 359;}
+
+    // Rebase the h,s,v values
+    h = h/360;
+    var s = hsv[1]/100,
+        v = hsv[2]/100;
+
+    var h_i = Math.floor(h*6),
+      f = h * 6 - h_i,
+      p = v * (1 - s),
+      q = v * (1 - f*s),
+      t = v * (1 - (1 - f)*s),
+      r = 256,
+      g = 256,
+      b = 256;
+
+    switch(h_i) {
+      case 0: r = v; g = t; b = p;  break;
+      case 1: r = q; g = v; b = p;  break;
+      case 2: r = p; g = v; b = t;  break;
+      case 3: r = p; g = q; b = v;  break;
+      case 4: r = t; g = p; b = v;  break;
+      case 5: r = v; g = p; b = q;  break;
+    }
+
+    var result = [Math.floor(r*255), Math.floor(g*255), Math.floor(b*255)];
+    return result;
+  }
+
+  function HexToHSB (hex) {
+    hex = hex.replace(/^#/, '');
+    hex = hex.length === 3 ? hex.replace(/(.)/g, '$1$1') : hex;
+
+    var red = parseInt(hex.substr(0, 2), 16) / 255,
+          green = parseInt(hex.substr(2, 2), 16) / 255,
+          blue = parseInt(hex.substr(4, 2), 16) / 255;
+
+    var cMax = Math.max(red, green, blue),
+          delta = cMax - Math.min(red, green, blue),
+          saturation = cMax ? (delta / cMax) : 0;
+
+    switch (cMax) {
+      case red: return [ 60 * (((green - blue) / delta) % 6) || 0, saturation, cMax ];
+      case green: return [ 60 * (((blue - red) / delta) + 2) || 0, saturation, cMax ];
+      case blue: return [ 60 * (((red - green) / delta) + 4) || 0, saturation, cMax ];
+    }
+  }
+
+  function HSVtoHSL (hsv) {
+    var h = hsv[0],
+      s = hsv[1]/100,
+      v = hsv[2]/100,
+      k = (2-s)*v;
+
+    return [
+      h,
+      Math.round(s*v / (k<1 ? k : 2-k) * 10000) / 100,
+      k/2 * 100
+    ];
+  }
+
+  function stringToInteger (string) {
+    var total = 0
+    for (var i = 0; i !== string.length; i++) {
+      if (total >= Number.MAX_SAFE_INTEGER) break;
+      total += string.charCodeAt(i)
+    }
+    return total
+  }
+
+  // get The range of given hue when options.count!=0
+  function getRealHueRange(colorHue)
+  { if (!isNaN(colorHue)) {
+    var number = parseInt(colorHue);
+
+    if (number < 360 && number > 0) {
+      return getColorInfo(colorHue).hueRange
+    }
+  }
+    else if (typeof colorHue === 'string') {
+
+      if (colorDictionary[colorHue]) {
+        var color = colorDictionary[colorHue];
+
+        if (color.hueRange) {
+          return color.hueRange
+       }
+    } else if (colorHue.match(/^#?([0-9A-F]{3}|[0-9A-F]{6})$/i)) {
+        var hue = HexToHSB(colorHue)[0]
+        return getColorInfo(hue).hueRange
+    }
+  }
+
+    return [0,360]
+}
+  return randomColor;
+}));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -74225,949 +74779,711 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-12 row mt-5 justify-content-center" }, [
-    _c("div", { staticClass: "col-xl-9 col-lg-10" }, [
-      _c(
-        "div",
-        { staticClass: "card bg-dark" },
-        [
-          _c("div", { staticClass: "card-header" }, [
-            _c("div", { staticClass: "row justify-content-center mt-3" }, [
-              _c("div", { staticClass: "col-md-8" }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        _vm.searchTasks(), (_vm.isShow = -1)
-                      }
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "input-group mb-3" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.searchValue,
-                            expression: "searchValue"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "جستجوی کارها..." },
-                        domProps: { value: _vm.searchValue },
-                        on: {
-                          keyup: function($event) {
-                            $event.preventDefault()
-                            _vm.searchTasks(), (_vm.isShow = -1)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.searchValue = $event.target.value
-                          }
+  return _c(
+    "div",
+    {
+      staticClass: "col-12 row mt-5 justify-content-center",
+      style: "background:" + this.$randomColor()
+    },
+    [
+      _c("div", { staticClass: "col-xl-9 col-lg-10" }, [
+        _c(
+          "div",
+          { staticClass: "card bg-dark" },
+          [
+            _c("div", { staticClass: "card-header" }, [
+              _c("div", { staticClass: "row justify-content-center mt-3" }, [
+                _c("div", { staticClass: "col-md-8" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.searchTasks(), (_vm.isShow = -1)
                         }
-                      }),
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "input-group mb-3" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.searchValue,
+                              expression: "searchValue"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "جستجوی کارها..."
+                          },
+                          domProps: { value: _vm.searchValue },
+                          on: {
+                            keyup: function($event) {
+                              $event.preventDefault()
+                              _vm.searchTasks(), (_vm.isShow = -1)
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.searchValue = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(0)
+                      ]),
                       _vm._v(" "),
-                      _vm._m(0)
-                    ]),
-                    _vm._v(" "),
-                    _c("transition", { attrs: { name: "fade" } }, [
-                      this.searchValue.length < 3 && this.searchValue.length > 0
-                        ? _c(
-                            "small",
-                            { staticClass: "badge badge-warning mt-n3" },
-                            [_vm._v("حداقل سه حرف وارد کنید")]
-                          )
-                        : _vm._e()
-                    ])
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row justify-content-center" }, [
-              _c("div", { staticClass: "btn-group" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-info",
-                    class: { active: _vm.activeTab === 6 },
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        ;(_vm.tasks = ""),
-                          (_vm.title = "باکس"),
-                          (_vm.activeTab = 6),
-                          (_vm.isShow = 1),
-                          _vm.boxFetch()
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      class: {
-                        "fa fa-circle": _vm.activeTab === 6,
-                        "fa fa-circle-o": _vm.activeTab !== 6
-                      }
-                    }),
-                    _vm._v(" باکس")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-info",
-                    class: { active: _vm.activeTab === 0 },
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.fetchRoutine()
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      class: {
-                        "fa fa-circle": _vm.activeTab === 0,
-                        "fa fa-circle-o": _vm.activeTab !== 0
-                      }
-                    }),
-                    _vm._v(" روتین")
-                  ]
-                )
+                      _c("transition", { attrs: { name: "fade" } }, [
+                        this.searchValue.length < 3 &&
+                        this.searchValue.length > 0
+                          ? _c(
+                              "small",
+                              { staticClass: "badge badge-warning mt-n3" },
+                              [_vm._v("حداقل سه حرف وارد کنید")]
+                            )
+                          : _vm._e()
+                      ])
+                    ],
+                    1
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "mx-3" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "btn-group flex-wrap" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-dark",
-                    class: {
-                      "text-light": _vm.activeTab === 1,
-                      "text-muted": _vm.activeTab !== 1
+              _c("div", { staticClass: "row justify-content-center" }, [
+                _c("div", { staticClass: "btn-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-info",
+                      class: { active: _vm.activeTab === 6 },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          ;(_vm.tasks = ""),
+                            (_vm.title = "باکس"),
+                            (_vm.activeTab = 6),
+                            (_vm.isShow = 1),
+                            _vm.boxFetch()
+                        }
+                      }
                     },
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        ;(_vm.tasks = ""),
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 6,
+                          "fa fa-circle-o": _vm.activeTab !== 6
+                        }
+                      }),
+                      _vm._v(" باکس")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-info",
+                      class: { active: _vm.activeTab === 0 },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.fetchRoutine()
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 0,
+                          "fa fa-circle-o": _vm.activeTab !== 0
+                        }
+                      }),
+                      _vm._v(" روتین")
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "mx-3" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn-group flex-wrap" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
+                      class: {
+                        "text-light": _vm.activeTab === 1,
+                        "text-muted": _vm.activeTab !== 1
+                      },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          ;(_vm.tasks = ""),
+                            _vm.fetchTasks(
+                              "lastStatus",
+                              "=",
+                              0,
+                              "order_column",
+                              "asc"
+                            ),
+                            _vm.commentFetch(),
+                            (_vm.title = "کارهای در انتظار"),
+                            (_vm.activeTab = 1),
+                            (_vm.isShow = 3)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 1,
+                          "fa fa-circle-o": _vm.activeTab !== 1
+                        }
+                      }),
+                      _vm._v(" در انتظار")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
+                      class: {
+                        "text-light": _vm.activeTab === 3,
+                        "text-muted": _vm.activeTab !== 3
+                      },
+                      staticStyle: { cursor: "no-drop" },
+                      attrs: { disabled: "", type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
                           _vm.fetchTasks(
                             "lastStatus",
                             "=",
-                            0,
+                            3,
                             "order_column",
                             "asc"
                           ),
-                          _vm.commentFetch(),
-                          (_vm.title = "کارهای در انتظار"),
-                          (_vm.activeTab = 1),
-                          (_vm.isShow = 3)
+                            _vm.commentFetch(),
+                            (_vm.title = "معلق"),
+                            (_vm.activeTab = 3),
+                            (_vm.isShow = 5)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      class: {
-                        "fa fa-circle": _vm.activeTab === 1,
-                        "fa fa-circle-o": _vm.activeTab !== 1
-                      }
-                    }),
-                    _vm._v(" در انتظار")
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-dark",
-                    class: {
-                      "text-light": _vm.activeTab === 3,
-                      "text-muted": _vm.activeTab !== 3
                     },
-                    staticStyle: { cursor: "no-drop" },
-                    attrs: { disabled: "", type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.fetchTasks(
-                          "lastStatus",
-                          "=",
-                          3,
-                          "order_column",
-                          "asc"
-                        ),
-                          _vm.commentFetch(),
-                          (_vm.title = "معلق"),
-                          (_vm.activeTab = 3),
-                          (_vm.isShow = 5)
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 7,
+                          "fa fa-circle-o": _vm.activeTab !== 7
+                        }
+                      }),
+                      _vm._v(" معلق")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
                       class: {
-                        "fa fa-circle": _vm.activeTab === 7,
-                        "fa fa-circle-o": _vm.activeTab !== 7
+                        "text-light": _vm.activeTab === 2,
+                        "text-muted": _vm.activeTab !== 2
+                      },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.fetchCurrentTasks()
+                        }
                       }
-                    }),
-                    _vm._v(" معلق")
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-dark",
-                    class: {
-                      "text-light": _vm.activeTab === 2,
-                      "text-muted": _vm.activeTab !== 2
                     },
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.fetchCurrentTasks()
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 2,
+                          "fa fa-circle-o": _vm.activeTab !== 2
+                        }
+                      }),
+                      _vm._v(" درحال انجام")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
                       class: {
-                        "fa fa-circle": _vm.activeTab === 2,
-                        "fa fa-circle-o": _vm.activeTab !== 2
-                      }
-                    }),
-                    _vm._v(" درحال انجام")
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-dark",
-                    class: {
-                      "text-light": _vm.activeTab === 3,
-                      "text-muted": _vm.activeTab !== 3
-                    },
-                    staticStyle: { cursor: "no-drop" },
-                    attrs: { disabled: "", type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.fetchTasks(
-                          "lastStatus",
-                          "=",
-                          3,
-                          "order_column",
-                          "asc"
-                        ),
-                          _vm.commentFetch(),
-                          (_vm.title = "پیگیری"),
-                          (_vm.activeTab = 3),
-                          (_vm.isShow = 5)
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      class: {
-                        "fa fa-circle": _vm.activeTab === 3,
-                        "fa fa-circle-o": _vm.activeTab !== 3
-                      }
-                    }),
-                    _vm._v(" پیگیری")
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-dark",
-                    class: {
-                      "text-light": _vm.activeTab === 4,
-                      "text-muted": _vm.activeTab !== 4
-                    },
-                    staticStyle: { cursor: "no-drop" },
-                    attrs: { disabled: "", type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.fetchTasks(
-                          "lastStatus",
-                          "=",
-                          3,
-                          "order_column",
-                          "asc"
-                        ),
-                          _vm.commentFetch(),
-                          (_vm.title = "چاپ"),
-                          (_vm.activeTab = 4),
-                          (_vm.isShow = 6)
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      class: {
-                        "fa fa-circle": _vm.activeTab === 4,
-                        "fa fa-circle-o": _vm.activeTab !== 4
-                      }
-                    }),
-                    _vm._v(" چاپ")
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(5),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-dark",
-                    class: {
-                      "text-light": _vm.activeTab === 5,
-                      "text-muted": _vm.activeTab !== 5
-                    },
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        ;(_vm.tasks = ""),
+                        "text-light": _vm.activeTab === 3,
+                        "text-muted": _vm.activeTab !== 3
+                      },
+                      staticStyle: { cursor: "no-drop" },
+                      attrs: { disabled: "", type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
                           _vm.fetchTasks(
                             "lastStatus",
-                            ">=",
+                            "=",
                             3,
-                            "updated_at",
-                            "desc"
+                            "order_column",
+                            "asc"
                           ),
-                          _vm.commentFetch(),
-                          (_vm.title = "کارهای پایان یافته"),
-                          (_vm.activeTab = 5),
-                          (_vm.isShow = 7)
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      class: {
-                        "fa fa-circle": _vm.activeTab === 5,
-                        "fa fa-circle-o": _vm.activeTab !== 5
-                      }
-                    }),
-                    _vm._v(" نهایی")
-                  ]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("transition", { attrs: { name: "fade" } }, [
-            _vm.loop.length <= 0 && _vm.noRes
-              ? _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "text-center m-5" }, [
-                    _vm._v(
-                      "\n                            هیچ نتیجه ای یافت نشد\n                        "
-                    )
-                  ])
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _vm.isShow === 1
-            ? _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "row mb-3" }, [
-                  _c("div", { staticClass: "col-12" }, [
-                    47.3 > _vm.timePassed > 52.6
-                      ? _c("div", { staticClass: "alert alert-success" }, [
-                          _vm._v("ساعت ناهاری")
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-between" },
-                      [
-                        _c("small", { staticClass: "text-muted" }, [
-                          _vm._v("08:30")
-                        ]),
-                        _vm._v(" "),
-                        _c("small", { staticClass: "text-muted" }, [
-                          _vm._v(_vm._s(_vm.curTime))
-                        ]),
-                        _vm._v(" "),
-                        _c("small", { staticClass: "text-muted" }, [
-                          _vm._v("18:00")
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "progress",
-                        staticStyle: { height: "2px" }
-                      },
-                      [
-                        _c("div", {
-                          staticClass:
-                            "progress-bar progress-bar-striped progress-bar-animated",
-                          class: {
-                            "bg-warning": _vm.timePassed > 85,
-                            "bg-info": _vm.timePassed < 85,
-                            "bg-danger": _vm.timePassed >= 100
-                          },
-                          style: "width:" + _vm.timePassed + "%",
-                          attrs: {
-                            title: _vm.curTime,
-                            role: "progressbar",
-                            "aria-valuenow": _vm.timePassed,
-                            "aria-valuemin": "0",
-                            "aria-valuemax": "660"
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(6)
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "row" },
-                  [
-                    _c("div", { staticClass: "text-center col-12" }, [
-                      _c("i", {
-                        staticClass: "fa pointer",
-                        class: {
-                          "fa-plus": !_vm.showBoxForm,
-                          "fa-minus": _vm.showBoxForm
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.toggleBoxForm()
-                          }
+                            _vm.commentFetch(),
+                            (_vm.title = "پیگیری"),
+                            (_vm.activeTab = 3),
+                            (_vm.isShow = 5)
                         }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("transition", { attrs: { name: "fade" } }, [
-                      _vm.showBoxForm
-                        ? _c("div", { staticClass: "col-md-8 m-auto" }, [
+                      }
+                    },
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 3,
+                          "fa fa-circle-o": _vm.activeTab !== 3
+                        }
+                      }),
+                      _vm._v(" پیگیری")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
+                      class: {
+                        "text-light": _vm.activeTab === 4,
+                        "text-muted": _vm.activeTab !== 4
+                      },
+                      staticStyle: { cursor: "no-drop" },
+                      attrs: { disabled: "", type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.fetchTasks(
+                            "lastStatus",
+                            "=",
+                            3,
+                            "order_column",
+                            "asc"
+                          ),
+                            _vm.commentFetch(),
+                            (_vm.title = "چاپ"),
+                            (_vm.activeTab = 4),
+                            (_vm.isShow = 6)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 4,
+                          "fa fa-circle-o": _vm.activeTab !== 4
+                        }
+                      }),
+                      _vm._v(" چاپ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-dark",
+                      class: {
+                        "text-light": _vm.activeTab === 5,
+                        "text-muted": _vm.activeTab !== 5
+                      },
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          ;(_vm.tasks = ""),
+                            _vm.fetchTasks(
+                              "lastStatus",
+                              ">=",
+                              3,
+                              "updated_at",
+                              "desc"
+                            ),
+                            _vm.commentFetch(),
+                            (_vm.title = "کارهای پایان یافته"),
+                            (_vm.activeTab = 5),
+                            (_vm.isShow = 7)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        class: {
+                          "fa fa-circle": _vm.activeTab === 5,
+                          "fa fa-circle-o": _vm.activeTab !== 5
+                        }
+                      }),
+                      _vm._v(" نهایی")
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("transition", { attrs: { name: "fade" } }, [
+              _vm.loop.length <= 0 && _vm.noRes
+                ? _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "text-center m-5" }, [
+                      _vm._v(
+                        "\n                            هیچ نتیجه ای یافت نشد\n                        "
+                      )
+                    ])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm.isShow === 1
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row mb-3" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      47.3 > _vm.timePassed > 52.6
+                        ? _c("div", { staticClass: "alert alert-success" }, [
+                            _vm._v("ساعت ناهاری")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-between" },
+                        [
+                          _c("small", { staticClass: "text-muted" }, [
+                            _vm._v("08:30")
+                          ]),
+                          _vm._v(" "),
+                          _c("small", { staticClass: "text-muted" }, [
+                            _vm._v(_vm._s(_vm.curTime))
+                          ]),
+                          _vm._v(" "),
+                          _c("small", { staticClass: "text-muted" }, [
+                            _vm._v("18:00")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "progress",
+                          staticStyle: { height: "2px" },
+                          on: {
+                            click: function($event) {
+                              return _vm.checkChartData()
+                            }
+                          }
+                        },
+                        [
+                          _c("div", {
+                            staticClass:
+                              "progress-bar progress-bar-striped progress-bar-animated",
+                            class: {
+                              "bg-warning": _vm.timePassed > 85,
+                              "bg-info": _vm.timePassed < 85,
+                              "bg-danger": _vm.timePassed >= 100
+                            },
+                            style: "width:" + _vm.timePassed + "%",
+                            attrs: {
+                              title: _vm.curTime,
+                              role: "progressbar",
+                              "aria-valuenow": _vm.timePassed,
+                              "aria-valuemin": "0",
+                              "aria-valuemax": "660"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      !_vm.taskMeterToday
+                        ? _c("div", [
+                            _c("small", { staticClass: "text-muted" }, [
+                              _vm._v(_vm._s(_vm.chartData[0].task.title))
+                            ]),
+                            _vm._v(" "),
                             _c(
-                              "form",
+                              "div",
                               {
-                                on: {
-                                  submit: function($event) {
-                                    $event.preventDefault()
-                                    _vm.addStatus(_vm.user), _vm.boxFetch()
-                                  }
-                                }
+                                staticClass: "progress",
+                                staticStyle: { height: "2px" }
                               },
                               [
-                                _c("div", { staticClass: "input-group" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "input-group-prepend" },
-                                    [
-                                      _c(
-                                        "select",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.toUserId,
-                                              expression: "toUserId"
-                                            }
-                                          ],
-                                          staticClass: "form-control bg-dark",
-                                          attrs: {
-                                            name: "to_user",
-                                            placeholder: "asd"
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              var $$selectedVal = Array.prototype.filter
-                                                .call(
-                                                  $event.target.options,
-                                                  function(o) {
-                                                    return o.selected
-                                                  }
-                                                )
-                                                .map(function(o) {
-                                                  var val =
-                                                    "_value" in o
-                                                      ? o._value
-                                                      : o.value
-                                                  return val
-                                                })
-                                              _vm.toUserId = $event.target
-                                                .multiple
-                                                ? $$selectedVal
-                                                : $$selectedVal[0]
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._l(_vm.users, function(u) {
-                                            return u.id == _vm.user
-                                              ? _c(
-                                                  "option",
-                                                  {
-                                                    staticClass: "bg-dark",
-                                                    attrs: { selected: "" },
-                                                    domProps: { value: u.id }
-                                                  },
-                                                  [_vm._v("خودم")]
-                                                )
-                                              : _vm._e()
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "option",
-                                            { attrs: { disabled: "" } },
-                                            [_vm._v("--------------")]
-                                          ),
-                                          _vm._v(" "),
-                                          _vm._l(_vm.users, function(u) {
-                                            return u.id != _vm.user
-                                              ? _c(
-                                                  "option",
-                                                  {
-                                                    staticClass: "bg-dark",
-                                                    domProps: { value: u.id }
-                                                  },
-                                                  [_vm._v(_vm._s(u.name))]
-                                                )
-                                              : _vm._e()
-                                          })
-                                        ],
-                                        2
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.newBox,
-                                        expression: "newBox"
-                                      }
-                                    ],
-                                    staticClass: "form-control bg-dark",
-                                    attrs: {
-                                      type: "text",
-                                      name: "content",
-                                      placeholder: "اینجا بنویس...",
-                                      id: "content",
-                                      autocomplete: "off",
-                                      autofocus: ""
-                                    },
-                                    domProps: { value: _vm.newBox },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.newBox = $event.target.value
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "input-group-append" },
-                                    [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "btn btn-success",
-                                          attrs: { type: "submit" }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "fa fa-arrow-down"
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ])
+                                _c("div", {
+                                  staticClass:
+                                    "progress-bar progress-bar-striped progress-bar-animated bg-success",
+                                  style: "width:" + _vm.timePassed + "%",
+                                  attrs: { title: _vm.chartData[0].task.title }
+                                })
                               ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.taskMeterToday
+                        ? _c("div", [
+                            _c("small", { staticClass: "text-muted" }, [
+                              _vm._v("1")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "progress",
+                                staticStyle: { height: "15px" }
+                              },
+                              _vm._l(_vm.chartData.startsToday, function(s) {
+                                return _c("div", {
+                                  staticClass:
+                                    "progress-bar progress-bar-striped progress-bar-animated",
+                                  style: "width:10%;background:red",
+                                  attrs: { title: s.task.title }
+                                })
+                              }),
+                              0
                             )
                           ])
                         : _vm._e()
                     ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col" }, [
-                    _c(
-                      "div",
-                      { staticClass: "card-body" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "list-group-item bg-dark text-center text-muted"
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row" },
+                    [
+                      _c("div", { staticClass: "text-center col-12" }, [
+                        _c("i", {
+                          staticClass: "fa pointer",
+                          class: {
+                            "fa-plus": !_vm.showBoxForm,
+                            "fa-minus": _vm.showBoxForm
                           },
-                          [
-                            _vm._v("خودم "),
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v("(" + _vm._s(_vm.boxes.length) + ")")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.boxes.length <= 0
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "list-group-item bg-dark text-center"
-                              },
-                              [_c("i", { staticClass: "fa fa-minus" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._l(_vm.boxes.slice(0, _vm.boxToShow), function(
-                          box
-                        ) {
-                          return _c(
-                            "div",
-                            {
-                              staticClass: "list-group-item",
-                              class: {
-                                "bg-success":
-                                  _vm.boxStarted.status == "box-start" &&
-                                  _vm.boxStarted.re_id == box.id,
-                                "bg-dark":
-                                  _vm.boxStarted.re_id != box.id ||
-                                  _vm.boxStarted.status != "box-start"
-                              },
-                              attrs: { id: "box-" + box.id }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fa fa-check hvr-fade",
-                                attrs: { type: "checkbox" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.CheckItem(
-                                      $event,
-                                      box.id,
-                                      box.content
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("small", [_vm._v(_vm._s(box.content))]),
-                              _vm._v(" "),
-                              _c("small", { staticClass: "pull-left" }, [
-                                _vm.boxStarted.status != "box-start"
-                                  ? _c("i", {
-                                      staticClass:
-                                        "fa fa-play text-success pointer",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.newStatus(
-                                            "شروع باکس " + box.content,
-                                            "box-start",
-                                            null,
-                                            null,
-                                            box.id,
-                                            0
-                                          )
-                                        }
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.boxStarted.status == "box-start" &&
-                                _vm.boxStarted.re_id == box.id
-                                  ? _c("i", {
-                                      staticClass:
-                                        "fa fa-pause text-warning pointer",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.newStatus(
-                                            "توقف باکس " + box.content,
-                                            "box-pause",
-                                            null,
-                                            null,
-                                            box.id,
-                                            0
-                                          )
-                                        }
-                                      }
-                                    })
-                                  : _vm._e()
-                              ])
-                            ]
-                          )
-                        }),
-                        _vm._v(" "),
-                        _vm.boxes.length > 5
-                          ? _c("div", { staticClass: "text-center d-flex" }, [
-                              _vm.boxToShow > 5
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "dropdown-item dropdown-footer",
-                                      staticStyle: { cursor: "pointer" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          _vm.boxToShow -= 5
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-minus" })]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
+                          on: {
+                            click: function($event) {
+                              return _vm.toggleBoxForm()
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("transition", { attrs: { name: "fade" } }, [
+                        _vm.showBoxForm
+                          ? _c("div", { staticClass: "col-md-8 m-auto" }, [
                               _c(
-                                "div",
+                                "form",
                                 {
-                                  staticClass: "dropdown-item dropdown-footer",
-                                  staticStyle: { cursor: "pointer" },
                                   on: {
-                                    click: function($event) {
+                                    submit: function($event) {
                                       $event.preventDefault()
-                                      _vm.boxToShow += 5
+                                      _vm.addStatus(_vm.user), _vm.boxFetch()
                                     }
                                   }
                                 },
                                 [
-                                  _vm.boxToShow < _vm.boxes.length
-                                    ? _c("i", { staticClass: "fa fa-plus" })
-                                    : _vm._e()
+                                  _c("div", { staticClass: "input-group" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group-prepend" },
+                                      [
+                                        _c(
+                                          "select",
+                                          {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.toUserId,
+                                                expression: "toUserId"
+                                              }
+                                            ],
+                                            staticClass: "form-control bg-dark",
+                                            attrs: {
+                                              name: "to_user",
+                                              placeholder: "asd"
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                var $$selectedVal = Array.prototype.filter
+                                                  .call(
+                                                    $event.target.options,
+                                                    function(o) {
+                                                      return o.selected
+                                                    }
+                                                  )
+                                                  .map(function(o) {
+                                                    var val =
+                                                      "_value" in o
+                                                        ? o._value
+                                                        : o.value
+                                                    return val
+                                                  })
+                                                _vm.toUserId = $event.target
+                                                  .multiple
+                                                  ? $$selectedVal
+                                                  : $$selectedVal[0]
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._l(_vm.users, function(u) {
+                                              return u.id == _vm.user
+                                                ? _c(
+                                                    "option",
+                                                    {
+                                                      staticClass: "bg-dark",
+                                                      attrs: { selected: "" },
+                                                      domProps: { value: u.id }
+                                                    },
+                                                    [_vm._v("خودم")]
+                                                  )
+                                                : _vm._e()
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "option",
+                                              { attrs: { disabled: "" } },
+                                              [_vm._v("--------------")]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(_vm.users, function(u) {
+                                              return u.id != _vm.user
+                                                ? _c(
+                                                    "option",
+                                                    {
+                                                      staticClass: "bg-dark",
+                                                      domProps: { value: u.id }
+                                                    },
+                                                    [_vm._v(_vm._s(u.name))]
+                                                  )
+                                                : _vm._e()
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.newBox,
+                                          expression: "newBox"
+                                        }
+                                      ],
+                                      staticClass: "form-control bg-dark",
+                                      attrs: {
+                                        type: "text",
+                                        name: "content",
+                                        placeholder: "اینجا بنویس...",
+                                        id: "content",
+                                        autocomplete: "off",
+                                        autofocus: ""
+                                      },
+                                      domProps: { value: _vm.newBox },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.newBox = $event.target.value
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "input-group-append" },
+                                      [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-success",
+                                            attrs: { type: "submit" }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-arrow-down"
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
                                 ]
                               )
                             ])
                           : _vm._e()
-                      ],
-                      2
-                    )
-                  ]),
+                      ])
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col" }, [
-                    _c(
-                      "div",
-                      { staticClass: "card-body" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "list-group-item bg-dark text-center text-muted"
-                          },
-                          [
-                            _vm._v("همکار "),
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v("(" + _vm._s(_vm.sentBoxes.length) + ")")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.sentBoxes.length <= 0
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "list-group-item bg-dark text-center"
-                              },
-                              [_c("i", { staticClass: "fa fa-minus" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._l(_vm.sentBoxes.slice(0, _vm.boxToShow), function(
-                          box
-                        ) {
-                          return _c(
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c(
                             "div",
                             {
-                              staticClass: "list-group-item bg-dark",
-                              attrs: { id: "box-" + box.id }
+                              staticClass:
+                                "list-group-item bg-dark text-center text-muted"
                             },
                             [
-                              _c("img", {
-                                staticClass: "img-circle",
-                                staticStyle: { width: "20px" },
-                                attrs: {
-                                  src: "/storage/avatars/" + box.user.avatar,
-                                  alt: ""
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-check hvr-fade",
-                                attrs: { type: "checkbox" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.CheckItem(
-                                      $event,
-                                      box.id,
-                                      box.content
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("small", [_vm._v(_vm._s(box.content))]),
-                              _vm._v(" "),
-                              _c("small", { staticClass: "pull-left" }, [
-                                _vm.boxStarted.status != "box-start"
-                                  ? _c("i", {
-                                      staticClass:
-                                        "fa fa-play text-success pointer",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.newStatus(
-                                            "شروع باکس " + box.content,
-                                            "box-start",
-                                            null,
-                                            null,
-                                            box.id,
-                                            0
-                                          )
-                                        }
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.boxStarted.status == "box-start" &&
-                                _vm.boxStarted.re_id == box.id
-                                  ? _c("i", {
-                                      staticClass:
-                                        "fa fa-pause text-warning pointer",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.newStatus(
-                                            "پایان باکس " + box.content,
-                                            "box-pause",
-                                            null,
-                                            null,
-                                            box.id,
-                                            0
-                                          )
-                                        }
-                                      }
-                                    })
-                                  : _vm._e()
+                              _vm._v("خودم "),
+                              _c("small", { staticClass: "text-muted" }, [
+                                _vm._v("(" + _vm._s(_vm.boxes.length) + ")")
                               ])
                             ]
-                          )
-                        }),
-                        _vm._v(" "),
-                        _vm.sentBoxes.length > 5
-                          ? _c("div", { staticClass: "text-center d-flex" }, [
-                              _vm.boxToShow > 5
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "dropdown-item dropdown-footer",
-                                      staticStyle: { cursor: "pointer" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          _vm.sentBoxToShow -= 5
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-minus" })]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.boxToShow < _vm.sentBoxes.length
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "dropdown-item dropdown-footer",
-                                      staticStyle: { cursor: "pointer" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          _vm.sentBoxToShow += 5
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-plus" })]
-                                  )
-                                : _vm._e()
-                            ])
-                          : _vm._e()
-                      ],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col" }, [
-                    _c(
-                      "div",
-                      { staticClass: "card-body" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "list-group-item bg-dark text-center text-muted"
-                          },
-                          [
-                            _vm._v("مدیریت "),
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v("(" + _vm._s(_vm.forcedBoxes.length) + ")")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.forcedBoxes.length <= 0
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "list-group-item bg-dark text-center"
-                              },
-                              [_c("i", { staticClass: "fa fa-minus" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm._l(
-                          _vm.forcedBoxes.slice(0, _vm.boxToShow),
-                          function(box) {
+                          ),
+                          _vm._v(" "),
+                          _vm.boxes.length <= 0
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "list-group-item bg-dark text-center"
+                                },
+                                [_c("i", { staticClass: "fa fa-minus" })]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._l(_vm.boxes.slice(0, _vm.boxToShow), function(
+                            box
+                          ) {
                             return _c(
                               "div",
                               {
-                                staticClass: "list-group-item bg-dark",
+                                staticClass: "list-group-item",
+                                class: {
+                                  "bg-success":
+                                    _vm.boxStarted.status == "box-start" &&
+                                    _vm.boxStarted.re_id == box.id,
+                                  "bg-dark":
+                                    _vm.boxStarted.re_id != box.id ||
+                                    _vm.boxStarted.status != "box-start"
+                                },
                                 attrs: { id: "box-" + box.id }
                               },
                               [
@@ -75186,7 +75502,7 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("small", [_vm._v("{{}}")]),
+                                _c("small", [_vm._v(_vm._s(box.content))]),
                                 _vm._v(" "),
                                 _c("small", { staticClass: "pull-left" }, [
                                   _vm.boxStarted.status != "box-start"
@@ -75216,7 +75532,7 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             return _vm.newStatus(
-                                              "پایان باکس " + box.content,
+                                              "توقف باکس " + box.content,
                                               "box-pause",
                                               null,
                                               null,
@@ -75230,189 +75546,12 @@ var render = function() {
                                 ])
                               ]
                             )
-                          }
-                        ),
-                        _vm._v(" "),
-                        _vm.forcedBoxes.length > 5
-                          ? _c("div", { staticClass: "text-center" }, [
-                              _vm.boxToShow > 5
-                                ? _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "dropdown-item dropdown-footer",
-                                      staticStyle: { cursor: "pointer" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          _vm.forcedBoxToShow -= 5
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-arrow-up" })]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.boxToShow < _vm.forcedBoxes.length
-                                ? _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "dropdown-item dropdown-footer",
-                                      staticStyle: { cursor: "pointer" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          _vm.forcedBoxToShow += 5
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-arrow-down"
-                                      })
-                                    ]
-                                  )
-                                : _vm._e()
-                            ])
-                          : _vm._e()
-                      ],
-                      2
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-link",
-                        class: {
-                          "text-muted": _vm.archiveShow !== 0,
-                          "text-light": _vm.archiveShow === 0
-                        },
-                        on: { click: _vm.archiveBoxFetch }
-                      },
-                      [
-                        _vm.archiveBoxes.length > 0 && _vm.archiveShow == 0
-                          ? _c("i", { staticClass: "fa fa-refresh" })
-                          : _vm._e(),
-                        _vm._v(" آرشیو باکس")
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-link",
-                        class: {
-                          "text-muted": _vm.archiveShow !== 1,
-                          "text-light": _vm.archiveShow === 1
-                        },
-                        on: { click: _vm.archiveSentBoxFetch }
-                      },
-                      [
-                        _vm.archiveBoxes.length > 0 && _vm.archiveShow == 1
-                          ? _c("i", { staticClass: "fa fa-refresh" })
-                          : _vm._e(),
-                        _vm._v(" باکس درخواستی")
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm.archiveBoxes.length > 0
-                      ? _c(
-                          "div",
-                          { staticClass: "card-body" },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "list-group-item bg-dark text-center text-muted"
-                              },
-                              [
-                                _vm._v(_vm._s(_vm.archiveTitle) + " "),
-                                _c("small", { staticClass: "text-muted" }, [
-                                  _vm._v(
-                                    "(" + _vm._s(_vm.archiveBoxes.length) + ")"
-                                  )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm.archiveBoxes.length <= 0
-                              ? _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "list-group-item bg-dark text-center"
-                                  },
-                                  [_c("i", { staticClass: "fa fa-minus" })]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm._l(
-                              _vm.archiveBoxes.slice(0, _vm.archiveBoxToShow),
-                              function(box) {
-                                return _c(
-                                  "div",
-                                  {
-                                    staticClass: "list-group-item bg-secondary",
-                                    attrs: { id: "box-" + box.id }
-                                  },
-                                  [
-                                    _vm.archiveShow == 1
-                                      ? _c("img", {
-                                          staticClass: "img-circle",
-                                          staticStyle: { width: "20px" },
-                                          attrs: {
-                                            src:
-                                              "/storage/avatars/" +
-                                              box.to_user.avatar,
-                                            alt: ""
-                                          }
-                                        })
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.archiveShow == 0
-                                      ? _c("i", { staticClass: "fa fa-minus" })
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("small", [_vm._v(_vm._s(box.content))])
-                                  ]
-                                )
-                              }
-                            ),
-                            _vm._v(" "),
-                            _vm.archiveBoxes.length > 5
-                              ? _c(
-                                  "div",
-                                  { staticClass: "text-center d-flex" },
-                                  [
-                                    _vm.archiveBoxToShow > 5
-                                      ? _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "dropdown-item dropdown-footer",
-                                            staticStyle: { cursor: "pointer" },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                _vm.archiveBoxToShow -= 5
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("i", {
-                                              staticClass: "fa fa-minus"
-                                            })
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c(
+                          }),
+                          _vm._v(" "),
+                          _vm.boxes.length > 5
+                            ? _c("div", { staticClass: "text-center d-flex" }, [
+                                _vm.boxToShow > 5
+                                  ? _c(
                                       "div",
                                       {
                                         staticClass:
@@ -75421,582 +75560,581 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             $event.preventDefault()
-                                            _vm.archiveBoxToShow += 5
+                                            _vm.boxToShow -= 5
                                           }
                                         }
                                       },
-                                      [
-                                        _vm.archiveBoxToShow <
-                                        _vm.archiveBoxes.length
-                                          ? _c("i", {
-                                              staticClass: "fa fa-plus"
-                                            })
-                                          : _vm._e()
-                                      ]
+                                      [_c("i", { staticClass: "fa fa-minus" })]
                                     )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "dropdown-item dropdown-footer",
+                                    staticStyle: { cursor: "pointer" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        _vm.boxToShow += 5
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm.boxToShow < _vm.boxes.length
+                                      ? _c("i", { staticClass: "fa fa-plus" })
+                                      : _vm._e()
                                   ]
                                 )
-                              : _vm._e()
-                          ],
-                          2
-                        )
-                      : _vm._e()
-                  ])
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.loop.length > 0 && _vm.isShow === -1
-            ? _c("div", { staticClass: "card-body" }, [
-                _vm.loop.length > 0
-                  ? _c("div", { staticClass: "alert" }, [
-                      _vm._v(_vm._s(_vm.loop.length) + " نتیجه یافت شد")
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.loop.length > 0
-                  ? _c(
-                      "table",
-                      {
-                        staticClass:
-                          "table table-hover table-striped table-borderless"
-                      },
-                      [
-                        _vm._m(7),
-                        _vm._v(" "),
-                        _vm._l(_vm.loop.slice(0, _vm.toShow), function(
-                          item,
-                          index
-                        ) {
-                          return _c("tr", [
-                            _c("td", [_vm._v(_vm._s(item.id))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "a",
-                                { attrs: { href: "/tasks/" + item.id } },
-                                [_vm._v(_vm._s(item.title))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-left" }, [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-link text-success",
-                                  attrs: { href: "/tasks/" + item.id }
-                                },
-                                [_c("i", { staticClass: "fa fa-eye" })]
-                              )
-                            ])
-                          ])
-                        })
-                      ],
-                      2
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.loop.length > 5
-                  ? _c("div", { staticClass: "text-center" }, [
-                      _vm._v(
-                        "\n                            نمایش " +
-                          _vm._s(_vm.toShow) +
-                          " از " +
-                          _vm._s(_vm.loop.length) +
-                          " "
-                      ),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-link btn-sm btn-block",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              _vm.toShow += 5
-                            }
-                          }
-                        },
-                        [_vm._v("بیشتر")]
+                              ])
+                            : _vm._e()
+                        ],
+                        2
                       )
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.tasks.length > 0 && _vm.isShow > 1
-            ? _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "div",
-                  { staticClass: "list-group bg-dark" },
-                  _vm._l(_vm.tasks.slice(0, _vm.tasksToShow), function(
-                    item,
-                    index
-                  ) {
-                    return _c("div", { staticClass: "border-danger" }, [
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col" }, [
                       _c(
-                        "a",
-                        {
-                          staticClass:
-                            "list-group-item list-group-item-action flex-column align-items-start pointer",
-                          class: {
-                            "bg-secondary": item.lastStatus == 0,
-                            "bg-dark": item.lastStatus == 1,
-                            "bg-success text-dark": item.lastStatus == 2,
-                            "bg-dark text-light": item.lastStatus == 3
-                          },
-                          attrs: {
-                            "data-toggle": "collapse",
-                            href: "#col" + item.id,
-                            role: "button",
-                            "aria-expanded": "false",
-                            "aria-controls": "#col" + item.id
-                          },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.commentFetch()
-                            }
-                          }
-                        },
+                        "div",
+                        { staticClass: "card-body" },
                         [
                           _c(
                             "div",
                             {
                               staticClass:
-                                "d-flex w-100 justify-content-between"
+                                "list-group-item bg-dark text-center text-muted"
                             },
                             [
-                              _c("div", [
-                                _c(
-                                  "span",
-                                  { staticClass: "badge badge-dark" },
-                                  [
-                                    _c("i", {
-                                      class: {
-                                        "fa fa-users text-info":
-                                          item.users.length > 1,
-                                        "fa fa-user": item.users.length == 1
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "mb-1 h6" }, [
-                                  _c(
-                                    "span",
-                                    { staticClass: "badge badge-info" },
-                                    [_vm._v(_vm._s(item.task.subject))]
-                                  ),
-                                  _vm._v(" " + _vm._s(item.task.title) + " "),
-                                  _c(
-                                    "small",
-                                    { staticClass: "text-muted ml-1" },
-                                    [_vm._v(_vm._s(item.task.id))]
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("div", {}, [
-                                item.lastStatus < 2
-                                  ? _c("i", {
-                                      staticClass:
-                                        "fa fa-play text-success mx-2 pointer",
-                                      attrs: { title: "شروع یا ادامه کار" },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.newStatus(
-                                            "شروع کار",
-                                            "start",
-                                            item.task.id,
-                                            item.id,
-                                            item.routine
-                                          )
-                                        }
-                                      }
-                                    })
-                                  : _vm._e()
+                              _vm._v("همکار "),
+                              _c("small", { staticClass: "text-muted" }, [
+                                _vm._v("(" + _vm._s(_vm.sentBoxes.length) + ")")
                               ])
                             ]
                           ),
                           _vm._v(" "),
-                          _c("div", {}, [
-                            _c("small", { staticClass: "mb-1 text-muted" }, [
-                              _vm._v(_vm._s(item.task.content.substr(0, 150))),
-                              item.task.content.length > 150
-                                ? _c("span", [_vm._v("...")])
-                                : _vm._e()
-                            ])
-                          ]),
+                          _vm.sentBoxes.length <= 0
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "list-group-item bg-dark text-center"
+                                },
+                                [_c("i", { staticClass: "fa fa-minus" })]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c("div", {
-                            staticClass: "d-flex justify-content-start"
-                          })
+                          _vm._l(
+                            _vm.sentBoxes.slice(0, _vm.boxToShow),
+                            function(box) {
+                              return _c(
+                                "div",
+                                {
+                                  staticClass: "list-group-item bg-dark",
+                                  attrs: { id: "box-" + box.id }
+                                },
+                                [
+                                  _c("img", {
+                                    staticClass: "img-circle",
+                                    staticStyle: { width: "20px" },
+                                    attrs: {
+                                      src:
+                                        "/storage/avatars/" + box.user.avatar,
+                                      alt: ""
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("i", {
+                                    staticClass: "fa fa-check hvr-fade",
+                                    attrs: { type: "checkbox" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.CheckItem(
+                                          $event,
+                                          box.id,
+                                          box.content
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("small", [_vm._v(_vm._s(box.content))]),
+                                  _vm._v(" "),
+                                  _c("small", { staticClass: "pull-left" }, [
+                                    _vm.boxStarted.status != "box-start"
+                                      ? _c("i", {
+                                          staticClass:
+                                            "fa fa-play text-success pointer",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.newStatus(
+                                                "شروع باکس " + box.content,
+                                                "box-start",
+                                                null,
+                                                null,
+                                                box.id,
+                                                0
+                                              )
+                                            }
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.boxStarted.status == "box-start" &&
+                                    _vm.boxStarted.re_id == box.id
+                                      ? _c("i", {
+                                          staticClass:
+                                            "fa fa-pause text-warning pointer",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.newStatus(
+                                                "پایان باکس " + box.content,
+                                                "box-pause",
+                                                null,
+                                                null,
+                                                box.id,
+                                                0
+                                              )
+                                            }
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ])
+                                ]
+                              )
+                            }
+                          ),
+                          _vm._v(" "),
+                          _vm.sentBoxes.length > 5
+                            ? _c("div", { staticClass: "text-center d-flex" }, [
+                                _vm.boxToShow > 5
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "dropdown-item dropdown-footer",
+                                        staticStyle: { cursor: "pointer" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            _vm.sentBoxToShow -= 5
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-minus" })]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.boxToShow < _vm.sentBoxes.length
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "dropdown-item dropdown-footer",
+                                        staticStyle: { cursor: "pointer" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            _vm.sentBoxToShow += 5
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-plus" })]
+                                    )
+                                  : _vm._e()
+                              ])
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "list-group-item bg-dark text-center text-muted"
+                            },
+                            [
+                              _vm._v("مدیریت "),
+                              _c("small", { staticClass: "text-muted" }, [
+                                _vm._v(
+                                  "(" + _vm._s(_vm.forcedBoxes.length) + ")"
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.forcedBoxes.length <= 0
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "list-group-item bg-dark text-center"
+                                },
+                                [_c("i", { staticClass: "fa fa-minus" })]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._l(
+                            _vm.forcedBoxes.slice(0, _vm.boxToShow),
+                            function(box) {
+                              return _c(
+                                "div",
+                                {
+                                  staticClass: "list-group-item bg-dark",
+                                  attrs: { id: "box-" + box.id }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-check hvr-fade",
+                                    attrs: { type: "checkbox" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.CheckItem(
+                                          $event,
+                                          box.id,
+                                          box.content
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("small", [_vm._v("{{}}")]),
+                                  _vm._v(" "),
+                                  _c("small", { staticClass: "pull-left" }, [
+                                    _vm.boxStarted.status != "box-start"
+                                      ? _c("i", {
+                                          staticClass:
+                                            "fa fa-play text-success pointer",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.newStatus(
+                                                "شروع باکس " + box.content,
+                                                "box-start",
+                                                null,
+                                                null,
+                                                box.id,
+                                                0
+                                              )
+                                            }
+                                          }
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.boxStarted.status == "box-start" &&
+                                    _vm.boxStarted.re_id == box.id
+                                      ? _c("i", {
+                                          staticClass:
+                                            "fa fa-pause text-warning pointer",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.newStatus(
+                                                "پایان باکس " + box.content,
+                                                "box-pause",
+                                                null,
+                                                null,
+                                                box.id,
+                                                0
+                                              )
+                                            }
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ])
+                                ]
+                              )
+                            }
+                          ),
+                          _vm._v(" "),
+                          _vm.forcedBoxes.length > 5
+                            ? _c("div", { staticClass: "text-center" }, [
+                                _vm.boxToShow > 5
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "dropdown-item dropdown-footer",
+                                        staticStyle: { cursor: "pointer" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            _vm.forcedBoxToShow -= 5
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-arrow-up"
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.boxToShow < _vm.forcedBoxes.length
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "dropdown-item dropdown-footer",
+                                        staticStyle: { cursor: "pointer" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            _vm.forcedBoxToShow += 5
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-arrow-down"
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ])
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-link",
+                          class: {
+                            "text-muted": _vm.archiveShow !== 0,
+                            "text-light": _vm.archiveShow === 0
+                          },
+                          on: { click: _vm.archiveBoxFetch }
+                        },
+                        [
+                          _vm.archiveBoxes.length > 0 && _vm.archiveShow == 0
+                            ? _c("i", { staticClass: "fa fa-refresh" })
+                            : _vm._e(),
+                          _vm._v(" آرشیو باکس")
                         ]
                       ),
                       _vm._v(" "),
                       _c(
-                        "div",
+                        "button",
                         {
-                          staticClass: "collapse",
-                          attrs: { id: "col" + item.id }
+                          staticClass: "btn btn-sm btn-link",
+                          class: {
+                            "text-muted": _vm.archiveShow !== 1,
+                            "text-light": _vm.archiveShow === 1
+                          },
+                          on: { click: _vm.archiveSentBoxFetch }
                         },
                         [
-                          _c("div", { staticClass: "card card-body" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "d-flex w-100 justify-content-between"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "text-center" },
-                                  _vm._l(item.users, function(u) {
-                                    return _c("img", {
-                                      staticClass: "img-circle mr-1",
-                                      staticStyle: { width: "25px" },
-                                      attrs: {
-                                        title: u.name,
-                                        src: "/storage/avatars/" + u.avatar,
-                                        alt: ""
-                                      }
-                                    })
-                                  }),
-                                  0
-                                ),
-                                _vm._v(" "),
-                                _c("div", [
-                                  _c(
-                                    "a",
+                          _vm.archiveBoxes.length > 0 && _vm.archiveShow == 1
+                            ? _c("i", { staticClass: "fa fa-refresh" })
+                            : _vm._e(),
+                          _vm._v(" باکس درخواستی")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.archiveBoxes.length > 0
+                        ? _c(
+                            "div",
+                            { staticClass: "card-body" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "list-group-item bg-dark text-center text-muted"
+                                },
+                                [
+                                  _vm._v(_vm._s(_vm.archiveTitle) + " "),
+                                  _c("small", { staticClass: "text-muted" }, [
+                                    _vm._v(
+                                      "(" +
+                                        _vm._s(_vm.archiveBoxes.length) +
+                                        ")"
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.archiveBoxes.length <= 0
+                                ? _c(
+                                    "div",
                                     {
-                                      staticClass: "text-muted",
-                                      attrs: {
-                                        href: "/tasks/" + item.task.id,
-                                        target: "_blank",
-                                        title: "مشاهده"
-                                      }
+                                      staticClass:
+                                        "list-group-item bg-dark text-center"
+                                    },
+                                    [_c("i", { staticClass: "fa fa-minus" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm._l(
+                                _vm.archiveBoxes.slice(0, _vm.archiveBoxToShow),
+                                function(box) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "list-group-item bg-secondary",
+                                      attrs: { id: "box-" + box.id }
                                     },
                                     [
-                                      _c("i", {
-                                        staticClass: "fa fa-link ml-1 text-dark"
-                                      }),
+                                      _vm.archiveShow == 1
+                                        ? _c("img", {
+                                            staticClass: "img-circle",
+                                            staticStyle: { width: "20px" },
+                                            attrs: {
+                                              src:
+                                                "/storage/avatars/" +
+                                                box.to_user.avatar,
+                                              alt: ""
+                                            }
+                                          })
+                                        : _vm._e(),
                                       _vm._v(" "),
-                                      _c("span", { staticClass: "text-dark" }, [
-                                        _vm._v("مشاهده")
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "text-muted",
-                                      attrs: {
-                                        href:
-                                          "/tasks/" + item.task.id + "/edit",
-                                        target: "_blank",
-                                        title: "ویرایش"
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-edit ml-1 text-dark"
-                                      }),
+                                      _vm.archiveShow == 0
+                                        ? _c("i", {
+                                            staticClass: "fa fa-minus"
+                                          })
+                                        : _vm._e(),
                                       _vm._v(" "),
-                                      _c("span", { staticClass: "text-dark" }, [
-                                        _vm._v("ویرایش")
-                                      ])
+                                      _c("small", [_vm._v(_vm._s(box.content))])
                                     ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "span",
-                                    { staticClass: "bg-secondary bulb mr-3" },
+                                  )
+                                }
+                              ),
+                              _vm._v(" "),
+                              _vm.archiveBoxes.length > 5
+                                ? _c(
+                                    "div",
+                                    { staticClass: "text-center d-flex" },
                                     [
+                                      _vm.archiveBoxToShow > 5
+                                        ? _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "dropdown-item dropdown-footer",
+                                              staticStyle: {
+                                                cursor: "pointer"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  $event.preventDefault()
+                                                  _vm.archiveBoxToShow -= 5
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fa fa-minus"
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
                                       _c(
-                                        "a",
+                                        "div",
                                         {
-                                          staticClass: "mx-2 ",
-                                          attrs: {
-                                            title: "Share on Whatsapp",
-                                            "data-toggle": "tooltip",
-                                            target: "_blank",
-                                            href:
-                                              "https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: " +
-                                              item.task.title +
-                                              "http://i.sadiq-co.com/tasks/" +
-                                              item.task.id
+                                          staticClass:
+                                            "dropdown-item dropdown-footer",
+                                          staticStyle: { cursor: "pointer" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              _vm.archiveBoxToShow += 5
+                                            }
                                           }
                                         },
                                         [
-                                          _c("i", {
-                                            staticClass:
-                                              "fa fa-whatsapp text-light"
-                                          })
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "mx-2 ",
-                                          attrs: {
-                                            title: "Share on Telegram",
-                                            "data-toggle": "tooltip",
-                                            target: "_blank",
-                                            href:
-                                              "https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/" +
-                                              item.task.id +
-                                              "&text=Please Check this Task on SADIQ: " +
-                                              item.task.title
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass:
-                                              "fa fa-telegram text-light"
-                                          })
+                                          _vm.archiveBoxToShow <
+                                          _vm.archiveBoxes.length
+                                            ? _c("i", {
+                                                staticClass: "fa fa-plus"
+                                              })
+                                            : _vm._e()
                                         ]
                                       )
                                     ]
                                   )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "row" }, [
-                              _c(
-                                "div",
-                                { staticClass: "col-xl-3 col-lg-4 col-md-6" },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        href:
-                                          "/storage/uploads/" + item.task.pic,
-                                        target: "_blank"
-                                      }
-                                    },
-                                    [
-                                      _c("img", {
-                                        staticClass: "img-fluid   ",
-                                        attrs: {
-                                          src:
-                                            "/storage/uploads/" + item.task.pic,
-                                          alt: item.task.id
-                                        }
-                                      })
-                                    ]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-xl-6 col-lg-8 col-md-6" },
-                                [
-                                  _c("p", { staticClass: "text-dark" }, [
-                                    _vm._v(
-                                      "توضیحات: " + _vm._s(item.task.content)
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "form",
-                                    {
-                                      attrs: { autocomplete: "off" },
-                                      on: {
-                                        submit: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.addComment(item.task.id)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("div", { staticClass: "form-group" }, [
-                                        _c(
-                                          "div",
-                                          { staticClass: "input-group" },
-                                          [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.content,
-                                                  expression: "content"
-                                                }
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "text",
-                                                name: "content",
-                                                placeholder: "ثبت نظر..."
-                                              },
-                                              domProps: { value: _vm.content },
-                                              on: {
-                                                input: function($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.content =
-                                                    $event.target.value
-                                                }
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _vm._m(8, true)
-                                          ]
-                                        )
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticStyle: {
-                                        "max-height": "500px",
-                                        overflow: "auto"
-                                      }
-                                    },
-                                    [
-                                      _vm._l(_vm.comments, function(
-                                        comment,
-                                        index
-                                      ) {
-                                        return comment.task_id === item.task.id
-                                          ? _c(
-                                              "div",
-                                              { staticClass: "card-footer" },
-                                              [
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "d-flex justify-content-between"
-                                                  },
-                                                  [
-                                                    _c("div", [
-                                                      _c("img", {
-                                                        staticClass:
-                                                          "img-circle",
-                                                        staticStyle: {
-                                                          width: "20px"
-                                                        },
-                                                        attrs: {
-                                                          src:
-                                                            "/storage/avatars/" +
-                                                            comment.user.avatar,
-                                                          alt: comment.user.name
-                                                        }
-                                                      }),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "small",
-                                                        {
-                                                          staticClass:
-                                                            "text-dark"
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              comment.user.name
-                                                            )
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c("div", {}, [
-                                                      _c(
-                                                        "small",
-                                                        {
-                                                          staticClass:
-                                                            "text-muted"
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            _vm._s(comment.diff)
-                                                          )
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c("i", {
-                                                        staticClass:
-                                                          "fa fa-ellipsis-v text-secondary"
-                                                      })
-                                                    ])
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "div",
-                                                  { staticClass: "pr-4" },
-                                                  [
-                                                    _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "bg-secondary px-2 py-1 bulb d-inline-block"
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            comment.content
-                                                          )
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      }),
-                                      _vm._v(" "),
-                                      item.task.commentCount > 0
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass: "text-dark",
-                                              attrs: {
-                                                href: "/tasks/" + item.task.id
-                                              }
-                                            },
-                                            [_vm._m(9, true)]
-                                          )
-                                        : _vm._e()
-                                    ],
-                                    2
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-xl-3" })
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(10, true)
-                          ])
-                        ]
-                      )
+                                : _vm._e()
+                            ],
+                            2
+                          )
+                        : _vm._e()
                     ])
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _vm.tasks.length > 5
-                  ? _c("div", { staticClass: "text-center mt-3" }, [
-                      _c("small", [
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.loop.length > 0 && _vm.isShow === -1
+              ? _c("div", { staticClass: "card-body" }, [
+                  _vm.loop.length > 0
+                    ? _c("div", { staticClass: "alert" }, [
+                        _vm._v(_vm._s(_vm.loop.length) + " نتیجه یافت شد")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.loop.length > 0
+                    ? _c(
+                        "table",
+                        {
+                          staticClass:
+                            "table table-hover table-striped table-borderless"
+                        },
+                        [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _vm._l(_vm.loop.slice(0, _vm.toShow), function(
+                            item,
+                            index
+                          ) {
+                            return _c("tr", [
+                              _c("td", [_vm._v(_vm._s(item.id))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  { attrs: { href: "/tasks/" + item.id } },
+                                  [_vm._v(_vm._s(item.title))]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-left" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-link text-success",
+                                    attrs: { href: "/tasks/" + item.id }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-eye" })]
+                                )
+                              ])
+                            ])
+                          })
+                        ],
+                        2
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.loop.length > 5
+                    ? _c("div", { staticClass: "text-center" }, [
                         _vm._v(
-                          "نمایش " +
-                            _vm._s(_vm.tasksToShow) +
+                          "\n                            نمایش " +
+                            _vm._s(_vm.toShow) +
                             " از " +
-                            _vm._s(_vm.tasks.length) +
+                            _vm._s(_vm.loop.length) +
                             " "
                         ),
                         _c(
@@ -76007,22 +76145,540 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
-                                return _vm.addTasksToShow(_vm.tasks.length)
+                                _vm.toShow += 5
                               }
                             }
                           },
                           [_vm._v("بیشتر")]
                         )
                       ])
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e()
-        ],
-        1
-      )
-    ])
-  ])
+                    : _vm._e()
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.tasks.length > 0 && _vm.isShow > 1
+              ? _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "div",
+                    { staticClass: "list-group bg-dark" },
+                    _vm._l(_vm.tasks.slice(0, _vm.tasksToShow), function(
+                      item,
+                      index
+                    ) {
+                      return _c("div", { staticClass: "border-danger" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "list-group-item list-group-item-action flex-column align-items-start pointer",
+                            class: {
+                              "bg-secondary": item.lastStatus == 0,
+                              "bg-dark": item.lastStatus == 1,
+                              "bg-success text-dark": item.lastStatus == 2,
+                              "bg-dark text-light": item.lastStatus == 3
+                            },
+                            attrs: {
+                              "data-toggle": "collapse",
+                              href: "#col" + item.id,
+                              role: "button",
+                              "aria-expanded": "false",
+                              "aria-controls": "#col" + item.id
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.commentFetch()
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "d-flex w-100 justify-content-between"
+                              },
+                              [
+                                _c("div", [
+                                  _c(
+                                    "span",
+                                    { staticClass: "badge badge-dark" },
+                                    [
+                                      _c("i", {
+                                        class: {
+                                          "fa fa-users text-info":
+                                            item.users.length > 1,
+                                          "fa fa-user": item.users.length == 1
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "mb-1 h6" }, [
+                                    _c(
+                                      "span",
+                                      { staticClass: "badge badge-info" },
+                                      [_vm._v(_vm._s(item.task.subject))]
+                                    ),
+                                    _vm._v(" " + _vm._s(item.task.title) + " "),
+                                    _c(
+                                      "small",
+                                      { staticClass: "text-muted ml-1" },
+                                      [_vm._v(_vm._s(item.task.id))]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", {}, [
+                                  item.lastStatus < 2
+                                    ? _c("i", {
+                                        staticClass:
+                                          "fa fa-play text-success mx-2 pointer",
+                                        attrs: { title: "شروع یا ادامه کار" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.newStatus(
+                                              "شروع کار",
+                                              "start",
+                                              item.task.id,
+                                              item.id,
+                                              item.routine
+                                            )
+                                          }
+                                        }
+                                      })
+                                    : _vm._e()
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", {}, [
+                              _c("small", { staticClass: "mb-1 text-muted" }, [
+                                _vm._v(
+                                  _vm._s(item.task.content.substr(0, 150))
+                                ),
+                                item.task.content.length > 150
+                                  ? _c("span", [_vm._v("...")])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", {
+                              staticClass: "d-flex justify-content-start"
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "collapse",
+                            attrs: { id: "col" + item.id }
+                          },
+                          [
+                            _c("div", { staticClass: "card card-body" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "d-flex w-100 justify-content-between"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "text-center" },
+                                    _vm._l(item.users, function(u) {
+                                      return _c("img", {
+                                        staticClass: "img-circle mr-1",
+                                        staticStyle: { width: "25px" },
+                                        attrs: {
+                                          title: u.name,
+                                          src: "/storage/avatars/" + u.avatar,
+                                          alt: ""
+                                        }
+                                      })
+                                    }),
+                                    0
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "text-muted",
+                                        attrs: {
+                                          href: "/tasks/" + item.task.id,
+                                          target: "_blank",
+                                          title: "مشاهده"
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "fa fa-link ml-1 text-dark"
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "text-dark" },
+                                          [_vm._v("مشاهده")]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "text-muted",
+                                        attrs: {
+                                          href:
+                                            "/tasks/" + item.task.id + "/edit",
+                                          target: "_blank",
+                                          title: "ویرایش"
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "fa fa-edit ml-1 text-dark"
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "text-dark" },
+                                          [_vm._v("ویرایش")]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      { staticClass: "bg-secondary bulb mr-3" },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "mx-2 ",
+                                            attrs: {
+                                              title: "Share on Whatsapp",
+                                              "data-toggle": "tooltip",
+                                              target: "_blank",
+                                              href:
+                                                "https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: " +
+                                                item.task.title +
+                                                "http://i.sadiq-co.com/tasks/" +
+                                                item.task.id
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "fa fa-whatsapp text-light"
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "mx-2 ",
+                                            attrs: {
+                                              title: "Share on Telegram",
+                                              "data-toggle": "tooltip",
+                                              target: "_blank",
+                                              href:
+                                                "https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/" +
+                                                item.task.id +
+                                                "&text=Please Check this Task on SADIQ: " +
+                                                item.task.title
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "fa fa-telegram text-light"
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "col-xl-3 col-lg-4 col-md-6" },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href:
+                                            "/storage/uploads/" + item.task.pic,
+                                          target: "_blank"
+                                        }
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "img-fluid   ",
+                                          attrs: {
+                                            src:
+                                              "/storage/uploads/" +
+                                              item.task.pic,
+                                            alt: item.task.id
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-xl-6 col-lg-8 col-md-6" },
+                                  [
+                                    _c("p", { staticClass: "text-dark" }, [
+                                      _vm._v(
+                                        "توضیحات: " + _vm._s(item.task.content)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "form",
+                                      {
+                                        attrs: { autocomplete: "off" },
+                                        on: {
+                                          submit: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.addComment(item.task.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "form-group" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "input-group" },
+                                              [
+                                                _c("input", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value: _vm.content,
+                                                      expression: "content"
+                                                    }
+                                                  ],
+                                                  staticClass: "form-control",
+                                                  attrs: {
+                                                    type: "text",
+                                                    name: "content",
+                                                    placeholder: "ثبت نظر..."
+                                                  },
+                                                  domProps: {
+                                                    value: _vm.content
+                                                  },
+                                                  on: {
+                                                    input: function($event) {
+                                                      if (
+                                                        $event.target.composing
+                                                      ) {
+                                                        return
+                                                      }
+                                                      _vm.content =
+                                                        $event.target.value
+                                                    }
+                                                  }
+                                                }),
+                                                _vm._v(" "),
+                                                _vm._m(7, true)
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticStyle: {
+                                          "max-height": "500px",
+                                          overflow: "auto"
+                                        }
+                                      },
+                                      [
+                                        _vm._l(_vm.comments, function(
+                                          comment,
+                                          index
+                                        ) {
+                                          return comment.task_id ===
+                                            item.task.id
+                                            ? _c(
+                                                "div",
+                                                { staticClass: "card-footer" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "d-flex justify-content-between"
+                                                    },
+                                                    [
+                                                      _c("div", [
+                                                        _c("img", {
+                                                          staticClass:
+                                                            "img-circle",
+                                                          staticStyle: {
+                                                            width: "20px"
+                                                          },
+                                                          attrs: {
+                                                            src:
+                                                              "/storage/avatars/" +
+                                                              comment.user
+                                                                .avatar,
+                                                            alt:
+                                                              comment.user.name
+                                                          }
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "small",
+                                                          {
+                                                            staticClass:
+                                                              "text-dark"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                comment.user
+                                                                  .name
+                                                              )
+                                                            )
+                                                          ]
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("div", {}, [
+                                                        _c(
+                                                          "small",
+                                                          {
+                                                            staticClass:
+                                                              "text-muted"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                comment.diff
+                                                              )
+                                                            )
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "fa fa-ellipsis-v text-secondary"
+                                                        })
+                                                      ])
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    { staticClass: "pr-4" },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "bg-secondary px-2 py-1 bulb d-inline-block"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              comment.content
+                                                            )
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        }),
+                                        _vm._v(" "),
+                                        item.task.commentCount > 0
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass: "text-dark",
+                                                attrs: {
+                                                  href: "/tasks/" + item.task.id
+                                                }
+                                              },
+                                              [_vm._m(8, true)]
+                                            )
+                                          : _vm._e()
+                                      ],
+                                      2
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-xl-3" })
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(9, true)
+                            ])
+                          ]
+                        )
+                      ])
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _vm.tasks.length > 5
+                    ? _c("div", { staticClass: "text-center mt-3" }, [
+                        _c("small", [
+                          _vm._v(
+                            "نمایش " +
+                              _vm._s(_vm.tasksToShow) +
+                              " از " +
+                              _vm._s(_vm.tasks.length) +
+                              " "
+                          ),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-link btn-sm btn-block",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.addTasksToShow(_vm.tasks.length)
+                                }
+                              }
+                            },
+                            [_vm._v("بیشتر")]
+                          )
+                        ])
+                      ])
+                    : _vm._e()
+                ])
+              : _vm._e()
+          ],
+          1
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -76104,30 +76760,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "fa fa-angle-double-left text-muted" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "progress" }, [
-      _c("div", {
-        staticClass: "progress-bar bg-light",
-        staticStyle: { width: "40%" }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "progress-bar bg-warning",
-          staticStyle: { width: "10%" }
-        },
-        [
-          _vm._v(
-            "\n                                        Warning\n                                    "
-          )
-        ]
-      )
-    ])
   },
   function() {
     var _vm = this
@@ -77759,6 +78391,41 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-randomcolor/src/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/vue-randomcolor/src/index.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/*
+* vue-randomcolor
+* 
+* Author: Alexander Becker
+*/
+
+const randomColor = __webpack_require__(/*! randomcolor */ "./node_modules/randomcolor/randomColor.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	install(Vue) {
+
+		Object.defineProperties(Vue.prototype, {
+
+			$randomColor: {
+				get() {
+					return randomColor;
+				}
+			},
+			
+		});
+
+	}
+});
 
 /***/ }),
 
@@ -89856,6 +90523,7 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-select/dist/vue-select.css */ "./node_modules/vue-select/dist/vue-select.css");
 /* harmony import */ var vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select_dist_vue_select_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_randomcolor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-randomcolor */ "./node_modules/vue-randomcolor/src/index.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -89867,6 +90535,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 window.vSelect = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 
+
+Vue.use(vue_randomcolor__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
