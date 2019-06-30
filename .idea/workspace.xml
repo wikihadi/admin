@@ -7,15 +7,9 @@
     <list default="true" id="16b8dd04-1233-4f26-bfe3-de701ecdecf6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StatusController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StatusController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Status.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/MainHomeBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/MainHomeBox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/helper/createTask.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/helper/createTask.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/helper/editTask.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/helper/editTask.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/MainHomeBox.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" column="61" selection-start-line="1" selection-start-column="61" selection-end-line="1" selection-end-column="61" />
+              <caret line="91" column="170" selection-start-line="91" selection-start-column="170" selection-end-line="91" selection-end-column="170" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
                 <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
@@ -43,7 +37,6 @@
                 <element signature="n#style#0;n#button#6;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#transition#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#4;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
                 <element signature="n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
@@ -51,40 +44,18 @@
                 <element signature="n#div#2;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
                 <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="e#32343#32792#0" />
-                <element signature="e#32831#33025#0" />
-                <element signature="e#33068#33333#0" />
-                <element signature="e#33371#33631#0" />
-                <element signature="e#33682#34161#0" />
-                <element signature="e#34195#34364#0" />
-                <element signature="e#34405#34665#0" />
-                <element signature="e#34710#34985#0" />
-                <element signature="e#35212#35367#0" />
-                <element signature="e#35216#35377#0" />
-                <element signature="e#35417#35579#0" />
-                <element signature="e#35620#35788#0" />
-                <element signature="e#35817#36749#0" />
-                <element signature="e#36782#37397#0" />
-                <element signature="e#37478#38151#0" />
-                <element signature="e#38194#38617#0" />
-                <element signature="e#38655#38796#0" />
-                <element signature="e#38839#38998#0" />
-                <element signature="e#39033#39193#0" />
-                <element signature="e#39228#39323#0" />
-                <element signature="e#39378#39643#0" />
-                <element signature="e#39682#40122#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="864">
+              <caret line="841" column="20" selection-start-line="841" selection-start-column="20" selection-end-line="841" selection-end-column="20" />
               <folding>
-                <element signature="e#360#400#0" expanded="true" />
+                <element signature="e#40#57#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,7 +64,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
+            <state relative-caret-position="748">
               <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
             </state>
           </provider>
@@ -129,17 +100,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/helper/editTask.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-323">
+            <state relative-caret-position="289">
               <caret line="17" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StatusController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="518" column="46" selection-start-line="518" selection-start-column="46" selection-end-line="518" selection-end-column="46" />
+            <state relative-caret-position="504">
+              <caret line="510" column="170" selection-start-line="510" selection-start-column="170" selection-end-line="510" selection-end-column="170" />
               <folding>
                 <element signature="e#40#74#0#PHP" expanded="true" />
               </folding>
@@ -159,7 +130,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/TasksComponent.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
+            <state relative-caret-position="1649">
               <caret line="97" column="16" selection-start-line="97" selection-end-line="98" />
             </state>
           </provider>
@@ -178,7 +149,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>start</find>
       <find>$taskOrderUser</find>
       <find>addStatusToBox</find>
       <find>play</find>
@@ -208,6 +178,7 @@
       <find>hasany</find>
       <find>array</find>
       <find>return</find>
+      <find>timePassed</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -264,9 +235,9 @@
         <option value="$PROJECT_DIR$/resources/views/helper/createTask.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/helper/editTask.blade.php" />
         <option value="$PROJECT_DIR$/app/Status.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/StatusController.php" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/resources/js/components/MainHomeBox.vue" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/StatusController.php" />
       </list>
     </option>
   </component>
@@ -391,6 +362,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -488,7 +460,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -559,11 +530,12 @@
       <workItem from="1561365799071" duration="32092000" />
       <workItem from="1561523515835" duration="596000" />
       <workItem from="1561529724956" duration="17537000" />
+      <workItem from="1561871530104" duration="12261000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="493501000" />
+    <option name="totallyTimeSpent" value="505762000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -576,9 +548,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1663113" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16791044" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -858,13 +829,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/sectional.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14059">
-          <caret line="841" column="20" selection-start-line="841" selection-start-column="20" selection-end-line="841" selection-end-column="20" />
+        <state relative-caret-position="425">
+          <caret line="25" column="25" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
           <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
+            <element signature="e#360#400#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -875,20 +860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tasks/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/helper/createTask.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -896,17 +867,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/helper/editTask.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/tasks/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="391">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/TasksComponent.vue">
+    <entry file="file://$PROJECT_DIR$/resources/views/helper/editTask.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="97" column="16" selection-start-line="97" selection-end-line="98" />
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
@@ -917,29 +888,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StatusController.php">
+    <entry file="file://$PROJECT_DIR$/resources/js/components/TasksComponent.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="518" column="46" selection-start-line="518" selection-start-column="46" selection-end-line="518" selection-end-column="46" />
-          <folding>
-            <element signature="e#40#74#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="1649">
+          <caret line="97" column="16" selection-start-line="97" selection-end-line="98" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/sectional.rnc">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="25" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="864">
+          <caret line="841" column="20" selection-start-line="841" selection-start-column="20" selection-end-line="841" selection-end-column="20" />
           <folding>
-            <element signature="e#360#400#0" expanded="true" />
+            <element signature="e#40#57#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -947,7 +908,7 @@
     <entry file="file://$PROJECT_DIR$/resources/js/components/MainHomeBox.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="61" selection-start-line="1" selection-start-column="61" selection-end-line="1" selection-end-column="61" />
+          <caret line="91" column="170" selection-start-line="91" selection-start-column="170" selection-end-line="91" selection-end-column="170" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
             <element signature="n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
@@ -955,7 +916,6 @@
             <element signature="n#style#0;n#button#6;n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#transition#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#4;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
             <element signature="n#div#2;n#div#1;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
@@ -963,28 +923,16 @@
             <element signature="n#div#2;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
             <element signature="n#div#3;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#32343#32792#0" />
-            <element signature="e#32831#33025#0" />
-            <element signature="e#33068#33333#0" />
-            <element signature="e#33371#33631#0" />
-            <element signature="e#33682#34161#0" />
-            <element signature="e#34195#34364#0" />
-            <element signature="e#34405#34665#0" />
-            <element signature="e#34710#34985#0" />
-            <element signature="e#35212#35367#0" />
-            <element signature="e#35216#35377#0" />
-            <element signature="e#35417#35579#0" />
-            <element signature="e#35620#35788#0" />
-            <element signature="e#35817#36749#0" />
-            <element signature="e#36782#37397#0" />
-            <element signature="e#37478#38151#0" />
-            <element signature="e#38194#38617#0" />
-            <element signature="e#38655#38796#0" />
-            <element signature="e#38839#38998#0" />
-            <element signature="e#39033#39193#0" />
-            <element signature="e#39228#39323#0" />
-            <element signature="e#39378#39643#0" />
-            <element signature="e#39682#40122#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StatusController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="510" column="170" selection-start-line="510" selection-start-column="170" selection-end-line="510" selection-end-column="170" />
+          <folding>
+            <element signature="e#40#74#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

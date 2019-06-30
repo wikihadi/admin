@@ -1,5 +1,5 @@
 <template>
-        <div class="col-12 row mt-5 justify-content-center" :style="'background:' + this.$randomColor()">
+        <div class="col-12 row mt-5 justify-content-center">
                 <div class="col-xl-9 col-lg-10">
                 <div class="card bg-dark">
                     <div class="card-header">
@@ -80,16 +80,17 @@
                                     </div>
                                 </div>
 <!--                                    <h1 v-for="s in chartData.startsToday">{{s.content}}</h1>-->
-                                <div v-if="!taskMeterToday">
-                                    <small class="text-muted">{{chartData[0].task.title}}</small>
-                                    <div class="progress" style="height: 2px;">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" :title="chartData[0].task.title" :style="'width:' + timePassed + '%'"></div>
-                                    </div>
-                                </div>
-                                <div v-if="taskMeterToday">
-                                    <small class="text-muted">1</small>
+<!--                                <div v-if="!taskMeterToday">-->
+<!--                                    <small class="text-muted">{{chartData[0].task.title}}</small>-->
+<!--                                    <div class="progress" style="height: 2px;">-->
+<!--                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" :title="chartData[0].task.title" :style="'width:' + timePassed + '%'"></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div>
+<!--                                    <small class="text-muted">کار جاری</small>-->
                                     <div class="progress" style="height: 15px;">
-                                        <div v-for="s in chartData.startsToday" class="progress-bar progress-bar-striped progress-bar-animated" :title="s.task.title" :style="'width:10%;background:red'"></div>
+                                        <div :class="{'progress-bar-animated bg-success': chartData.startsToday.length == 0,'bg-secondary': chartData.startsToday.length != 0}" class="progress-bar progress-bar-striped " :title="chartData.lastStartBeforeToday.task.title" :style="'width:' + computeLastStartBeforToday + '%'">{{chartData.lastStartBeforeToday.task.title}}</div>
+                                        <div v-for="(s,index) in chartData.startsToday" class="progress-bar progress-bar-striped progress-bar-animated bg-success" :title="s.task.title" :style="'width:' + computeStartsToday + '%'">{{s.task.title}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -372,26 +373,54 @@
                 curTime:'',
                 chartData:[],
                 d:'',
-                taskMeterToday: true,
+                taskMeterToday: '',
                 taskMeterEnd:''
 
             }
         },
+        created: function () {
+        },
         mounted: function () {
+
             this.tasks='';
             this.title='باکس';
             this.activeTab=6;
             this.isShow=1;
             this.boxFetch();
-
             this.boxStartedCheck();
             this.timing();
             setInterval(this.timing, 1000)
-            this.chartFetch();
             // this.checkChartData();
-        },
+            this.chartFetch();
 
+        },
+        computed: {
+
+            computeLastStartBeforToday: function () {
+                if(this.chartData.startsToday.length == 0){
+                    return this.timePassed
+                }else{
+                    let hh = parseInt(this.chartData.startsToday[0].created_at.substr(11, 2));
+                    let mm = parseInt(this.chartData.startsToday[0].created_at.substr(14, 2));
+                    return (((((hh*60)+mm)-510)*100)/570);
+                }
+            },
+            computeStartsToday: function () {
+                if(this.chartData.startsToday.length > 1) {
+
+
+                }else{
+                    let hh = parseInt(this.chartData.startsToday[0].created_at.substr(11, 2));
+                    let mm = parseInt(this.chartData.startsToday[0].created_at.substr(14, 2));
+                    let xx = (((((hh*60)+mm)-510)*100)/570);
+                    return this.timePassed - xx;
+                }
+
+
+            }
+        },
         methods:{
+
             timing: function(){
                 let d = new Date();
                 this.d = d;
@@ -464,6 +493,7 @@
             chartFetch: function(){
                 let url = '/api/chartFetch?ID=' + this.user;
                 axios.get(url).then(response => this.chartData = response.data);
+
             },
             checkChartData: function(){
                 // let d = new Date();
@@ -471,7 +501,7 @@
                 // let hh = parseInt(this.chartData[0].created_at.substr(11, 2));
                 // let mm = parseInt(this.chartData[0].created_at.substr(14, 2));
                 // console.log((hh*60)+mm);
-
+                //
                 // if(d.getDate() == dd){
                 //     this.taskMeterToday= true;
                 // }else{

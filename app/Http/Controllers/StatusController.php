@@ -506,8 +506,9 @@ public function statics(){
 
     }
     public function chartFetch(){
-       $startsBeforeToday =     Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereDate('created_at','<', Carbon::today())->whereIn('status', ['start','end'])->orderBy('created_at','desc')->get();
-       $startsToday =           Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereDate('created_at', Carbon::today())->whereIn('status', ['start','end'])->orderBy('created_at','desc')->get();
+       $lastStartBeforeToday =     Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereDate('created_at','<', Carbon::today())->whereIn('status', ['start'])->orderBy('created_at','desc')->first();
+       $startsBeforeToday =     Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereDate('created_at','<', Carbon::today())->whereIn('status', ['start'])->orderBy('created_at','desc')->get();
+       $startsToday =           Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereDate('created_at', Carbon::today())->whereIn('status', ['start'])->orderBy('created_at','desc')->get();
 //       $starts=                 Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereIn('status', ['start','end'])->orderBy('created_at','desc')->get();
        $boxesToday =            Status::with('box')->whereHas('box')->where('user_id',$_GET['ID'])->whereDate('created_at', Carbon::today())->whereIn('status', ['box-start','box-pause','box-end'])->orderBy('created_at','desc')->get();
        $boxes =                 Status::with('box')->whereHas('box')->where('user_id',$_GET['ID'])->whereIn('status', ['box-start','box-pause','box-end'])->orderBy('created_at','desc')->get();
@@ -520,6 +521,7 @@ public function statics(){
             'boxes'                 => $boxes,
             'onOffToday'            => $onOffToday,
             'startsBeforeToday'     => $startsBeforeToday,
+            'lastStartBeforeToday'     => $lastStartBeforeToday,
         ]);
     }
 }
