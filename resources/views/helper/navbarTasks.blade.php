@@ -8,7 +8,7 @@
         @endcan
     </div>
     <div class="text-left mb-3 col">
-        <a class="btn btn-link" data-toggle="collapse" href=".collapseTask"><i class="fa fa-arrows-alt"></i></a>
+{{--        <a class="btn btn-link" data-toggle="collapse" href=".collapseTask"><i class="fa fa-arrows-alt"></i></a>--}}
 
         @role('admin')
         <button data-toggle="collapse" data-target="#demo" class="btn btn-link"><i class="fa fa-filter"></i></button>

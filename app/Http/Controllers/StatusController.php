@@ -259,19 +259,31 @@ class StatusController extends Controller
         if (!empty($status->task_id)){
             $task_id = $request->get('task_id');
             $user_id = $request->get('user_id');
+            $x = TaskOrderUser::where('user_id',$user_id)->where('task_id',$task_id)->first();
 
             if ($request->get('status') == 'comment'){
                 $task = Task::find($task_id);
                 $task->increment('commentCount');
+            }elseif ($request->get('status') == 'start') {
+                $x->lastStatus = 2;
+                $orderTaskOther = TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->where('task_id','!=',$task_id)->get();
+                foreach ($orderTaskOther as $o){
+                    $o->lastStatus = 1;
+                    $o->save();
+                }
+            }elseif ($request->get('status') == 'print'){
+                $x->lastStatus = 6;
+            }elseif ($request->get('status') == 'follow'){
+                $x->lastStatus = 5;
+            }elseif ($request->get('status') == 'end'){
+                $x->lastStatus = 3;
+            }elseif ($request->get('status') == 'pending'){
+                $x->lastStatus = 4;
+            }elseif ($request->get('status') == 'recycle'){
+                $x->lastStatus = 1;
             }
-            $x = TaskOrderUser::where('user_id',$user_id)->where('task_id',$task_id)->first();
-            $x->lastStatus = 2;
             $x->save();
-            $orderTaskOther = TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->where('task_id','!=',$task_id)->get();
-            foreach ($orderTaskOther as $o){
-                $o->lastStatus = 1;
-                $o->save();
-            }
+
         }
 
 
@@ -513,6 +525,7 @@ public function statics(){
        $boxesToday =            Status::with('box')->whereHas('box')->where('user_id',$_GET['ID'])->whereDate('created_at', Carbon::today())->whereIn('status', ['box-start','box-pause','box-end'])->orderBy('created_at','desc')->get();
        $boxes =                 Status::with('box')->whereHas('box')->where('user_id',$_GET['ID'])->whereIn('status', ['box-start','box-pause','box-end'])->orderBy('created_at','desc')->get();
        $onOffToday =            Status::where('user_id',$_GET['ID'])->whereIn('status', ['in','out','on','off','lunch-start','lunch-end'])->whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->get();
+       $inToday =               Status::where('user_id',$_GET['ID'])->whereIn('status', ['in'])->whereDate('created_at', Carbon::today())->orderBy('created_at','desc')->first();
 
         return response()->json([
             'startsToday'           => $startsToday,
@@ -522,6 +535,7 @@ public function statics(){
             'onOffToday'            => $onOffToday,
             'startsBeforeToday'     => $startsBeforeToday,
             'lastStartBeforeToday'     => $lastStartBeforeToday,
+            'inToday'     => $inToday,
         ]);
     }
 }

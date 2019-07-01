@@ -60,8 +60,68 @@ class TaskController extends Controller
             $order = TaskOrderUser::with('task','user')->whereHas('task')->whereHas('user')->where('user_id',$user->id)->where('isDone',0)->where('routine',0)->orderBy('order_column','asc')->paginate(10);
         }
         $orderRoutine = TaskOrderUser::with('task','user')->whereHas('task')->whereHas('user')->where('user_id',$user->id)->where('isDone',0)->where('routine',1)->orderBy('order_column','asc')->get();
+        $order0 = TaskOrderUser::with('task','user')->whereHas('task')->whereHas('user')->where('user_id',$user->id)->where('lastStatus',0)->where('routine',0)->orderBy('order_column','asc')->get();
+        $order1 = TaskOrderUser::with('task','user')->whereHas('task')->whereHas('user')->where('user_id',$user->id)->whereIn('lastStatus',[1,2])->where('routine',0)->orderBy('order_column','asc')->get();
+        $order3 = TaskOrderUser::with('task','user')->whereHas('task')->whereHas('user')->where('user_id',$user->id)->where('lastStatus',3)->where('routine',0)->orderBy('order_column','asc')->get();
 
         foreach ($orderRoutine as $key => $loop) {
+            $v = new Verta($loop->task->startDate);
+            $loop->task->jStart = $v->year . "/" . $v->month . "/" . $v->day;
+            $v = new Verta($loop->task->deadline);
+            $loop->task->jEnd = $v->year . "/" . $v->month . "/" . $v->day;
+
+            date_default_timezone_set("UTC");
+            $loop->task->pastOr = Carbon::now()->diffInSeconds($loop->task->startDate, false);
+
+            date_default_timezone_set("Asia/Tehran");
+            $loop->task->nowt = "The time is " . date("h:i:sa");
+            $loop->task->rightNow = Carbon::now()->diffInMinutes($loop->task->deadline, false);
+            $loop->task->diffDead = verta($loop->task->deadline)->formatDifference();
+            $loop->task->passNow = abs(Carbon::now()->diffInDays($loop->task->startDate, false));
+            $loop->task->passNowHours = abs(Carbon::now()->diffInMinutes($loop->task->startDate, false));
+            $loop->task->diffDate = abs(Carbon::parse($loop->task->startDate)->diffInMinutes($loop->task->deadline, false)) + 1;
+            $loop->task->diffdiff = (($loop->task->passNowHours) * 100) / ($loop->task->diffDate);
+            $loop->task->prog = floor($loop->task->diffdiff);
+        }
+        foreach ($order0 as $key => $loop) {
+            $v = new Verta($loop->task->startDate);
+            $loop->task->jStart = $v->year . "/" . $v->month . "/" . $v->day;
+            $v = new Verta($loop->task->deadline);
+            $loop->task->jEnd = $v->year . "/" . $v->month . "/" . $v->day;
+
+            date_default_timezone_set("UTC");
+            $loop->task->pastOr = Carbon::now()->diffInSeconds($loop->task->startDate, false);
+
+            date_default_timezone_set("Asia/Tehran");
+            $loop->task->nowt = "The time is " . date("h:i:sa");
+            $loop->task->rightNow = Carbon::now()->diffInMinutes($loop->task->deadline, false);
+            $loop->task->diffDead = verta($loop->task->deadline)->formatDifference();
+            $loop->task->passNow = abs(Carbon::now()->diffInDays($loop->task->startDate, false));
+            $loop->task->passNowHours = abs(Carbon::now()->diffInMinutes($loop->task->startDate, false));
+            $loop->task->diffDate = abs(Carbon::parse($loop->task->startDate)->diffInMinutes($loop->task->deadline, false)) + 1;
+            $loop->task->diffdiff = (($loop->task->passNowHours) * 100) / ($loop->task->diffDate);
+            $loop->task->prog = floor($loop->task->diffdiff);
+        }
+        foreach ($order1 as $key => $loop) {
+            $v = new Verta($loop->task->startDate);
+            $loop->task->jStart = $v->year . "/" . $v->month . "/" . $v->day;
+            $v = new Verta($loop->task->deadline);
+            $loop->task->jEnd = $v->year . "/" . $v->month . "/" . $v->day;
+
+            date_default_timezone_set("UTC");
+            $loop->task->pastOr = Carbon::now()->diffInSeconds($loop->task->startDate, false);
+
+            date_default_timezone_set("Asia/Tehran");
+            $loop->task->nowt = "The time is " . date("h:i:sa");
+            $loop->task->rightNow = Carbon::now()->diffInMinutes($loop->task->deadline, false);
+            $loop->task->diffDead = verta($loop->task->deadline)->formatDifference();
+            $loop->task->passNow = abs(Carbon::now()->diffInDays($loop->task->startDate, false));
+            $loop->task->passNowHours = abs(Carbon::now()->diffInMinutes($loop->task->startDate, false));
+            $loop->task->diffDate = abs(Carbon::parse($loop->task->startDate)->diffInMinutes($loop->task->deadline, false)) + 1;
+            $loop->task->diffdiff = (($loop->task->passNowHours) * 100) / ($loop->task->diffDate);
+            $loop->task->prog = floor($loop->task->diffdiff);
+        }
+        foreach ($order3 as $key => $loop) {
             $v = new Verta($loop->task->startDate);
             $loop->task->jStart = $v->year . "/" . $v->month . "/" . $v->day;
             $v = new Verta($loop->task->deadline);
@@ -116,7 +176,7 @@ class TaskController extends Controller
         $titleOfPage = 'کارهای من';
         $urlP = url()->current();
 
-        return view('tasks.index', compact('orderRoutine','urlP','order','userLastStatus','lastStartedStatus','user','usersInTasks','users','usersStatus','titleOfPage','myTasksStatus','statuses','statusesToMe'));
+        return view('tasks.index', compact('order0','order3','order1','orderRoutine','urlP','order','userLastStatus','lastStartedStatus','user','usersInTasks','users','usersStatus','titleOfPage','myTasksStatus','statuses','statusesToMe'));
     }
     public function create()
     {

@@ -29,23 +29,47 @@
                         </div>
 <!--                        FILTERS------------------------------------------------------------------------------------->
                         <div class="row justify-content-center">
+                            <button type="button"  class="btn btn-outline-secondary"
+                                    :class="{'active':activeTab === 8}"
+                                    @click.prevent="tasks='',title='باکس',activeTab=8,isShow=9,fetchmain">
+                                <i class="fa fa-home"></i></button>
+                            <div class="mx-1"></div>
+
                             <div class="btn-group">
                                 <button type="button" :class="{'active':activeTab === 6}" class="btn btn-outline-info" @click.prevent="tasks='',title='باکس',activeTab=6,isShow=1,boxFetch()"><i :class="{'fa fa-circle':activeTab === 6,'fa fa-circle-o':activeTab !== 6}"></i> باکس</button>
                                 <button type="button" :class="{'active':activeTab === 0}" class="btn btn-outline-info" @click.prevent="fetchRoutine()"><i :class="{'fa fa-circle':activeTab === 0,'fa fa-circle-o':activeTab !== 0}"></i> روتین</button>
                             </div>
                             <div class="mx-3"></div>
-                            <div class="btn-group flex-wrap">
-                                <button type="button" :class="{'text-light':activeTab === 1,'text-muted':activeTab !== 1}" class="btn btn-dark" @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1,isShow=3"><i :class="{'fa fa-circle':activeTab === 1,'fa fa-circle-o':activeTab !== 1}"></i> در انتظار</button>
+                            <div class="btn-group flex-wrap border-secondary border" style="border-radius: .25rem">
+                                <button type="button" class="btn btn-dark"
+                                        :class="{'text-light':activeTab === 1,'text-muted':activeTab !== 1}"
+                                        @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1,isShow=3">
+                                    <i :class="{'fa fa-circle':activeTab === 1,'fa fa-circle-o':activeTab !== 1}"></i> در انتظار</button>
                                 <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button style="cursor: no-drop" disabled type="button" :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='معلق',activeTab=3,isShow=5"><i :class="{'fa fa-circle':activeTab === 7,'fa fa-circle-o':activeTab !== 7}"></i> معلق</button>
+                                <button type="button"  class="btn btn-dark"
+                                        :class="{'text-light':activeTab === 7,'text-muted':activeTab !== 7}"
+                                        @click.prevent="fetchTasks('lastStatus','=',4,'order_column','asc'),commentFetch(),title='معلق',activeTab=7,isShow=8">
+                                    <i :class="{'fa fa-circle':activeTab === 7,'fa fa-circle-o':activeTab !== 7}"></i> معلق</button>
                                 <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button type="button" :class="{'text-light':activeTab === 2,'text-muted':activeTab !== 2}" class="btn btn-dark" @click.prevent="fetchCurrentTasks()"><i :class="{'fa fa-circle':activeTab === 2,'fa fa-circle-o':activeTab !== 2}"></i> درحال انجام</button>
+                                <button type="button"  class="btn btn-dark"
+                                        :class="{'text-light':activeTab === 2,'text-muted':activeTab !== 2}"
+                                        @click.prevent="fetchCurrentTasks()">
+                                    <i :class="{'fa fa-circle':activeTab === 2,'fa fa-circle-o':activeTab !== 2}"></i> درحال انجام</button>
                                 <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button style="cursor: no-drop" disabled type="button" :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5"><i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 3}"></i> پیگیری</button>
+                                <button type="button"  class="btn btn-dark"
+                                        :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}"
+                                        @click.prevent="fetchTasks('lastStatus','=',5,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5">
+                                    <i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 3}"></i> پیگیری</button>
                                 <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button style="cursor: no-drop" disabled type="button" :class="{'text-light':activeTab === 4,'text-muted':activeTab !== 4}" class="btn btn-dark" @click.prevent="fetchTasks('lastStatus','=',3,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6"><i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i> چاپ</button>
+                                <button type="button"  class="btn btn-dark"
+                                        :class="{'text-light':activeTab === 4,'text-muted':activeTab !== 4}"
+                                        @click.prevent="fetchTasks('lastStatus','=',6,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6">
+                                    <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i> چاپ</button>
                                 <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button type="button" :class="{'text-light':activeTab === 5,'text-muted':activeTab !== 5}" class="btn btn-dark" @click.prevent="tasks='',fetchTasks('lastStatus','>=',3,'updated_at','desc'),commentFetch(),title='کارهای پایان یافته',activeTab=5,isShow=7"><i :class="{'fa fa-circle':activeTab === 5,'fa fa-circle-o':activeTab !== 5}"></i> نهایی</button>
+                                <button type="button"  class="btn btn-dark"
+                                        :class="{'text-light':activeTab === 5,'text-muted':activeTab !== 5}"
+                                        @click.prevent="tasks='',fetchTasks('lastStatus','=',3,'updated_at','desc'),commentFetch(),title='کارهای پایان یافته',activeTab=5,isShow=7">
+                                    <i :class="{'fa fa-circle':activeTab === 5,'fa fa-circle-o':activeTab !== 5}"></i> نهایی</button>
                             </div>
                         </div>
 
@@ -59,16 +83,14 @@
                         </div>
                     </div>
                     </transition>
-<!--                    BOX------------------------------------------------------------------------------------------->
-                    <div class="card-body"   v-if="isShow === 1">
-<!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
+<!--                    MAIN------------------------------------------------------------------------------------------->
+                    <div class="card-body"   v-if="isShow === 9">
                         <div class="row mb-3">
                             <div class="col-12">
 
 
                                 <div class="alert alert-success" v-if="47.3>timePassed>52.6">ساعت ناهاری</div>
 
-<!--                                <div class="alert alert-danger" v-if="timePassed>100">ساعت کاری شما پایان یافته است. لطفا جهت محاسبه ساعت اضافه کار، قبل از خروج، ساعت پایان کار را اعلام کنید</div>-->
                                 <div class="d-flex justify-content-between">
                                     <small class="text-muted">08:30</small>
                                     <small class="text-muted">{{curTime}}</small>
@@ -79,22 +101,104 @@
                                     <div :class="{'bg-warning' :timePassed >85 , 'bg-info' :timePassed < 85, 'bg-danger' : timePassed >=100}" class="progress-bar progress-bar-striped progress-bar-animated" :title="curTime" role="progressbar" :aria-valuenow="timePassed" aria-valuemin="0" aria-valuemax="660" :style="'width:' + timePassed + '%'">
                                     </div>
                                 </div>
-<!--                                    <h1 v-for="s in chartData.startsToday">{{s.content}}</h1>-->
-<!--                                <div v-if="!taskMeterToday">-->
-<!--                                    <small class="text-muted">{{chartData[0].task.title}}</small>-->
-<!--                                    <div class="progress" style="height: 2px;">-->
-<!--                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" :title="chartData[0].task.title" :style="'width:' + timePassed + '%'"></div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-                                <div>
-<!--                                    <small class="text-muted">کار جاری</small>-->
-                                    <div class="progress" style="height: 15px;">
-                                        <div :class="{'progress-bar-animated bg-success': chartData.startsToday.length == 0,'bg-secondary': chartData.startsToday.length != 0}" class="progress-bar progress-bar-striped " :title="chartData.lastStartBeforeToday.task.title" :style="'width:' + computeLastStartBeforToday + '%'">{{chartData.lastStartBeforeToday.task.title}}</div>
-                                        <div v-for="(s,index) in chartData.startsToday" class="progress-bar progress-bar-striped progress-bar-animated bg-success" :title="s.task.title" :style="'width:' + computeStartsToday + '%'">{{s.task.title}}</div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card-body">
+                                    <div class="list-group-item bg-dark text-center text-muted">خودم <small class="text-muted">({{boxes.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="boxes.length <= 0"><i class="fa fa-minus"></i></div>
+
+                                    <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
+                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i>
+                                        <small>{{box.content}}</small>
+                                        <small class="pull-left">
+                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
+                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('توقف باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
+                                        </small>
+                                    </div>
+                                    <div class="text-center d-flex" v-if="boxes.length > 5">
+                                        <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
+                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <div class="list-group-item bg-dark text-center text-muted">همکار <small class="text-muted">({{sentBoxes.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="sentBoxes.length <= 0"><i class="fa fa-minus"></i></div>
+                                    <div class="list-group-item bg-dark" v-for="box in sentBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
+                                        <img :src="'/storage/avatars/' + box.user.avatar" class="img-circle" style="width: 20px" alt="">
+                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{box.content}}</small>
+                                        <small class="pull-left">
+                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
+                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
+                                        </small>
+                                    </div>
+                                    <div class="text-center d-flex" v-if="sentBoxes.length > 5">
+                                        <div @click.prevent="sentBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
+                                        <div @click.prevent="sentBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow < sentBoxes.length"><i class="fa fa-plus"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <div class="list-group-item bg-dark text-center text-muted">مدیریت <small class="text-muted">({{forcedBoxes.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="forcedBoxes.length <= 0"><i class="fa fa-minus"></i></div>
+                                    <div class="list-group-item bg-dark" v-for="box in forcedBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
+                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{}}</small>
+                                        <small class="pull-left">
+                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
+                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
+                                        </small>
+                                    </div>
+                                    <div class="text-center" v-if="forcedBoxes.length > 5">
+                                        <a @click.prevent="forcedBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-arrow-up"></i></a>
+                                        <a @click.prevent="forcedBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow < forcedBoxes.length"><i class="fa fa-arrow-down"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+<!--                    BOX------------------------------------------------------------------------------------------->
+                    <div class="card-body"   v-if="isShow === 1">
+<!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
+<!--                        <div class="row mb-3">-->
+<!--                            <div class="col-12">-->
+
+
+<!--                                <div class="alert alert-success" v-if="47.3>timePassed>52.6">ساعت ناهاری</div>-->
+
+<!--&lt;!&ndash;                                <div class="alert alert-danger" v-if="timePassed>100">ساعت کاری شما پایان یافته است. لطفا جهت محاسبه ساعت اضافه کار، قبل از خروج، ساعت پایان کار را اعلام کنید</div>&ndash;&gt;-->
+<!--                                <div class="d-flex justify-content-between">-->
+<!--                                    <small class="text-muted">08:30</small>-->
+<!--                                    <small class="text-muted">{{curTime}}</small>-->
+<!--                                    <small class="text-muted">18:00</small>-->
+<!--                                </div>-->
+
+<!--                                <div class="progress" style="height: 2px;" @click="checkChartData()">-->
+<!--                                    <div :class="{'bg-warning' :timePassed >85 , 'bg-info' :timePassed < 85, 'bg-danger' : timePassed >=100}" class="progress-bar progress-bar-striped progress-bar-animated" :title="curTime" role="progressbar" :aria-valuenow="timePassed" aria-valuemin="0" aria-valuemax="660" :style="'width:' + timePassed + '%'">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--&lt;!&ndash;                                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                                    <small class="text-muted">کار جاری</small>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="progress" style="height: 15px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div :class="{'progress-bar-animated bg-success': chartData.startsToday.length == 0,'bg-secondary': chartData.startsToday.length != 0}" class="progress-bar progress-bar-striped " :title="chartData.lastStartBeforeToday.task.title" :style="'width:' + computeLastStartBeforeToday + '%'">{{chartData.lastStartBeforeToday.task.title}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div v-for="(s,index) in chartData.startsToday" class="progress-bar progress-bar-striped progress-bar-animated bg-success" :title="s.task.title" :style="'width:' + computeStartsToday + '%'">{{s.task.title}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="progress" style="height: 5px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="progress-bar" v-if="chartData.inToday"  :style="'width:'+ computeBeforeIn +'%'" ></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="progress-bar progress-bar-striped bg-warning" style="width: 30%"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div class="row">
                             <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>
@@ -228,7 +332,9 @@
 <!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
                         <div class="list-group bg-dark">
                             <div class="border-danger" v-for="(item , index) in tasks.slice(0, tasksToShow)">
-                                <a data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()" :class="{'bg-secondary':item.lastStatus == 0,'bg-dark': item.lastStatus == 1,'bg-success text-dark': item.lastStatus == 2,'bg-dark text-light': item.lastStatus == 3}" class="list-group-item list-group-item-action flex-column align-items-start pointer">
+                                <a data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()"
+                                   :class="{'bg-secondary':item.lastStatus == 0,'bg-dark': item.lastStatus == 1,'bg-success text-dark': item.lastStatus == 2,'bg-dark text-light': item.lastStatus == 3,'bg-warning text-dark': item.lastStatus > 3}"
+                                   class="list-group-item list-group-item-action flex-column align-items-start pointer">
                                     <div class="d-flex w-100 justify-content-between">
                                         <div>
                                             <span class="badge badge-dark"><i :class="{'fa fa-users text-info': item.users.length > 1,'fa fa-user': item.users.length == 1}"></i></span> <span class="mb-1 h6"><span class="badge badge-info">{{item.task.subject}}</span> {{item.task.title}} <small class="text-muted ml-1">{{item.task.id}}</small></span>
@@ -307,18 +413,39 @@
                                         </div>
                                         <div class="d-flex w-100 justify-content-end">
                                             <div class="">
-<!--                                                <i class="fa fa-stop text-secondary mx-2 pointer"></i>-->
-<!--                                                <i class="fa fa-edit text-secondary mx-2 pointer"></i>-->
-<!--                                                <i class="fa fa-trash text-secondary mx-2 pointer"></i>-->
+                                                <transition name="fade"><span class="badge badge-dark" v-if="showTips == item.id">{{showTipsTitle}}</span></transition>
 
-<!--                                                    <a :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link text-dark mx-2"></i></a>-->
-<!--                                                    <a :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit text-dark mx-2"></i></a>-->
+                                                <i class="fa fa-flag-checkered text-secondary mx-2 pointer hvr-bob"
+                                                   @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش چاپ'"
+                                                   @mouseleave="showTips = false"
+                                                   @click.prevent="newStatus('انتقال به بخش چاپ ' + item.task.title,'print',item.task.id,item.routine)"
+                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 5"
+                                                ></i>
+                                                <i class="fa fa-flag-o text-secondary mx-2 pointer hvr-bob"
+                                                   @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش پیگیری'"
+                                                   @mouseleave="showTips = false"
+                                                   @click.prevent="newStatus('انتقال به بخش پیگیری ' + item.task.title,'follow',item.task.id,item.routine)"
+                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 6"
+                                                ></i>
+                                                <i class="fa fa-puzzle-piece text-secondary mx-2 pointer hvr-bob"
+                                                   @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش معلق'"
+                                                   @mouseleave="showTips = false"
+                                                   @click.prevent="newStatus('انتقال به بخش معلق ' + item.task.title,'pending',item.task.id,item.routine)"
+                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 6 || item.lastStatus == 5"
+                                                ></i>
+                                                <i class="fa fa-stop text-secondary mx-2 pointer hvr-bob"
+                                                   @mouseover="showTips = item.id,showTipsTitle='اعلام پایان کار'"
+                                                   @mouseleave="showTips = false"
+                                                   @click.prevent="newStatus('اعلام پایان کار ' + item.task.title,'end',item.task.id,item.routine)"
+                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 6 || item.lastStatus == 5"
+                                                ></i>
+                                                <i class="fa fa-recycle text-secondary mx-2 pointer hvr-bob"
+                                                   @mouseover="showTips = item.id,showTipsTitle='برگشت از پایان کار'"
+                                                   @mouseleave="showTips = false"
+                                                   @click.prevent="newStatus('برگشت از پایان کار ' + item.task.title,'recycle',item.task.id,item.routine)"
+                                                   v-if="item.lastStatus == 3"
+                                                ></i>
                                             </div>
-
-
-                                            <div class="">
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -374,29 +501,39 @@
                 chartData:[],
                 d:'',
                 taskMeterToday: '',
-                taskMeterEnd:''
-
+                taskMeterEnd:'',
+                showTips:false,
+                showTipsTitle:'',
             }
         },
+        beforeCreate: function () {
+
+        },
         created: function () {
+            this.chartFetch();
+
         },
         mounted: function () {
 
             this.tasks='';
             this.title='باکس';
-            this.activeTab=6;
-            this.isShow=1;
-            this.boxFetch();
-            this.boxStartedCheck();
+            this.activeTab=8;
+            this.isShow=9;
+            // this.boxFetch();
+            // this.boxStartedCheck();
             this.timing();
             setInterval(this.timing, 1000)
             // this.checkChartData();
-            this.chartFetch();
 
         },
         computed: {
 
-            computeLastStartBeforToday: function () {
+            computeBeforeIn: function () {
+                    let hh = parseInt(this.chartData.inToday.created_at.substr(11, 2));
+                    let mm = parseInt(this.chartData.inToday.created_at.substr(14, 2));
+                    return (((((hh*60)+mm)-510)*100)/570);
+            },
+            computeLastStartBeforeToday: function () {
                 if(this.chartData.startsToday.length == 0){
                     return this.timePassed
                 }else{
@@ -420,8 +557,7 @@
             }
         },
         methods:{
-
-            timing: function(){
+             timing: function(){
                 let d = new Date();
                 this.d = d;
                 let h = d.getHours();
@@ -474,6 +610,9 @@
                 this.othersBoxFetch();
                 this.forcedBoxFetch();
                 this.boxStartedCheck();
+                this.chartFetch();
+            },
+            fetchmain: function(){
 
             },
             archiveBoxFetch: function(){
@@ -572,6 +711,7 @@
                 }
             },
             newStatus: function(content,status,task_id,routine,re_id,forcedBox){
+
                     axios.post('/api/addStatusToBox',{
                         content: content,
                         user_id: this.user,
