@@ -14,9 +14,9 @@
                             <div class="col-md-8">
                                 <form @submit.prevent="searchTasks(),isShow=-1">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="جستجوی کارها..." v-model="searchValue" @keyup.prevent="searchTasks(),isShow=-1">
+                                        <input type="text" class="form-control form-control-sm" placeholder="جستجوی کارها..." v-model="searchValue" @keyup.prevent="searchTasks(),isShow=-1" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
                                         <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary " type="submit"><i class="fa fa-search"></i></button>
+                                            <button class="btn btn-sm btn-outline-secondary " type="submit"><i class="fa fa-search"></i></button>
                                         </div>
                                     </div>
                                     <transition name="fade">
@@ -29,44 +29,44 @@
                         </div>
 <!--                        FILTERS------------------------------------------------------------------------------------->
                         <div class="row justify-content-center">
-                            <button type="button"  class="btn btn-outline-secondary"
-                                    :class="{'active':activeTab === 8}"
-                                    @click.prevent="tasks='',title='باکس',activeTab=8,isShow=9,fetchmain">
-                                <i class="fa fa-home"></i></button>
-                            <div class="mx-1"></div>
+<!--                            <button type="button"  class="btn btn-sm btn-outline-secondary"-->
+<!--                                    :class="{'active':activeTab === 8}"-->
+<!--                                    @click.prevent="title='باکس',activeTab=8,isShow=9,fetchmain">-->
+<!--                                <i class="fa fa-tachometer"></i></button>-->
+<!--                            <div class="mx-1"></div>-->
 
                             <div class="btn-group">
-                                <button type="button" :class="{'active':activeTab === 6}" class="btn btn-outline-info" @click.prevent="tasks='',title='باکس',activeTab=6,isShow=1,boxFetch()"><i :class="{'fa fa-circle':activeTab === 6,'fa fa-circle-o':activeTab !== 6}"></i> باکس</button>
-                                <button type="button" :class="{'active':activeTab === 0}" class="btn btn-outline-info" @click.prevent="fetchRoutine()"><i :class="{'fa fa-circle':activeTab === 0,'fa fa-circle-o':activeTab !== 0}"></i> روتین</button>
+                                <button type="button" :class="{'active':activeTab === 6}" class="btn btn-sm btn-outline-info" @click.prevent="tasks='',title='باکس',activeTab=6,isShow=1,boxFetch()"><i :class="{'fa fa-circle':activeTab === 6,'fa fa-circle-o':activeTab !== 6}"></i> باکس</button>
+                                <button type="button" :class="{'active':activeTab === 0}" class="btn btn-sm btn-outline-info" @click.prevent="fetchRoutine()"><i :class="{'fa fa-circle':activeTab === 0,'fa fa-circle-o':activeTab !== 0}"></i> روتین</button>
                             </div>
                             <div class="mx-3"></div>
                             <div class="btn-group flex-wrap border-secondary border" style="border-radius: .25rem">
-                                <button type="button" class="btn btn-dark"
+                                <button type="button" class="btn btn-sm btn-dark"
                                         :class="{'text-light':activeTab === 1,'text-muted':activeTab !== 1}"
                                         @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1,isShow=3">
                                     <i :class="{'fa fa-circle':activeTab === 1,'fa fa-circle-o':activeTab !== 1}"></i> در انتظار</button>
-                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button type="button"  class="btn btn-dark"
+                                <button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button type="button"  class="btn btn-sm btn-dark"
                                         :class="{'text-light':activeTab === 7,'text-muted':activeTab !== 7}"
                                         @click.prevent="fetchTasks('lastStatus','=',4,'order_column','asc'),commentFetch(),title='معلق',activeTab=7,isShow=8">
                                     <i :class="{'fa fa-circle':activeTab === 7,'fa fa-circle-o':activeTab !== 7}"></i> معلق</button>
-                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button type="button"  class="btn btn-dark"
+                                <button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button type="button"  class="btn btn-sm btn-dark"
                                         :class="{'text-light':activeTab === 2,'text-muted':activeTab !== 2}"
                                         @click.prevent="fetchCurrentTasks()">
                                     <i :class="{'fa fa-circle':activeTab === 2,'fa fa-circle-o':activeTab !== 2}"></i> درحال انجام</button>
-                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button type="button"  class="btn btn-dark"
+                                <button class="btn btn-sm btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button type="button"  class=" btn-sm btn btn-dark"
                                         :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}"
                                         @click.prevent="fetchTasks('lastStatus','=',5,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5">
                                     <i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 3}"></i> پیگیری</button>
-                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button type="button"  class="btn btn-dark"
+                                <button class="btn  btn-sm  btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button type="button"  class=" btn-sm btn btn-dark"
                                         :class="{'text-light':activeTab === 4,'text-muted':activeTab !== 4}"
                                         @click.prevent="fetchTasks('lastStatus','=',6,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6">
                                     <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i> چاپ</button>
-                                <button class="btn btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
-                                <button type="button"  class="btn btn-dark"
+                                <button class="btn  btn-sm btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>
+                                <button type="button"  class=" btn-sm btn btn-dark"
                                         :class="{'text-light':activeTab === 5,'text-muted':activeTab !== 5}"
                                         @click.prevent="tasks='',fetchTasks('lastStatus','=',3,'updated_at','desc'),commentFetch(),title='کارهای پایان یافته',activeTab=5,isShow=7">
                                     <i :class="{'fa fa-circle':activeTab === 5,'fa fa-circle-o':activeTab !== 5}"></i> نهایی</button>
@@ -108,7 +108,26 @@
                         <div class="row">
                             <div class="col">
                                 <div class="card-body">
-                                    <div class="list-group-item bg-dark text-center text-muted">خودم <small class="text-muted">({{boxes.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center text-muted">کارهای من <small class="text-muted">({{tasks.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="tasks.length <= 0"><i class="fa fa-minus"></i></div>
+
+                                    <div
+                                        :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"
+                                        class="list-group-item" v-for="item in tasks.slice(0, 5)" :id="'task-' + item.id">
+                                        <small>{{item.task.title}}</small>
+                                        <small class="pull-left">
+                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>
+                                        </small>
+                                    </div>
+<!--                                    <div class="text-center d-flex" v-if="tasks.length > 5">-->
+<!--                                        <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>-->
+<!--                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <div class="list-group-item bg-dark text-center text-muted">باکس من <small class="text-muted">({{boxes.length}})</small></div>
                                     <div class="list-group-item bg-dark text-center" v-if="boxes.length <= 0"><i class="fa fa-minus"></i></div>
 
                                     <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
@@ -124,24 +143,7 @@
                                         <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="card-body">
-                                    <div class="list-group-item bg-dark text-center text-muted">همکار <small class="text-muted">({{sentBoxes.length}})</small></div>
-                                    <div class="list-group-item bg-dark text-center" v-if="sentBoxes.length <= 0"><i class="fa fa-minus"></i></div>
-                                    <div class="list-group-item bg-dark" v-for="box in sentBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
-                                        <img :src="'/storage/avatars/' + box.user.avatar" class="img-circle" style="width: 20px" alt="">
-                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{box.content}}</small>
-                                        <small class="pull-left">
-                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
-                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
-                                        </small>
-                                    </div>
-                                    <div class="text-center d-flex" v-if="sentBoxes.length > 5">
-                                        <div @click.prevent="sentBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
-                                        <div @click.prevent="sentBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow < sentBoxes.length"><i class="fa fa-plus"></i></div>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="col">
                                 <div class="card-body">
@@ -201,9 +203,9 @@
 <!--                        </div>-->
 
                         <div class="row">
-                            <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>
+<!--                            <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>-->
                             <transition name="fade">
-                            <div class="col-md-8 m-auto" v-if="showBoxForm">
+                            <div class="col-md-8 m-auto">
                                 <form @submit.prevent="addStatus(user),boxFetch()">
                                     <div class="input-group">
         <!--                                <div class="form-group"  v-for="u in users">-->
@@ -328,10 +330,23 @@
                         </div>
                     </div>
 <!--                    TASKS----------------------------------------------------------------------------------------->
-                    <div class="card-body"   v-if="tasks.length > 0 && isShow > 1">
+                    <div class="card-body"   v-if="tasks != '' && isShow > 1 && isShow != 9">
 <!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
                         <div class="list-group bg-dark">
-                            <div class="border-danger" v-for="(item , index) in tasks.slice(0, tasksToShow)">
+
+
+                            <div class="border-danger" v-if="tasks.length == 0">
+                                <a class="list-group-item list-group-item-action flex-column align-items-start pointer">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <div>
+                                            <span class="mb-1 h6">چیزی یافت نشد</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+
+                            <div class="border-danger"  v-if="tasks.length > 0" v-for="(item , index) in tasks.slice(0, tasksToShow)">
                                 <a data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()"
                                    :class="{'bg-secondary':item.lastStatus == 0,'bg-dark': item.lastStatus == 1,'bg-success text-dark': item.lastStatus == 2,'bg-dark text-light': item.lastStatus == 3,'bg-warning text-dark': item.lastStatus > 3}"
                                    class="list-group-item list-group-item-action flex-column align-items-start pointer">
@@ -341,7 +356,7 @@
                                         </div>
                                         <div class="">
 
-                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus < 2"></i>
+                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>
 
 
 <!--                                            <a :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1"></i></a>-->
@@ -439,12 +454,12 @@
                                                    @click.prevent="newStatus('اعلام پایان کار ' + item.task.title,'end',item.task.id,item.routine)"
                                                    v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 6 || item.lastStatus == 5"
                                                 ></i>
-                                                <i class="fa fa-recycle text-secondary mx-2 pointer hvr-bob"
-                                                   @mouseover="showTips = item.id,showTipsTitle='برگشت از پایان کار'"
-                                                   @mouseleave="showTips = false"
-                                                   @click.prevent="newStatus('برگشت از پایان کار ' + item.task.title,'recycle',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus == 3"
-                                                ></i>
+<!--                                                <i class="fa fa-recycle text-secondary mx-2 pointer hvr-bob"-->
+<!--                                                   @mouseover="showTips = item.id,showTipsTitle='برگشت از پایان کار'"-->
+<!--                                                   @mouseleave="showTips = false"-->
+<!--                                                   @click.prevent="newStatus('برگشت از پایان کار ' + item.task.title,'recycle',item.task.id,item.routine)"-->
+<!--                                                   v-if="item.lastStatus == 3"-->
+<!--                                                ></i>-->
                                             </div>
                                         </div>
                                     </div>
@@ -468,7 +483,6 @@
         props:['user','users'],
         data(){
             return{
-                showBoxForm: false,
                 archiveTitle: 'آرشیو',
                 archiveShow: '',
                 boxStarted: '',
@@ -515,12 +529,13 @@
         },
         mounted: function () {
 
-            this.tasks='';
+            // this.tasks='';
             this.title='باکس';
-            this.activeTab=8;
-            this.isShow=9;
-            // this.boxFetch();
-            // this.boxStartedCheck();
+            this.activeTab=6;
+            this.isShow=1;
+            // this.fetchCurrentTasksMain();
+            this.boxFetch();
+            this.boxStartedCheck();
             this.timing();
             setInterval(this.timing, 1000)
             // this.checkChartData();
@@ -585,6 +600,14 @@
                 this.activeTab=2;
                 this.isShow=4
             },
+            fetchCurrentTasksMain: function(){
+                this.tasks='';
+                this.fetchTasks('lastStatus','<=',2,'order_column','asc');
+                this.commentFetch();
+                this.title='در حال انجام';
+                this.activeTab=8;
+                this.isShow=9
+            },
             fetchRoutine: function(){
                 this.tasks=''
                 this.fetchTasks('routine','=',1,'order_column','asc');
@@ -613,6 +636,7 @@
                 this.chartFetch();
             },
             fetchmain: function(){
+                 this.fetchCurrentTasksMain();
 
             },
             archiveBoxFetch: function(){
