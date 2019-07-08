@@ -18,6 +18,12 @@
     </style>
 @endsection
 @section('afterBody')
+    @if(isset($noRoles))
+        <div class="position-fixed d-flex flex-column justify-content-around align-items-center w-100 h-100" style="z-index: 10000000000;height: 100%; background: #000000a5">
+            <i class="fa fa-user-circle fa-5x text-danger" style="font-size: 15rem"></i>
+            <div class="h1 text-light">حساب کاربری شما تایید نشده است. لطفا با مدیریت تماس بگیرید</div>
+        </div>
+        @else
     @if($user->lastStatus == 'lunch-start')
         <div class="position-fixed d-flex justify-content-center align-items-center w-100 h-100" style="z-index: 10000000000;height: 100%; background: #000000a5">
             <form  method="post" action="{{ route('status.store') }}" class="text-center text-center">
@@ -167,12 +173,21 @@
         </div>
         @endhasanyrole
     </div>
+    @hasanyrole('admin|modir|designer')
     <main-home-box v-bind:user="{{Auth::id()}}" :users="{{$users}}"></main-home-box>
+    @endhasanyrole
 {{--    <user-chart></user-chart>--}}
-    <div class="col-12 mt-5 row justify-content-center">
+{{--    <div class="col-12 row justify-content-center">--}}
+{{--        <div class="col-xl-9 col-lg-10 row m-auto">--}}
+{{--            <div class="col animated zoomIn">--}}
+{{--                <report-designer v-bind:user="{{Auth::id()}}" :users="{{$users}}"></report-designer>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+            <div class="col-12 row justify-content-center">
         <div class="col-xl-9 col-lg-10 row m-auto">
             @hasanyrole('admin|modir')
-                <div class="col-sm-3 animated zoomIn">
+                <div class="col animated zoomIn">
                     <div class="card bg-dark">
                         <div class="card-header"  >
                             <div class="" data-toggle="collapse" data-target="#lastStatus" style="cursor: pointer">
@@ -191,7 +206,8 @@
                     </div>
                 </div>
             @endhasanyrole
-                <div class="col-sm-5 animated zoomIn">
+            @hasanyrole('admin|modir|designer')
+            <div class="col-lg animated zoomIn">
                     <div class="card bg-dark">
                         <div class="card-header">
                             <div class="float-right" data-toggle="collapse" data-target="#myActivities" style="cursor: pointer">
@@ -201,8 +217,9 @@
                         <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
                     </div>
                 </div>
+            @endhasanyrole
             @hasanyrole('admin|modir')
-                <div class="col-sm-4 animated zoomIn " data-toggle="collapse" data-target="#admin">
+                <div class="col-lg animated zoomIn " data-toggle="collapse" data-target="#admin">
                     <div class="card bg-info">
                         <div class="card-header"  >
                             <div class="" style="cursor: pointer">
@@ -227,8 +244,9 @@
                         </div>
                     </div>
                 </div>
-            @else
-                <div class="col-sm-7 col-md-7 animated zoomIn" data-toggle="collapse" data-target="#myComments">
+            @endhasanyrole
+            @hasanyrole('designer')
+                <div class="col-lg animated zoomIn" data-toggle="collapse" data-target="#myComments">
                     <div class="card bg-dark">
                         <div class="card-header"  >
                             <div class="" style="cursor: pointer">
@@ -253,6 +271,8 @@
             @endhasanyrole
         </div>
     </div>
+    @endif
+
 @endsection
 @section('JS')
     <script type="text/javascript" src="/js/status.js"></script>

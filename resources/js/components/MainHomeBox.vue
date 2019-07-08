@@ -29,11 +29,11 @@
                         </div>
 <!--                        FILTERS------------------------------------------------------------------------------------->
                         <div class="row justify-content-center">
-<!--                            <button type="button"  class="btn btn-sm btn-outline-secondary"-->
-<!--                                    :class="{'active':activeTab === 8}"-->
-<!--                                    @click.prevent="title='باکس',activeTab=8,isShow=9,fetchmain">-->
-<!--                                <i class="fa fa-tachometer"></i></button>-->
-<!--                            <div class="mx-1"></div>-->
+                            <button type="button"  class="btn btn-sm btn-outline-secondary"
+                                    :class="{'active':activeTab === 8}"
+                                    @click.prevent="title='باکس',activeTab=8,isShow=9,fetchmain,fetchRoutineMain,myboxFetchMain(0)">
+                                <i class="fa fa-tachometer"></i></button>
+                            <div class="mx-1"></div>
 
                             <div class="btn-group">
                                 <button type="button" :class="{'active':activeTab === 6}" class="btn btn-sm btn-outline-info" @click.prevent="tasks='',title='باکس',activeTab=6,isShow=1,boxFetch()"><i :class="{'fa fa-circle':activeTab === 6,'fa fa-circle-o':activeTab !== 6}"></i> باکس</button>
@@ -85,6 +85,7 @@
                     </transition>
 <!--                    MAIN------------------------------------------------------------------------------------------->
                     <div class="card-body"   v-if="isShow === 9">
+
                         <div class="row mb-3">
                             <div class="col-12">
 
@@ -106,14 +107,16 @@
                         </div>
 
                         <div class="row">
-                            <div class="col">
-                                <div class="card-body">
-                                    <div class="list-group-item bg-dark text-center text-muted">کارهای من <small class="text-muted">({{tasks.length}})</small></div>
-                                    <div class="list-group-item bg-dark text-center" v-if="tasks.length <= 0"><i class="fa fa-minus"></i></div>
 
+
+                            <div class="col" v-if="ShowMainRoutine">
+                                <div class="card-body">
+                                    <div class="list-group-item bg-dark text-center text-muted">کارهای روتین من <small class="text-muted">({{mainTasksRoutine.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="mainTasksRoutine.length <= 0"><i class="fa fa-minus"></i></div>
                                     <div
                                         :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"
-                                        class="list-group-item" v-for="item in tasks.slice(0, 5)" :id="'task-' + item.id">
+                                        class="list-group-item"
+                                        v-for="item in mainTasksRoutine.slice(0, 5)" :id="'task-' + item.id">
                                         <small>{{item.task.title}}</small>
                                         <small class="pull-left">
                                             <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>
@@ -125,11 +128,35 @@
 <!--                                    </div>-->
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col" v-if="ShowMainCurrentTask">
                                 <div class="card-body">
-                                    <div class="list-group-item bg-dark text-center text-muted">باکس من <small class="text-muted">({{boxes.length}})</small></div>
-                                    <div class="list-group-item bg-dark text-center" v-if="boxes.length <= 0"><i class="fa fa-minus"></i></div>
+                                    <div class="list-group-item bg-dark text-center text-muted">کارهای در حال انجام <small class="text-muted">({{mainTasks.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="mainTasks.length <= 0"><i class="fa fa-minus"></i></div>
+                                    <div
+                                        :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"
+                                        class="list-group-item"
+                                        v-for="item in mainTasks.slice(0, 5)" :id="'task-' + item.id">
+                                        <small>{{item.task.title}}</small>
+                                        <small class="pull-left">
+                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>
+                                        </small>
+                                    </div>
+<!--                                    <div class="text-center d-flex" v-if="tasks.length > 5">-->
+<!--                                        <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>-->
+<!--                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
 
+
+                            <div class="col" v-if="ShowMainBox">
+                                <div class="card-body">
+                                    <div class="list-group-item bg-dark text-center text-muted d-flex justify-content-between">
+                                        <i class="fa fa-arrow-circle-right" title="روز قبل" @click.prevent="day--,myboxFetchMain(day)"></i>
+                                        <div>باکس من <small class="text-muted">({{boxes.length}})</small><small class="text-muted" v-if="day == 0">امروز</small><small class="text-muted" v-if="day != 0"> - ({{Math.abs(day)}}) روز قبل</small><button class="btn btn-link btn-sm" v-if="day != 0" @click="day=0,myboxFetchMain(day)">برو امروز</button></div>
+                                        <i class="fa fa-arrow-circle-left" title="روز بعد" @click.prevent="day++,myboxFetchMain(day)"></i>
+                                    </div>
+                                    <div class="list-group-item bg-dark text-center" v-if="boxes.length <= 0"><i class="fa fa-minus"></i></div>
                                     <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
                                         <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i>
                                         <small>{{box.content}}</small>
@@ -145,24 +172,30 @@
                                 </div>
 
                             </div>
-                            <div class="col">
-                                <div class="card-body">
-                                    <div class="list-group-item bg-dark text-center text-muted">مدیریت <small class="text-muted">({{forcedBoxes.length}})</small></div>
-                                    <div class="list-group-item bg-dark text-center" v-if="forcedBoxes.length <= 0"><i class="fa fa-minus"></i></div>
-                                    <div class="list-group-item bg-dark" v-for="box in forcedBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
-                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{}}</small>
-                                        <small class="pull-left">
-                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
-                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
-                                        </small>
-                                    </div>
-                                    <div class="text-center" v-if="forcedBoxes.length > 5">
-                                        <a @click.prevent="forcedBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-arrow-up"></i></a>
-                                        <a @click.prevent="forcedBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow < forcedBoxes.length"><i class="fa fa-arrow-down"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+
+<!--                            -->
+<!--                            <div class="col">-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="list-group-item bg-dark text-center text-muted">مدیریت <small class="text-muted">({{forcedBoxes.length}})</small></div>-->
+<!--                                    <div class="list-group-item bg-dark text-center" v-if="forcedBoxes.length <= 0"><i class="fa fa-minus"></i></div>-->
+<!--                                    <div class="list-group-item bg-dark" v-for="box in forcedBoxes.slice(0, boxToShow)" :id="'box-' + box.id">-->
+<!--                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{}}</small>-->
+<!--                                        <small class="pull-left">-->
+<!--                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>-->
+<!--                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>-->
+<!--                                        </small>-->
+<!--                                    </div>-->
+<!--                                    <div class="text-center" v-if="forcedBoxes.length > 5">-->
+<!--                                        <a @click.prevent="forcedBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-arrow-up"></i></a>-->
+<!--                                        <a @click.prevent="forcedBoxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow < forcedBoxes.length"><i class="fa fa-arrow-down"></i></a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
+
+                        <button class="btn btn-sm btn-outline-info" :class="{'active':ShowMainRoutine}" @click="ShowMainRoutine = !ShowMainRoutine">.</button>
+                        <button class="btn btn-sm btn-outline-info" :class="{'active':ShowMainCurrentTask}" @click="ShowMainCurrentTask = !ShowMainCurrentTask">.</button>
+                        <button class="btn btn-sm btn-outline-info" :class="{'active':ShowMainBox}" @click="ShowMainBox = !ShowMainBox">.</button>
 
                     </div>
 <!--                    BOX------------------------------------------------------------------------------------------->
@@ -206,18 +239,22 @@
 <!--                            <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>-->
                             <transition name="fade">
                             <div class="col-md-8 m-auto">
-                                <form @submit.prevent="addStatus(user),boxFetch()">
+                                <div class="text-center mb-3">
+                                    <img v-for="u in users" :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
+                                </div>
+                                <form @submit.prevent="addStatus(user),boxFetch()" v-if="showBoxForm">
                                     <div class="input-group">
         <!--                                <div class="form-group"  v-for="u in users">-->
         <!--                                    <label :for="'toUserId' + u.id">{{u.name}}</label>-->
         <!--                                    <input type="checkbox" :id="'toUserId' + u.id" :value="u.id" name="toUserId[]" v-model="toUserId">-->
         <!--                                </div>-->
-                                        <div class="input-group-prepend">
-                                            <select name="to_user" v-model="toUserId" class="form-control bg-dark" placeholder="asd">
-                                                <option v-for="u in users" :value="u.id" class="bg-dark" v-if="u.id == user" selected>خودم</option>
-                                                <option disabled>--------------</option>
-                                                <option v-for="u in users" :value="u.id" class="bg-dark" v-if="u.id != user">{{u.name}}</option>
-                                            </select>
+                                        <div class="input-group-prepend"  v-if="boxToUserIdName">
+                                            <span class="input-group-text text-sm">درخواست از {{boxToUserIdName}}</span>
+<!--                                            <select name="to_user" v-model="toUserId" class="form-control bg-dark" placeholder="asd">-->
+<!--                                                <option v-for="u in users" :value="u.id" class="bg-dark" v-if="u.id == user" selected>خودم</option>-->
+<!--                                                <option disabled>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+<!--                                                <option v-for="u in users" :value="u.id" class="bg-dark" v-if="u.id != user">{{u.name}}</option>-->
+<!--                                            </select>-->
                                         </div>
                                         <input type="text" class="form-control bg-dark" name="content" v-model="newBox" placeholder="اینجا بنویس..." id="content" autocomplete="off" autofocus>
                                         <div class="input-group-append">
@@ -479,6 +516,7 @@
 </template>
 
 <script>
+
     export default {
         props:['user','users'],
         data(){
@@ -509,6 +547,8 @@
                 searchValue:'',
                 loop:[],
                 tasks:[],
+                mainTasks:[],
+                mainTasksRoutine:[],
                 comments:[],
                 timePassed: '',
                 curTime:'',
@@ -518,6 +558,13 @@
                 taskMeterEnd:'',
                 showTips:false,
                 showTipsTitle:'',
+                boxToUserId:'',
+                showBoxForm: true,
+                day:0,
+                ShowMainRoutine:true,
+                ShowMainCurrentTask:true,
+                ShowMainBox:true,
+
             }
         },
         beforeCreate: function () {
@@ -531,12 +578,15 @@
 
             // this.tasks='';
             this.title='باکس';
-            this.activeTab=6;
-            this.isShow=1;
+            this.activeTab=8;
+            this.isShow=9;
             // this.fetchCurrentTasksMain();
-            this.boxFetch();
+            this.myboxFetchMain(0);
             this.boxStartedCheck();
             this.timing();
+            this.fetchRoutineMain();
+            this.fetchTasksMain('lastStatus','<=',2,'order_column','asc');
+
             setInterval(this.timing, 1000)
             // this.checkChartData();
 
@@ -572,6 +622,19 @@
             }
         },
         methods:{
+
+            selectUser: function(uId,uName){
+
+                if (this.user != uId){
+                    this.toUserId = uId;
+                    this.showBoxForm = true;
+                    this.boxToUserIdName = uName;
+                } else {
+                    this.toUserId = uId;
+                    this.boxToUserIdName = false;
+                    this.showBoxForm = true;
+                }
+            },
              timing: function(){
                 let d = new Date();
                 this.d = d;
@@ -615,6 +678,10 @@
                 this.title='کارهای روتین';
                 this.activeTab=0;
                 this.isShow=2
+            },
+            fetchRoutineMain: function(){
+                this.tasks=''
+                this.fetchTasksRoutine('routine','=',1,'order_column','asc');
             },
             CheckItem: function(event,id,content){
                     axios.post('/api/statusUpdateBox/' + id,{
@@ -675,6 +742,10 @@
             },
             myboxFetch: function(){
                 let url = '/api/statusListBox?ID=' + this.user;
+                axios.get(url).then(response => this.boxes = response.data)
+            },
+            myboxFetchMain: function(day){
+                let url = '/api/statusListBox?ID=' + this.user + '&day=' + day;
                 axios.get(url).then(response => this.boxes = response.data)
             },
             othersBoxFetch: function(){
@@ -790,6 +861,16 @@
                 console.log(url);
                 axios.get(url).then(response => this.tasks = response.data);
             },
+            fetchTasksRoutine: function(el,op,val,ord,ordOp){
+                let url = 'api/fetchTasks?u=' + this.user + '&el=' + el + '&op=' + op + '&val=' + val + '&ord=' + ord + '&ordOp=' + ordOp;
+                console.log(url);
+                axios.get(url).then(response => this.mainTasksRoutine = response.data);
+            },
+            fetchTasksMain: function(el,op,val,ord,ordOp){
+                let url = 'api/fetchTasks?u=' + this.user + '&el=' + el + '&op=' + op + '&val=' + val + '&ord=' + ord + '&ordOp=' + ordOp;
+                console.log(url);
+                axios.get(url).then(response => this.mainTasks = response.data);
+            },
             searchTasks: function () {
                 let url = 'api/searchTasks?s=' + this.searchValue;
 
@@ -833,4 +914,14 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
 }
+.user-selected{
+    width: 40px;
+    cursor: pointer;
+}
+
+.user-not-selected{
+    width: 30px;
+    cursor: pointer;
+}
+
 </style>

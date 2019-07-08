@@ -31,9 +31,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+
+        public function index()
     {
         $today = today();
+
         $dates = [];
 
         for($i=1; $i < $today->daysInMonth + 1; ++$i) {
@@ -88,7 +90,6 @@ class HomeController extends Controller
 //        $userTimeIn = Status::whereDate('created_at', Carbon::today())->where('user_id',$user->id)->where('status','in')->orderBy('created_at','desc')->first();
 //        $userTimeIn = Carbon::parse($userTimeIn->created_at);
 //        $userTimeIn = new Verta($userTimeIn);
-
         foreach ($users as $key => $loop) {
             date_default_timezone_set("Asia/Tehran");
             $loop->diff = verta($loop->created_at)->formatDifference();
@@ -109,6 +110,9 @@ class HomeController extends Controller
         return view('home',compact('dates','user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
     }
 
-
-
-}
+        public function noRoles()
+    {
+        $noRoles = 'noRoles';
+        return view('home',compact('noRoles'));
+    }
+    }

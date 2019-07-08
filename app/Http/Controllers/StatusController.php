@@ -307,7 +307,21 @@ class StatusController extends Controller
         }elseif (isset($_GET['fid'])) {
             $status = Status::where('status', 'box')->where('to_user', $_GET['fid'])->where('forcedBox', 1)->latest()->get();
         }elseif (isset($_GET['ID'])) {
-            $status = Status::where('status', 'box')->where('user_id', $_GET['ID'])->where('to_user', $_GET['ID'])->orWhere('user_id', $_GET['ID'])->where('to_user', null)->where('status', 'box')->latest()->get();
+            if (isset($_GET['day'])){
+
+                $day = $_GET['day'];
+                $dt = Carbon::now()->addDay($day);
+                $status = Status::
+                whereDate('created_at',$dt->toDateString())->
+                where('status', 'box')->
+                where('user_id', $_GET['ID'])->
+                where('to_user', $_GET['ID'])->
+                orWhere('to_user', $_GET['ID'])->
+                whereDate('created_at',$dt->toDateString())->
+                where('status', 'box')->latest()->get();
+            }else{
+                $status = Status::where('status', 'box')->where('user_id', $_GET['ID'])->where('to_user', $_GET['ID'])->orWhere('user_id', $_GET['ID'])->where('to_user', null)->where('status', 'box')->latest()->get();
+            }
         }elseif (isset($_GET['userPlayId'])) {
             $status = Status::
             where('user_id', $_GET['userPlayId'])->where('status','box-start')->
@@ -328,8 +342,20 @@ class StatusController extends Controller
         return $status;
     }
     public function commentList(){
+        $id = $_GET['ID'];
+        $toUId = $_GET['toUId'];
 
-        $data = Status::with('user','toUser')->where('status','status')->where('to_user',$_GET['ID'])->orWhere('user_id',$_GET['ID'])->where('status','status')->whereNotNull('to_user')->orderBy('created_at','DESC')->get();
+        if ($toUId == '' || $id == $toUId){
+            $data = Status::with('user','toUser')
+                ->where('status','status')->where('to_user',$id)
+                ->orWhere('user_id',$id)->where('status','status')
+                ->whereNotNull('to_user')->orderBy('created_at','DESC')->get();
+        }else{
+            $data = Status::with('user','toUser')
+                ->where('status','status')      ->where('to_user',$id)      ->where('user_id',$toUId)
+                ->orWhere('status','status')    ->where('to_user',$toUId)   ->where('user_id',$id)
+                ->whereNotNull('to_user')->orderBy('created_at','DESC')->get();
+        }
         foreach ($data as $key => $loop) {
             date_default_timezone_set("Asia/Tehran");
             $loop->diff = verta($loop->created_at)->formatDifference();

@@ -1,12 +1,19 @@
 <template>
     <div>
         <div class="p-3">
-            <form @submit.prevent="addStatus()">
+<!--            <carousel :nav="true" :items="10" :dots="true" :center="false" :freeDrag="true">-->
+            <div class="text-center mb-3 d-flex justify-content-center flex-wrap">
+                <img v-for="u in users" v-if="u.id == user" :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
+                <img v-for="u in users" v-if="u.id != user" :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
+            </div>
+<!--            </carousel>-->
+            <form @submit.prevent="addStatus()" v-if="showForm">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <select name="to_user" v-model="toUserId" class="form-control form-control-sm bg-dark" placeholder="asd" required>
-                            <option v-for="u in users" :value="u.id" class="bg-dark">{{u.name}}</option>
-                        </select>
+                    <div class="input-group-prepend" v-if="toUserIdName">
+                        <span class="input-group-text text-sm">به {{toUserIdName}}</span>
+<!--                        <select name="to_user" v-model="toUserId" class="form-control form-control-sm bg-dark" placeholder="asd" required>-->
+<!--                            <option v-for="u in users" :value="u.id" class="bg-dark">{{u.name}}</option>-->
+<!--                        </select>-->
                     </div>
                     <input type="text" class="form-control form-control-sm bg-dark" name="content" v-model="content" id="content" placeholder="متن پیام" required>
                     <div class="input-group-append">
@@ -15,6 +22,8 @@
                 </div>
             </form>
         </div>
+        <transition name="fade">
+
         <div class="list-group collapse show list-group-flush bg-dark" id="myActivities">
 
             <a class="list-group-item bg-dark" v-for="item in loop.slice(0, commentsToShow)" >
@@ -26,13 +35,18 @@
             </a>
 
             <a @click.prevent="commentsToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="commentsToShow > 5"><i class="fa fa-arrow-up"></i></a>
-            <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-arrow-down"></i></a>
+            <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="loop.length > 5"><i class="fa fa-arrow-down"></i></a>
         </div>
+        </transition>
     </div>
 </template>
 
 <script>
+    import carousel from 'vue-owl-carousel'
+
     export default {
+        components: { carousel },
+
         props:['user','users'],
         data(){
             return{
@@ -40,16 +54,31 @@
                 toUserId: '',
                 loop:[],
                 userID: this.user,
-                commentsToShow: 5
+                commentsToShow: 5,
+                showForm: false,
+                toUserIdName:''
             }},
         beforeMount(){
-            this.dataFetch();
+            this.dataFetch(this.user,this.user);
             this.timer = setInterval(this.dataFetch, 60000)
 
         },
         methods:{
-            dataFetch: function(){
-                let url = '/api/commentList?ID=' + this.user;
+            selectUser: function(uId,uName){
+
+                if (this.user != uId){
+                    this.toUserId = uId;
+                    this.showForm = true;
+                    this.toUserIdName = uName;
+                } else {
+                    this.toUserId = uId;
+
+                    this.showForm = false;
+                }
+                this.dataFetch(this.user,uId);
+            },
+            dataFetch: function(id,uid){
+                let url = '/api/commentList?ID=' + id + '&toUId=' + uid;
                 axios.get(url).then(response => this.loop = response.data)
             },
             addStatus(){
@@ -79,5 +108,16 @@
 </script>
 
 <style scoped>
+    .user-selected{
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+
+    .user-not-selected{
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
 
 </style>
