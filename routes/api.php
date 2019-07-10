@@ -43,6 +43,7 @@ Route::get('searchTasks','StatusController@searchTasks');
 Route::get('fetchTasks','StatusController@fetchTasks');
 Route::get('commentFetch','StatusController@commentFetch');
 Route::get('chartFetch','StatusController@chartFetch');
+Route::get('fetchMyTasksLastComments','StatusController@fetchMyTasksLastComments');
 
 //Route::resource('/apiStatus', 'StatusController');
 

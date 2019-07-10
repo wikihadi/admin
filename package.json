@@ -30,9 +30,11 @@
         "chart.js": "^2.8.0",
         "laravel-echo": "^1.5.3",
         "moment": "^2.24.0",
+        "moment-jalaali": "^0.8.3",
         "pusher-js": "^4.4.0",
         "randomcolor": "^0.5.4",
-        "vue-owl-carousel": "^2.0.3",
+        "vue-carousel": "^0.18.0",
+        "vue-moment": "^4.0.0",
         "vue-randomcolor": "^1.0.3",
         "vue-select": "^3.1.0"
     }

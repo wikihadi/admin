@@ -1,7 +1,16 @@
 <template>
-    <div>
-        <div class="p-3">
-<!--            <carousel :nav="true" :items="10" :dots="true" :center="false" :freeDrag="true">-->
+        <div class="col-12 row justify-content-center">
+            <div class="col-xl-9 col-lg-10">
+                <div class="card bg-dark"><div class="card-header">
+                    <div class="row justify-content-between pull-left">
+                        <div class="pointer" @click.prevent="minimize=!minimize"><i :class="{'fa-window-minimize':!minimize,'fa-window-maximize':minimize}" class="fa text-muted"></i></div>
+                    </div>
+
+                        <span v-if="minimize">پیامها</span>
+<div v-if="!minimize">
+    <div @click="refresh" v-if="!minimize" class="pointer"><i class="fa fa-refresh" title="بروزرسانی"></i> <small class="text-sm text-muted">{{dateN}}</small></div>
+
+    <!--            <carousel :nav="true" :items="10" :dots="true" :center="false" :freeDrag="true">-->
             <div class="text-center mb-3 d-flex justify-content-center flex-wrap">
                 <img v-for="u in users" v-if="u.id == user" :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
                 <img v-for="u in users" v-if="u.id != user" :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
@@ -21,10 +30,12 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </div></div>
+                    <div class="card-body" v-if="!minimize">
+
         <transition name="fade">
 
-        <div class="list-group collapse show list-group-flush bg-dark" id="myActivities">
+        <div class="list-group list-group-flush bg-dark">
 
             <a class="list-group-item bg-dark" v-for="item in loop.slice(0, commentsToShow)" >
                 <img v-if="item.to_user.id != user" :src="'/storage/avatars/' + item.user.avatar" alt="" class="ml-3 img-circle " style="width: 45px" :title="item.to_user.name">
@@ -38,14 +49,15 @@
             <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="loop.length > 5"><i class="fa fa-arrow-down"></i></a>
         </div>
         </transition>
+                    </div>
+    </div>
+    </div>
     </div>
 </template>
 
 <script>
-    import carousel from 'vue-owl-carousel'
 
     export default {
-        components: { carousel },
 
         props:['user','users'],
         data(){
@@ -56,14 +68,32 @@
                 userID: this.user,
                 commentsToShow: 5,
                 showForm: false,
-                toUserIdName:''
+                toUserIdName:'',
+                minimize:true
             }},
         beforeMount(){
             this.dataFetch(this.user,this.user);
-            this.timer = setInterval(this.dataFetch, 60000)
+            // this.timer = setInterval(this.dataFetch, 60000)
 
         },
         methods:{
+            refresh: function(){
+                this.dataFetch(this.user,this.user);
+                this.dateNew();
+            },
+            dateNew: function(){
+                let d = new Date();
+                let h = d.getHours();
+                let m = d.getMinutes();
+                let s = d.getSeconds();
+                if (m < 10){
+                    m = '0' + m;
+                }
+                if (s<10){
+                    s = '0' + s;
+                }
+                this.dateN = h + ':' + m + ':' + s;
+            },
             selectUser: function(uId,uName){
 
                 if (this.user != uId){
@@ -119,5 +149,7 @@
         height: 30px;
         cursor: pointer;
     }
-
+    .pointer{
+        cursor:pointer
+    }
 </style>

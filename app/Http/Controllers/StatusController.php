@@ -259,12 +259,25 @@ class StatusController extends Controller
         if (!empty($status->task_id)){
             $task_id = $request->get('task_id');
             $user_id = $request->get('user_id');
+
             $x = TaskOrderUser::where('user_id',$user_id)->where('task_id',$task_id)->first();
 
             if ($request->get('status') == 'comment'){
                 $task = Task::find($task_id);
                 $task->increment('commentCount');
             }elseif ($request->get('status') == 'start') {
+                $x2 = TaskOrderUser::
+                where('user_id',$user_id)->
+//                where('task_id',$task_id)->
+                where('lastStatus',2)->first();
+                $status = new Status([
+                    'status'    => 'pause',
+                    'content'   => 'توقف کار ' . $x2->task_id,
+                    'task_id'   => $x2->task_id,
+                    'user_id'   => $user_id,
+                ]);
+                $status->save();
+
                 $x->lastStatus = 2;
                 $orderTaskOther = TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->where('task_id','!=',$task_id)->get();
                 foreach ($orderTaskOther as $o){
@@ -476,14 +489,27 @@ public function statics(){
 }
     public function searchTasks(){
         $s = $_GET['s'];
+        $u = $_GET['u'];
 
         if(!empty($s) && strlen($s) > 5){
             $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
-            $tasks = Task::where(function ($q) use ($searchValues) {
+            $tasks = TaskOrderUser::with('task','user')->
+            where('user_id',$u)->
+            whereHas('task', function ($q) use ($searchValues) {
                 foreach ($searchValues as $value) {
                     $q->where('title', 'like', "%{$value}%");
                 }
             })->get();
+            foreach ($tasks as $key => $loop){
+                $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
+                $users = User::whereIn('id',$users)->get();
+                $loop->users = $users;
+            }
+//            $tasks = Task::where(function ($q) use ($searchValues) {
+//                foreach ($searchValues as $value) {
+//                    $q->where('title', 'like', "%{$value}%");
+//                }
+//            })->get();
 //            $tasks = Task::where('title', 'like', '%' . $s . '%')->get();
             return $tasks;
         }
@@ -503,11 +529,27 @@ public function statics(){
 //            $lastStatusOp = '>=';
 //        }
         if ($el == 'routine'){
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus','!=', 3)->where($el, $op, $val)->orderBy($ord , $ordOp)->get();
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->
+            where('user_id', $u)->
+            where('lastStatus','!=', 3)->
+            where($el, $op, $val)->
+            orderBy($ord , $ordOp)->get();
         }else if ($val == 2){
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where('lastStatus', 1)->where('routine', 0)->orWhere('lastStatus', 2)->where('user_id', $u)->where('routine', 0)->orderBy('lastStatus','desc')->orderBy($ord , $ordOp)->get();
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->
+            where('user_id', $u)->
+            where('lastStatus', 1)->
+            where('routine', 0)->
+            orWhere('lastStatus', 2)->
+            where('user_id', $u)->
+            where('routine', 0)->
+            orderBy('lastStatus','desc')->
+            orderBy($ord , $ordOp)->get();
         }else{
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('user_id', $u)->where($el, $op, $val)->orderBy($ord , $ordOp)->get();
+            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->
+            where('user_id', $u)->
+            where($el, $op, $val)->
+            where('routine', 0)->
+            orderBy($ord , $ordOp)->get();
         }
         foreach ($tasks as $key => $loop){
             $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
@@ -543,6 +585,7 @@ public function statics(){
 //        Self::newStatus('boxed','test',null,1,null,null);
 
     }
+
     public function chartFetch(){
        $lastStartBeforeToday =     Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereDate('created_at','<', Carbon::today())->whereIn('status', ['start'])->orderBy('created_at','desc')->first();
        $startsBeforeToday =     Status::with('task')->whereHas('task')->where('user_id',$_GET['ID'])->whereDate('created_at','<', Carbon::today())->whereIn('status', ['start'])->orderBy('created_at','desc')->get();
@@ -563,5 +606,24 @@ public function statics(){
             'lastStartBeforeToday'     => $lastStartBeforeToday,
             'inToday'     => $inToday,
         ]);
+    }
+    public function fetchMyTasksLastComments(){
+        $order= TaskOrderUser::where('user_id',$_GET['ID'])->get();
+        foreach($order as $k => $v) {
+            $a[] = $v['task_id'];
+        }
+        $lastMyComments = Status::
+        with('task','user')->
+        whereIn('task_id',$a)->where('status','comment')->
+        orderBy('updated_at','desc')->
+        limit(10)->get();
+        foreach ($lastMyComments as $key => $loop) {
+            date_default_timezone_set("Asia/Tehran");
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
+//        return response()->json([
+//            'lastMyComments'           => $lastMyComments,
+//        ]);
+        return $lastMyComments;
     }
 }

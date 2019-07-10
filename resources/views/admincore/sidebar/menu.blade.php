@@ -30,12 +30,12 @@
                     {{--</li>--}}
                 {{--@endcan--}}
                     @can('task-list')
-                <li class="nav-item">
-                    <a href="/tasks" class="nav-link @if(Request::is('tasks')) active @endif ">
-                        <i class="fa fa-list-ul nav-icon"></i>
-                        <p>کارهای من</p>
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a href="/tasks" class="nav-link @if(Request::is('tasks')) active @endif ">--}}
+{{--                        <i class="fa fa-list-ul nav-icon"></i>--}}
+{{--                        <p>کارهای من</p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 @endcan
 
                 @can('task-create')

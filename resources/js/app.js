@@ -9,12 +9,19 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueMoment from 'vue-moment'
+// import moment from 'moment-timezone'
+//
+// Vue.use(VueMoment, {
+//     moment,
+// })
 window.vSelect = require('vue-select');
 import 'vue-select/dist/vue-select.css';
-import VueRandomColor from 'vue-randomcolor';
-
-Vue.use(VueRandomColor);
-
+// import VueRandomColor from 'vue-randomcolor';
+//
+// Vue.use(VueRandomColor);
+// Vue.use(require('vue-moment'));
+// Vue.use(require('moment-jalaali'));
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
