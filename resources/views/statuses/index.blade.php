@@ -21,7 +21,6 @@
 
     <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
         <div class="col-md-10 col-lg-8 col-xl-6 m-auto">
-            @role('admin')
             <table class="table table-light text-dark table-striped">
 
                 @foreach ($statuses as $s)
@@ -58,9 +57,9 @@
                 @endforeach
             </table>
             {{ $statuses->links() }}
-            @else
-                <a href="/" class="btn btn-success btn-block">داشبورد</a>
-                @endrole
+{{--            @else--}}
+{{--                <a href="/" class="btn btn-success btn-block">داشبورد</a>--}}
+{{--                @endrole--}}
         </div>
 
     </div>

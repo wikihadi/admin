@@ -37,8 +37,23 @@ class StatusController extends Controller
 
 
         }
+        $id=Auth::id();
+        if($id == 1 || $id==2){
+            $statuses = Status::with('task','user')->whereHas('user')->
+            whereNull('to_user')->
+            latest()->paginate(20);
 
-        $statuses = Status::with('task','user')->whereHas('user')->whereNull('to_user')->orderBy('updated_at','DESC')->paginate(20);
+        }else{
+            $statuses = Status::
+            with('task','user')->
+            whereHas('user')->
+            where('user_id',$id)->
+            orWhere('to_user',$id)->
+            latest()->
+            paginate(10);
+
+        }
+
         //$tasks = Task::all();
         return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe'));
     }
@@ -493,7 +508,7 @@ public function statics(){
 
         if(!empty($s) && strlen($s) > 5){
             $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
-            $tasks = TaskOrderUser::with('task','user')->
+            $tasks = TaskOrderUser::with('task','user','comments')->
             where('user_id',$u)->
             whereHas('task', function ($q) use ($searchValues) {
                 foreach ($searchValues as $value) {
@@ -504,6 +519,14 @@ public function statics(){
                 $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
                 $users = User::whereIn('id',$users)->get();
                 $loop->users = $users;
+
+//                $dateBefore = Carbon::now();
+//
+//                foreach ($loop->comments as $key => $loop){
+//                    $loop->jCreated_at = new Verta($loop->created_at);
+//                    $loop->diff = verta($loop->created_at)->formatDifference();
+//                    $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+//                }
             }
 //            $tasks = Task::where(function ($q) use ($searchValues) {
 //                foreach ($searchValues as $value) {
@@ -511,6 +534,7 @@ public function statics(){
 //                }
 //            })->get();
 //            $tasks = Task::where('title', 'like', '%' . $s . '%')->get();
+
             return $tasks;
         }
 
@@ -523,19 +547,20 @@ public function statics(){
             $ord = $_GET['ord'];
             $ordOp = $_GET['ordOp'];
 
+
 //        if ($lastStatusOp == 'le'){
 //            $lastStatusOp = '<=';
 //        }elseif($lastStatusOp == 'be'){
 //            $lastStatusOp = '>=';
 //        }
-        if ($el == 'routine'){
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->
+        if ($el == 'routine' && !isset($_GET['day'])){
+            $tasks = TaskOrderUser::with('task','user','comments')->whereHas('user')->whereHas('task')->
             where('user_id', $u)->
             where('lastStatus','!=', 3)->
             where($el, $op, $val)->
             orderBy($ord , $ordOp)->get();
         }else if ($val == 2){
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->
+            $tasks = TaskOrderUser::with('task','user','comments')->whereHas('user')->whereHas('task')->
             where('user_id', $u)->
             where('lastStatus', 1)->
             where('routine', 0)->
@@ -545,23 +570,65 @@ public function statics(){
             orderBy('lastStatus','desc')->
             orderBy($ord , $ordOp)->get();
         }else{
-            $tasks = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->
+            $tasks = TaskOrderUser::with('task','user','comments')->whereHas('user')->whereHas('task')->
             where('user_id', $u)->
             where($el, $op, $val)->
             where('routine', 0)->
             orderBy($ord , $ordOp)->get();
+        }
+        if (isset($_GET['day'])){
+            $day = $_GET['day'];
+            $dt = Carbon::now()->addDay($day);
+            if ($el != 'routine') {
+
+//            whereDate('created_at',$dt->toDateString())->
+
+                $tasks = TaskOrderUser::where('user_id', $u)
+                    ->with('task', 'user', 'startStatuses', 'comments')
+                    ->whereHas('user')
+                    ->whereHas('task')
+                    ->whereHas('startStatuses', function ($q) use ($dt,$u) {
+                        $q->whereDate('created_at', $dt->toDateString())->where('user_id',$u);
+                    })
+                    ->where('user_id', $u)
+                    ->where($el, $op, $val)
+                    ->where('routine', 0)
+                    ->orderBy($ord, $ordOp)->get();
+            }elseif($el == 'routine'){
+
+
+                $tasks = TaskOrderUser::with('task','user','comments','startStatuses')
+                    ->whereHas('user')
+                    ->whereHas('task')
+                    ->whereHas('startStatuses', function ($q) use ($dt) {
+                        $q->whereDate('created_at', $dt->toDateString());
+                    })
+                    ->where('user_id', $u)
+                    ->where('lastStatus','!=', 3)->
+                where($el, $op, $val)->
+                orderBy($ord , $ordOp)->get();
+            }
         }
         foreach ($tasks as $key => $loop){
             $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
             $users = User::whereIn('id',$users)->get();
             $loop->users = $users;
         }
+//        $dateBefore = Carbon::now();
+//
+//        foreach ($tasks->comments as $key => $loop){
+//            $loop->jCreated_at = new Verta($loop->created_at);
+//            $loop->diff = verta($loop->created_at)->formatDifference();
+//            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+//        }
             return $tasks;
 
     }
     public function commentFetch(){
 
-        $comments = Status::where( 'created_at', '>', Carbon::now()->subDays(15))->with('user')->whereHas('user')->where('status','comment')->orderBy('updated_at','desc')->get();
+        $comments = Status::
+//        where( 'created_at', '>', Carbon::now()->subDays(15))->
+        with('user')->whereHas('user')->where('status','comment')->orderBy('updated_at','desc')->get();
         $dateBefore = Carbon::now();
 
         foreach ($comments as $key => $loop){

@@ -175,66 +175,66 @@
     </div>
     @hasanyrole('admin|modir|designer')
     <main-home-box v-bind:user="{{Auth::id()}}" :users="{{$users}}"></main-home-box>
-    <report-designer v-bind:user="{{Auth::id()}}" :users="{{$users}}"></report-designer>
+{{--    <report-designer v-bind:user="{{Auth::id()}}" :users="{{$users}}"></report-designer>--}}
     <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
     @endhasanyrole
 {{--    <user-chart></user-chart>--}}
 
 
 
-{{--            <div class="col-12 row justify-content-center">--}}
-{{--        <div class="col-xl-9 col-lg-10 row m-auto">--}}
-{{--            @hasanyrole('admin|modir')--}}
-{{--                <div class="col animated zoomIn">--}}
-{{--                    <div class="card bg-dark">--}}
-{{--                        <div class="card-header"  >--}}
-{{--                            <div class="" data-toggle="collapse" data-target="#lastStatus" style="cursor: pointer">--}}
-{{--                                <i class="fa fa-arrow-circle-down"></i> کارهای باز--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="list-group collapse show list-group-flush bg-dark" id="lastStatus">--}}
-{{--                            @foreach($currentJobs as $c)--}}
-{{--                                <a  href="/tasks/{{$c->task->id}}" target="_blank" class="list-group-item @if($c->user->lastStatus == 'off') bg-info @elseif($c->user->lastStatus == 'lunch-start') bg-warning @elseif($c->user->lastStatus == 'out') bg-secondary @else bg-success @endif py-1 px-2">--}}
-{{--                                <img src="/storage/avatars/{{$c->user->avatar}}" alt="" class="img-circle" style="width: 30px" title="{{$c->user->name}}" data-toggle="tooltip">--}}
-{{--                                <small style="font-size: 75%">{{$c->task->title}}</small>--}}
-{{--                                <div class="float-left"><i class="fa @if($c->user->lastStatus == 'off') fa-clock-o @elseif($c->user->lastStatus == 'lunch-start') fa-cutlery @elseif($c->user->lastStatus == 'out') fa-power-off @endif "></i></div>--}}
-{{--                                </a>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endhasanyrole--}}
-{{--            @hasanyrole('admin|modir|designer')--}}
+            <div class="col-12 row justify-content-center">
+        <div class="col-xl-9 col-lg-10 row m-auto">
+            @hasanyrole('admin|modir')
+                <div class="col animated zoomIn">
+                    <div class="card bg-dark">
+                        <div class="card-header"  >
+                            <div class="" data-toggle="collapse" data-target="#lastStatus" style="cursor: pointer">
+                                <i class="fa fa-arrow-circle-down"></i> کارهای باز
+                            </div>
+                        </div>
+                        <div class="list-group collapse show list-group-flush bg-dark" id="lastStatus">
+                            @foreach($currentJobs as $c)
+                                <a  href="/tasks/{{$c->task->id}}" target="_blank" class="list-group-item @if($c->user->lastStatus == 'off') bg-info @elseif($c->user->lastStatus == 'lunch-start') bg-warning @elseif($c->user->lastStatus == 'out') bg-secondary @else bg-success @endif py-1 px-2">
+                                <img src="/storage/avatars/{{$c->user->avatar}}" alt="" class="img-circle" style="width: 30px" title="{{$c->user->name}}" data-toggle="tooltip">
+                                <small style="font-size: 75%">{{$c->task->title}}</small>
+                                <div class="float-left"><i class="fa @if($c->user->lastStatus == 'off') fa-clock-o @elseif($c->user->lastStatus == 'lunch-start') fa-cutlery @elseif($c->user->lastStatus == 'out') fa-power-off @endif "></i></div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endhasanyrole
+            @hasanyrole('admin|modir|designer')
 
 
-{{--            @endhasanyrole--}}
-{{--            @hasanyrole('admin|modir')--}}
-{{--                <div class="col-lg animated zoomIn " data-toggle="collapse" data-target="#admin">--}}
-{{--                    <div class="card bg-info">--}}
-{{--                        <div class="card-header"  >--}}
-{{--                            <div class="" style="cursor: pointer">--}}
-{{--                                <i class="fa fa-arrow-circle-down"></i>مشاهده ده نظر اخیر - مدیر--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="list-group collapse show list-group-flush bg-dark" id="admin">--}}
-{{--                            @foreach($lastComments as $l)--}}
-{{--                                <div  class="list-group-item bg-dark">--}}
-{{--                                    <div class="text-left">--}}
-{{--                                        <a href="/tasks/{{$l->task->id}}" title="Go to Task" data-toggle="tooltip"><i class="fa fa-arrow-left mx-1 text-muted hvr-glow"></i></a>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="border-bottom mb-2">--}}
-{{--                                        <small class="text-muted">--}}
-{{--                                            <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">--}}
-{{--                                            در  {{$l->task->title}} - {{$l->diff}}:--}}
-{{--                                        </small>--}}
-{{--                                    </div>--}}
-{{--                                    <small>{{$l->content}}</small>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endhasanyrole--}}
+            @endhasanyrole
+            @hasanyrole('admin|modir')
+                <div class="col-lg animated zoomIn " data-toggle="collapse" data-target="#admin">
+                    <div class="card bg-info">
+                        <div class="card-header"  >
+                            <div class="" style="cursor: pointer">
+                                <i class="fa fa-arrow-circle-down"></i>مشاهده ده نظر اخیر - مدیر
+                            </div>
+                        </div>
+                        <div class="list-group collapse show list-group-flush bg-dark" id="admin">
+                            @foreach($lastComments as $l)
+                                <div  class="list-group-item bg-dark">
+                                    <div class="text-left">
+                                        <a href="/tasks/{{$l->task->id}}" title="Go to Task" data-toggle="tooltip"><i class="fa fa-arrow-left mx-1 text-muted hvr-glow"></i></a>
+                                    </div>
+                                    <div class="border-bottom mb-2">
+                                        <small class="text-muted">
+                                            <img src="/storage/avatars/{{$l->user->avatar}}" alt="{{$l->user->name}}" title="{{$l->user->name}}" data-toggle="tooltip" style="width: 30px" class="ml-3 img-circle">
+                                            در  {{$l->task->title}} - {{$l->diff}}:
+                                        </small>
+                                    </div>
+                                    <small>{{$l->content}}</small>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endhasanyrole
 {{--            @hasanyrole('designer')--}}
 {{--                <div class="col-lg animated zoomIn" data-toggle="collapse" data-target="#myComments">--}}
 {{--                    <div class="card bg-dark">--}}

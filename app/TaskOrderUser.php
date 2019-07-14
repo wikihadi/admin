@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class TaskOrderUser extends Model
@@ -17,5 +18,11 @@ class TaskOrderUser extends Model
     }
     public function statuses(){
         return $this->hasMany('App\Status','id','user_id');
+    }
+    public function startStatuses(){
+        return $this->hasMany('App\Status','task_id','task_id')->whereIn('status',['start','comment','pause','end']);
+    }
+    public function comments(){
+        return $this->hasMany('App\Status','task_id','task_id')->with('user')->where('status','comment')->latest();
     }
 }

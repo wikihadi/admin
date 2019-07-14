@@ -8,11 +8,11 @@
 {{--    <li class="nav-item d-none d-sm-inline-block">--}}
 {{--        <a href="/tasks" class="nav-link">کارهای من</a>--}}
 {{--    </li>--}}
-    @role('admin')
+{{--    @role('admin')--}}
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/status" class="nav-link">فعالیتها</a>
     </li>
-    @endrole
+{{--    @endrole--}}
     @role('admin|modir')
     {{--<li class="nav-item d-none d-sm-inline-block">--}}
         {{--<a href="/jobs" class="nav-link">مشاهده کارها</a>--}}
