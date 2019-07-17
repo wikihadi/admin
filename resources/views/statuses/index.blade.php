@@ -18,6 +18,7 @@
 @endsection
 @section('content')
 
+    <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
 
     <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
         <div class="col-md-10 col-lg-8 col-xl-6 m-auto">

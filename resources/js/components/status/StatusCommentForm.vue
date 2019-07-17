@@ -1,13 +1,14 @@
 <template>
-    <div class="position-fixed" style="left:0; z-index: 555555">
-        <div style="width: 40px;height: 140px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;" v-if="minimize" @click.prevent="minimize=!minimize" class="pointer bg-light d-flex justify-content-center"><div style="writing-mode: tb-rl;" class="text-center">CHAT</div></div>
-        <div class="col-12 row justify-content-center w-100" v-if="!minimize">
+    <div class="position-fixed" style="left:0;top:0; z-index: 555555">
+        <div style="width: 40px;height: 140px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;top:70vh;left:0" v-if="minimize" @click.prevent="minimize=!minimize" class="position-fixed pointer bg-light d-flex justify-content-center"><div style="writing-mode: tb-rl;" class="text-center">CHAT</div></div>
+        <div class="position-fixed w-100 h-100 bg-fade" v-if="!minimize"  @click.prevent="minimize=!minimize"></div>
+        <div class="col-12 row justify-content-center align-self-center mt-5 pt-5" v-if="!minimize" style="min-width: 100vw">
             <div class="col-xl-9 col-lg-10">
                 <div class="card bg-dark">
                     <div class="card-header">
                         <div class="row justify-content-between pull-left" v-if="!minimize">
                             <div class="pointer" @click.prevent="minimize=!minimize">
-                                <i :class="{'fa-window-minimize':!minimize,'fa-window-maximize':minimize}" class="fa text-muted"></i>
+                                <i  class="fa fa-close text-muted"></i>
                             </div>
                         </div>
 <!--                        <span v-if="minimize" @click.prevent="minimize=!minimize" class="pointer"></span>-->
@@ -16,14 +17,24 @@
                             <div @click="refresh" v-if="!minimize" class="pointer">
                                 <i class="fa fa-refresh" title="بروزرسانی"></i> <small class="text-sm text-muted">{{dateN}}</small>
                             </div>
-                            <div class="text-center mb-3 d-flex justify-content-center flex-wrap">
-                                <div class="d-flex justify-content-between" v-for="u in users" v-if="u.id == user" >
-                                    <div><img :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
-                                </div><div><span>{{u.name}}</span></div>
+                            <div class="d-flex justify-content-center mb-3" v-for="u in users" v-if="u.id == user" >
+                                <div class="bg-light d-flex justify-content-between align-items-center w-25 pointer" style="border-radius: 25px"  @click.prevent="selectUser(u.id,u.name)">
+                                    <div>
+                                        <img :src="'/storage/avatars/'+ u.avatar" class="img-circle user-selected-me" :alt="u.name" :title="u.name">
+                                    </div>
+                                    <div>
+                                        {{u.name}}
+                                    </div>
+                                    <div></div>
                                 </div>
+
+<!--                                <div><span>{{u.name}}</span></div>-->
+                            </div>
+                            <div class="text-center mb-3 d-flex justify-content-center flex-wrap">
+
 <!--                                <carousel  :perPage="10" :center="true" :rtl="true" :loop="true" :autoplay="false" :speed="1000" :autoplayTimeout="5000" :paginationEnabled="false" :navigationEnabled="false">-->
 <!--                                    <slide>-->
-                                        <img v-for="u in users"  v-if="u.id != user" :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
+                                        <img v-for="u in users"  v-if="u.id != user" :src="'/storage/avatars/'+ u.avatar" :class="{ 'user-selected' : toUserId == u.id , 'user-not-selected' : toUserId != u.id }" class="img-circle mx-1" :alt="u.name" :title="u.name" @click.prevent="selectUser(u.id,u.name)">
 <!--                                    </slide>-->
 <!--                                </carousel>-->
                             </div>
@@ -45,18 +56,23 @@
                     </div>
                     <div class="card-body" v-if="!minimize">
 <!--        <transition name="fade">-->
-                        <div class="list-group list-group-flush bg-dark" style="overflow: auto">
-                            <a class="list-group-item bg-dark" v-for="item in loop.slice(0, commentsToShow)" >
+
+                        <div class="list-group list-group-flush bg-dark" style="overflow: auto;max-height: 50vh">
+                            <zoom-center-transition>
+                            <a class="list-group-item bg-dark" style="min-width: 100%" v-if="loop.length==0 && toUserIdName != ''">هنوز مکالمه ای با {{toUserIdName}} انجام نشده است</a>
+                            </zoom-center-transition>
+                            <a class="list-group-item bg-dark" v-for="item in loop" style="min-width: 100%">
                                 <img v-if="item.to_user.id != user" :src="'/storage/avatars/' + item.user.avatar" alt="" class="ml-3 img-circle " style="width: 45px" :title="item.to_user.name">
                                 <img v-if="item.to_user.id != user" :src="'/storage/avatars/' + item.to_user.avatar" alt=""  style="width: 28px; top: 10px;right: 5px;" class=" ml-3 img-circle position-absolute" :title="item.to_user.name">
                                 <img  v-if="item.to_user.id == user" :src="'/storage/avatars/' + item.user.avatar" alt="" class="img-size-50 ml-3 img-circle " :title="item.user.name">
                                 <small>{{item.content}}</small>
                                 <span class="float-left" style="font-size: 85%"><small>{{item.diff}}</small></span>
                             </a>
-
-                            <a @click.prevent="commentsToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="commentsToShow > 5"><i class="fa fa-arrow-up"></i></a>
-                            <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="loop.length > 5"><i class="fa fa-arrow-down"></i></a>
                         </div>
+
+<!--                            <a @click.prevent="commentsToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="commentsToShow > 5"><i class="fa fa-arrow-up"></i></a>-->
+<!--                            <a @click.prevent="commentsToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="loop.length > 5"><i class="fa fa-arrow-down"></i></a>-->
+
 <!--        </transition>-->
                     </div>
                 </div>
@@ -66,12 +82,14 @@
 </template>
 
 <script>
+    import {ZoomCenterTransition} from 'vue2-transitions';
     import { Carousel, Slide } from 'vue-carousel';
 
     export default {
         components: {
             Carousel,
-            Slide
+            Slide,
+            ZoomCenterTransition,
         },
 
         props:['user','users'],
@@ -164,7 +182,15 @@
         height: 30px;
         cursor: pointer;
     }
+    .user-selected-me{
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
     .pointer{
         cursor:pointer
+    }
+    .bg-fade{
+        background-color: rgba(0, 0, 0, 0.7);
     }
 </style>

@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth']], function() {
             });
 
 
-            Route::group(['middleware' => ['role:admin']], function () {
+            Route::group(['middleware' => ['role:admin|modir']], function () {
 
                 Route::get('admin/tasks', 'TaskController@adminIndex');
                 Route::get('finance', 'TaskController@finance');

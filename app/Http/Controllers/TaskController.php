@@ -878,12 +878,18 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $collection = collect($taskDone1);
         $diff = $collection->diff($taskDone0);
         $diff->all();
-        $tasks = Task::whereIn('id',$diff)->where('cost' , '>' , 0)->where('payOK' , 0)->orderBy('updated_at','desc')->get();
+
+            $tasks = Task::whereIn('id',$diff)->where('cost' , '>' , 0)->where('payOK' , 0)->orderBy('updated_at','desc')->get();
+
+
+
         $total = Task::where('paid',1)->pluck('cost')->toArray();
         $sum = 0;
         foreach ($total as $t){
             $sum += $t;
         }
+
+
         return view('tasks.finance', compact('tasks','sum'));
     }
     public function finance2(){

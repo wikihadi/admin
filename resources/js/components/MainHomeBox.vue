@@ -73,7 +73,7 @@
                                 </div>
                                     <button class="btn btn-block btn-outline-success btn-sm"
                                             :class="{'active':activeTab === 8}"
-                                            @click.prevent="title='باکس',activeTab=8,isShow=9,fetchmain,fetchRoutineMain,myboxFetchMain(0),day=0,myboxFetchMain(day),fetchTasksMain('lastStatus','<=',2,'order_column','asc',day),fetchTasksRoutine('routine','=',1,'order_column','asc',day)">خط زمان</button>
+                                            @click.prevent="mainLine">خط زمان</button>
                                 </div>
 
                                 <button type="button"  class=" btn-sm btn btn-dark"
@@ -126,11 +126,17 @@
                                     <div :class="{'bg-warning' :timePassed >85 , 'bg-info' :timePassed < 85, 'bg-danger' : timePassed >=100}" class="progress-bar progress-bar-striped progress-bar-animated" :title="curTime" role="progressbar" :aria-valuenow="timePassed" aria-valuemin="0" aria-valuemax="660" :style="'width:' + timePassed + '%'">
                                     </div>
                                 </div>
-
+                                <div class="alert alert-info">
+                                    با استفاده از دو فلش چپ و راست میتوانید بین فعالیتهای روز گذشته رفت و آمد کنید
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row">
+
                             <div class="col-12 justify-content-between d-flex">
                                 <i class="fa fa-arrow-circle-right" title="روز قبل" @click.prevent="day--,myboxFetchMain(day),fetchTasksMain('lastStatus','<=',2,'order_column','asc',day),fetchTasksRoutine('routine','=',1,'order_column','asc',day)"></i>
                                 <div>
@@ -148,6 +154,7 @@
 
                                 <i class="fa fa-arrow-circle-left" title="روز بعد" @click.prevent="day++,myboxFetchMain(day),fetchTasksMain('lastStatus','<=',2,'order_column','asc',day),fetchTasksRoutine('routine','=',1,'order_column','asc',day)" v-if="day<0"></i>
                                 <i class="fa fa-arrow-circle-left text-muted" v-if="day==0"></i>
+
                             </div>
 
 
@@ -155,9 +162,12 @@
                                 <div class="card-body">
                                     <div class="list-group-item bg-dark text-center text-muted">کارهای روتین <small v-if="day == 0">امروز</small><small v-if="day == -1">دیروز</small><small v-if="day < -1">{{Math.abs(day)}} روز قبل</small> <small class="text-muted">({{mainTasksRoutine.length}})</small></div>
                                     <div class="list-group-item bg-dark text-center" v-if="mainTasksRoutine.length <= 0"><i class="fa fa-minus"></i></div>
+<!--                                    <zoom-center-transition group>-->
+<!--                                    <zoom-center-transition>-->
+                                    <!--                                        :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"-->
+
                                     <div
-                                        :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"
-                                        class="list-group-item"
+                                        class="list-group-item bg-dark"
                                         v-for="item in mainTasksRoutine.slice(0, 5)" :id="'task-' + item.id">
                                         <small @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()" class="pointer">{{item.task.title}}</small>
                                         <small class="pull-left">
@@ -171,6 +181,8 @@
                                         <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()">همه نظرات</a>
                                         </div>
                                     </div>
+<!--                                    </zoom-center-transition>-->
+<!--                                    </zoom-center-transition>-->
 <!--                                    <div class="text-center d-flex" v-if="tasks.length > 5">-->
 <!--                                        <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>-->
 <!--                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>-->
@@ -181,21 +193,24 @@
                                 <div class="card-body">
                                     <div class="list-group-item bg-dark text-center text-muted">کارهای <small v-if="day==0">امروز</small><small v-if="day==-1">دیروز</small><small v-if="day<-1">{{Math.abs(day)}} روز قبل</small> <small class="text-muted">({{mainTasks.length}})</small></div>
                                     <div class="list-group-item bg-dark text-center" v-if="mainTasks.length <= 0"><i class="fa fa-minus"></i></div>
+<!--                                    <zoom-center-transition>-->
+                                    <!--                                            :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"-->
+
                                     <div
-                                        :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"
-                                        class="list-group-item"
-                                        v-for="item in mainTasks.slice(0, 5)" :id="'task-' + item.id">
-                                        <small @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()" class="pointer">{{item.task.title}}</small>
-                                        <small class="pull-left">
-                                            <span class="badge badge-info pointer" data-toggle="collapse" :data-target="'#comments' + item.id" title="نظر" v-if="item.comments.length > 0">{{item.comments.length}}</span>
-                                            <span class="badge badge-secondary" v-if="item.comments.length == 0">بدون نظر</span>
-<!--                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>-->
-                                        </small>
-                                        <div :id="'comments' + item.id" class="collapse">
-                                            <a class="text-sm list-group-item bg-dark" v-for="comment in item.comments.slice(0, 5)">{{comment.content.substring(0, 30)}}...</a>
-                                            <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()">همه نظرات</a>
+                                            class="list-group-item bg-dark"
+                                            v-for="item in mainTasks.slice(0, 5)" :id="'task-' + item.id">
+                                            <small @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()" class="pointer">{{item.task.title}}</small>
+                                            <small class="pull-left">
+                                                <span class="badge badge-info pointer" data-toggle="collapse" :data-target="'#comments' + item.id" title="نظر" v-if="item.comments.length > 0">{{item.comments.length}}</span>
+                                                <span class="badge badge-secondary" v-if="item.comments.length == 0">بدون نظر</span>
+    <!--                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>-->
+                                            </small>
+                                            <div :id="'comments' + item.id" class="collapse">
+                                                <a class="text-sm list-group-item bg-dark" v-for="comment in item.comments.slice(0, 5)">{{comment.content.substring(0, 30)}}...</a>
+                                                <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()">همه نظرات</a>
+                                            </div>
                                         </div>
-                                    </div>
+<!--                                    </zoom-center-transition>-->
 <!--                                    <div class="text-center d-flex" v-if="tasks.length > 5">-->
 <!--                                        <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>-->
 <!--                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>-->
@@ -352,7 +367,12 @@
 <!--&lt;!&ndash;                                </div>&ndash;&gt;-->
 <!--                            </div>-->
 <!--                        </div>-->
-
+                        <div class="alert alert-info">
+                            باکسها کارهای کوچکتری هستند که نیاز به باز کردن یک کار جدید در آن نباشد. شما میتوانید با انتخاب مخاطب یک کار را درخواست کنید
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="row">
 <!--                            <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>-->
                             <transition name="fade">
@@ -393,10 +413,10 @@
                             <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
                                 <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i>
                                 <small>{{box.content}}</small>
-                                <small class="pull-left">
-                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
-                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('توقف باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
-                                </small>
+<!--                                <small class="pull-left">-->
+<!--                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>-->
+<!--                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('توقف باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>-->
+<!--                                </small>-->
                             </div>
                             <div class="text-center d-flex" v-if="boxes.length > 5">
                                 <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
@@ -411,10 +431,10 @@
                             <div class="list-group-item bg-dark" v-for="box in sentBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
                                 <img :src="'/storage/avatars/' + box.user.avatar" class="img-circle" style="width: 20px" alt="">
                                 <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{box.content}}</small>
-                                <small class="pull-left">
-                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
-                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
-                                </small>
+<!--                                <small class="pull-left">-->
+<!--                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>-->
+<!--                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>-->
+<!--                                </small>-->
                             </div>
                             <div class="text-center d-flex" v-if="sentBoxes.length > 5">
                                 <div @click.prevent="sentBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
@@ -428,10 +448,10 @@
                             <div class="list-group-item bg-dark text-center" v-if="forcedBoxes.length <= 0"><i class="fa fa-minus"></i></div>
                             <div class="list-group-item bg-dark" v-for="box in forcedBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
                                 <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i> <small>{{}}</small>
-                                <small class="pull-left">
-                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
-                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
-                                </small>
+<!--                                <small class="pull-left">-->
+<!--                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>-->
+<!--                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('پایان باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>-->
+<!--                                </small>-->
                             </div>
                             <div class="text-center" v-if="forcedBoxes.length > 5">
                                 <a @click.prevent="forcedBoxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-arrow-up"></i></a>
@@ -466,6 +486,17 @@
                     <div class="card-body"   v-if="isShow > 1 && isShow != 9 || isShow == -1">
 <!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
                         <div class="list-group bg-dark">
+                            <div class="alert alert-info">
+                                برای مدیریت هر کار روی آن کلیک کنید
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="alert alert-info">در هر کار شما امکان انتقال آن کار را به مرحله مربوطه دارید
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
 
 
                             <div class="border-danger" v-if="tasks.length < 1">
@@ -485,13 +516,13 @@
                                         <div>
                                             <span class="badge badge-dark"><i :class="{'fa fa-users text-info': item.users.length > 1,'fa fa-user': item.users.length == 1}"></i></span> <span class="mb-1 h6"><span class="badge badge-info">{{item.task.subject}}</span> {{item.task.title}} <small class="text-muted ml-1">{{item.task.id}}</small></span>
                                         </div>
-                                        <div class="">
+<!--                                        <div class="">-->
 
-                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>
+<!--                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>-->
 
 
 <!--                                            <a :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1"></i></a>-->
-                                        </div>
+<!--                                        </div>-->
 
                                     </div>
                                     <div class="">
@@ -510,8 +541,10 @@
                                                 <img :title="u.name" :src="'/storage/avatars/' + u.avatar" alt="" style="width: 25px" class="img-circle mr-1" v-for="u in item.users">
                                             </div>
                                             <div>
-                                                <a  class="text-muted" :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link ml-1 text-dark" ></i> <span class="text-dark">مشاهده</span></a>
-                                                <a  class="text-muted" :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1 text-dark"></i> <span class="text-dark">ویرایش</span></a>
+                                                <small title="شروع یا ادامه کار" class="pointer text-dark" @click.prevent="playTask(item.task.id,item.id,item.routine)" v-if="item.lastStatus !== 3 || item.lastStatus !== 2"><i class="fa fa-play text-success mx-2 pointer"></i> شروع کار</small>
+
+                                                <a  class="text-muted" :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link ml-1 text-dark" ></i> <small class="text-dark">مشاهده</small></a>
+                                                <a  class="text-muted" :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1 text-dark"></i> <small class="text-dark">ویرایش</small></a>
                                                 <span class="bg-secondary bulb mr-3">
                                                     <a title="Share on Whatsapp" data-toggle="tooltip" target="_blank" :href="'https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: ' + item.task.title + 'http://i.sadiq-co.com/tasks/'+ item.task.id" class="mx-2 "><i class="fa fa-whatsapp text-light"></i></a>
                                                     <a title="Share on Telegram" data-toggle="tooltip" target="_blank" :href="'https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/' + item.task.id + '&text=Please Check this Task on SADIQ: ' + item.task.title" class="mx-2 "><i class="fa fa-telegram text-light"></i></a>
@@ -565,25 +598,25 @@
                                                    @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش چاپ'"
                                                    @mouseleave="showTips = false"
                                                    @click.prevent="newStatus('انتقال به بخش چاپ ' + item.task.title,'print',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 5"
+                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 5"
                                                 ></i>
                                                 <i class="fa fa-flag-o text-secondary mx-2 pointer hvr-bob"
                                                    @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش پیگیری'"
                                                    @mouseleave="showTips = false"
                                                    @click.prevent="newStatus('انتقال به بخش پیگیری ' + item.task.title,'follow',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 6"
+                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 6"
                                                 ></i>
                                                 <i class="fa fa-puzzle-piece text-secondary mx-2 pointer hvr-bob"
                                                    @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش معلق'"
                                                    @mouseleave="showTips = false"
                                                    @click.prevent="newStatus('انتقال به بخش معلق ' + item.task.title,'pending',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 6 || item.lastStatus == 5"
+                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5"
                                                 ></i>
                                                 <i class="fa fa-stop text-secondary mx-2 pointer hvr-bob"
                                                    @mouseover="showTips = item.id,showTipsTitle='اعلام پایان کار'"
                                                    @mouseleave="showTips = false"
                                                    @click.prevent="newStatus('اعلام پایان کار ' + item.task.title,'end',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus == 1 || item.lastStatus == 2 || item.lastStatus == 6 || item.lastStatus == 5"
+                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5"
                                                 ></i>
 <!--                                                <i class="fa fa-recycle text-secondary mx-2 pointer hvr-bob"-->
 <!--                                                   @mouseover="showTips = item.id,showTipsTitle='برگشت از پایان کار'"-->
@@ -612,8 +645,10 @@
 
 <script>
 
+    import ZoomCenterTransition from "vue2-transitions/src/Zoom/ZoomCenterTransition";
+    import ZoomUpTransition from "vue2-transitions/src/Zoom/ZoomUpTransition";
     export default {
-
+        components: {ZoomUpTransition, ZoomCenterTransition},
         props:['user','users'],
         data(){
             return{
@@ -716,7 +751,17 @@
             }
         },
         methods:{
-
+            mainLine: function(){
+                this.title='باکس';
+                this.activeTab=8;
+                this.isShow=9;
+                // this.fetchmain;
+                // this.fetchRoutineMain;
+                // this.myboxFetchMain(0);
+                // this.myboxFetchMain(day);
+                // this.fetchTasksMain('lastStatus','<=',2,'order_column','asc',day);
+                // this.fetchTasksRoutine('routine','=',1,'order_column','asc',day);
+            },
             selectUser: function(uId,uName){
 
                 if (this.user != uId){
@@ -899,21 +944,51 @@
                 }
             },
             newStatus: function(content,status,task_id,routine,re_id,forcedBox){
-                    axios.post('/api/addStatusToBox',{
+
+
+                axios.post('/api/addStatusToBox',{
                         content: content,
                         user_id: this.user,
                         status: status,
                         task_id: task_id,
                         re_id: re_id,
                         forcedBox: forcedBox,
+                    })
+                    .then(function (response) {
+                        this.fetchCurrentTasks
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
                     });
-                    if (status == 'box-start' || status == 'box-pause' || status == 'box-end'){
-                        this.boxFetch();
-                    }else if(routine === 1){
-                        this.fetchRoutine();
-                    }else{
-                        this.fetchCurrentTasks();
-                    }
+
+                if (status == 'box-start' || status == 'box-pause' || status == 'box-end'){
+                    this.boxFetch();
+                }else if(routine === 1){
+                    this.fetchRoutine();
+                }else{
+                    this.fetchCurrentTasks
+                }
+
+
+            },
+            playTask: function(task_id,id,routine){
+                let url = 'api/playTask?task=' + task_id + '&user=' + this.user;
+                axios.get(url).then(
+                    this.fetchCurrentTasks
+                    )
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                // if (status == 'box-start' || status == 'box-pause' || status == 'box-end'){
+                //     this.boxFetch();
+                // }else if(routine === 1){
+                //     this.fetchRoutine();
+                // }else{
+                //     this.fetchCurrentTasks
+                // }
+
 
             },
             addComment: function(task_id){

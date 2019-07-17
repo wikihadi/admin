@@ -52,6 +52,7 @@
                             @endrole
 
 
+
                             <input type="text" name="s"
 {{--                                   value="@php if (isset($_GET['s'])){ echo $_GET['s']; } @endphp" --}}
                                    class="form-control" placeholder="عنوان..." autofocus>
@@ -162,7 +163,7 @@
             <td>{{$task->forProduct}}</td>
             <td style="max-width: 300px">{{$task->content}}</td>
 
-            @role('admin')
+            @role('modir|admin')
             <td >
                 <form  method="post" action="/financeUpdate/{{$task->id}}" onsubmit="return confirm('Are You Sure?')">
                     @csrf
@@ -171,7 +172,7 @@
                         <div class="input-group-append input-group-prepend">
                             <span class="input-group-text">{{number_format($task->cost)}} ريال</span>
                         </div>
-                        @role('admin')
+                        @role('modir')
 
                         @if($task->paid == 0)
                         @if($task->payOK == 0)

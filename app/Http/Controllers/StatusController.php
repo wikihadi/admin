@@ -53,9 +53,9 @@ class StatusController extends Controller
             paginate(10);
 
         }
-
+        $users = User::all();
         //$tasks = Task::all();
-        return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe'));
+        return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe','users'));
     }
 
     /**
@@ -81,15 +81,7 @@ class StatusController extends Controller
         $request->validate([
             'content'=>'required'
         ]);
-        $status = new Status([
-            'status'    => $request->get('status'),
-            'content'   => $request->get('content'),
-            'to_user'   => $request->get('to_user'),
-            'task_id'   => $request->get('task_id'),
-            'user_id'   => $request->get('user_id'),
-            'post_id'   => $request->get('post_id'),
-        ]);
-        $status->save();
+
 
         $taskOrderUser = TaskOrderUser::where('user_id',$request->get('user_id'))->where('task_id',$request->get('task_id'))->first();
         if($request->get('status') == 'comment'){
@@ -129,6 +121,15 @@ class StatusController extends Controller
             }
 
         }
+        $status = new Status([
+            'status'    => $request->get('status'),
+            'content'   => $request->get('content'),
+            'to_user'   => $request->get('to_user'),
+            'task_id'   => $request->get('task_id'),
+            'user_id'   => $request->get('user_id'),
+            'post_id'   => $request->get('post_id'),
+        ]);
+        $status->save();
 
         $inputStatus = $request->get('status');
         $user_id = $request->get('user_id');
@@ -316,13 +317,54 @@ class StatusController extends Controller
 
 
 
-
-//            $user = Auth::user();
 //
+//        $user = Auth::user();
 //        $orderTask = TaskOrderUser::where('user_id',$user)->where('task_id',$task_id)->first();
 //        $orderTask->lastStatus = 2;
 //        $orderTask->save();
-//
+
+        return $status;
+    }
+    public function playTask(){
+        $task_id = $_GET['task'];
+        $user_id = $_GET['user'];
+
+        $x2 =       TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->first();
+
+            $x =        TaskOrderUser::where('user_id',$user_id)->where('task_id',$task_id)->first();
+            $x->lastStatus = 2;
+            $x->save();
+
+
+
+
+
+
+        $status = new Status([
+            'status'    => 'start',
+            'content'   => 'شروع کار ' . $task_id,
+            'task_id'   => $task_id,
+            'user_id'   => $user_id,
+        ]);
+
+        $status->save();
+
+        $status2 = new Status([
+            'status'    => 'pause',
+            'content'   => 'توقف کار ' . $x2->task_id,
+            'task_id'   => $x2->task_id,
+            'user_id'   => $user_id,
+        ]);
+
+        $status2->save();
+
+
+
+            $orderTaskOther = TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->where('task_id','!=',$task_id)->get();
+            foreach ($orderTaskOther as $o){
+                $o->lastStatus = 1;
+                $o->save();
+            }
 
         return $status;
     }
