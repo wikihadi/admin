@@ -550,13 +550,24 @@ public function statics(){
 
         if(!empty($s) && strlen($s) > 5){
             $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
-            $tasks = TaskOrderUser::with('task','user','comments')->
-            where('user_id',$u)->
-            whereHas('task', function ($q) use ($searchValues) {
-                foreach ($searchValues as $value) {
-                    $q->where('title', 'like', "%{$value}%");
-                }
-            })->get();
+            if ($u<3){
+                $tasks = TaskOrderUser::with('task','user','comments')->
+//                where('user_id',$u)->
+                whereHas('task', function ($q) use ($searchValues) {
+                    foreach ($searchValues as $value) {
+                        $q->where('title', 'like', "%{$value}%");
+                    }
+                })->get();
+            }else{
+                $tasks = TaskOrderUser::with('task','user','comments')->
+                where('user_id',$u)->
+                whereHas('task', function ($q) use ($searchValues) {
+                    foreach ($searchValues as $value) {
+                        $q->where('title', 'like', "%{$value}%");
+                    }
+                })->get();
+            }
+
             foreach ($tasks as $key => $loop){
                 $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
                 $users = User::whereIn('id',$users)->get();
@@ -670,7 +681,8 @@ public function statics(){
 
         $comments = Status::
 //        where( 'created_at', '>', Carbon::now()->subDays(15))->
-        with('user')->whereHas('user')->where('status','comment')->orderBy('updated_at','desc')->get();
+        with('user')->whereHas('user')->
+        where('status','comment')->orderBy('updated_at','desc')->get();
         $dateBefore = Carbon::now();
 
         foreach ($comments as $key => $loop){
@@ -679,6 +691,19 @@ public function statics(){
             $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
         }
         return $comments;
+    }
+
+    public function firstVisit(){
+        $u = $_GET['u'];
+
+        $firstVisit = Status::
+        with('user')->
+        whereHas('user')->
+        where('status','visit')->
+        where('user_id',$u)->latest()->
+        whereDate('created_at',Carbon::now())->get();
+
+        return $firstVisit;
     }
 
     public function newStatus($status,$content,$to_user,$task_id,$user_id,$post_id){
@@ -716,6 +741,62 @@ public function statics(){
             'inToday'     => $inToday,
         ]);
     }
+    public function dayComments(){
+        $day = $_GET['day'];
+        $u = $_GET['u'];
+
+
+        $dailyComments =
+            Status::
+                with('task')->
+                whereHas('task')->
+                where('user_id',$u)->
+                whereDate('created_at', Carbon::now()->addDay($day))->
+                whereIn('status', ['comment','start','end'])->
+                latest()->get();
+        $tasksIds = $dailyComments->pluck('task_id')->unique();
+        $tasks = Task::whereIn('id',$tasksIds)->latest()->get();
+
+
+
+//        محاسبه کار  شروع شده در روز قبل
+        $todayTasksIds =
+            Status::
+                with('task')->
+                whereHas('task')->
+                where('user_id',$u)->
+                whereDate('created_at', Carbon::now())->
+                whereIn('status', ['pause','start','end'])->pluck('task_id');
+if (count($todayTasksIds)>0){
+    $lastStart='';
+}else{
+    $lastStart=
+        Status::
+        with('task')->
+        whereHas('task')->
+        whereIn('status', ['start'])->
+        where('user_id',$u)->
+//            whereDate('created_at', '!=' ,Carbon::now())->
+        whereNotIn('task_id',$todayTasksIds)->
+        latest()->
+        first();
+}
+
+
+        foreach ($dailyComments as $key => $loop) {
+            date_default_timezone_set("Asia/Tehran");
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
+        return response()->json([
+            'dailyComments'=> $dailyComments,
+            'lastStart'=> $lastStart,
+            'tasks'=> $tasks,
+        ]);
+    }
+
+
+
+
     public function fetchMyTasksLastComments(){
         $order= TaskOrderUser::where('user_id',$_GET['ID'])->get();
         foreach($order as $k => $v) {

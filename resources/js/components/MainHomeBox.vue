@@ -96,6 +96,7 @@
                             </transition>
 
                 </div>
+
                     <transition name="fade">
 
                     <div v-if="!minimize">
@@ -126,12 +127,12 @@
                                     <div :class="{'bg-warning' :timePassed >85 , 'bg-info' :timePassed < 85, 'bg-danger' : timePassed >=100}" class="progress-bar progress-bar-striped progress-bar-animated" :title="curTime" role="progressbar" :aria-valuenow="timePassed" aria-valuemin="0" aria-valuemax="660" :style="'width:' + timePassed + '%'">
                                     </div>
                                 </div>
-                                <div class="alert alert-info">
-                                    با استفاده از دو فلش چپ و راست میتوانید بین فعالیتهای روز گذشته رفت و آمد کنید
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
+<!--                                <div class="alert alert-info">-->
+<!--                                    با استفاده از دو فلش چپ و راست میتوانید بین فعالیتهای روز گذشته رفت و آمد کنید-->
+<!--                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                                        <span aria-hidden="true">&times;</span>-->
+<!--                                    </button>-->
+<!--                                </div>-->
                             </div>
                         </div>
 
@@ -189,27 +190,92 @@
 <!--                                    </div>-->
                                 </div>
                             </div>
+<!--                            <div class="col-xl" v-if="ShowMainCurrentTask">-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="list-group-item bg-dark text-center text-muted">کارهای <small v-if="day==0">امروز</small><small v-if="day==-1">دیروز</small><small v-if="day<-1">{{Math.abs(day)}} روز قبل</small> <small class="text-muted">({{mainTasks.length}})</small></div>-->
+<!--                                    <div class="list-group-item bg-dark text-center" v-if="mainTasks.length <= 0"><i class="fa fa-minus"></i></div>-->
+<!--&lt;!&ndash;                                    <zoom-center-transition>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                            :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"&ndash;&gt;-->
+
+<!--                                    <div-->
+<!--                                            class="list-group-item bg-dark"-->
+<!--                                            v-for="item in mainTasks.slice(0, 5)" :id="'task-' + item.id">-->
+<!--                                            <small @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()" class="pointer">{{item.task.title}}</small>-->
+<!--                                            <small class="pull-left">-->
+<!--                                                <span class="badge badge-info pointer" data-toggle="collapse" :data-target="'#comments' + item.id" title="نظر" v-if="item.comments.length > 0">{{item.comments.length}}</span>-->
+<!--                                                <span class="badge badge-secondary" v-if="item.comments.length == 0">بدون نظر</span>-->
+<!--    &lt;!&ndash;                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>&ndash;&gt;-->
+<!--                                            </small>-->
+<!--                                            <div :id="'comments' + item.id" class="collapse">-->
+<!--                                                <a class="text-sm list-group-item bg-dark" v-for="comment in item.comments.slice(0, 5)">{{comment.content.substring(0, 30)}}...</a>-->
+<!--                                                <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()">همه نظرات</a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--&lt;!&ndash;                                    </zoom-center-transition>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="text-center d-flex" v-if="tasks.length > 5">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+
                             <div class="col-xl" v-if="ShowMainCurrentTask">
                                 <div class="card-body">
-                                    <div class="list-group-item bg-dark text-center text-muted">کارهای <small v-if="day==0">امروز</small><small v-if="day==-1">دیروز</small><small v-if="day<-1">{{Math.abs(day)}} روز قبل</small> <small class="text-muted">({{mainTasks.length}})</small></div>
-                                    <div class="list-group-item bg-dark text-center" v-if="mainTasks.length <= 0"><i class="fa fa-minus"></i></div>
+                                    <div class="list-group-item bg-dark text-center text-muted border" v-if="commentsLoop.lastStart!=''">کار باز از قبل</div>
+                                    <div class="list-group-item bg-light text-dark text-center pointer"  @click.prevent="searchValue = commentsLoop.lastStart.task.title,isShow=-1,searchTasks()" v-if="commentsLoop.lastStart!=''">{{commentsLoop.lastStart.task.title}}</div>
+
+
+                                    <div class="list-group-item bg-dark text-center text-muted">فعالیت <small v-if="day==0">امروز</small><small v-if="day==-1">دیروز</small><small v-if="day<-1">{{Math.abs(day)}} روز قبل</small> <small class="text-muted">({{commentsLoop.dailyComments.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-center" v-if="commentsLoop.dailyComments.length <= 0"><i class="fa fa-minus"></i></div>
 <!--                                    <zoom-center-transition>-->
                                     <!--                                            :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"-->
 
-                                    <div
-                                            class="list-group-item bg-dark"
-                                            v-for="item in mainTasks.slice(0, 5)" :id="'task-' + item.id">
-                                            <small @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()" class="pointer">{{item.task.title}}</small>
-                                            <small class="pull-left">
-                                                <span class="badge badge-info pointer" data-toggle="collapse" :data-target="'#comments' + item.id" title="نظر" v-if="item.comments.length > 0">{{item.comments.length}}</span>
-                                                <span class="badge badge-secondary" v-if="item.comments.length == 0">بدون نظر</span>
-    <!--                                            <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>-->
-                                            </small>
+
+                                    <div class="list-group-item bg-dark" v-for="item in commentsLoop.tasks" :id="'task-' + item.id" data-toggle="collapse" :data-target="'#comments' + item.id">
+
+                                        <small class="pointer">{{item.title}}</small>
+
+<!--                                        <small class="pull-left">-->
+<!--                                            <span class="badge badge-secondary">11</span>-->
+<!--                                        </small>-->
                                             <div :id="'comments' + item.id" class="collapse">
-                                                <a class="text-sm list-group-item bg-dark" v-for="comment in item.comments.slice(0, 5)">{{comment.content.substring(0, 30)}}...</a>
-                                                <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()">همه نظرات</a>
+                                                <a class="text-sm list-group-item bg-dark" v-for="status in commentsLoop.dailyComments" v-if="item.id == status.task_id">
+
+                                                    <span><small class="badge badge-secondary pointer">{{status.diff}}</small> </span>
+                                                    <span v-if="status.status=='comment'"><small class="badge badge-info pointer">نظر</small> {{status.content}}</span>
+                                                    <span v-if="status.status=='start'"><small class="badge badge-success pointer">شروع</small> </span>
+                                                    <span v-if="status.status=='end'"><small class="badge badge-warning pointer">پایان</small> </span>
+                                                </a>
+
+
+                                                <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.title,isShow=-1,searchTasks()"><i class="fa fa-link"></i></a>
                                             </div>
-                                        </div>
+                                    </div>
+
+<!--                                    <div-->
+<!--                                            class="list-group-item bg-dark"-->
+<!--                                            v-for="item in commentsLoop.dailyComments.slice(0, 5)" :id="'task-' + item.task.id"-->
+<!--                                            data-toggle="collapse" :data-target="'#comments' + item.task.id">-->
+<!--                                        <span v-if="item.status=='comment'"><small class="badge badge-info pointer">نظر</small> در </span>-->
+<!--                                        <span v-if="item.status=='start'"><small class="badge badge-success pointer">شروع</small> </span>-->
+<!--                                        <span v-if="item.status=='end'"><small class="badge badge-warning pointer">پایان</small> </span>-->
+
+<!--                                        <small class="pointer">{{item.task.title}}</small>-->
+<!--                                            <small class="pull-left">-->
+<!--                                        <span class="badge badge-secondary">{{item.diff}}</span>-->
+<!--                                                <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus != 3"></i>-->
+<!--                                            </small>-->
+<!--                                            <div :id="'comments' + item.task.id" class="collapse">-->
+<!--                                                <a class="text-sm list-group-item bg-dark">{{item.content}}</a>-->
+
+
+<!--                                                <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.task.title,isShow=-1,searchTasks()"><i class="fa fa-link"></i></a>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    -->
+
+
+
 <!--                                    </zoom-center-transition>-->
 <!--                                    <div class="text-center d-flex" v-if="tasks.length > 5">-->
 <!--                                        <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>-->
@@ -367,12 +433,12 @@
 <!--&lt;!&ndash;                                </div>&ndash;&gt;-->
 <!--                            </div>-->
 <!--                        </div>-->
-                        <div class="alert alert-info">
-                            باکسها کارهای کوچکتری هستند که نیاز به باز کردن یک کار جدید در آن نباشد. شما میتوانید با انتخاب مخاطب یک کار را درخواست کنید
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+<!--                        <div class="alert alert-info">-->
+<!--                            باکسها کارهای کوچکتری هستند که نیاز به باز کردن یک کار جدید در آن نباشد. شما میتوانید با انتخاب مخاطب یک کار را درخواست کنید-->
+<!--                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                                <span aria-hidden="true">&times;</span>-->
+<!--                            </button>-->
+<!--                        </div>-->
                         <div class="row">
 <!--                            <div class="text-center col-12"><i :class="{'fa-plus':!showBoxForm,'fa-minus':showBoxForm}" class="fa pointer" @click="toggleBoxForm()"></i></div>-->
                             <transition name="fade">
@@ -486,17 +552,17 @@
                     <div class="card-body"   v-if="isShow > 1 && isShow != 9 || isShow == -1">
 <!--                        <div class="card-header" v-if="title != ''"><h4 class="text-center">{{title}}</h4></div>-->
                         <div class="list-group bg-dark">
-                            <div class="alert alert-info">
-                                برای مدیریت هر کار روی آن کلیک کنید
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="alert alert-info">در هر کار شما امکان انتقال آن کار را به مرحله مربوطه دارید
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+<!--                            <div class="alert alert-info">-->
+<!--                                برای مدیریت هر کار روی آن کلیک کنید-->
+<!--                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                                    <span aria-hidden="true">&times;</span>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <div class="alert alert-info">در هر کار شما امکان انتقال آن کار را به مرحله مربوطه دارید-->
+<!--                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                                    <span aria-hidden="true">&times;</span>-->
+<!--                                </button>-->
+<!--                            </div>-->
 
 
                             <div class="border-danger" v-if="tasks.length < 1">
@@ -666,6 +732,7 @@
                 showBox:false,
                 activeTab: 2,
                 title: '',
+                firstVisit: [],
                 test: true,
                 content: '',
                 tasksToShow: 5,
@@ -678,6 +745,7 @@
                 searchValue:'',
                 loop:[],
                 tasks:[],
+                commentsLoop:[],
                 mainTasks:[],
                 mainTasksRoutine:[],
                 comments:[],
@@ -704,9 +772,11 @@
 
         },
         mounted: function () {
+            this.visit();
+
 
             // this.tasks='';
-            this.title='باکس';
+            // this.title='باکس';
             this.activeTab=8;
             this.isShow=9;
             // this.fetchCurrentTasksMain();
@@ -751,16 +821,20 @@
             }
         },
         methods:{
+
             mainLine: function(){
-                this.title='باکس';
+                // this.title='باکس';
                 this.activeTab=8;
                 this.isShow=9;
-                // this.fetchmain;
-                // this.fetchRoutineMain;
+                this.fetchmain;
+                this.fetchRoutineMain;
                 // this.myboxFetchMain(0);
                 // this.myboxFetchMain(day);
                 // this.fetchTasksMain('lastStatus','<=',2,'order_column','asc',day);
                 // this.fetchTasksRoutine('routine','=',1,'order_column','asc',day);
+                this.myboxFetchMain(0);
+                this.fetchTasksMain('lastStatus','<=',2,'order_column','asc',0);
+                this.fetchTasksRoutine('routine','=',1,'order_column','asc',0)
             },
             selectUser: function(uId,uName){
 
@@ -943,6 +1017,22 @@
                     this.newBox = '';
                 }
             },
+
+            visit: function(){
+
+
+                axios.post('/api/addStatusToBox',{
+                        content: 'بازدید کاربر',
+                        user_id: this.user,
+                        status: 'visit',
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+              },
             newStatus: function(content,status,task_id,routine,re_id,forcedBox){
 
 
@@ -1034,6 +1124,9 @@
             fetchTasksMain: function(el,op,val,ord,ordOp,day){
                 let url = 'api/fetchTasks?u=' + this.user + '&el=' + el + '&op=' + op + '&val=' + val + '&ord=' + ord + '&ordOp=' + ordOp + '&day=' + day;
                 axios.get(url).then(response => this.mainTasks = response.data);
+                let url2 = 'api/dayComments?u=' + this.user + '&day=' + day;
+                axios.get(url2).then(response => this.commentsLoop = response.data);
+
 
             },
             searchTasks: function () {
