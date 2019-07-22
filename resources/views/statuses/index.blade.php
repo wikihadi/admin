@@ -16,52 +16,57 @@
         }
     </style>
 @endsection
+@section('afterBody')
+    @include('helper.onOff')
+@endsection
 @section('content')
 
     <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
 
     <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
-        <div class="col-md-10 col-lg-8 col-xl-6 m-auto">
-            <table class="table table-light text-dark table-striped">
+        <status :user="{{Auth::id()}}" :users="{{$users}}"></status>
 
-                @foreach ($statuses as $s)
-                    <tr>
-                        <td>
-                            <a href="/jobs/{{$s->user_id}}">
+{{--        <div class="col-md-10 col-lg-8 col-xl-6 m-auto">--}}
+{{--            <table class="table table-light text-dark table-striped">--}}
 
-                            <img class="img-circle" style="width: 40px" src="/storage/avatars/{{$s->user->avatar}}" title="{{$s->user->name}}"/></a>
-                        </td>
+{{--                @foreach ($statuses as $s)--}}
+{{--                    <tr>--}}
+{{--                        <td>--}}
+{{--                            <a href="/jobs/{{$s->user_id}}">--}}
 
-                        <td class="text-left"><small dir="ltr"
-                                                     class="text-muted">{{$s->created_at->diffForHumans()}}</small><a target="_blank" class="btn btn-link" href="/tasks/{{$s->task_id}}"><i class="fa fa-arrow-left"></i></a></td>
-                    </tr>
-                    <tr>
+{{--                            <img class="img-circle" style="width: 40px" src="/storage/avatars/{{$s->user->avatar}}" title="{{$s->user->name}}"/></a>--}}
+{{--                        </td>--}}
 
-                        <td colspan="2">
+{{--                        <td class="text-left"><small dir="ltr"--}}
+{{--                                                     class="text-muted">{{$s->created_at->diffForHumans()}}</small><a target="_blank" class="btn btn-link" href="/tasks/{{$s->task_id}}"><i class="fa fa-arrow-left"></i></a></td>--}}
+{{--                    </tr>--}}
+{{--                    <tr>--}}
 
-                            <div class="">{{$s->content}}</div>
-                            @if($s->task != null)
+{{--                        <td colspan="2">--}}
 
-                                <div class="text-left border-top">
-                                    <a href="/tasks/{{$s->task->id}}" target="_blank">
-                                        <small class="text-muted">
-                                            {{$s->task->title}}
-                                        </small>
-                                    </a>
+{{--                            <div class="">{{$s->content}}</div>--}}
+{{--                            @if($s->task != null)--}}
 
-                                </div>
-                            @endif
-                        </td>
+{{--                                <div class="text-left border-top">--}}
+{{--                                    <a href="/tasks/{{$s->task->id}}" target="_blank">--}}
+{{--                                        <small class="text-muted">--}}
+{{--                                            {{$s->task->title}}--}}
+{{--                                        </small>--}}
+{{--                                    </a>--}}
 
-                    </tr>
+{{--                                </div>--}}
+{{--                            @endif--}}
+{{--                        </td>--}}
 
-                @endforeach
-            </table>
-            {{ $statuses->links() }}
+{{--                    </tr>--}}
+
+{{--                @endforeach--}}
+{{--            </table>--}}
+{{--            {{ $statuses->links() }}--}}
 {{--            @else--}}
 {{--                <a href="/" class="btn btn-success btn-block">داشبورد</a>--}}
 {{--                @endrole--}}
-        </div>
+{{--        </div>--}}
 
     </div>
 

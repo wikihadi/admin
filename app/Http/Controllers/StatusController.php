@@ -54,8 +54,10 @@ class StatusController extends Controller
 
         }
         $users = User::all();
+        $user = Auth::user();
+
         //$tasks = Task::all();
-        return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe','users'));
+        return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe','users','user'));
     }
 
     /**
@@ -693,18 +695,6 @@ public function statics(){
         return $comments;
     }
 
-    public function firstVisit(){
-        $u = $_GET['u'];
-
-        $firstVisit = Status::
-        with('user')->
-        whereHas('user')->
-        where('status','visit')->
-        where('user_id',$u)->latest()->
-        whereDate('created_at',Carbon::now())->get();
-
-        return $firstVisit;
-    }
 
     public function newStatus($status,$content,$to_user,$task_id,$user_id,$post_id){
         $s = new Status([
@@ -794,7 +784,40 @@ if (count($todayTasksIds)>0){
         ]);
     }
 
+public function statusesFetch(){
+      $u = $_GET['u'];
+      $s = $_GET['s'];
+      if($s == 1){
+          $status = Status::where('user_id',$u)->whereIn('status',['comment'])->latest()->get();
 
+      }elseif ($s == 2){
+          $status = Status::where('user_id',$u)->whereIn('status',['start','end'])->latest()->get();
+
+      }elseif ($s == 3){
+          $status = Status::where('user_id',$u)->whereIn('status',['box','boxed'])->latest()->get();
+
+      }elseif ($s == 4){
+          $status = Status::where('user_id',$u)->whereIn('status',['on','off','lunch-start','lunch-end','in','out'])->latest()->get();
+
+      }else{
+          $status = Status::where('user_id',$u)->latest()->get();
+
+      }
+    foreach ($status as $key => $loop) {
+        date_default_timezone_set("Asia/Tehran");
+        $loop->diff = verta($loop->created_at)->formatDifference();
+    }
+    $todayVisit = Status::where('user_id',$u)->whereIn('status',['visit'])->whereDate('created_at', Carbon::today())->count();
+    $user = User::find($u);
+    $getInToday= Status::where('user_id',$u)->whereIn('status',['visit'])->whereDate('created_at', Carbon::today())->pluck('created_at')->first();
+    return response()->json([
+        'status'=> $status,
+        'todayVisit'=> $todayVisit,
+        'user'=> $user,
+        'getInToday'=> $getInToday,
+
+    ]);
+}
 
 
     public function fetchMyTasksLastComments(){

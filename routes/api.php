@@ -25,6 +25,7 @@ Route::post('addStatusToBox','StatusController@addStatusToBox');
 Route::get('playTask','StatusController@playTask');
 Route::get('dayComments','StatusController@dayComments');
 Route::get('firstVisit','StatusController@firstVisit');
+Route::get('statusesFetch','StatusController@statusesFetch');
 Route::post('addBoxToUsers','StatusController@addBoxToUsers');
 Route::get('statusListBox','StatusController@statusListBox');
 Route::post('statusUpdateBox/{id}','StatusController@statusUpdate');

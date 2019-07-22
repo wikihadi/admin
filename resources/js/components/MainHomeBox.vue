@@ -235,9 +235,11 @@
 
                                         <small class="pointer">{{item.title}}</small>
 
-<!--                                        <small class="pull-left">-->
+                                        <small class="pull-left">
 <!--                                            <span class="badge badge-secondary">11</span>-->
-<!--                                        </small>-->
+                                            <a class="text-sm bg-dark pointer" @click.prevent="searchValue = item.title,isShow=-1,searchTasks()"><i class="fa fa-link"></i></a>
+
+                                        </small>
                                             <div :id="'comments' + item.id" class="collapse">
                                                 <a class="text-sm list-group-item bg-dark" v-for="status in commentsLoop.dailyComments" v-if="item.id == status.task_id">
 
@@ -248,7 +250,6 @@
                                                 </a>
 
 
-                                                <a class="text-sm list-group-item bg-dark pointer" @click.prevent="searchValue = item.title,isShow=-1,searchTasks()"><i class="fa fa-link"></i></a>
                                             </div>
                                     </div>
 
@@ -772,7 +773,7 @@
 
         },
         mounted: function () {
-            this.visit();
+            // this.visit();
 
 
             // this.tasks='';
@@ -1018,21 +1019,21 @@
                 }
             },
 
-            visit: function(){
-
-
-                axios.post('/api/addStatusToBox',{
-                        content: 'بازدید کاربر',
-                        user_id: this.user,
-                        status: 'visit',
-                    })
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-              },
+            // visit: function(){
+            //
+            //
+            //     axios.post('/api/addStatusToBox',{
+            //             content: 'بازدید کاربر',
+            //             user_id: this.user,
+            //             status: 'visit',
+            //         })
+            //         .then(function (response) {
+            //             console.log(response);
+            //         })
+            //         .catch(function (error) {
+            //             console.log(error);
+            //         });
+            //   },
             newStatus: function(content,status,task_id,routine,re_id,forcedBox){
 
 

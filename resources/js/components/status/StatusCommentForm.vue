@@ -109,7 +109,26 @@
             // this.timer = setInterval(this.dataFetch, 60000)
 
         },
+
+        created(){
+            this.visit();
+        },
         methods:{
+            visit: function(){
+
+
+                axios.post('/api/addStatusToBox',{
+                    content: 'بازدید کاربر',
+                    user_id: this.user,
+                    status: 'visit',
+                })
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             refresh: function(){
                 this.dataFetch(this.user,this.user);
                 this.dateNew();
