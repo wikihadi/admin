@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
+use App\Fin;
 use App\Notifications\messageSent;
 use App\Notifications\RepliedToTask;
 use App\Status;
@@ -55,9 +57,10 @@ class StatusController extends Controller
         }
         $users = User::all();
         $user = Auth::user();
+        $lunch=Status::where('user_id',$user->id)->where('status','lunch-start')->whereDate('created_at',Carbon::today())->count();
 
         //$tasks = Task::all();
-        return view('statuses.index', compact('statuses','myTasksStatus','usersStatus','statusesToMe','users','user'));
+        return view('statuses.index', compact('lunch','statuses','myTasksStatus','usersStatus','statusesToMe','users','user'));
     }
 
     /**
@@ -83,7 +86,7 @@ class StatusController extends Controller
         $request->validate([
             'content'=>'required'
         ]);
-
+        $duration = null;
 
         $taskOrderUser = TaskOrderUser::where('user_id',$request->get('user_id'))->where('task_id',$request->get('task_id'))->first();
         if($request->get('status') == 'comment'){
@@ -123,6 +126,16 @@ class StatusController extends Controller
             }
 
         }
+        if ($request->get('status') == 'lunch-end'){
+            $lunchStart = Status::where('user_id',$user->id)->where('status','lunch-start')->latest()->first();
+            $duration=Carbon::now()->diffInMinutes($lunchStart->created_at);
+            } elseif ($request->get('status') == 'on'){
+            $lunchStart = Status::where('user_id',$user->id)->where('status','off')->latest()->first();
+            $duration=Carbon::now()->diffInMinutes($lunchStart->created_at);
+            } elseif ($request->get('status') == 'in'){
+            $lunchStart = Status::where('user_id',$user->id)->where('status','out')->latest()->first();
+            $duration=Carbon::now()->diffInMinutes($lunchStart->created_at);
+            }
         $status = new Status([
             'status'    => $request->get('status'),
             'content'   => $request->get('content'),
@@ -130,6 +143,7 @@ class StatusController extends Controller
             'task_id'   => $request->get('task_id'),
             'user_id'   => $request->get('user_id'),
             'post_id'   => $request->get('post_id'),
+            'duration'   => $duration,
         ]);
         $status->save();
 
@@ -270,6 +284,43 @@ class StatusController extends Controller
             $status->save();
         }
     }
+    public function addFin(Request $request){
+        $user_id = $_GET['u'];
+        $brand_id = $_GET['b'];
+        $content = $_GET['c'];
+        $price = $_GET['p'];
+        $subject = $_GET['s'];
+
+              $status = new Status([
+                'status'    => 'fin',
+                'content'   => 'تنخواه توسط کاربر ' . $user_id,
+                'user_id'   => $user_id,
+                  ]);
+                $status->save();
+                $fin = new Fin([
+                    'price' => $price,
+                    'content' => $content,
+                    'user_id' => $user_id,
+                    'brand_id' => $brand_id,
+                    'subject' => $subject,
+                ]);
+                $fin->save();
+//              $status = new Status([
+//                'status'    => 'fin',
+//                'content'   => 'تنخواه توسط کاربر ' . $request->get('user_id'),
+//                'user_id'   => $request->get('user_id'),
+//                  ]);
+//                $status->save();
+//                $fin = new Fin([
+//                    'price' => $request->get('price'),
+//                    'content' => $request->get('content'),
+//                    'user_id' => $request->get('user_id'),
+//                    'brand_id' => $request->get('brand_id'),
+//                ]);
+//                $fin->save();
+//                $done = true;
+        return $fin;
+    }
     public function addStatusToBox(Request $request){
 
         $status = Status::create($request->all());
@@ -331,7 +382,8 @@ class StatusController extends Controller
         $task_id = $_GET['task'];
         $user_id = $_GET['user'];
 
-        $x2 =       TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->first();
+//        $x2 =       TaskOrderUser::where('user_id',$user_id)->where('lastStatus',2)->first();
+
 
             $x =        TaskOrderUser::where('user_id',$user_id)->where('task_id',$task_id)->first();
             $x->lastStatus = 2;
@@ -341,21 +393,28 @@ class StatusController extends Controller
 
 
 
-
+        $lastStarted=           Status::where('status','start')->where('user_id',$user_id)->latest()->first();
         $status = new Status([
             'status'    => 'start',
             'content'   => 'شروع کار ' . $task_id,
             'task_id'   => $task_id,
             'user_id'   => $user_id,
         ]);
-
         $status->save();
+
+        $betweenStatus=Status::whereIn('status',['in','on','lunch-end'])->where('user_id',$user_id)->where('created_at','>',$lastStarted->created_at)->sum('duration');
+//        if ($betweenStatus>0){
+            $duration=Carbon::now()->diffInMinutes($lastStarted->created_at) - $betweenStatus;
+//        }else{
+//            $duration=Carbon::now()->diffInMinutes($lastStarted->created_at);
+//        }
 
         $status2 = new Status([
             'status'    => 'pause',
-            'content'   => 'توقف کار ' . $x2->task_id,
-            'task_id'   => $x2->task_id,
+            'content'   => 'توقف کار ' . $lastStarted->task_id,
+            'task_id'   => $lastStarted->task_id,
             'user_id'   => $user_id,
+            'duration'   => $duration,
         ]);
 
         $status2->save();
@@ -368,7 +427,7 @@ class StatusController extends Controller
                 $o->save();
             }
 
-        return $status;
+        return $betweenStatus;
     }
     public function statusListBox(){
 
@@ -668,6 +727,10 @@ public function statics(){
             $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
             $users = User::whereIn('id',$users)->get();
             $loop->users = $users;
+
+            $loop->time = Status::where('task_id',$loop->task_id)->sum('duration');
+
+
         }
 //        $dateBefore = Carbon::now();
 //
@@ -809,12 +872,39 @@ public function statusesFetch(){
     }
     $todayVisit = Status::where('user_id',$u)->whereIn('status',['visit'])->whereDate('created_at', Carbon::today())->count();
     $user = User::find($u);
+
+    $todayIn= Carbon::today()->hour(9)->minute(30)->second(0);
     $getInToday= Status::where('user_id',$u)->whereIn('status',['visit'])->whereDate('created_at', Carbon::today())->pluck('created_at')->first();
+
+    $lastOut= Status::where('user_id',$u)->whereIn('status',['out'])->whereDate('created_at','<', Carbon::today())->latest()->pluck('created_at')->first();
+    $lastOutDate= Status::where('user_id',$u)->whereIn('status',['out'])->whereDate('created_at','<', Carbon::today())->latest()->pluck('created_at')->first();
+    $lastDayTimeToOut= $lastOutDate->hour(18)->minute(0)->second(0);
+
+    $lunchStartToday= Status::where('user_id',$u)->whereIn('status',['lunch-start'])->whereDate('created_at', Carbon::today())->pluck('created_at')->first();
+    if (!is_null($lunchStartToday)){
+        $lunchEndToday= Status::where('user_id',$u)->whereIn('status',['lunch-end'])->whereDate('created_at', Carbon::today())->pluck('created_at')->first();
+        $lunchDuration = $lunchStartToday->diffInMinutes($lunchEndToday);
+    }else{
+        $lunchDuration = null;
+    }
+
+    if ($lastOut>$lastOutDate){
+        $lastOutDelay=null;
+    }else{
+        $lastOutDelay=$lastOut->diffInMinutes($lastDayTimeToOut);
+    }
+
+    $todayDelay=$todayIn->diffInMinutes($getInToday);
+
+
     return response()->json([
         'status'=> $status,
         'todayVisit'=> $todayVisit,
         'user'=> $user,
         'getInToday'=> $getInToday,
+        'todayDelay'=> $todayDelay,
+        'lastOutDelay'=> $lastOutDelay,
+        'lunchDuration'=> $lunchDuration,
 
     ]);
 }
@@ -838,5 +928,15 @@ public function statusesFetch(){
 //            'lastMyComments'           => $lastMyComments,
 //        ]);
         return $lastMyComments;
+    }
+    public function fetchChecklist(){
+        $user_id=$_GET['u'];
+        $task_id=$_GET['task'];
+        $checklist=Status::where('task_id',$task_id)->whereIn('status',['checklist','checked-list'])->latest()->get();
+        return $checklist;
+    }
+    public function allBrands(){
+        $brands = Brand::all();
+        return $brands;
     }
 }

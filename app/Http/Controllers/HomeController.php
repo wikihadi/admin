@@ -106,8 +106,10 @@ class HomeController extends Controller
             date_default_timezone_set("Asia/Tehran");
             $loop->diff = verta($loop->created_at)->formatDifference();
         }
+        $lunch=Status::where('user_id',$user->id)->where('status','lunch-start')->whereDate('created_at',Carbon::today())->count();
 
-        return view('home',compact('dates','user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
+
+        return view('home',compact('lunch','dates','user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
     }
 
         public function noRoles()

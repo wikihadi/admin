@@ -60,7 +60,7 @@
 {{--            <button class="nav-link btn btn-link" type="button"><i class="fa fa-users"  data-toggle="modal" data-target="#crateStatus" http="#"></i> جلسه</button>--}}
 {{--        </li>--}}
 {{--        </form>--}}
-
+@if(isset($lunch)&&$lunch==0)
         <form  method="post" action="{{ route('status.store') }}">
                     @csrf
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
@@ -70,6 +70,7 @@
             <button class="nav-link btn btn-link" type="submit"><i class="fa fa-cutlery" data-target="tooltip"></i> ناهار</button>
         </li>
         </form>
+        @endif
                 <form  method="post" action="{{ route('status.store') }}">
                     @csrf
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">

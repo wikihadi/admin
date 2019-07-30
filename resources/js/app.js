@@ -48,7 +48,9 @@ Vue.component('task-pay-form', require('./components/tasks/taskPayForm').default
 Vue.component('main-home-box', require('./components/MainHomeBox').default);
 Vue.component('user-chart', require('./components/UserChart').default);
 Vue.component('report-designer', require('./components/ReportDesigner').default);
+Vue.component('checklist', require('./components/Checklist').default);
 Vue.component('status', require('./components/Status').default);
+Vue.component('fin', require('./components/fin').default);
 
 
 

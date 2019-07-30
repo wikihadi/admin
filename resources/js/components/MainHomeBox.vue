@@ -45,7 +45,7 @@
                          <div class="d-flex align-items-start">
                                 <button type="button" class="btn btn-sm btn-dark"
                                         :class="{'text-light':activeTab === 1,'text-muted':activeTab !== 1}"
-                                        @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1,isShow=3">
+                                        @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1,isShow=3,loading=true">
 <!--                                    <i :class="{'fa fa-circle':activeTab === 1,'fa fa-circle-o':activeTab !== 1}"></i>-->
                                     در انتظار</button>
 <!--                                <button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
@@ -56,7 +56,7 @@
 <!--                                <button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
                                 <div class=" border-secondary border d-flex flex-column" style="border-radius:0.25rem">
                                 <div class="btn-group flex-wrap">
-                                    <button type="button" :class="{'active text-light':activeTab === 0,'text-muted':activeTab !== 0}" class="btn btn-sm btn-dark" @click.prevent="fetchRoutine()">
+                                    <button type="button" :class="{'active text-light':activeTab === 0,'text-muted':activeTab !== 0}" class="btn btn-sm btn-dark" @click.prevent="fetchRoutine(),loading=true">
                                         <!--                                    <i :class="{'fa fa-circle':activeTab === 0,'fa fa-circle-o':activeTab !== 0}"></i>-->
                                         روتین</button>
 
@@ -78,13 +78,13 @@
 
                                 <button type="button"  class=" btn-sm btn btn-dark"
                                         :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}"
-                                        @click.prevent="fetchTasks('lastStatus','=',5,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5">
+                                        @click.prevent="fetchTasks('lastStatus','=',5,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5,loading=true">
 <!--                                    <i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 3}"></i>-->
                                     پیگیری</button>
 <!--                                <button class="btn  btn-sm  btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
                                 <button type="button"  class=" btn-sm btn btn-dark"
                                         :class="{'text-light':activeTab === 4,'text-muted':activeTab !== 4}"
-                                        @click.prevent="fetchTasks('lastStatus','=',6,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6">
+                                        @click.prevent="fetchTasks('lastStatus','=',6,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6,loading=true">
 <!--                                    <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i>-->
                                     چاپ</button>
 <!--                                <button class="btn  btn-sm btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
@@ -568,7 +568,8 @@
 
                             <div class="border-danger" v-if="tasks.length < 1">
                                 <div class="list-group-item list-group-item-action flex-column align-items-start pointer bg-dark">
-                                        <div class="text-center">
+                                    <div class="p-5 text-center text-light" v-if="loading"><i class="fa fa-refresh fa-spin fa-3x"></i></div>
+                                    <div class="text-center">
                                             <span class="mb-1 h6">چیزی یافت نشد</span>
                                         </div>
                                 </div>
@@ -608,6 +609,7 @@
                                                 <img :title="u.name" :src="'/storage/avatars/' + u.avatar" alt="" style="width: 25px" class="img-circle mr-1" v-for="u in item.users">
                                             </div>
                                             <div>
+                                                <span class="badge-secondary badge" title="زمان مجموع صرف شده" v-if="item.time>0">{{item.time}} دقیقه</span>
                                                 <small title="شروع یا ادامه کار" class="pointer text-dark" @click.prevent="playTask(item.task.id,item.id,item.routine)" v-if="item.lastStatus !== 3 || item.lastStatus !== 2"><i class="fa fa-play text-success mx-2 pointer"></i> شروع کار</small>
 
                                                 <a  class="text-muted" :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link ml-1 text-dark" ></i> <small class="text-dark">مشاهده</small></a>
@@ -654,7 +656,10 @@
                                                     </div></a>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-3">
+                                            <div class="col-xl-3 bg-light">
+                                                <p class="text-dark p-3">چک لیست</p>
+                                                <checklist :user="user" :task="item.task_id"></checklist>
+
                                             </div>
                                         </div>
                                         <div class="d-flex w-100 justify-content-end">
@@ -705,6 +710,9 @@
                     </div>
                 </div>
                     </transition>
+
+                    <fin :user="this.user"></fin>
+
                 </div>
             </div>
         </div>
@@ -719,6 +727,7 @@
         props:['user','users'],
         data(){
             return{
+                showfin:false,
                 archiveTitle: 'آرشیو',
                 archiveShow: '',
                 boxStarted: '',
@@ -765,6 +774,8 @@
                 ShowMainCurrentTask:true,
                 ShowMainBox:true,
                 minimize:false,
+                loading:true,
+
 
             }
         },
@@ -869,7 +880,12 @@
                     this.showBoxForm = false
                 }
             },
+            loadSpinner: function(){
+                this.loading=false;
+                this.listShow=true;
+            },
             fetchCurrentTasks: function(){
+                setTimeout(this.loadSpinner, 2000);
                 this.tasks='';
                 this.fetchTasks('lastStatus','<=',2,'order_column','asc');
                 this.commentFetch();

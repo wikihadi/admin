@@ -12,7 +12,11 @@
                         <hr>
 <!--                        <small>بازدید امروز: {{loop.todayVisit}}</small>-->
 <!--                        <br>-->
-                        <small>ورود امروز: {{loop.getInToday.date.substr(11, 8)}}</small>
+                        <small>ورود امروز: {{loop.getInToday.date.substr(11, 8)}}</small><br>
+                        <small v-if="loop.todayDelay > 0">تاخیر امروز: {{loop.todayDelay}} دقیقه</small><br>
+                        <small v-if="loop.lastOutDelay > 0">تعجیل روز کاری گذشته: {{loop.lastOutDelay}} دقیقه</small><br>
+                        <small v-if="loop.lunchDuration != null">زمان ناهار امروز: {{loop.lunchDuration}} دقیقه</small><br>
+                        <small v-if="loop.lunchDuration == null">هنوز زمان ناهار ثبت نشده است</small><br>
                     </div>
                 </div>
 

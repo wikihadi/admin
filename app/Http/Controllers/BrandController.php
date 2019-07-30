@@ -17,11 +17,11 @@ class BrandController extends Controller
     function __construct()
     {
         $this->middleware('auth');
-
-        $this->middleware('permission:brand-list');
-        $this->middleware('permission:brand-create', ['only' => ['create','store']]);
-        $this->middleware('permission:brand-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:brand-delete', ['only' => ['destroy']]);
+//
+//        $this->middleware('permission:brand-list');
+//        $this->middleware('permission:brand-create', ['only' => ['create','store']]);
+//        $this->middleware('permission:brand-edit', ['only' => ['edit','update']]);
+//        $this->middleware('permission:brand-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -157,4 +157,5 @@ class BrandController extends Controller
         $brand->delete();
         return redirect()->back()->with('success');
     }
+
 }
