@@ -8,11 +8,15 @@ use Illuminate\Http\Request;
 
 class FinController extends Controller
 {
-//    public function add(){
-//        $a = 123213;
-//         return view('fin',compact('a'));
-//
-//    }
+    public function allFin(){
+        $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('created_at','desc')->get();
+        $sum = $allFin->sum('price');
+        return response()->json([
+            'all' => $allFin,
+            'sum' => $sum,
+
+        ]);
+    }
 //    public function addFin(Request $request){
 //        $status = new Status([
 //            'status'    => 'fin',

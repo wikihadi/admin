@@ -23,6 +23,7 @@ class CreateStatusesTable extends Migration
             $table->integer('media_id')->nullable();
             $table->integer('post_id')->nullable();
             $table->integer('re_id')->nullable();
+            $table->integer('fin_id')->nullable();
             $table->integer('reply_id')->nullable();
             $table->integer('duration')->nullable();
             $table->string('unit')->nullable();

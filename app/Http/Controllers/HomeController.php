@@ -34,6 +34,7 @@ class HomeController extends Controller
 
         public function index()
     {
+
         $today = today();
 
         $dates = [];
@@ -107,7 +108,6 @@ class HomeController extends Controller
             $loop->diff = verta($loop->created_at)->formatDifference();
         }
         $lunch=Status::where('user_id',$user->id)->where('status','lunch-start')->whereDate('created_at',Carbon::today())->count();
-
 
         return view('home',compact('lunch','dates','user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
     }

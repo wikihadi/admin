@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="!show">
-        <button class="btn btn-link" @click.prevent="show=!show"><i class="fa fa-dollar"></i> ثبت هزینه</button>
+        <button class="btn btn-link" @click.prevent="show=!show,done=false"><i class="fa fa-plus"></i> ثبت هزینه</button>
         </div>
 <!--        <div style="width: 40px;height: 80px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;top:30vh;left:0" @click.prevent="show=!show" class="position-fixed pointer bg-light d-flex justify-content-center">-->
 <!--            FIN-->
@@ -31,7 +31,6 @@
                 <div class="form-group col-md">
                     <label for="brand">برای برند</label>
                     <select class="form-control" id="brand" v-model="brand" name="brand" required>
-                        <option selected value="0">بدون برند</option>
                         <option v-for="brand in brands" :value="brand.id">{{brand.title}}</option>
                     </select>
                 </div>
@@ -95,8 +94,11 @@
         methods:{
             create: function(){
                 let url = '/api/addFin?u=' + this.user + '&c=' + this.content + '&p=' + this.price + '&b=' + this.brand + '&s=' + this.subject;
-                axios.get(url).then(response => this.loop = response.data);
-                this.added();
+                axios.get(url).then(
+                    response => this.loop = response.data,
+                    this.added()
+                );
+
                 // axios.post('/api/addFin',{
                 //     content:this.content,
                 //     price:this.price,

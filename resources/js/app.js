@@ -51,6 +51,7 @@ Vue.component('report-designer', require('./components/ReportDesigner').default)
 Vue.component('checklist', require('./components/Checklist').default);
 Vue.component('status', require('./components/Status').default);
 Vue.component('fin', require('./components/fin').default);
+Vue.component('fin-list', require('./components/FinList').default);
 
 
 

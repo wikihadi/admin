@@ -285,40 +285,66 @@ class StatusController extends Controller
         }
     }
     public function addFin(Request $request){
+
+        if (isset($_GET['update'])){
+            if ($_GET['role']=='admin'){
+                $acc_content=$_GET['acc_content'];
+                $acc_id=$_GET['u'];
+                if($_GET['acc']==true){
+                    $state=1;
+                }
+            }else{
+                $acc_id=null;
+                $acc_content=null;
+            }
+            $update = $_GET['update'];
+        }else{
+            $update = 0;
+            $acc_id=null;
+            $acc_content=null;
+        }
         $user_id = $_GET['u'];
         $brand_id = $_GET['b'];
         $content = $_GET['c'];
         $price = $_GET['p'];
         $subject = $_GET['s'];
 
-              $status = new Status([
-                'status'    => 'fin',
-                'content'   => 'تنخواه توسط کاربر ' . $user_id,
-                'user_id'   => $user_id,
-                  ]);
-                $status->save();
-                $fin = new Fin([
-                    'price' => $price,
-                    'content' => $content,
-                    'user_id' => $user_id,
-                    'brand_id' => $brand_id,
-                    'subject' => $subject,
-                ]);
-                $fin->save();
-//              $status = new Status([
-//                'status'    => 'fin',
-//                'content'   => 'تنخواه توسط کاربر ' . $request->get('user_id'),
-//                'user_id'   => $request->get('user_id'),
-//                  ]);
-//                $status->save();
-//                $fin = new Fin([
-//                    'price' => $request->get('price'),
-//                    'content' => $request->get('content'),
-//                    'user_id' => $request->get('user_id'),
-//                    'brand_id' => $request->get('brand_id'),
-//                ]);
-//                $fin->save();
-//                $done = true;
+if ($update!=0){
+    $newStatus = 'fin-update';
+    $newContent = 'ویرایش هزینه توسط کاربر ' . $user_id;
+    $fin = Fin::find($update);
+    $fin->price=$price;
+    $fin->content=$content;
+    $fin->brand_id=$brand_id;
+    $fin->subject=$subject;
+    $fin->acc_id=$acc_id;
+    $fin->acc_content=$acc_content;
+    if (isset($state)){
+        $fin->state=$state;
+    }
+}else{
+    $newStatus = 'fin';
+    $newContent = 'ثبت هزینه توسط کاربر ' . $user_id;
+    $fin = new Fin([
+        'price' => $price,
+        'content' => $content,
+        'user_id' => $user_id,
+        'brand_id' => $brand_id,
+        'subject' => $subject,
+    ]);
+
+}
+        $fin->save();
+
+        $status = new Status([
+            'status'    => $newStatus,
+            'content'   => $newContent,
+            'user_id'   => $user_id,
+            'fin_id' =>     $fin->id,
+
+        ]);
+        $status->save();
+
         return $fin;
     }
     public function addStatusToBox(Request $request){

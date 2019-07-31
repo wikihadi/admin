@@ -136,9 +136,12 @@
 
 
             <div class="col-12 row justify-content-center">
+
         <div class="col-xl-9 col-lg-10 row m-auto">
             @hasanyrole('admin|modir')
+
                 <div class="col">
+
                     <div class="card bg-dark">
                         <div class="card-header"  >
                             <div class="" data-toggle="collapse" data-target="#lastStatus" style="cursor: pointer">
@@ -187,8 +190,20 @@
                         </div>
                     </div>
                 </div>
+
             @endhasanyrole
-{{--            @hasanyrole('designer')--}}
+            @hasrole('admin')
+                <div class="col-12">
+                    <fin-list :user="{{Auth::id()}}" :role="'admin'"></fin-list>
+                </div>
+            @endhasrole
+            @hasrole('finance')
+                <div class="col-12">
+                    <fin-list :user="{{Auth::id()}}" :role="'finance'"></fin-list>
+                </div>
+            @endhasrole
+
+            {{--            @hasanyrole('designer')--}}
 {{--                <div class="col-lg " data-toggle="collapse" data-target="#myComments">--}}
 {{--                    <div class="card bg-dark">--}}
 {{--                        <div class="card-header"  >--}}
