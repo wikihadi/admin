@@ -37,6 +37,15 @@ Route::group(['middleware' => ['auth']], function() {
 
 
             Route::get('/profile', 'ProfileController@profile');
+            Route::get('/tools/intercom', 'ServiceController@intercom');
+            Route::get('/tools/lunch', 'ServiceController@lunch');
+            Route::post('/lunch/add', 'ServiceController@addFood');
+
+
+            Route::view('/tools/fin', 'fin.main');
+
+
+            Route::resource('services', 'ServiceController');
             Route::post('/profile', 'ProfileController@update_avatar');
 
             Route::resource('tasks', 'TaskController');

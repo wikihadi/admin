@@ -54,7 +54,7 @@
 <!--                                        @click.prevent="fetchTasks('lastStatus','=',4,'order_column','asc'),commentFetch(),title='معلق',activeTab=7,isShow=8">-->
 <!--                                    <i :class="{'fa fa-circle':activeTab === 7,'fa fa-circle-o':activeTab !== 7}"></i> معلق</button>-->
 <!--                                <button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
-                                <div class=" border-secondary border d-flex flex-column" style="border-radius:0.25rem">
+                                <div class=" border-secondary border d-flex flex-column mb-5" style="border-radius:0.25rem">
                                 <div class="btn-group flex-wrap">
                                     <button type="button" :class="{'active text-light':activeTab === 0,'text-muted':activeTab !== 0}" class="btn btn-sm btn-dark" @click.prevent="fetchRoutine(),loading=true">
                                         <!--                                    <i :class="{'fa fa-circle':activeTab === 0,'fa fa-circle-o':activeTab !== 0}"></i>-->
@@ -138,7 +138,7 @@
 
                         <div class="row">
 
-                            <div class="col-12 justify-content-between d-flex">
+                            <div class="col-12 justify-content-between d-flex mb-5">
                                 <i class="fa fa-arrow-circle-right" title="روز قبل" @click.prevent="day--,myboxFetchMain(day),fetchTasksMain('lastStatus','<=',2,'order_column','asc',day),fetchTasksRoutine('routine','=',1,'order_column','asc',day)"></i>
                                 <div>
                                     <small class="text-muted" v-if="day == 0">امروز</small>
@@ -221,11 +221,14 @@
 
                             <div class="col-xl" v-if="ShowMainCurrentTask">
                                 <div class="card-body">
-                                    <div class="list-group-item bg-dark text-center text-muted border" v-if="commentsLoop.lastStart!=''">کار باز از قبل</div>
-                                    <div class="list-group-item bg-light text-dark text-center pointer"  @click.prevent="searchValue = commentsLoop.lastStart.task.title,isShow=-1,searchTasks()" v-if="commentsLoop.lastStart!=''">{{commentsLoop.lastStart.task.title}}</div>
+<!--                                    <div class="list-group-item bg-dark text-center text-muted border" v-if="commentsLoop.lastStart!=''">کار باز از قبل</div>-->
 
 
                                     <div class="list-group-item bg-dark text-center text-muted">فعالیت <small v-if="day==0">امروز</small><small v-if="day==-1">دیروز</small><small v-if="day<-1">{{Math.abs(day)}} روز قبل</small> <small class="text-muted">({{commentsLoop.dailyComments.length}})</small></div>
+                                    <div class="list-group-item bg-dark text-dark  pointer"  @click.prevent="searchValue = commentsLoop.lastStart.task.title,isShow=-1,searchTasks()" v-if="commentsLoop.lastStart!=''&&day==0">
+                                        <span class="badge badge-info">از گذشته</span> <small>{{commentsLoop.lastStart.task.title}}</small>
+                                    </div>
+
                                     <div class="list-group-item bg-dark text-center" v-if="commentsLoop.dailyComments.length <= 0"><i class="fa fa-minus"></i></div>
 <!--                                    <zoom-center-transition>-->
                                     <!--                                            :class="{'bg-success':item.lastStatus == 2,'bg-dark':item.lastStatus != 2}"-->
@@ -712,7 +715,6 @@
                     </transition>
 
                     <fin :user="this.user"></fin>
-
                 </div>
             </div>
         </div>

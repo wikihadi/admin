@@ -350,6 +350,8 @@ if ($update!=0){
     public function addStatusToBox(Request $request){
 
         $status = Status::create($request->all());
+        $status->ip_address = $request->ip();
+        $status->save();
 //        $status->notify(new messageSent($status));
         if (!empty($status->task_id)){
             $task_id = $request->get('task_id');
@@ -631,6 +633,7 @@ public function statics(){
     return view('users.statics', compact('users','myTasksStatus','usersStatus','statusesToMe'));
 
 }
+
     public function searchTasks(){
         $s = $_GET['s'];
         $u = $_GET['u'];
@@ -899,7 +902,7 @@ public function statusesFetch(){
     $todayVisit = Status::where('user_id',$u)->whereIn('status',['visit'])->whereDate('created_at', Carbon::today())->count();
     $user = User::find($u);
 
-    $todayIn= Carbon::today()->hour(9)->minute(30)->second(0);
+    $todayIn= Carbon::today()->hour(8)->minute(30)->second(0);
     $getInToday= Status::where('user_id',$u)->whereIn('status',['visit'])->whereDate('created_at', Carbon::today())->pluck('created_at')->first();
 
     $lastOut= Status::where('user_id',$u)->whereIn('status',['out'])->whereDate('created_at','<', Carbon::today())->latest()->pluck('created_at')->first();

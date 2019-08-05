@@ -30,6 +30,8 @@ Route::get('fetchChecklist','StatusController@fetchChecklist');
 Route::post('addBoxToUsers','StatusController@addBoxToUsers');
 Route::get('addFin','StatusController@addFin');
 Route::get('allBrands','StatusController@allBrands');
+Route::get('checkFin','FinController@checkFin');
+Route::get('delFin','FinController@delFin');
 Route::get('allFin','FinController@allFin');
 Route::get('statusListBox','StatusController@statusListBox');
 Route::post('statusUpdateBox/{id}','StatusController@statusUpdate');
@@ -52,6 +54,11 @@ Route::get('fetchTasks','StatusController@fetchTasks');
 Route::get('commentFetch','StatusController@commentFetch');
 Route::get('chartFetch','StatusController@chartFetch');
 Route::get('fetchMyTasksLastComments','StatusController@fetchMyTasksLastComments');
+
+Route::post('formSubmit','ServiceController@formSubmit');
+
+//Services Apis
+//Route::get('addFood','StatusController@add');
 
 //Route::resource('/apiStatus', 'StatusController');
 

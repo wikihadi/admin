@@ -10,7 +10,33 @@
                 </p>
             </a>
         </li>
-        @can('task-list')
+        <li class="nav-item has-treeview @if(Request::is('tools*')) menu-open @endif ">
+            <a href="#" class="nav-link @if(Request::is('tools*')) active @endif ">
+                <i class="nav-icon fa fa-tasks"></i>
+
+                <p>
+                    امکانات
+                    <i class="right fa fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+                    <li class="nav-item">
+                        <a href="/tools/intercom" class="nav-link @if(Request::is('tools/intercom')) active @endif ">
+                            <i class="fa fa-lg fa-mobile nav-icon"></i>
+                            <p>داخلی ها</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/tools/lunch" class="nav-link @if(Request::is('tools/lunch')) active @endif ">
+                            <i class="fa fa-lg fa-mobile nav-icon"></i>
+                            <p>لیست غذای شرکت</p>
+                        </a>
+                    </li>
+            </ul>
+        </li>
+
+    @can('task-list')
         <li class="nav-item has-treeview @if(Request::is('tasks*') || Request::is('jobs*')) menu-open @endif ">
             <a href="#" class="nav-link @if(Request::is('tasks*') || Request::is('jobs*')) active @endif ">
                 <i class="nav-icon fa fa-tasks"></i>

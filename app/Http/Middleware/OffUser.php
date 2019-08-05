@@ -19,7 +19,7 @@ class OffUser
     {
 //        $test = Status::where('user_id',Auth::id())->where('status','off')->orWhere('status','on')->orderBy('created_at','desc')->first();
         $user = Auth::user();
-        if($user->lastStatus == 'on' || $user->lastStatus == 'in' || $user->lastStatus == 'lunch-end' || $user->lastStatus == null){
+        if($user->lastStatus == 'on' || $user->lastStatus == 'in' || $user->lastStatus == 'lunch-end' || $user->lastStatus == null || $user->lastStatus == ''){
             return $next($request);
         }
         return redirect('home');

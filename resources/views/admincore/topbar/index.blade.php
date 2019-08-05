@@ -60,26 +60,26 @@
 {{--            <button class="nav-link btn btn-link" type="button"><i class="fa fa-users"  data-toggle="modal" data-target="#crateStatus" http="#"></i> جلسه</button>--}}
 {{--        </li>--}}
 {{--        </form>--}}
-@if(isset($lunch)&&$lunch==0)
-        <form  method="post" action="{{ route('status.store') }}">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                    <input type="hidden" name="status" value="lunch-start">
-                    <input type="hidden" name="content" value="ناهار  {{Auth::user()->name}}">
-        <li class="dropdown-item">
-            <button class="nav-link btn btn-link" type="submit"><i class="fa fa-cutlery" data-target="tooltip"></i> ناهار</button>
-        </li>
-        </form>
-        @endif
-                <form  method="post" action="{{ route('status.store') }}">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                    <input type="hidden" name="status" value="off">
-                    <input type="hidden" name="content" value="توقف زمان برای  {{Auth::user()->name}}">
-        <li class="dropdown-item">
-            <button class="nav-link btn btn-link" type="submit"><i class="fa fa-pause" data-target="tooltip"></i> توقف کار</button>
-        </li>
-        </form>
+{{--@if(isset($lunch)&&$lunch==0)--}}
+{{--        <form  method="post" action="{{ route('status.store') }}">--}}
+{{--                    @csrf--}}
+{{--                    <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+{{--                    <input type="hidden" name="status" value="lunch-start">--}}
+{{--                    <input type="hidden" name="content" value="ناهار  {{Auth::user()->name}}">--}}
+{{--        <li class="dropdown-item">--}}
+{{--            <button class="nav-link btn btn-link" type="submit"><i class="fa fa-cutlery" data-target="tooltip"></i> ناهار</button>--}}
+{{--        </li>--}}
+{{--        </form>--}}
+{{--        @endif--}}
+{{--                <form  method="post" action="{{ route('status.store') }}">--}}
+{{--                    @csrf--}}
+{{--                    <input type="hidden" name="user_id" value="{{Auth::id()}}">--}}
+{{--                    <input type="hidden" name="status" value="off">--}}
+{{--                    <input type="hidden" name="content" value="توقف زمان برای  {{Auth::user()->name}}">--}}
+{{--        <li class="dropdown-item">--}}
+{{--            <button class="nav-link btn btn-link" type="submit"><i class="fa fa-pause" data-target="tooltip"></i> توقف کار</button>--}}
+{{--        </li>--}}
+{{--        </form>--}}
                 <form  method="post" action="{{ route('status.store') }}">
                     @csrf
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">

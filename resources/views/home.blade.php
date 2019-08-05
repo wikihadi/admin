@@ -88,39 +88,40 @@
         @hasanyrole('admin|modir|finance')
         <div class="col-md-12">
         <div class="row d-flex justify-content-center">
-            @can('task-create')
-                <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/tasks/create" class="btn btn-warning btn-block hvr-grow">کار جدید</a>
-                </div>
-            </div>
-            @endcan
-            @hasanyrole('admin')
-            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/statics" class="btn btn-light btn-block hvr-grow">آمار کاربران</a>
-                </div>
-            </div>
-            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/finance" class="btn table-danger btn-block hvr-grow" target="_blank">مالی</a>
-                </div>
-            </div>
-            @endhasanyrole
-            @hasanyrole('finance')
-            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/finance-final" class="btn table-danger btn-block hvr-grow" target="_blank">مالی</a>
-                </div>
-            </div>
-            @endhasanyrole
-            @hasanyrole('modir')
-            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">
-                <div class="wrimagecard wrimagecard-topimage">
-                    <a href="/finance-check" class="btn table-danger btn-block hvr-grow" target="_blank">مالی</a>
-                </div>
-            </div>
-            @endhasanyrole
+
+{{--            @can('task-create')--}}
+{{--                <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/tasks/create" class="btn btn-warning btn-block hvr-grow">کار جدید</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            @endcan--}}
+{{--            @hasanyrole('admin')--}}
+{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/statics" class="btn btn-light btn-block hvr-grow">آمار کاربران</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/finance" class="btn table-danger btn-block hvr-grow" target="_blank">مالی</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            @endhasanyrole--}}
+{{--            @hasanyrole('finance')--}}
+{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/finance-final" class="btn table-danger btn-block hvr-grow" target="_blank">مالی</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            @endhasanyrole--}}
+{{--            @hasanyrole('modir')--}}
+{{--            <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
+{{--                <div class="wrimagecard wrimagecard-topimage">--}}
+{{--                    <a href="/finance-check" class="btn table-danger btn-block hvr-grow" target="_blank">مالی</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            @endhasanyrole--}}
         </div>
 
         </div>
@@ -166,7 +167,7 @@
             @endhasanyrole
             @hasanyrole('admin|modir')
                 <div class="col-lg" data-toggle="collapse" data-target="#admin">
-                    <div class="card bg-info">
+                    <div class="card bg-dark">
                         <div class="card-header"  >
                             <div class="" style="cursor: pointer">
                                 <i class="fa fa-arrow-circle-down"></i>مشاهده ده نظر اخیر - مدیر
@@ -192,16 +193,9 @@
                 </div>
 
             @endhasanyrole
-            @hasrole('admin')
-                <div class="col-12">
-                    <fin-list :user="{{Auth::id()}}" :role="'admin'"></fin-list>
-                </div>
-            @endhasrole
-            @hasrole('finance')
-                <div class="col-12">
-                    <fin-list :user="{{Auth::id()}}" :role="'finance'"></fin-list>
-                </div>
-            @endhasrole
+
+{{--<upload-image></upload-image>--}}
+
 
             {{--            @hasanyrole('designer')--}}
 {{--                <div class="col-lg " data-toggle="collapse" data-target="#myComments">--}}

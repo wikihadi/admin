@@ -9,7 +9,7 @@
 
     <div class="modal" id="img{{$task->id}}" style="cursor: zoom-out">
         <div class="text-center animated bounceIn" data-dismiss="modal">
-            <img src="/storage/uploads/{{$task->pic}}"  data-dismiss="modal">
+            <img src="/storage/uploads/{{$task->pic}}"  data-dismiss="modal" class="mw-100 w-100">
         </div>
     </div>
 

@@ -4,6 +4,7 @@
         <div class="h1 text-light">حساب کاربری شما تایید نشده است. لطفا با مدیریت تماس بگیرید</div>
     </div>
 @else
+
     @if($user->lastStatus == 'lunch-start')
         <div class="position-fixed d-flex justify-content-center align-items-center w-100 h-100" style="z-index: 10000000000;height: 100%; background: #000000a5">
             <form  method="post" action="{{ route('status.store') }}" class="text-center text-center">
@@ -17,8 +18,7 @@
 
             </form>
         </div>
-    @endif
-    @if($user->lastStatus == 'off')
+    @elseif($user->lastStatus == 'off')
         <div class="position-fixed d-flex justify-content-center align-items-center w-100 h-100" style="z-index: 10000000000;height: 100%; background: #000000a5">
             <form  method="post" action="{{ route('status.store') }}" class="text-center text-center">
                 @csrf
@@ -31,8 +31,7 @@
 
             </form>
         </div>
-    @endif
-    @if($user->lastStatus == 'out')
+    @elseif($user->lastStatus == 'out')
         <div class="position-fixed d-flex justify-content-center align-items-center w-100 h-100" style="z-index: 10000000000;height: 100%; background: #000000a5">
             <form  method="post" action="{{ route('status.store') }}" class="text-center text-center">
                 @csrf
@@ -45,6 +44,7 @@
 
             </form>
         </div>
+        @else
     @endif
 
 @endif

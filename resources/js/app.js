@@ -45,6 +45,8 @@ Vue.component('user-statics', require('./components/status/userStatics').default
 Vue.component('user-statics-boxes', require('./components/status/userStaticsBoxes').default);
 Vue.component('finance-task-form', require('./components/tasks/financeTasksForm').default);
 Vue.component('task-pay-form', require('./components/tasks/taskPayForm').default);
+Vue.component('intercom', require('./components/services/Intercom').default);
+Vue.component('lunch-list', require('./components/services/Lunch').default);
 Vue.component('main-home-box', require('./components/MainHomeBox').default);
 Vue.component('user-chart', require('./components/UserChart').default);
 Vue.component('report-designer', require('./components/ReportDesigner').default);
@@ -52,6 +54,7 @@ Vue.component('checklist', require('./components/Checklist').default);
 Vue.component('status', require('./components/Status').default);
 Vue.component('fin', require('./components/fin').default);
 Vue.component('fin-list', require('./components/FinList').default);
+Vue.component('upload-image', require('./components/tasks/UploadImage').default);
 
 
 
