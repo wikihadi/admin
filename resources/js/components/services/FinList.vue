@@ -66,25 +66,37 @@
             </div>
         </div>
     <div class="row bg-dark">
-
-        <div class="col">
+<div class="d-flex justify-content-between col-12">
+        <div>
+            <small>نمایش</small>
+            <small v-if="title!='همه'">فقط</small>
+            <small>{{title}}</small>
+            <small class="badge badge-light" v-if="end<=loop.all.length">{{end}}</small>
+            <small v-if="end<=loop.all.length">از</small>
+            <small class="badge badge-light">{{loop.all.length}}</small>
+        </div>
+        <div>
             <div class="bg-dark text-left">
-                <span @click.prevent="fetch('all'),end=5" class="pointer badge badge-dark">همه</span>
-                <span class="badge badge-info pointer" @click.prevent="fetch('100'),end=5" v-if="role!='finance'">در انتظار تایید مدیر مالی</span>
-                <span class="badge badge-warning pointer" @click.prevent="fetch('101'),end=5">در انتظار پرداخت</span>
-                <span class="badge badge-success pointer" @click.prevent="fetch('102'),end=5">در انتظار تایید پرداخت - پرداخت شده</span>
-                <span class="badge badge-dark pointer" @click.prevent="fetch('200'),end=5" v-if="role!='finance'">آرشیو شده</span>
+                <small @click.prevent="fetch('all'),end=10,title='همه'" :class="{'pointer badge badge-light':title!='همه','text-light':title=='همه'}" class="hvr-pop">همه</small>
+                <small :class="{'pointer badge badge-info':title!='در انتظار تایید مدیر مالی','text-info':title=='در انتظار تایید مدیر مالی'}"
+                        @click.prevent="fetch('100'),end=10,title='در انتظار تایید مدیر مالی'" v-if="role!='finance'">در انتظار تایید مدیر مالی</small>
+                <small :class="{'pointer badge badge-warning':title!='در انتظار پرداخت','text-warning':title=='در انتظار پرداخت'}"
+                       @click.prevent="fetch('101'),end=10,title='در انتظار پرداخت'">در انتظار پرداخت</small>
+                <small :class="{'pointer badge badge-success':title!='پرداخت شده','text-success':title=='پرداخت شده'}"
+                       @click.prevent="fetch('102'),end=10,title='پرداخت شده'">در انتظار تایید پرداخت - پرداخت شده</small>
+                <small :class="{'pointer badge badge-dark':title!='آرشیو شده','text-light':title=='آرشیو شده'}"
+                       @click.prevent="fetch('200'),end=10,title='آرشیو شده'" v-if="role!='finance'">آرشیو شده</small>
             <span @click.prevent="end=5" class="pointer badge badge-secondary">5</span>
             <span @click.prevent="end=10" class="pointer badge badge-secondary">10</span>
             <span @click.prevent="end=20" class="pointer badge badge-secondary">20</span>
             <span @click.prevent="end=50" class="pointer badge badge-secondary">50</span>
             <span @click.prevent="end=100" class="pointer badge badge-secondary">100</span>
-            <span @click.prevent="end=10000" class="pointer badge badge-secondary">all</span>
+            <span @click.prevent="end='1000'" class="pointer badge badge-secondary">1000</span>
                 <span class="badge badge-info px-3">{{addComma(loop.sum)}} ریال</span>
 
             </div>
         </div>
-
+    </div>
 
 
 <div class="col-12">
@@ -107,7 +119,7 @@
                     <th scope="col"></th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="loop.all.length>0">
                 <tr v-for="(item,index) in loop.all.slice(0,end)" :class="{'bg-info':item.state==100,'bg-warning':item.state==101,'bg-success':item.state==102}">
                     <td scope="row">{{index+1}}</td>
 <!--                    <td>-->
@@ -132,6 +144,13 @@
                 </tr>
                 </tbody>
             </table>
+    <div class="alert alert-secondary"  v-if="loop.all.length==0">
+
+        <i class="fa fa-refresh fa-spin" v-if="!loaded"></i>
+        هیچ موردی
+        <span v-if="title!='همه'">در {{title}} </span>
+        یافت نشد</div>
+
 </div>
         </div>
     </div>
@@ -161,8 +180,10 @@
                 state:'',
                 done:false,
                 showAlert:false,
-                end:5,
+                end:20,
                 brandId:'',
+                title:'همه',
+                loaded:true,
             }
         },
         mounted: function() {
@@ -235,6 +256,11 @@
             fetch: function(code){
                 let url1 = '/api/allFin?role=' + this.role + '&code=' + code;
                 axios.get(url1).then(response => this.loop = response.data);
+                this.loaded=false;
+                setTimeout(this.loading,2000);
+            },
+            loading: function(){
+                this.loaded=true;
 
             },
             brands: function(){

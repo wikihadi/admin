@@ -112,75 +112,24 @@
 
 @section('content')
 
-
-
-
-<div class="col-12"><div class="row">
-
-
-    <div class="col-sm-4 m-auto">
-
-        <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
-
-
-
-<div class="text-center h2">اعلانات و قوانین</div>
-
-
-        </div>
-
-
-    </div>
-    </div></div>
-    <div class="col-sm-6 m-auto">
-
-        <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
-
-
-            <div class="text-left">
-                @role('admin')
-
-                <a href="/posts/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
-                @endrole
-
-
-
+<div class="col-12">
+    <div class="row">
+        <div class="col-sm-8 m-auto">
+            <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
+                <div class="text-center h2">اعلانات و قوانین</div>
             </div>
-
-
-            @foreach($posts as $post)
-            <a href="/posts/{{$post->id }}">
-                <div class="card card-border">
-                    <div class="card-header bg-info card-border px-5">
-<div class="badge badge-pill badge-light">{{$post->id}}</div>
-                         | {{$post->title}}
-
-
-                    </div>
-                    <div class="panel-footer">
-
-                        {{--<favorite--}}
-                                {{--:post={{ $post->id }}--}}
-                                        {{--:favorited={{ $post->verifyPost() ? 'true' : 'false' }}--}}
-                        {{--></favorite>--}}
-                    </div>
-                </div>
-            </a>
-            @endforeach
-            {{ $posts->links() }}
-            <a href="/" class="btn btn-block btn-link">برگشت به خانه</a>
-
-
         </div>
-
-
     </div>
-
-
-
-
-
-
+</div>
+@hasanyrole('admin|modir')
+    <posts :user="{{Auth::id()}}" :role="'admin'"></posts>
+@endhasanyrole
+@role('designer')
+    <posts :user="{{Auth::id()}}" :role="'designer'"></posts>
+@endrole
+@role('finance')
+    <posts :user="{{Auth::id()}}" :role="'finance'"></posts>
+@endrole
 @endsection
 @section('JS')
 

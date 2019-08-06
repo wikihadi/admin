@@ -587,6 +587,7 @@ $linked = 'pending';
         $statuses = Status::with('user')->orderBy('created_at','DESC')->get();
         $dateBefore = Carbon::now();
 
+
         foreach ($statuses as $key => $loop){
             $loop->jCreated_at = new Verta($loop->created_at);
             $loop->diff = verta($loop->created_at)->formatDifference();
@@ -594,7 +595,9 @@ $linked = 'pending';
 
 
         }
-    return view('tasks.pending', compact('lastStartedStatus','tasks','statusesToMe','statuses','myTasksStatus','usersStatus','users','user','usersInTasks','linked','titleOfPage','jobPage'));
+        $urlP = '/';
+
+        return view('tasks.pending', compact('urlP','lastStartedStatus','tasks','statusesToMe','statuses','myTasksStatus','usersStatus','users','user','usersInTasks','linked','titleOfPage','jobPage'));
 
 
 

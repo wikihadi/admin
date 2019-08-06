@@ -95,16 +95,26 @@
 
             <label for="title">وزن (ارزش)</label>
 
-            <select class="form-control" name="weight">
-                <option value="{{$task->weight}}">{{$task->weight}}</option>
-
-                @for($i = 1; $i <= 10; $i++)
-                    @if($i == $task->weight)
-                        @continue
-                    @endif
-                    <option value="{{$i}}">{{$i}}</option>
-                @endfor
-            </select>
+{{--            <select class="form-control" name="weight">--}}
+                <span>
+                    @if($task->weight<4)
+                        کم
+                        @elseif($task->weight>=4&&$task->weight<=8)
+                    متوسط
+                        @else
+                    زیاد
+                        @endif
+                </span>
+{{--                <option value="1">کم</option>--}}
+{{--                <option value="5">متوسط</option>--}}
+{{--                <option value="10">زیاد</option>--}}
+{{--                @for($i = 1; $i <= 10; $i++)--}}
+{{--                    @if($i == $task->weight)--}}
+{{--                        @continue--}}
+{{--                    @endif--}}
+{{--                    <option value="{{$i}}">{{$i}}</option>--}}
+{{--                @endfor--}}
+{{--            </select>--}}
             {{--<input type="number" class="form-control" name="weight" placeholder="From 1 to 10"--}}
             {{--min="1" max="10" value="10"/>--}}
         </div>

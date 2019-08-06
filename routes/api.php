@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    'except' => ['edit', 'show', 'store']
 //]);
 //Route::resource('checklist', 'CheckListController');
+Route::get('fetchPosts','PostController@fetchPosts');
 Route::get('homeStatusToMe','StatusController@homeStatusToMe');
 Route::post('addStatusToBox','StatusController@addStatusToBox');
 Route::get('playTask','StatusController@playTask');

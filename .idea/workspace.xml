@@ -2,34 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16b8dd04-1233-4f26-bfe3-de701ecdecf6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/services/Intercom.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/services/Lunch.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/tasks/UploadImage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/fin/main.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/services/intercom.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/services/lunch.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/services/Posts.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Fin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Fin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FinController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FinController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StatusController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StatusController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/OffUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/OffUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/FinList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/FinList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/FinList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/services/FinList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/MainHomeBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/MainHomeBox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admincore/sidebar/menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admincore/sidebar/menu.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admincore/topbar/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admincore/topbar/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/fin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/services/fin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admincore/topbar/menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admincore/topbar/menu.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/helper/onOff.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/helper/onOff.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/tasks/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tasks/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/helper/createTask.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/helper/createTask.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/helper/editTask.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/helper/editTask.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/posts/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/posts/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/posts/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/posts/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/posts/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/posts/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tasks/finance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tasks/finance.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -174,7 +165,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -185,6 +176,7 @@
       <recent name="C:\xampp\htdocs\admin\resources\js\components\tasks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\admin\resources\js\components\services" />
       <recent name="C:\xampp\htdocs\admin\resources\js\components\status" />
     </key>
   </component>
@@ -275,7 +267,8 @@
       <workItem from="1564838928791" duration="942000" />
       <workItem from="1564891725692" duration="22033000" />
       <workItem from="1564985481338" duration="9739000" />
-      <workItem from="1565007410748" duration="3635000" />
+      <workItem from="1565007410748" duration="5318000" />
+      <workItem from="1565066398711" duration="25834000" />
     </task>
     <servers />
   </component>

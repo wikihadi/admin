@@ -31,14 +31,8 @@
 
             @hasanyrole('admin')
             <a class="dropdown-item" href="/statics" target="_blank">آمار کاربران</a>
-            <a class="dropdown-item" href="/finance" target="_blank">مالی</a>
             @endhasanyrole
-            @hasanyrole('finance')
-            <a class="dropdown-item" href="/finance-final" target="_blank">مالی</a>
-            @endhasanyrole
-            @hasanyrole('modir')
-            <a class="dropdown-item" href="/finance-check" target="_blank">مالی</a>
-            @endhasanyrole
+
         </div>
     </li>
 
@@ -61,5 +55,24 @@
     </li>
     @endhasanyrole
 
+    @hasanyrole('admin')
+    <li class="nav-item d-none d-sm-inline-block">
+    <a class="nav-link" href="/finance" target="_blank">مالی</a>
+    </li>
 
+    @endhasanyrole
+    @hasanyrole('finance')
+    <li class="nav-item d-none d-sm-inline-block">
+
+    <a class="nav-link" href="/finance-final" target="_blank">مالی</a>
+    </li>
+
+    @endhasanyrole
+    @hasanyrole('modir')
+    <li class="nav-item d-none d-sm-inline-block">
+
+    <a class="nav-link" href="/finance-check" target="_blank">مالی</a>
+    </li>
+
+    @endhasanyrole
 </ul>

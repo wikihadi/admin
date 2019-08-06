@@ -188,23 +188,24 @@
                                 <option value="عمومی">عمومی</option>
                                 <option value="طراحی">واحد طراحی</option>
                                 <option value="مالی">واحد مالی</option>
+                                <option value="فروش">واحد فروش</option>
                             </select>
 
                         </div>
 
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="card card-border">
-                        <div class="card-header bg-white card-border px-5 text-center">
+{{--                <div class="col-sm-6">--}}
+{{--                    <div class="card card-border">--}}
+{{--                        <div class="card-header bg-white card-border px-5 text-center">--}}
 
-                            <label for="emailPost">ایمیل به تمام اعضا</label>
-                            <input type="checkbox" name="emailPost" id="emailPost" value="1">
+{{--                            <label for="emailPost">ایمیل به تمام اعضا</label>--}}
+{{--                            <input type="checkbox" name="emailPost" id="emailPost" value="1">--}}
 
-                        </div>
+{{--                        </div>--}}
 
-                    </div>
-                </div>
+{{--                    </div>--}}
+{{--                </div>--}}
 
 
             </div>

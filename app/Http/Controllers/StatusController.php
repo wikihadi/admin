@@ -471,15 +471,18 @@ if ($update!=0){
                 $day = $_GET['day'];
                 $dt = Carbon::now()->addDay($day);
                 $status = Status::
+                    with('user')->whereHas('user')->
                 whereDate('created_at',$dt->toDateString())->
-                where('status', 'box')->
+                whereIn('status', ['box','boxed'])->
                 where('user_id', $_GET['ID'])->
                 where('to_user', $_GET['ID'])->
                 orWhere('to_user', $_GET['ID'])->
                 whereDate('created_at',$dt->toDateString())->
-                where('status', 'box')->latest()->get();
+                where('status', 'box')->
+                    orderBy('status','asc')->
+                latest()->get();
             }else{
-                $status = Status::where('status', 'box')->where('user_id', $_GET['ID'])->where('to_user', $_GET['ID'])->orWhere('user_id', $_GET['ID'])->where('to_user', null)->where('status', 'box')->latest()->get();
+                $status = Status::whereIn('status', ['box','boxed'])->where('user_id', $_GET['ID'])->where('to_user', $_GET['ID'])->orWhere('user_id', $_GET['ID'])->where('to_user', null)->where('status', 'box')->orderBy('status','asc')->orderBy('updated_at','desc')->get();
             }
         }elseif (isset($_GET['userPlayId'])) {
             $status = Status::

@@ -42,6 +42,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#searchbar" aria-controls="searchbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            @hasanyrole('admin|finance')
             <div class="collapse navbar-collapse" id="searchbar">
                     @role('finance')
                         <form action="/finance-final" class="form-inline">
@@ -77,6 +78,7 @@
                     <button type="submit" class="btn btn-link"><i class="fa fa-search"></i></button>
                 </form>
             </div>
+            @endhasanyrole
         </nav>
     </div>
     @endhasanyrole

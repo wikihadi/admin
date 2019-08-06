@@ -300,18 +300,19 @@
     <!--                                            <button class="btn btn-link btn-sm" v-if="day != 0" @click="day=0,myboxFetchMain(day)">برو امروز</button>-->
                                         </div>
                                     </div>
-                                    <div class="list-group-item bg-dark text-center" v-if="boxes.length <= 0"><i class="fa fa-minus"></i></div>
-                                    <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
-                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i>
-                                        <small>{{box.content}}</small>
+                                    <div class="list-group-item bg-dark text-center" v-if="dayBoxes.length <= 0"><i class="fa fa-minus"></i></div>
+                                    <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in dayBoxes.slice(0, boxToShow)" :id="'box-' + box.id">
+<!--                                        <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)" title="انجام شد" v-if="box.status=='box'"></i>-->
+                                        <small :class="{'line-box text-muted':box.status=='boxed'}">{{box.content}}</small>
                                         <small class="pull-left">
-                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>
-                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('توقف باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>
+                                        <img  :src="'/storage/avatars/'+ box.user.avatar" class="img-circle user-box" :alt="box.user.name" :title="box.user.name">
+<!--                                            <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>-->
+<!--                                            <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('توقف باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>-->
                                         </small>
                                     </div>
-                                    <div class="text-center d-flex" v-if="boxes.length > 5">
+                                    <div class="text-center d-flex" v-if="dayBoxes.length > 5">
                                         <div @click.prevent="boxToShow -= 5" class="dropdown-item dropdown-footer" style="cursor: pointer;" v-if="boxToShow > 5"><i class="fa fa-minus"></i></div>
-                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < boxes.length"></i></div>
+                                        <div @click.prevent="boxToShow += 5" class="dropdown-item dropdown-footer" style="cursor: pointer;"><i class="fa fa-plus" v-if="boxToShow < dayBoxes.length"></i></div>
                                     </div>
                                 </div>
 
@@ -481,8 +482,8 @@
                             <div class="list-group-item bg-dark text-center" v-if="boxes.length <= 0"><i class="fa fa-minus"></i></div>
 
                             <div :class="{'bg-success':boxStarted.status == 'box-start' && boxStarted.re_id == box.id,'bg-dark':boxStarted.re_id != box.id || boxStarted.status != 'box-start'}" class="list-group-item" v-for="box in boxes.slice(0, boxToShow)" :id="'box-' + box.id">
-                                <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)"></i>
-                                <small>{{box.content}}</small>
+                                <i class="fa fa-check hvr-fade" type="checkbox" @click.prevent="CheckItem($event, box.id,box.content)" v-if="box.status=='box'"></i>
+                                <small :class="{'text-muted line-box':box.status=='boxed'}">{{box.content}}</small>
 <!--                                <small class="pull-left">-->
 <!--                                    <i class="fa fa-play text-success pointer" v-if="boxStarted.status != 'box-start'" @click="newStatus('شروع باکس ' + box.content,'box-start',null,null,box.id,0)"></i>-->
 <!--                                    <i class="fa fa-pause text-warning pointer" v-if="boxStarted.status == 'box-start' && boxStarted.re_id == box.id" @click="newStatus('توقف باکس ' + box.content,'box-pause',null,null,box.id,0)"></i>-->
@@ -737,6 +738,7 @@
                 isShow: 0,
                 newBox:'',
                 boxes:[],
+                dayBoxes:[],
                 sentBoxes:[],
                 forcedBoxes:[],
                 archiveBoxes:[],
@@ -978,7 +980,7 @@
             },
             myboxFetchMain: function(day){
                 let url = '/api/statusListBox?ID=' + this.user + '&day=' + day;
-                axios.get(url).then(response => this.boxes = response.data)
+                axios.get(url).then(response => this.dayBoxes = response.data)
             },
             othersBoxFetch: function(){
                 let url = '/api/statusListBox?toid=' + this.user;
@@ -1064,7 +1066,7 @@
                         forcedBox: forcedBox,
                     })
                     .then(function (response) {
-                        this.fetchCurrentTasks
+                        // this.fetchCurrentTasks
                         console.log(response);
                     })
                     .catch(function (error) {
@@ -1076,7 +1078,8 @@
                 }else if(routine === 1){
                     this.fetchRoutine();
                 }else{
-                    this.fetchCurrentTasks
+                    // this.fetchCurrentTasks;
+                    this.myboxFetchMain(this.day);
                 }
 
 
@@ -1164,7 +1167,7 @@
 
 </script>
 
-<style scoped>
+<style>
 .pointer{
     cursor:pointer
 }
@@ -1191,5 +1194,14 @@
     width: 30px;
     cursor: pointer;
 }
+.user-box{
+    width: 30px;
+}
+.line-box{
+    text-decoration: line-through;
 
+}
+    .underline{
+        text-decoration: underline;
+    }
 </style>

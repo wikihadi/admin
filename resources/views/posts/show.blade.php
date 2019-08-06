@@ -169,8 +169,16 @@
 
 
     </div>
-
-
+    @role('admin')
+        <div class="col-sm-7 m-auto">
+            <div class="m-0 m-sm-3 p-0 p-sm-5 bg-light" style="border-radius: 30px;">
+                @foreach($usersRead as $u)
+{{--                    <img src="/storage/avatar/{{$u->user->avatar}}" class="img-circle" style="width: 30px" alt="">--}}
+                    <span class="badge badge-dark">{{$u->user->name}}</span>
+                @endforeach
+            </div>
+        </div>
+    @endrole
 
 
 

@@ -39,8 +39,7 @@ class PostController extends Controller
         $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
 
-
-        $posts = Post::orderBy('id','DESC')->paginate(10);
+        $posts = Post::latest()->get();
 
         return view('posts.index',compact('posts','myTasksStatus','usersStatus','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
     }
@@ -129,7 +128,8 @@ class PostController extends Controller
 
         $post = Post::find($id);
         $user = Auth::user();
-        $statusPost = Status::where('status','verifyPost')->where('user_id',$user->id)->where('post_id',$post->id)->get();
+        $statusPost =   Status::where('status','verifyPost')->where('user_id',$user->id)->where('post_id',$post->id)->get();
+        $usersRead =    Status::with('user')->whereHas('user')->where('status','verifyPost')->where('post_id',$post->id)->get();
         if (count($statusPost) == 0){
             $read = 0;
         }else{
@@ -137,7 +137,7 @@ class PostController extends Controller
         }
 
 
-        return view('posts.show', compact('post','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe','read'));
+        return view('posts.show', compact('usersRead','post','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe','read'));
     }
 
     /**
@@ -172,6 +172,41 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+    public function fetchPosts()
+    {
+        $role = $_GET['role'];
+        $rolePost = $_GET['rolePost'];
+        $user_id = $_GET['user'];
+
+        if ($role=='admin'||$role=='modir'){
+            if($rolePost!='all'){
+                $posts = Post::where('section',$rolePost)->latest()->get();
+            }else{
+                $posts = Post::latest()->get();
+            }
+        }elseif ($role=='designer'){
+            if($rolePost!='all'){
+                $posts = Post::where('section',$rolePost)->latest()->get();
+            }else{
+                $posts = Post::whereIn('section',['عمومی','طراحی'])->latest()->get();
+            }
+        }elseif ($role=='finance'){
+            if($rolePost!='all'){
+                $posts = Post::where('section',$rolePost)->latest()->get();
+            }else{
+                $posts = Post::whereIn('section',['عمومی','مالی'])->latest()->get();
+            }
+        }
+        foreach ($posts as $key => $loop) {
+            $statusPost = Status::where('status','verifyPost')->where('user_id',$user_id)->where('post_id',$loop->id)->get();
+            if (count($statusPost) == 0){
+                $loop->read = 0;
+            }else{
+                $loop->read = 1;
+            }
+        }
+        return  $posts;
     }
 
 
