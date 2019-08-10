@@ -114,8 +114,8 @@
 
 <div class="col-12">
     <div class="row">
-        <div class="col-sm-8 m-auto">
-            <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
+        <div class="col-sm-12 m-auto">
+            <div class="m-3 p-5 bg-white" style="border-radius: 30px;">
                 <div class="text-center h2">اعلانات و قوانین</div>
             </div>
         </div>

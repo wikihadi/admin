@@ -8,6 +8,7 @@ use App\PostViewBy;
 use App\Status;
 use App\User;
 use Carbon\Carbon;
+use foo\bar;
 use Illuminate\Http\Request;
 use Notification;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,7 @@ class PostController extends Controller
         $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
 
-        $posts = Post::latest()->get();
+        $posts = Post::where('published',1)->latest()->get();
 
         return view('posts.index',compact('posts','myTasksStatus','usersStatus','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
     }
@@ -148,7 +149,24 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+
+
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+
+        $post = Post::find($post)->first();
+        return view('posts.edit', compact('post','myTasksStatus','usersStatus','lastStartedStatus','statusesToMe'));
+
     }
 
     /**
@@ -160,7 +178,12 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post->title        =   $request->input('title');
+        $post->content      =   $request->input('content');
+        $post->section      =   $request->input('section');
+        $post->published    =   $request->input('published');
+        $post->save();
+        return back();
     }
 
     /**
@@ -180,22 +203,24 @@ class PostController extends Controller
         $user_id = $_GET['user'];
 
         if ($role=='admin'||$role=='modir'){
-            if($rolePost!='all'){
-                $posts = Post::where('section',$rolePost)->latest()->get();
-            }else{
-                $posts = Post::latest()->get();
+            if($rolePost!='all'&&$rolePost!='draft'){
+                $posts = Post::where('published',1)->where('section',$rolePost)->latest()->get();
+            }elseif($rolePost=='all'){
+                $posts = Post::where('published',1)->latest()->get();
+            }elseif($rolePost=='draft'){
+                $posts = Post::where('published',0)->latest()->get();
             }
         }elseif ($role=='designer'){
             if($rolePost!='all'){
-                $posts = Post::where('section',$rolePost)->latest()->get();
+                $posts = Post::where('published',1)->where('section',$rolePost)->latest()->get();
             }else{
-                $posts = Post::whereIn('section',['عمومی','طراحی'])->latest()->get();
+                $posts = Post::where('published',1)->whereIn('section',['عمومی','طراحی'])->latest()->get();
             }
         }elseif ($role=='finance'){
             if($rolePost!='all'){
-                $posts = Post::where('section',$rolePost)->latest()->get();
+                $posts = Post::where('published',1)->where('section',$rolePost)->latest()->get();
             }else{
-                $posts = Post::whereIn('section',['عمومی','مالی'])->latest()->get();
+                $posts = Post::where('published',1)->whereIn('section',['عمومی','مالی'])->latest()->get();
             }
         }
         foreach ($posts as $key => $loop) {

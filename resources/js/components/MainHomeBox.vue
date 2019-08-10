@@ -1,5 +1,5 @@
 <template>
-        <div class="col-12 row mt-5 justify-content-center">
+        <div class="col-12 row justify-content-center">
                 <div class="col-xl-9 col-lg-10">
                 <div class="card bg-dark">
                     <div class="card-header">
@@ -726,7 +726,6 @@
     import ZoomCenterTransition from "vue2-transitions/src/Zoom/ZoomCenterTransition";
     import ZoomUpTransition from "vue2-transitions/src/Zoom/ZoomUpTransition";
     export default {
-        components: {ZoomUpTransition, ZoomCenterTransition},
         props:['user','users'],
         data(){
             return{

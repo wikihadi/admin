@@ -77,15 +77,17 @@
         </div>
         <div>
             <div class="bg-dark text-left">
-                <small @click.prevent="fetch('all'),end=10,title='همه'" :class="{'pointer badge badge-light':title!='همه','text-light':title=='همه'}" class="hvr-pop">همه</small>
+                <small @click.prevent="fetch('all'),end=20,title='همه'" :class="{'pointer badge badge-light':title!='همه','text-light':title=='همه'}" class="hvr-pop">همه</small>
+
+                <small @click.prevent="fetch('0'),end=20,title='جدید'" :class="{'pointer badge badge-light':title!='جدید','text-light':title=='جدید'}" class="hvr-pop" v-if="role=='admin'">جدید</small>
                 <small :class="{'pointer badge badge-info':title!='در انتظار تایید مدیر مالی','text-info':title=='در انتظار تایید مدیر مالی'}"
-                        @click.prevent="fetch('100'),end=10,title='در انتظار تایید مدیر مالی'" v-if="role!='finance'">در انتظار تایید مدیر مالی</small>
+                        @click.prevent="fetch('100'),end=20,title='در انتظار تایید مدیر مالی'" v-if="role!='finance'">در انتظار تایید مدیر مالی</small>
                 <small :class="{'pointer badge badge-warning':title!='در انتظار پرداخت','text-warning':title=='در انتظار پرداخت'}"
-                       @click.prevent="fetch('101'),end=10,title='در انتظار پرداخت'">در انتظار پرداخت</small>
+                       @click.prevent="fetch('101'),end=20,title='در انتظار پرداخت'">در انتظار پرداخت</small>
                 <small :class="{'pointer badge badge-success':title!='پرداخت شده','text-success':title=='پرداخت شده'}"
-                       @click.prevent="fetch('102'),end=10,title='پرداخت شده'">در انتظار تایید پرداخت - پرداخت شده</small>
+                       @click.prevent="fetch('102'),end=20,title='پرداخت شده'">در انتظار تایید پرداخت - پرداخت شده</small>
                 <small :class="{'pointer badge badge-dark':title!='آرشیو شده','text-light':title=='آرشیو شده'}"
-                       @click.prevent="fetch('200'),end=10,title='آرشیو شده'" v-if="role!='finance'">آرشیو شده</small>
+                       @click.prevent="fetch('200'),end=20,title='آرشیو شده'" v-if="role!='finance'">آرشیو شده</small>
             <span @click.prevent="end=5" class="pointer badge badge-secondary">5</span>
             <span @click.prevent="end=10" class="pointer badge badge-secondary">10</span>
             <span @click.prevent="end=20" class="pointer badge badge-secondary">20</span>
@@ -108,10 +110,11 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-<!--                    <th scope="col">وضعیت</th>-->
+                    <th scope="col" v-if="title=='همه'">وضعیت</th>
                     <th scope="col">کد</th>
                     <th scope="col">توسط</th>
                     <th scope="col">مبلغ ریال</th>
+                    <th scope="col">تاریخ</th>
                     <th scope="col">برند</th>
                     <th scope="col">موضوع</th>
                     <th scope="col">توضیحات</th>
@@ -120,18 +123,23 @@
                 </tr>
                 </thead>
                 <tbody v-if="loop.all.length>0">
-                <tr v-for="(item,index) in loop.all.slice(0,end)" :class="{'bg-info':item.state==100,'bg-warning':item.state==101,'bg-success':item.state==102}">
+                <tr v-for="(item,index) in loop.all.slice(0,end)"
+                    :class="{'bg-info':item.state==100,
+                    'bg-warning':item.state==101,
+                    'bg-success':item.state==102}"
+                >
                     <td scope="row">{{index+1}}</td>
-<!--                    <td>-->
-<!--                        <span class="badge badge-info" v-if="item.state==100">{{item.state}}</span>-->
-<!--                        <span class="badge badge-warning" v-if="item.state==101">{{item.state}}</span>-->
-<!--                        <span class="badge badge-success" v-if="item.state==102">{{item.state}}</span>-->
-<!--                        <span class="badge badge-dark" v-if="item.state==200">{{item.state}}</span>-->
-<!--                        <span class="badge badge-light" v-if="item.state==0">{{item.state}}</span>-->
-<!--                    </td>-->
+                    <td v-if="title=='همه'">
+                        <span class="badge badge-light" v-if="item.state==100">در انتظار تایید مالی</span>
+                        <span class="badge badge-light" v-if="item.state==101">در انتظار پرداخت</span>
+                        <span class="badge badge-light" v-if="item.state==102">پرداخت شده</span>
+                        <span class="badge badge-light" v-if="item.state==200">آرشیو</span>
+                        <span class="badge badge-light" v-if="item.state==0">هنوز ارسال نشده</span>
+                    </td>
                     <td>{{item.id}}</td>
                     <td>{{item.user.name}}</td>
                     <td>{{addComma(item.price)}}</td>
+                    <td>{{item.jd}}</td>
                     <td>{{item.brand.title}}</td>
                     <td>{{item.subject}}</td>
                     <td>{{item.content}}</td>
@@ -189,7 +197,7 @@
         mounted: function() {
             let url2 = '/api/allBrands';
             axios.get(url2).then(response => this.brands = response.data);
-            this.fetch();
+            this.fetch('all');
         },
         methods:{
 
@@ -257,6 +265,7 @@
                 let url1 = '/api/allFin?role=' + this.role + '&code=' + code;
                 axios.get(url1).then(response => this.loop = response.data);
                 this.loaded=false;
+                code=null;
                 setTimeout(this.loading,2000);
             },
             loading: function(){

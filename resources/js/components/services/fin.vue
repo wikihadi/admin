@@ -18,21 +18,40 @@
                 <h3>ثبت هزینه</h3>
 
                 <p>هزینه های انجام شده را با توضیحات وارد نمایید</p>
-                <form  @submit.prevent="create">
+                        <form @submit="formSubmit" enctype="multipart/form-data">
+
+                        <!--                <form  @submit.prevent="create">-->
 <!--                <form action="addFin" method="post">-->
 
                     <input type="hidden" name="_token" :value="csrf">
-                    <div class="form-group">
-                    <label for="fi">هزینه</label>
-                    <input type="number" class="form-control" id="fi" v-model="price" name="price" aria-describedby="fiHelp" placeholder="مثال: 10000 ریال" autocomplete="off" required>
-                    <small id="fiHelp" class="form-text text-muted">هزینه را به ریال وارد نمایید</small>
-                </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="fi">هزینه</label>
+                                <input type="number" class="form-control" id="fi" v-model="price" name="price" aria-describedby="fiHelp" placeholder="مثال: 10000 ریال" autocomplete="off" required>
+                                <small id="fiHelp" class="form-text text-muted">هزینه را به ریال وارد نمایید</small>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="fi">تاریخ</label>
+                            <div class="bg-light text-dark">
+                                    <date-picker type="datetime" v-model="date" format="YYYY-MM-DD HH:mm:ss" display-format="dddd jDD jMMMM jYYYY HH:mm"></date-picker>
+                            </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <div class="row">
                 <div class="form-group col-md">
                     <label for="brand">برای برند</label>
                     <select class="form-control" id="brand" v-model="brand" name="brand" required>
                         <option v-for="brand in brands" :value="brand.id">{{brand.title}}</option>
                     </select>
+
+
+
                 </div>
                 <div class="form-group col-md">
                     <label for="brand">موضوع</label>
@@ -42,6 +61,10 @@
 <!--                    </select>-->
                 </div>
                     </div>
+                <div class="form-group">
+                    <label for="image">ثبت تصویر</label>
+                    <input type="file" name="image" id="image" class="form-control" v-on:change="onImageChange">
+                </div>
                 <div class="form-group">
                     <label for="content">توضیحات</label>
                     <textarea class="form-control" id="content" rows="3" v-model="content" name="content" required></textarea>
@@ -67,11 +90,17 @@
 </template>
 
 <script>
+    import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
+
     export default {
+        components: {
+            datePicker: VuePersianDatetimePicker
+        },
         name: "fin",
         props:['user'],
         data(){
             return{
+                image: '',
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 loop:[],
                 brands:[],
@@ -79,6 +108,7 @@
                 show:false,
                 price:'',
                 content:'',
+                date:'',
                 brand:'',
                 subject:'',
                 done:false,
@@ -92,26 +122,55 @@
 
         },
         methods:{
-            create: function(){
-                let url = '/api/addFin?u=' + this.user + '&c=' + this.content + '&p=' + this.price + '&b=' + this.brand + '&s=' + this.subject;
-                axios.get(url).then(
-                    response => this.loop = response.data,
-                    this.added()
-                );
-
-                // axios.post('/api/addFin',{
-                //     content:this.content,
-                //     price:this.price,
-                //     user_id:this.user,
-                //     brand_id:this.brand,
-                // }).then(function (response) {
-                //         console.log(response);
-                //     })
-                //     .catch(function (error) {
-                //         console.log(error);
-                //     });
-
+            onImageChange(e){
+                console.log(e.target.files[0]);
+                this.image = e.target.files[0];
             },
+            formSubmit(e) {
+                e.preventDefault();
+                let currentObj = this;
+
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                };
+
+                let formData = new FormData();
+                formData.append('image', this.image);
+                formData.append('_token', this.csrf);
+                formData.append('price', this.price);
+                formData.append('date', this.date);
+                formData.append('brand', this.brand);
+                formData.append('subject', this.subject);
+                formData.append('content', this.content);
+
+                axios.post('/api/formSubmit', formData, config)
+                    .then(function (response) {
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+            },
+            // create: function(){
+            //     let url = '/api/addFin?u=' + this.user + '&c=' + this.content + '&p=' + this.price + '&b=' + this.brand + '&s=' + this.subject + '&date=' + this.date ;
+            //     axios.get(url).then(
+            //         response => this.loop = response.data,
+            //         this.added()
+            //     );
+            //
+            //     // axios.post('/api/addFin',{
+            //     //     content:this.content,
+            //     //     price:this.price,
+            //     //     user_id:this.user,
+            //     //     brand_id:this.brand,
+            //     // }).then(function (response) {
+            //     //         console.log(response);
+            //     //     })
+            //     //     .catch(function (error) {
+            //     //         console.log(error);
+            //     //     });
+            //
+            // },
             added: function(){
                 this.done = true;
                 this.price = '';

@@ -69,10 +69,10 @@
                                         @endif
                                         <small  data-toggle="tooltip" title="عضویت"><i class="fa fa-user-circle"></i> {{$u->diff}}</small>
                                             <small class="mx-2"></small>
-{{--                                            <user-status-comments-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="نظرات ثبت شده"></user-status-comments-count>--}}
-{{--                                            <user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>--}}
+                                            <user-status-comments-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="نظرات ثبت شده"></user-status-comments-count>
+                                            <user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>
                                             <user-tasks-self :user="{{$u->id}}" class="d-inline"></user-tasks-self>
-{{--                                            <user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>--}}
+                                            <user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>
                                             <hr>
                                     </div>
                                 </div>
@@ -85,9 +85,9 @@
 
         </div>
         @endrole
-        @hasanyrole('admin|modir|finance')
-        <div class="col-md-12">
-        <div class="row d-flex justify-content-center">
+{{--        @hasanyrole('admin|modir|finance')--}}
+{{--        <div class="col-md-12">--}}
+{{--        <div class="row d-flex justify-content-center">--}}
 
 {{--            @can('task-create')--}}
 {{--                <div class="col-xl-1 col-lg-2 col-md-3 col-sm-4">--}}
@@ -122,10 +122,10 @@
 {{--                </div>--}}
 {{--            </div>--}}
 {{--            @endhasanyrole--}}
-        </div>
+{{--        </div>--}}
 
-        </div>
-        @endhasanyrole
+{{--        </div>--}}
+{{--        @endhasanyrole--}}
     </div>
     @hasanyrole('admin|modir|designer')
     <main-home-box v-bind:user="{{Auth::id()}}" :users="{{$users}}"></main-home-box>
@@ -134,7 +134,9 @@
     @endhasanyrole
 {{--    <user-chart></user-chart>--}}
 
-
+{{--    @role('admin')--}}
+{{--        <admin-panel :user="{{Auth::id()}}" :users="{{$users}}" :formAdd="123"></admin-panel>--}}
+{{--    @endrole--}}
 
             <div class="col-12 row justify-content-center">
 

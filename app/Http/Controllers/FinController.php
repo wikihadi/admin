@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Fin;
 use App\Status;
+use Carbon\Carbon;
+use Hekmatinasser\Verta\Facades\Verta;
 use Illuminate\Http\Request;
 
 class FinController extends Controller
@@ -11,40 +13,61 @@ class FinController extends Controller
     public function allFin(){
         $role = $_GET['role'];
         $code = $_GET['code'];
-        if($role=='admin'){
-            $allFin = Fin::with('user','brand')
-                ->whereHas('brand')
-                ->whereHas('user')
-                ->orderBy('state','asc')
-                ->latest()
-                ->where('state', '!=',200)
-                ->get();
-        }elseif($role=='finance'){
-            $allFin = Fin::with('user','brand')
-                ->whereHas('brand')
-                ->whereHas('user')
-                ->orderBy('state','asc')
-                ->latest()
-                ->whereBetween('state', [101, 102])
-                ->get();
-        }elseif($role=='finMan'){
-            $allFin = Fin::with('user','brand')
-                ->whereHas('brand')
-                ->whereHas('user')
+        if ($code=='all'){
+            if($role=='admin'){
+//                $allFin = Fin::with('user','brand')
+//                    ->whereHas('brand')
+//                    ->whereHas('user')
+//                    ->latest()
+//                    ->where('state', '=',0)
+//                    ->get();
+                $allFin = Fin::with('user','brand')
+                    ->whereHas('brand')
+                    ->whereHas('user')
+                    ->orderBy('state','asc')
+                    ->latest()
+                    ->where('state', '!=',200)
+                    ->get();
+            }elseif($role=='finance'){
+                $allFin = Fin::with('user','brand')
+                    ->whereHas('brand')
+                    ->whereHas('user')
+                    ->orderBy('state','asc')
+                    ->latest()
+                    ->whereBetween('state', [101, 102])
+                    ->get();
+            }elseif($role=='finMan'){
+                $allFin = Fin::with('user','brand')
+                    ->whereHas('brand')
+                    ->whereHas('user')
 //                ->orderBy('state','asc')
                     ->latest()
-                ->whereBetween('state', [100, 200])
-                ->get();
+                    ->whereBetween('state', [100, 200])
+                    ->get();
+            }
+        }else{
+            if($code==100){
+                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+            }elseif ($code==101){
+                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+            }elseif ($code==102){
+                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+            }elseif ($code==200){
+                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+            }elseif ($code==0){
+                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+            }
         }
-        if($code==100){
-            $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',100)->get();
-        }elseif ($code==101){
-            $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',101)->get();
-        }elseif ($code==102){
-            $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',102)->get();
-        }elseif ($code==200){
-            $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',200)->get();
+        foreach ($allFin as $key => $loop){
+            if ($loop->date!=null){
+                $loop->jd = verta($loop->date)->formatJalaliDate();
+            }else{
+                $loop->jd = verta($loop->created_at)->formatJalaliDate();
+            }
+
+
         }
+
         $sum = $allFin->sum('price');
         return response()->json([
             'all' => $allFin,

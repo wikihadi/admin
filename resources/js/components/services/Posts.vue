@@ -1,9 +1,10 @@
 <template>
         <div class="col-12 row d-flex justify-content-center">
-            <div class="text-left" v-if="role=='admin'">
+            <div class="col-12" v-if="role=='admin'">
+            <div class="text-left">
                 <a href="/posts/create" class="btn btn-link" ><i class="fa fa-plus"></i></a>
-            </div>
-            <div class="col-sm-2">
+            </div></div>
+            <div class="col-xl-3">
                 <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
 
                     <div class="card card-border" @click="fetchPosts('all'),tab=0">
@@ -31,10 +32,15 @@
                             فروش
                         </div>
                     </div>
+                    <div class="card card-border" @click="fetchPosts('draft'),tab=5" v-if="role=='admin'">
+                        <div class="card-header card-border px-5 hvr-pulse pointer" :class="{'bg-dark':tab!=5,'bg-info':tab==5}">
+                            پیشنویس
+                        </div>
+                    </div>
 
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-xl-9">
 
                 <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
 
@@ -44,7 +50,10 @@
                         <div class="card card-border">
                             <div class="card-header card-border px-5" :class="{'bg-info':post.read==0,'bg-secondary':post.read==1}">
                                 <div class="badge badge-pill badge-light">{{post.id}}</div>
-                                | {{post.title}} <span class="badge badge-warning pull-left" v-if="post.read==0">خوانده نشده</span><span class="badge badge-light pull-left" v-if="post.read==1"><i class="fa fa-check"></i></span>
+                                | {{post.title}}
+                                <span class="badge badge-warning pull-left" v-if="post.read==0">خوانده نشده</span>
+                                <a :href="'/posts/' + post.id + '/edit'" v-if="post.read==0&&role=='admin'"><span class="badge badge-dark pull-left hvr-pop"><i class="fa fa-edit"></i></span></a>
+                                <span class="badge badge-light pull-left" v-if="post.read==1"><i class="fa fa-check"></i></span>
                             </div>
                             <div class="panel-footer">
 
@@ -72,6 +81,7 @@
         props:['role','user'],
         data(){
             return{
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 posts:[],
                 tab:0,
             }

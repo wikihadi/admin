@@ -61,6 +61,10 @@ Vue.component('fin-list',               require('./components/services/FinList')
 Vue.component('fin',                    require('./components/services/fin').default);
 Vue.component('posts',                  require('./components/services/Posts').default);
 
+//Admin
+Vue.component('admin-panel',            require('./components/admin/AdminPanel').default);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

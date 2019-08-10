@@ -308,12 +308,14 @@ class StatusController extends Controller
         $content = $_GET['c'];
         $price = $_GET['p'];
         $subject = $_GET['s'];
+        $date = $_GET['date'];
 
 if ($update!=0){
     $newStatus = 'fin-update';
     $newContent = 'ویرایش هزینه توسط کاربر ' . $user_id;
     $fin = Fin::find($update);
     $fin->price=$price;
+    $fin->date=$date;
     $fin->content=$content;
     $fin->brand_id=$brand_id;
     $fin->subject=$subject;
@@ -327,6 +329,7 @@ if ($update!=0){
     $newContent = 'ثبت هزینه توسط کاربر ' . $user_id;
     $fin = new Fin([
         'price' => $price,
+        'date' => $date,
         'content' => $content,
         'user_id' => $user_id,
         'brand_id' => $brand_id,

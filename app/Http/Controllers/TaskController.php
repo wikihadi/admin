@@ -25,10 +25,10 @@ class TaskController extends Controller
     {
         $this->middleware('auth');
 
-        $this->middleware('permission:task-list');
-        $this->middleware('permission:task-create', ['only' => ['create','store']]);
-        $this->middleware('permission:task-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:task-delete', ['only' => ['destroy']]);
+//        $this->middleware('permission:task-list');
+//        $this->middleware('permission:task-create', ['only' => ['create','store']]);
+//        $this->middleware('permission:task-edit', ['only' => ['edit','update']]);
+//        $this->middleware('permission:task-delete', ['only' => ['destroy']]);
     }
 
 

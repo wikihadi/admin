@@ -111,143 +111,75 @@
 @endsection
 
 @section('content')
-
-
-
-
-    <div class="col-12"><div class="row">
-
-
+    <div class="col-12">
+        <div class="row">
             <div class="col-sm-4 m-auto">
-
                 <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
-
-
-
-                    <div class="text-center">اعلانات و قوانین جدید</div>
-
-
+                    <div class="text-center">ویرایش {{$post->title}}
+                        @if($post->published==1)
+                        <span class="badge badge-success">منتشر شده</span>
+                        @else
+                        <span class="badge badge-warning">پیش نویس</span>
+                        @endif
+                    </div>
                 </div>
-
-
             </div>
-        </div></div>
+        </div>
+    </div>
     <div class="col-sm-6 m-auto">
-
         <div class="m-0 m-sm-3 p-0 p-sm-5 bg-light" style="border-radius: 30px;">
+            <form method="post" action="{{ route('posts.update', $post->id) }}">
+                @method('PATCH')
 
-
-            @if ($message = Session::get('success'))
-
-                <div class="alert alert-success alert-block w-100">
-
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-
-                    <strong>{{ $message }}</strong>
-
-                </div>
-
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div><br />
-            @endif
-            <form method="post" action="{{ route('posts.store') }}">
                 @csrf
-
-            {{--            @foreach($posts as $post)--}}
                 <div class="card card-border">
                     <div class="card-header bg-white card-border px-5">
-
-                        <input type="text" class="form-control border-0" placeholder="عنوان" name="title">
-
-
+                       <input type="text" class="form-control border-0" placeholder="عنوان" name="title" value="{{$post->title}}">
                     </div>
-
                 </div>
                 <div class="card card-border">
                     <div class="card-header bg-white card-border px-5">
-
-                        <textarea class="form-control border-0" placeholder="متن..." rows="8" name="content"></textarea>
-
-
+                        <textarea class="form-control border-0" placeholder="متن..." rows="8" name="content">{{$post->content}}</textarea>
                     </div>
-
                 </div>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card card-border">
                         <div class="card-header bg-white card-border px-5">
-
                             <select class="form-control border-0" name="section">
+                                <option value="{{$post->section}}" selected>{{$post->section}}</option>
                                 <option value="عمومی">عمومی</option>
                                 <option value="طراحی">واحد طراحی</option>
                                 <option value="مالی">واحد مالی</option>
                                 <option value="فروش">واحد فروش</option>
                             </select>
-
                         </div>
-
                     </div>
                 </div>
-{{--                <div class="col-sm-6">--}}
-{{--                    <div class="card card-border">--}}
-{{--                        <div class="card-header bg-white card-border px-5 text-center">--}}
-
-{{--                            <label for="emailPost">ایمیل به تمام اعضا</label>--}}
-{{--                            <input type="checkbox" name="emailPost" id="emailPost" value="1">--}}
-
-{{--                        </div>--}}
-
-{{--                    </div>--}}
-{{--                </div>--}}
                 <div class="col-sm-6">
                     <div class="card card-border">
                         <div class="card-header bg-white card-border px-5 text-center">
 
-{{--                            <label for="emailPost">ایمیل به تمام اعضا</label>--}}
-{{--                            <input type="checkbox" name="emailPost" id="emailPost" value="1">--}}
-                            <label for="unpub">پیش نویس</label><input id="unpub" type="radio" name="published" value="0" checked>
-                            <label for="pub">انتشار</label><input id="pub" type="radio" name="published" value="1">
+                            <label for="unpub">پیش نویس</label><input id="unpub" type="radio" name="published" value="0"
+                            @if($post->published==0) checked @endif
+                            >
+                            <label for="pub">انتشار</label><input id="pub" type="radio" name="published" value="1"
+                                                                  @if($post->published==1) checked @endif
 
+                            >
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
-{{--                <input type="hidden" name="published" value="1">--}}
-
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-
             <div class="card card-border">
                 <div class="card-header bg-white card-border px-5">
-
-                    <button class="btn btn-block btn-link">ارسال</button>
-
-
+                    <button class="btn btn-block btn-link" onsubmit="confirm('از ویرایش این اطلاعیه اطمینان دارید؟')">ویرایش</button>
                 </div>
-
             </div>
-            {{--{{ $posts->links() }}--}}
             </form>
-
         </div>
-
-
     </div>
-
-
-
-
-
-
 @endsection
 @section('JS')
 
