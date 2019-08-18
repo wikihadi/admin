@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Fin;
 use App\Lunch;
 use App\Service;
 use App\Status;
@@ -130,5 +131,34 @@ class ServiceController extends Controller
         $request->image->move(public_path('storage/uploads'), $imageName);
 
         return response()->json(['success'=>'You have successfully upload image.']);
+    }
+    public function finFormSubmit(Request $request)
+    {
+        $fin = new Fin([
+            'price' => $request->price,
+            'date' => $request->date,
+            'user_id' => $request->user,
+            'subject' => $request->subject,
+            'brand_id' => $request->brand,
+            'content' => $request->contentFin,
+        ]);
+        $fin->save();
+
+
+        $status = new Status([
+            'status'    => 'fin',
+            'content'   => 'ثبت هزینه توسط کاربر ' . $fin->user_id,
+            'user_id'   => $fin->user_id,
+            'fin_id' => $fin->id,
+        ]);
+        $status->save();
+
+        if ($request->image!=null){
+            $imageName = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('storage/uploads/fin'), $imageName);
+            $fin->image=$imageName;
+            $fin->save();
+        }
+        return response()->json(['success'=>$request->image]);
     }
 }

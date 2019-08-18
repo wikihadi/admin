@@ -118,6 +118,7 @@
                     <th scope="col">برند</th>
                     <th scope="col">موضوع</th>
                     <th scope="col">توضیحات</th>
+                    <th scope="col">تصویر</th>
 <!--                    <th scope="col">وضعیت</th>-->
                     <th scope="col"></th>
                 </tr>
@@ -143,6 +144,11 @@
                     <td>{{item.brand.title}}</td>
                     <td>{{item.subject}}</td>
                     <td>{{item.content}}</td>
+                    <td>
+                        <a :href="'/storage/uploads/fin/'+item.image" target="_blank" v-if="item.image!=null">
+                            <img :src="'/storage/uploads/fin/'+item.image" alt="" style="width: 30px">
+                        </a>
+                    </td>
 <!--                    <td>{{item.state}}</td>-->
                     <td>
 

@@ -56,6 +56,7 @@ Route::get('commentFetch','StatusController@commentFetch');
 Route::get('chartFetch','StatusController@chartFetch');
 Route::get('fetchMyTasksLastComments','StatusController@fetchMyTasksLastComments');
 
+Route::post('finFormSubmit','ServiceController@finFormSubmit');
 Route::post('formSubmit','ServiceController@formSubmit');
 
 //Services Apis

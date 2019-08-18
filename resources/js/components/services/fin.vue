@@ -64,6 +64,7 @@
                 <div class="form-group">
                     <label for="image">ثبت تصویر</label>
                     <input type="file" name="image" id="image" class="form-control" v-on:change="onImageChange">
+                    <small>با فرمت JPG و حجم زیر 2 مگابایت</small>
                 </div>
                 <div class="form-group">
                     <label for="content">توضیحات</label>
@@ -100,7 +101,7 @@
         props:['user'],
         data(){
             return{
-                image: '',
+                image:'',
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 loop:[],
                 brands:[],
@@ -141,36 +142,41 @@
                 formData.append('date', this.date);
                 formData.append('brand', this.brand);
                 formData.append('subject', this.subject);
-                formData.append('content', this.content);
+                formData.append('contentFin', this.content);
+                formData.append('user', this.user);
 
-                axios.post('/api/formSubmit', formData, config)
+                axios.post('/api/finFormSubmit', formData, config)
                     .then(function (response) {
-                        console.log(response)
-                    })
+                                    console.log(response);
+                                })
+                    // .then(
+                    //     response => this.loop = response.data,
+                    //     this.added()
+                    // )
                     .catch(function (error) {
                         console.log(error)
                     });
             },
-            // create: function(){
-            //     let url = '/api/addFin?u=' + this.user + '&c=' + this.content + '&p=' + this.price + '&b=' + this.brand + '&s=' + this.subject + '&date=' + this.date ;
-            //     axios.get(url).then(
-            //         response => this.loop = response.data,
-            //         this.added()
-            //     );
-            //
-            //     // axios.post('/api/addFin',{
-            //     //     content:this.content,
-            //     //     price:this.price,
-            //     //     user_id:this.user,
-            //     //     brand_id:this.brand,
-            //     // }).then(function (response) {
-            //     //         console.log(response);
-            //     //     })
-            //     //     .catch(function (error) {
-            //     //         console.log(error);
-            //     //     });
-            //
-            // },
+            create: function(){
+                let url = '/api/addFin?u=' + this.user + '&c=' + this.content + '&p=' + this.price + '&b=' + this.brand + '&s=' + this.subject + '&date=' + this.date ;
+                axios.get(url).then(
+                    // response => this.loop = response.data,
+                    this.added()
+                );
+
+                // axios.post('/api/addFin',{
+                //     content:this.content,
+                //     price:this.price,
+                //     user_id:this.user,
+                //     brand_id:this.brand,
+                // }).then(function (response) {
+                //         console.log(response);
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
+
+            },
             added: function(){
                 this.done = true;
                 this.price = '';
