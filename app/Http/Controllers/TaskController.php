@@ -445,7 +445,7 @@ class TaskController extends Controller
         $lastStartedStatus = Status::with('user')->where('user_id',$user->id)->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
 
 
-        $task = Task::find($id);
+        $task = Task::where('id',$id)->with('user')->whereHas('user')->first();
         $brands = Brand::all();
         $users_old = $task->users()->where('task_id',$id)->get();
         $users = User::all();
@@ -521,7 +521,6 @@ class TaskController extends Controller
 
         return redirect($urlP)->with('success');
     }
-
     public function pending()
     {
         $user = Auth::user();
@@ -813,6 +812,29 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $userLastStatus = $user->lastStatusUser()->orderBy('updated_at','desc')->first();
      return view('tasks.modir', compact('lastStatus','userLastStatus','lastStartedStatus','statusesToMe','statuses','myTasksStatus','usersStatus','users','user','title','usersInTasks','linked','titleOfPage','linked','order'));
     }
+    public function modirUserPrint($id)
+    {
+        $today = Verta::now(); //1396-03-02 00:00:00
+        $user = User::find($id);
+
+        $order = TaskOrderUser::
+        with('task')->
+        whereHas('task')->
+        where('user_id',$id)->
+        where('isDone',0)->
+        whereIn('lastStatus',[0,1,2])->
+        orderBy('routine','asc')->
+        orderBy('order_column','asc')->
+        get();
+
+        $title = $user->name;
+        foreach ($order as $key => $loop){
+            $loop->diff = verta($loop->updated_at)->formatDifference();
+            $loop->users = TaskOrderUser::where('task_id',$loop->task_id)->with('user')->get();
+        }
+//        dd($order);
+     return view('tasks.modirPrint', compact('today','user','title','order'));
+    }
     public function destroy(Request $request,$id)
     {
         $task = Task::find($id);
@@ -988,7 +1010,31 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 
 //    ADMIN SECTION
 
+    public function request(){
+        $brands = Brand::all();
 
+        return view('tasks.request',compact('brands'));
+    }
+    public function requestPost(Request $request){
+        $brands = Brand::all();
+        $success = 'success';
+        $user = Auth::user();
+
+
+        $task = new Task([
+            'title' => $request->get('title'),
+            'content'=> $request->get('content'),
+            'brand_id'=> $request->get('brand'),
+            'pending'=> 2,
+            'user_id'=> Auth::user()->id
+
+        ]);
+        $task->save();
+
+            $task->jCreated_at = verta($task->created_at)->formatWord('l dS F');
+
+        return view('tasks.request',compact('success','brands','task'));
+    }
     public function searchTasks(){
 //        $s = $_GET['s'];
 //        $tasks = Task::where('title', 'like', '%' . $s . '%')->get();

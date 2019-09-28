@@ -111,7 +111,11 @@
 
 
                         {{--<routine-component :order="{{$order}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></routine-component>--}}
-                        <tasks-component :order="{{$order}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></tasks-component>
+                        @role('chairman')
+                        <tasks-component :role="1" :order="{{$order}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></tasks-component>
+                        @else
+                            <tasks-component :role="0" :order="{{$order}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></tasks-component>
+                            @endrole
 
                     </div>
 

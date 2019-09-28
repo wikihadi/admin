@@ -9,10 +9,9 @@
 
                     <div class="col-md-9 row">
                         <div class="col-12 col-md-4 row">
-                            <div class="col-2 d-none d-md-block handleTask text-center"><i class="fa fa-arrows-v"></i></div>
+                            <div class="col-2 d-none d-md-block handleTask text-center" v-if="role==0"><i class="fa fa-arrows-v"></i></div>
                             <div class="col-10">
-                                <span v-text="ord.order_column"></span>
-                                <span>.</span>
+                                <span v-if="ord.order_column!=999999999" v-text="ord.order_column + ' .'" ></span>
                                 <span v-text="ord.task.title"></span>
                             </div>
                             <div class="col-2 d-md-none handleTask text-left"><i class="fa fa-arrows-v"></i></div>
@@ -62,7 +61,7 @@
 
 
 
-
+<div  v-if="role==0">
                         <div class="mx-1 hvr-grow" >
                             <a :href="'/jobs/updateRoutine/' + ord.id">
                                 <i class="fa fa-bars" data-toggle="tooltip" title="TASK" v-if="ord.routine === 0"></i>
@@ -77,7 +76,7 @@
                         <div class="mx-1 hvr-backward">
                             <a :href="'/tasks/' + ord.task.id"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو"></i></a>
                         </div>
-
+                    </div>
 
 
                     </div>
@@ -99,7 +98,7 @@
         components: {
             draggable
         },
-        props: ['order','tasks','us','uts'],
+        props: ['order','tasks','us','uts','role'],
         data(){
           return{
               orderNew: this.order,

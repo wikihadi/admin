@@ -7,6 +7,8 @@
 {{--@include('admincore.topbar.search')--}}
 
     <!-- Right navbar links -->
+    @role('admin|designer')
+
     <ul class="navbar-nav mr-auto">
 
 {{--            @include('admincore.topbar.notification')--}}
@@ -104,5 +106,6 @@
         </li>
 
     </ul>
+    @endrole
 </nav>
 <!-- /.navbar -->

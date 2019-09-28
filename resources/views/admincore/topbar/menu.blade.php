@@ -8,15 +8,18 @@
 {{--    <li class="nav-item d-none d-sm-inline-block">--}}
 {{--        <a href="/tasks" class="nav-link">کارهای من</a>--}}
 {{--    </li>--}}
-{{--    @role('admin')--}}
+    @role('admin|designer')
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/status" class="nav-link">فعالیتها</a>
     </li>
-{{--    @endrole--}}
+    <li class="nav-item d-none d-sm-inline-block">
+        <a href="/posts" class="nav-link">اطلاعیه ها</a>
+    </li>
+    @endrole
+
+
     @role('admin|modir')
-    {{--<li class="nav-item d-none d-sm-inline-block">--}}
-        {{--<a href="/jobs" class="nav-link">مشاهده کارها</a>--}}
-    {{--</li>--}}
+
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             مدیریت
@@ -36,16 +39,23 @@
         </div>
     </li>
 
-{{--    <li class="nav-item d-none d-sm-inline-block">--}}
-{{--        <a href="/pending?nouser" class="nav-link">کارهای آتی</a>--}}
-{{--    </li>--}}
-
 
     @endrole
 
-    <li class="nav-item d-none d-sm-inline-block">
-        <a href="/posts" class="nav-link">اطلاعیه ها</a>
+    @role('admin|taskMan')
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            مدیریت کارها
+            <span class="badge-info badge">!</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a href="/request" class="dropdown-item">ثبت کار</a>
+            <a class="dropdown-item" href="/pending?nouser" target="_blank">کارهای بدون تیم</a>
+
+            <a href="#" class="dropdown-item">لیست کارهای ثبت شده من <span class="badge-info badge">بزودی</span></a>
+        </div>
     </li>
+    @endrole
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/tools/intercom" class="nav-link">داخلی ها</a>
     </li>

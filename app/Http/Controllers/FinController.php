@@ -123,6 +123,16 @@ class FinController extends Controller
 
         return $fin;
     }
+    public function updateFin()
+    {
+        $fin = Fin::where('id',$_GET['update'])->first();
+        $fin->content=$_GET['content'];
+//        $fin->acc=$_GET['acc'];
+        $fin->price=$_GET['price'];
+        $fin->brand_id=$_GET['brand'];
+        $fin->subject=$_GET['subject'];
+        $fin->save();
+    }
 
 //    public function addFin(Request $request){
 //        $status = new Status([

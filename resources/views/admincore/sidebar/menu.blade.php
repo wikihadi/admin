@@ -10,6 +10,14 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="/gallery" class="nav-link @if(Request::is('/gallery')) active text-light @endif">
+                <i class="nav-icon fa fa-picture-o"></i>
+                <p>
+                    گالری
+                </p>
+            </a>
+        </li>
         <li class="nav-item has-treeview @if(Request::is('tools*')) menu-open @endif ">
             <a href="#" class="nav-link @if(Request::is('tools*')) active @endif ">
                 <i class="nav-icon fa fa-tasks"></i>

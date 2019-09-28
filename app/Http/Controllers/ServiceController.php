@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class ServiceController extends Controller
@@ -97,7 +98,9 @@ class ServiceController extends Controller
     }
     public function lunch()
     {
-        $lunchList = Lunch::whereDate('day','>=', Carbon::now())->get();
+        $lunchList = Lunch::
+//        whereDate('day','>=', Carbon::now())
+            latest()->get();
 
         foreach ($lunchList as $key => $loop){
             $d = $loop->day;
@@ -134,6 +137,13 @@ class ServiceController extends Controller
     }
     public function finFormSubmit(Request $request)
     {
+
+        if ($request->image!=null){
+            $imageName = 'fin'.time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('storage/uploads/fin'), $imageName);
+        }else{
+            $imageName=null;
+        }
         $fin = new Fin([
             'price' => $request->price,
             'date' => $request->date,
@@ -142,8 +152,8 @@ class ServiceController extends Controller
             'brand_id' => $request->brand,
             'content' => $request->contentFin,
         ]);
+        $fin->image=$imageName;
         $fin->save();
-
 
         $status = new Status([
             'status'    => 'fin',
@@ -153,12 +163,25 @@ class ServiceController extends Controller
         ]);
         $status->save();
 
-        if ($request->image!=null){
-            $imageName = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path('storage/uploads/fin'), $imageName);
-            $fin->image=$imageName;
-            $fin->save();
-        }
         return response()->json(['success'=>$request->image]);
+    }
+    public function updateFin()
+    {
+//        'role=' + this.role +
+//        '&acc_content=' + this.acc_content +
+//        '&acc=' + this.acc +
+//        '&update=' + this.id +
+//        '&user=' + this.user +
+//        '&content=' + this.content +
+//        '&price=' + this.price +
+//        '&brand=' + this.brand +
+//        '&subject=' + this.subject;
+        $fin = Fin::find($_GET['update']);
+        $fin->acc_content=$_GET['acc_content'];
+        $fin->acc=$_GET['acc'];
+        $fin->brand=$_GET['brand'];
+        $fin->subject=$_GET['subject'];
+        $fin->save();
+
     }
 }

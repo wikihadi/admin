@@ -1,6 +1,6 @@
 <template>
     <div class="position-fixed" style="left:0;top:0; z-index: 555555">
-        <div style="width: 40px;height: 140px;border-top-right-radius: 10px;border-bottom-right-radius: 10px;top:70vh;left:0" v-if="minimize" @click.prevent="minimize=!minimize" class="position-fixed pointer bg-light d-flex justify-content-center"><div style="writing-mode: tb-rl;" class="text-center">CHAT</div></div>
+        <div style="width: 140px;height: 40px;border-top-right-radius: 10px;border-top-left-radius: 10px;bottom:0;right:50px" v-if="minimize" @click.prevent="minimize=!minimize" class="position-fixed pointer bg-light d-flex justify-content-center"><div style="" class="text-center mt-2">CHAT</div></div>
         <div class="position-fixed w-100 h-100 bg-fade" v-if="!minimize"  @click.prevent="minimize=!minimize"></div>
         <div class="col-12 row justify-content-center align-self-center mt-5 pt-5" v-if="!minimize" style="min-width: 100vw">
             <div class="col-xl-9 col-lg-10">

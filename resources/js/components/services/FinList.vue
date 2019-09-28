@@ -152,7 +152,7 @@
 <!--                    <td>{{item.state}}</td>-->
                     <td>
 
-                        <button class="btn btn-link text-white" @click.prevent="edit(item.id,item.price,item.brand.title,item.brand.id,item.subject,item.content,item.acc_content,item.state)" v-if="role=='admin' && item.state<100"><i class="fa fa-check" v-if="role!='admin'"></i><i class="fa fa-edit" v-if="role=='admin'"></i></button>
+                        <button class="btn btn-link text-white" @click.prevent="edit(item.id,item.price,item.brand.title,item.brand.id,item.subject,item.content,item.acc_content,item.state)" v-if="role=='admin' && item.state<102"><i class="fa fa-check" v-if="role!='admin'"></i><i class="fa fa-edit" v-if="role=='admin'"></i></button>
                         <button class="btn btn-link text-white" @click.prevent="check(item.id)" v-if="role=='admin' && item.state<100 || role=='admin' && item.state==102 || role=='finMan' && item.state==100 || role=='finance' && item.state==101"><i class="fa fa-check"></i></button>
                     </td>
                 </tr>
@@ -224,9 +224,17 @@
                 this.show=true;
             },
             update: function(){
-                let url = '/api/addFin?role=' + this.role + '&acc_content=' + this.acc_content + '&acc=' + this.acc + '&update=' + this.id + '&u=' + this.user + '&c=' + this.content + '&p=' + this.price + '&b=' + this.brand + '&s=' + this.subject;
+                let url = '/api/updateFin?' +
+                    'role=' + this.role +
+                    '&acc_content=' + this.acc_content +
+                    '&acc=' + this.acc +
+                    '&update=' + this.id +
+                    '&user=' + this.user +
+                    '&content=' + this.content +
+                    '&price=' + this.price +
+                    '&brand=' + this.brand +
+                    '&subject=' + this.subject;
                 axios.get(url).then(
-                    // response => this.loop = response.data,
                     this.added()
                 );
             },

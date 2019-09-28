@@ -21,13 +21,13 @@
     @include('helper.onOff')
 @endsection
 @section('content')
-    @if($read == 0)
-        <div class="">
-            <a href="/posts/16">
-                <div class="alert alert-warning"><strong><i class="fa fa-exclamation-triangle"></i></strong> لطفا مشاهده کنید</div>
-            </a>
-        </div>
-    @endif
+    {{--@if($read == 0)--}}
+        {{--<div class="">--}}
+            {{--<a href="/posts/16">--}}
+                {{--<div class="alert alert-warning"><strong><i class="fa fa-exclamation-triangle"></i></strong> لطفا مشاهده کنید</div>--}}
+            {{--</a>--}}
+        {{--</div>--}}
+    {{--@endif--}}
     <div class="col-md-12 mt-sm-2 d-none d-md-block" style="">
         @role('admin|modir')
         <div class="d-flex flex-wrap justify-content-center mb-4">
@@ -39,8 +39,9 @@
 {{--                        <div class="text-muted text-center" data-toggle="modal" data-target="#userModal{{$u->id}}"  style="cursor: pointer"><span>.</span></div>--}}
                        <div class="position-relative">
                            <a href="/jobs/{{$u->id}}" target="_blank">
-                               <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
+                              <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
                            </a>
+
                            @role('admin')
                                <div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">
                                    <i class="text-muted fa fa-ellipsis-h"></i>
@@ -81,6 +82,65 @@
                         @endrole
 
                 </div>
+            @endforeach
+
+        </div>
+        @endrole
+        @role('chairman')
+        <div class="d-flex flex-wrap justify-content-center mb-4">
+            @foreach($users as $u)
+                @if($u->id!=2)
+                <div class="mx-2 text-center">
+                    @if($u->lastStatus == 'off')
+                    <span class="badge badge-info position-absolute"><i class="fa fa-clock-o"></i></span>
+                    @endif
+{{--                        <div class="text-muted text-center" data-toggle="modal" data-target="#userModal{{$u->id}}"  style="cursor: pointer"><span>.</span></div>--}}
+                       <div class="position-relative">
+                           <a href="/jobs/{{$u->id}}" target="_blank">
+                              <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
+                           </a>
+
+                           @role('admin')
+                               <div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">
+                                   <i class="text-muted fa fa-ellipsis-h"></i>
+                               </div>
+                            @endrole
+
+                       </div>
+
+                        @role('admin')
+                        <div class="modal fade" id="userModal{{$u->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
+                                <div class="modal-content bg-dark">
+                                    <div class="modal-header bg-dark">
+                                        <button type="button" class="close bg-dark" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h5 class="modal-title">{{$u->name}}
+                                            <img src="/storage/avatars/{{ $u->avatar }}" style="width: 50px" alt="" class="img-circle">
+                                        </h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        @if(!empty($u->phone))
+                                        <small data-toggle="tooltip" title="تلفن همراه"><i class="fa fa-phone"></i> {{$u->phone}}</small>
+                                        <small class="mx-2"></small>
+                                        @endif
+                                        <small  data-toggle="tooltip" title="عضویت"><i class="fa fa-user-circle"></i> {{$u->diff}}</small>
+                                            <small class="mx-2"></small>
+                                            <user-status-comments-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="نظرات ثبت شده"></user-status-comments-count>
+                                            <user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>
+                                            <user-tasks-self :user="{{$u->id}}" class="d-inline"></user-tasks-self>
+                                            <user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>
+                                            <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endrole
+
+                </div>
+                @endif
             @endforeach
 
         </div>
@@ -131,7 +191,14 @@
     <main-home-box v-bind:user="{{Auth::id()}}" :users="{{$users}}"></main-home-box>
 {{--    <report-designer v-bind:user="{{Auth::id()}}" :users="{{$users}}"></report-designer>--}}
     <status-comment-form :user="{{Auth::id()}}" :users="{{$users}}"></status-comment-form>
+
     @endhasanyrole
+@role('chairman')
+    <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
+        <status :user="{{Auth::id()}}" :users="{{$users}}"></status>
+    </div>
+    @endrole
+
 {{--    <user-chart></user-chart>--}}
 
 {{--    @role('admin')--}}

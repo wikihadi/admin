@@ -189,6 +189,7 @@
                                 <option value="طراحی">واحد طراحی</option>
                                 <option value="مالی">واحد مالی</option>
                                 <option value="فروش">واحد فروش</option>
+                                <option value="نظارت چاپ">نظارت چاپ</option>
                             </select>
 
                         </div>

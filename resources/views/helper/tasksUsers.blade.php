@@ -13,6 +13,7 @@
             {{--@endif--}}
         {{--@endrole--}}
         <button data-toggle="collapse" href="#users" class="btn btn-link" ><i class="fa fa-users"></i></button>
+            <a href="/jobs/{{$user->id}}/print" class="btn btn-link"  target="_blank"><i class="fa fa-print"></i></a>
 
             {{--@if(Request::is('jobs') || isset($jobPage) && $jobPage == 'old')--}}
                 {{--<a href="/jobs/{{$user->id}}?pageType=new" class="btn btn-link"><i class="fa fa-key"></i></a>--}}

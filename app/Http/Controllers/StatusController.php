@@ -286,6 +286,7 @@ class StatusController extends Controller
     }
     public function addFin(Request $request){
 
+//        if (isset($_GET['update'])){
         if (isset($_GET['update'])){
             if ($_GET['role']=='admin'){
                 $acc_content=$_GET['acc_content'];
@@ -646,7 +647,7 @@ public function statics(){
 
         if(!empty($s) && strlen($s) > 5){
             $searchValues = preg_split('/\s+/', $s, -1, PREG_SPLIT_NO_EMPTY);
-            if ($u<3){
+//            if ($u<3||$u==14){
                 $tasks = TaskOrderUser::with('task','user','comments')->
 //                where('user_id',$u)->
                 whereHas('task', function ($q) use ($searchValues) {
@@ -654,15 +655,15 @@ public function statics(){
                         $q->where('title', 'like', "%{$value}%");
                     }
                 })->get();
-            }else{
-                $tasks = TaskOrderUser::with('task','user','comments')->
-                where('user_id',$u)->
-                whereHas('task', function ($q) use ($searchValues) {
-                    foreach ($searchValues as $value) {
-                        $q->where('title', 'like', "%{$value}%");
-                    }
-                })->get();
-            }
+//            }else{
+//                $tasks = TaskOrderUser::with('task','user','comments')->
+//                where('user_id',$u)->
+//                whereHas('task', function ($q) use ($searchValues) {
+//                    foreach ($searchValues as $value) {
+//                        $q->where('title', 'like', "%{$value}%");
+//                    }
+//                })->get();
+//            }
 
             foreach ($tasks as $key => $loop){
                 $users = TaskOrderUser::with('user')->whereHas('user')->where('task_id',$loop->task_id)->pluck('user_id')->toArray();
@@ -778,11 +779,11 @@ public function statics(){
 
     }
     public function commentFetch(){
-
-        $comments = Status::
-//        where( 'created_at', '>', Carbon::now()->subDays(15))->
-        with('user')->whereHas('user')->
-        where('status','comment')->orderBy('updated_at','desc')->get();
+        $task_id = $_GET['id'];
+        $comments = Status::with('user','gallery')->
+        whereIn('status',['comment','new-pic'])->where('task_id',$task_id)->
+        whereHas('user')->
+        orderBy('updated_at','desc')->get();
         $dateBefore = Carbon::now();
 
         foreach ($comments as $key => $loop){

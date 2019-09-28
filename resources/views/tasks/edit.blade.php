@@ -9,7 +9,7 @@
         @include('helper.error')
         <div class="card uper">
             <div class="card-header">
-                <div class="float-right">ویرایش {{ $task->id }}</div>
+                <div class="float-right">ویرایش {{$task->title}}-{{ $task->id }} ایجاد شده توسط {{$task->user->name}}</div>
                 <div class="float-left">
                     {{--اجرایی--}}
                     {{--<label class="switch">--}}

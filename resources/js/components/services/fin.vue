@@ -61,11 +61,11 @@
 <!--                    </select>-->
                 </div>
                     </div>
-                <div class="form-group">
-                    <label for="image">ثبت تصویر</label>
-                    <input type="file" name="image" id="image" class="form-control" v-on:change="onImageChange">
-                    <small>با فرمت JPG و حجم زیر 2 مگابایت</small>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="image">ثبت تصویر</label>-->
+                    <!--<input type="file" name="image" id="image" class="form-control" v-on:change="onImageChange">-->
+                    <!--<small>با فرمت JPG و حجم زیر 2 مگابایت</small>-->
+                <!--</div>-->
                 <div class="form-group">
                     <label for="content">توضیحات</label>
                     <textarea class="form-control" id="content" rows="3" v-model="content" name="content" required></textarea>
@@ -146,13 +146,13 @@
                 formData.append('user', this.user);
 
                 axios.post('/api/finFormSubmit', formData, config)
-                    .then(function (response) {
-                                    console.log(response);
-                                })
-                    // .then(
-                    //     response => this.loop = response.data,
-                    //     this.added()
-                    // )
+                    // .then(function (response) {
+                    //                 console.log(response);
+                    //             })
+                    .then(
+                        response => this.loop = response.data,
+                        this.added()
+                    )
                     .catch(function (error) {
                         console.log(error)
                     });

@@ -1,6 +1,6 @@
 <template>
         <div class="col-12 row justify-content-center">
-                <div class="col-xl-9 col-lg-10">
+                <div class="col">
                 <div class="card bg-dark">
                     <div class="card-header">
                         <span v-if="minimize">پنل کاربری</span>
@@ -33,6 +33,15 @@
                             </div>
                         </div>
                         </transition>
+<!--                        success BAR-------------------------------------------------------------------------------->
+                        <transition name="fade">
+                        <div  class="row justify-content-center mt-3" v-if="alertComment!==''">
+                            <div class="col-md-8">
+                               <div class="alert alert-success">{{alertComment}}</div>
+                            </div>
+                        </div>
+                        </transition>
+
 <!--                        FILTERS------------------------------------------------------------------------------------->
                             <transition name="fade">
                             <div  v-if="!minimize" class="row justify-content-center">
@@ -87,6 +96,12 @@
                                         @click.prevent="fetchTasks('lastStatus','=',6,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6,loading=true">
 <!--                                    <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i>-->
                                     چاپ</button>
+
+                             <button type="button"  class=" btn-sm btn btn-dark"
+                                        :class="{'text-light':activeTab === 5,'text-muted':activeTab !== 5}"
+                                        @click.prevent="fetchTasks('lastStatus','=',3,'updated_at','desc'),commentFetch(),title='آرشیو',activeTab=5,isShow=7,loading=true">
+<!--                                    <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i>-->
+                                    آرشیو</button>
 <!--                                <button class="btn  btn-sm btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
 <!--                                <button type="button"  class=" btn-sm btn btn-dark"-->
 <!--                                        :class="{'text-light':activeTab === 5,'text-muted':activeTab !== 5}"-->
@@ -580,8 +595,10 @@
                             </div>
 
 
-                            <div class="border-danger"  v-if="tasks.length > 0" v-for="(item , index) in tasks.slice(0, tasksToShow)">
-                                <a data-toggle="collapse" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" @click.prevent="commentFetch()"
+                            <div class="border-danger" id="tasks-parent"  v-if="tasks.length > 0" v-for="(item , index) in tasks.slice(0, tasksToShow)">
+                                <!--<a -->
+                                    <!--data-toggle="collapse" data-parent="#tasks-parent" :href="'#col'+item.id" role="button" aria-expanded="false" :aria-controls="'#col'+item.id" -->
+                                    <a :href="'#col'+item.id" @click.prevent="commentFetch(item.id,item.task_id)"
                                    :class="{'bg-secondary':item.lastStatus == 0,'bg-dark': item.lastStatus == 1,'bg-success text-dark': item.lastStatus == 2,'bg-dark text-light': item.lastStatus == 3,'bg-warning text-dark': item.lastStatus > 3}"
                                    class="list-group-item list-group-item-action flex-column align-items-start pointer">
                                     <div class="d-flex w-100 justify-content-between">
@@ -605,7 +622,9 @@
 <!--                                    <small class="text-muted" v-else>بدون نظر</small>-->
                                     </div>
                                 </a>
-                                <div class="collapse" :id="'col'+item.id">
+                                <transition name="fade">
+
+                                <div class="" :id="'col'+item.id" v-if="selectedTask==item.id">
 
                                     <div class="card card-body">
                                         <div class="d-flex w-100 justify-content-between">
@@ -626,18 +645,46 @@
                                         </div></div>
                                         <div class="row">
                                             <div class="col-xl-3 col-lg-4 col-md-6">
-                                                 <a :href="'/storage/uploads/' + item.task.pic" target="_blank"><img class="img-fluid   " :src="'/storage/uploads/' + item.task.pic" :alt="item.task.id"></a>
+                                                <div class="" style="max-height:500px;overflow:auto;overflow-x: hidden;">
+                                                <a :href="'/storage/uploads/' + item.task.pic" target="_blank"><img class="img-fluid   " :src="'/storage/uploads/' + item.task.pic" :alt="item.task.id"></a>
+                                                <hr>
+                                                    <gallery :user="user" :task="item.task.id"></gallery>
+                                                </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-8 col-md-6">
                                                 <p class="text-dark">توضیحات: {{item.task.content}}</p>
-                                                <form @submit.prevent="addComment(item.task.id)" autocomplete="off">
+                                                <form @submit.prevent="addComment(item.task.id)" autocomplete="off" v-if="toggleForm">
                                                     <div class="form-group">
                                                         <div class="input-group">
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <button class="btn btn-link text-success" @click.prevent="toggleForm=!toggleForm"><i class="fa fa-link"></i></button>
                                                             <input type="text" name="content" v-model="content" class="form-control" placeholder="ثبت نظر...">
                                                             <div class="input-group-append"><button type="submit" class="btn btn-success"><i class="fa fa-arrow-down"></i></button></div>
                                                         </div>
                                                     </div>
                                                 </form>
+                                                <form enctype="multipart/form-data" method="post" action="/gallery" autocomplete="off" v-if="!toggleForm">
+                                                    <input type="hidden" name="_token" :value="csrf">
+                                                    <input type="hidden" name="user" :value="user">
+                                                    <input type="hidden" name="task" :value="item.task.id">
+
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                        </div>
+
+                                                        <div class="input-group">
+                                                            <button class="btn btn-link text-danger" @click.prevent="toggleForm=!toggleForm"><i class="fa fa-unlink"></i></button>
+                                                            <input type="file" name="pic" class="form-control" required>
+
+                                                            <input type="text" name="content" class="form-control" placeholder="...توضیحات عکس" required>
+                                                            <div class="input-group-append"><button type="submit" class="btn btn-success"><i class="fa fa-arrow-down"></i></button></div>
+                                                        </div>
+                                                        <small class="text-info">فقط تصویر - حداکثر 5000 کیلوبایت - فرمت JPG و GIF</small>
+
+                                                    </div>
+                                                </form>
+
                                                 <div class="" style="max-height:500px;overflow:auto">
                                                     <div class="card-footer" v-for="(comment,index) in comments" v-if="comment.task_id == item.task_id">
                                                         <div class="d-flex justify-content-between">
@@ -649,6 +696,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="pr-4">
+                                                            <div class="w-25">
+                                                                <img :src="'storage/uploads/gallery/' + comment.gallery.pic" alt="" class="img-thumbnail" v-if="comment.status=='new-pic'">
+                                                            </div>
                                                             <div class="bg-secondary px-2 py-1 bulb d-inline-block">{{comment.content}}</div>
 
                                                         </div>
@@ -661,7 +711,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 bg-light">
-                                                <p class="text-dark p-3">چک لیست</p>
                                                 <checklist :user="user" :task="item.task_id"></checklist>
 
                                             </div>
@@ -704,6 +753,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </transition>
                             </div>
                         </div>
 
@@ -729,6 +779,10 @@
         props:['user','users'],
         data(){
             return{
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                toggleForm:true,
+                selectedTask:'',
+                addChecklist:false,
                 showfin:false,
                 archiveTitle: 'آرشیو',
                 archiveShow: '',
@@ -778,6 +832,7 @@
                 ShowMainBox:true,
                 minimize:false,
                 loading:true,
+                alertComment:'',
 
 
             }
@@ -1074,6 +1129,9 @@
 
                 if (status == 'box-start' || status == 'box-pause' || status == 'box-end'){
                     this.boxFetch();
+                }else if(status == 'end'){
+                    this.fetchCurrentTasks();
+                    this.alerting(' پایان کار' + task_id + ' با موفقیت ثبت شد');
                 }else if(routine === 1){
                     this.fetchRoutine();
                 }else{
@@ -1083,11 +1141,21 @@
 
 
             },
+            alerting: function(c){
+                this.alertComment = c;
+                setTimeout(this.alertEmpty, (3 * 1000));
+
+            },
+            alertEmpty: function(){
+                this.alertComment = '';
+            },
             playTask: function(task_id,id,routine){
                 let url = 'api/playTask?task=' + task_id + '&user=' + this.user;
                 axios.get(url).then(
-                    this.fetchCurrentTasks
-                    )
+                    this.fetchCurrentTasks,
+                    this.alerting(' شروع کار' + task_id + ' با موفقیت ثبت شد')
+
+            )
                     .catch(function (error) {
                         console.log(error);
                     });
@@ -1110,11 +1178,20 @@
                         status: 'comment',
                         task_id: task_id
                     })
-                        .then(console.log('response'),this.content = '',this.commentFetch())
+                        .then(console.log('response'),this.content = '',this.commentFetchAfterComment(task_id))
                 }
             },
-            commentFetch: function(){
-                let url = '/api/commentFetch';
+            commentFetchAfterComment: function(taskId){
+                let url = '/api/commentFetch?id='+taskId;
+                axios.get(url).then(response => this.comments = response.data)
+            },
+            commentFetch: function(id,taskId){
+                if(this.selectedTask==id){
+                    this.selectedTask=''
+                }else{
+                    this.selectedTask=id
+                }
+                let url = '/api/commentFetch?id='+taskId;
                 axios.get(url).then(response => this.comments = response.data)
             },
             addTasksToShow: function(qty){

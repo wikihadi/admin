@@ -34,8 +34,11 @@ Route::group(['middleware' => ['auth']], function() {
             Route::post('verify/{post}', 'PostController@verifyPost');
     //        Route::resource('media', 'MediaController');
             Route::resource('posts', 'PostController');
+            Route::resource('gallery', 'GalleryController');
 
 
+            Route::get('/request', 'TaskController@request');
+            Route::post('/request', 'TaskController@requestPost');
             Route::get('/profile', 'ProfileController@profile');
             Route::get('/tools/intercom', 'ServiceController@intercom');
             Route::get('/tools/lunch', 'ServiceController@lunch');
@@ -51,7 +54,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('tasks', 'TaskController');
 
 
-            Route::group(['middleware' => ['role:modir|admin']], function () {
+            Route::group(['middleware' => ['role:modir|admin|chairman|taskMan']], function () {
 
                 Route::get('finance-check', 'TaskController@finance1');
 
@@ -61,6 +64,7 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::put('/jobs/updateAll','TaskOrderUserController@updateAll')->name('tasks.updateAll');
                 Route::get('/jobs/updateRoutine/{id}','TaskOrderUserController@updateRoutine')->name('tasks.updateRoutine');
                 Route::get('/jobs/{id}', 'TaskController@modirUser');
+                Route::get('/jobs/{id}/print', 'TaskController@modirUserPrint');
                 Route::resource('taskorderusers', 'TaskOrderUserController');
                 Route::get('/pending', 'TaskController@pending');
                 Route::get('/pending/{id}', 'TaskController@pendingUser');

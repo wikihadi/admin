@@ -65,6 +65,11 @@ Vue.component('posts',                  require('./components/services/Posts').d
 Vue.component('admin-panel',            require('./components/admin/AdminPanel').default);
 
 
+//Tasks
+Vue.component('request',            require('./components/tasks/Request').default);
+Vue.component('gallery',            require('./components/tasks/Gallery').default);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -54,10 +54,14 @@ Route::get('searchTasks','StatusController@searchTasks');
 Route::get('fetchTasks','StatusController@fetchTasks');
 Route::get('commentFetch','StatusController@commentFetch');
 Route::get('chartFetch','StatusController@chartFetch');
+Route::get('fetchGallery','GalleryController@fetchGallery');
+Route::get('delGallery','GalleryController@delGallery');
+Route::get('starGallery','GalleryController@starGallery');
 Route::get('fetchMyTasksLastComments','StatusController@fetchMyTasksLastComments');
 
 Route::post('finFormSubmit','ServiceController@finFormSubmit');
 Route::post('formSubmit','ServiceController@formSubmit');
+Route::get('updateFin','FinController@updateFin');
 
 //Services Apis
 //Route::get('addFood','StatusController@add');

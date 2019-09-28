@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group col-md">
                     <label for="name">توضیحات غذا:</label>
-                    <input type="text" id="content" name="content" v-model="content" class="form-control form-control-sm" placeholder="توضیحات غذا" required>
+                    <input  type="text" id="content" name="content" v-model="content" class="form-control form-control-sm" placeholder="توضیحات غذا" required>
                 </div>
                 <div class="form-group col-md">
                     <label for="name">روز:</label>
