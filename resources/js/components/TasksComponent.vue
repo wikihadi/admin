@@ -4,7 +4,7 @@
         <div v-for="ord in orderNew">
 
         <div class="card card-border">
-            <div class="card-header card-border" v-bind:class="{ 'bg-info': ord.lastStatus === '0', 'bg-light': ord.lastStatus === '1', 'bg-success': ord.lastStatus === '2', 'bg-dark': ord.lastStatus === '3' }">
+            <div class="card-header card-border" v-bind:class="{ 'bg-info': ord.lastStatus === '0', 'bg-light': ord.lastStatus === '1', 'bg-success': ord.lastStatus === '2', 'bg-dark': ord.lastStatus === '3', 'bg-warning': ord.lastStatus === '5', 'bg-pink2': ord.lastStatus === '6' }">
                 <div class="row">
 
                     <div class="col-md-9 row">
@@ -137,3 +137,8 @@
         }
     }
 </script>
+<style>
+    .bg-pink2{
+        background: #F8BBD0;
+    }
+</style>

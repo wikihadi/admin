@@ -18,10 +18,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('noRoles', 'HomeController@noRoles')->name('noRoles');
     Route::group(['middleware' => ['noRules']], function () {
 
+        Route::get('reseller','ResellerController@main')->name('reseller');
+        Route::post('reseller','ResellerController@addResellerTask');
         Route::resource('status', 'StatusController');
         Route::get('/', 'HomeController@index')->name('home');
         Route::get('/home', function () {
             return redirect('/');
+        });
+        Route::get('chatbox', function () {
+            return view('chatbox.index');
         });
 
 //    Route::get('/',function (){
@@ -45,7 +50,9 @@ Route::group(['middleware' => ['auth']], function() {
             Route::post('/lunch/add', 'ServiceController@addFood');
 
 
-            Route::view('/tools/fin', 'fin.main');
+//            Route::view('/tools/fin', 'fin.main');
+            Route::get('/tools/fin', 'FinController@main');
+            Route::get('/tools/fin/print/{id}', 'FinController@show');
 
 
             Route::resource('services', 'ServiceController');
@@ -89,6 +96,7 @@ Route::group(['middleware' => ['auth']], function() {
 
                 Route::get('admin/tasks', 'TaskController@adminIndex');
                 Route::get('finance', 'TaskController@finance');
+                Route::get('task-admin', 'TaskController@taskAdmin');
                 Route::post('/financeUpdate/{id}', 'TaskController@financeUpdate')->name('tasks.financeUpdate');
 
 

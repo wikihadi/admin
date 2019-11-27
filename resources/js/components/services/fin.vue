@@ -12,7 +12,7 @@
             <div><button class="btn btn-link text-light" @click="show=!show"><i class="fa fa-close"></i></button></div>
 
 
-            <div class="p-5 col-xl-5">
+            <div class="p-5 col-xl-7">
                 <transition name="fade">
                     <div v-if="!done">
                 <h3>ثبت هزینه</h3>
@@ -34,9 +34,10 @@
                         </div>
                         <div class="col-md">
                             <div class="form-group">
-                                <label for="fi">تاریخ</label>
+                                <label for="fi">تاریخ پرداخت</label>
                             <div class="bg-light text-dark">
-                                    <date-picker type="datetime" v-model="date" format="YYYY-MM-DD HH:mm:ss" display-format="dddd jDD jMMMM jYYYY HH:mm"></date-picker>
+                                    <date-picker type="date" v-model="date" format="YYYY-MM-DD" display-format="dddd jDD jMMMM jYYYY"></date-picker>
+
                             </div>
                             </div>
 
@@ -61,11 +62,42 @@
 <!--                    </select>-->
                 </div>
                     </div>
-                <!--<div class="form-group">-->
-                    <!--<label for="image">ثبت تصویر</label>-->
-                    <!--<input type="file" name="image" id="image" class="form-control" v-on:change="onImageChange">-->
-                    <!--<small>با فرمت JPG و حجم زیر 2 مگابایت</small>-->
-                <!--</div>-->
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label for="brand">مربوط به بخش</label>
+                                    <select class="form-control" id="section" v-model="section" name="section" required>
+                                        <optgroup label="_________ جاری">
+
+                                        <option value="1">تامین ملزومات مثل منگنه و...</option>
+                                        <option value="1">مربوط به سفارشاتی که از بیرون از شرکت دریافت شده</option>
+                                        </optgroup>
+                                        <optgroup label="_________ حسابداری">
+
+                                        <option value="2">برس ونوس</option>
+                                        <option value="2">آدامس الدر</option>
+                                        <option value="2">آبنیات و قرص روکش خوشبو کننده دهان الدر</option>
+                                        <option value="2">تولیدی پوشاک پایا</option>
+                                        <option value="2">تولیدی قطره چکان</option>
+                                        <option value="2">تولیدی خلال چوبی</option>
+                                        <option value="2">تولیدی اسپری اویور</option>
+                                        <option value="2">تولیدی مفید دارو</option>
+                                        <option value="2">تولیدی خلیلی</option>
+                                        </optgroup>
+                                        <optgroup label="_________ تولیدی صنعتی">
+                                            <option value="3">مرتبط به مایا</option>
+                                            <option value="3">گوش پاک کن و خلال با نخ لیو</option>
+                                            <option value="3">پوشاک مایا</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md">
+                                    <div class="form-group">
+                                        <label for="image">ثبت تصویر</label>
+                                        <input type="file" name="image" id="image" class="form-control" v-on:change="onImageChange">
+                                        <small>با فرمت JPG و حجم زیر 2 مگابایت</small>
+                                    </div>
+                                </div>
+                            </div>
                 <div class="form-group">
                     <label for="content">توضیحات</label>
                     <textarea class="form-control" id="content" rows="3" v-model="content" name="content" required></textarea>
@@ -78,6 +110,7 @@
                     <div class="row">
                         <div class="col"><button type="button" class="btn btn-success btn-block" @click.prevent="done=!done" v-if="done"><i class="fa fa-plus"></i> ثبت جدید</button></div>
                         <div class="col"><button type="button" class="btn btn-secondary btn-block" @click.prevent="show=!show" v-if="done"><i class="fa fa-close"></i> بستن</button></div>
+                        <div class="col"><a role="button" class="btn btn-primary btn-block" :href="'/tools/fin/print/' + loop.id"><i class="fa fa-print"></i> چاپ</a></div>
 
 
                     </div>
@@ -112,6 +145,7 @@
                 date:'',
                 brand:'',
                 subject:'',
+                section:'',
                 done:false,
             }
         },
@@ -142,6 +176,7 @@
                 formData.append('date', this.date);
                 formData.append('brand', this.brand);
                 formData.append('subject', this.subject);
+                formData.append('section', this.section);
                 formData.append('contentFin', this.content);
                 formData.append('user', this.user);
 

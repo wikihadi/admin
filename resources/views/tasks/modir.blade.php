@@ -14,7 +14,14 @@
 
         <div class="m-0 m-sm-3 p-0 p-sm-5 bg-white" style="border-radius: 30px;">
             {{--<div class="alert alert-info">{{$user->name}}{{$lastStatus->content}}</div>--}}
+            <div class="text-left">
+            <span class="badge">راهنما:</span>
+<span class="badge badge-info">در انتظار</span>
+<span class="badge badge-white border">در حال انجام</span>
+                <span class="badge badge-success">در حال انجام (هم اکنون)</span>
 
+                {{--<span class="badge badge-warning">بخش پیگیری</span>--}}
+{{--<span class="badge badge-pink2 bg-pink2">بخش چاپ</span></div>--}}
             @include('helper.tasksUsers')
 
 

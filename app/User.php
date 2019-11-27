@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
 use NotificationChannels\Gcm\GcmChannel;
 use NotificationChannels\Gcm\GcmMessage;
 use Illuminate\Notifications\Notifiable;
@@ -137,6 +138,10 @@ class User extends Authenticatable
     public function usersInTasks()
     {
         return $this->hasMany('App\TaskOrderUser','user_id','id');
+    }
+    public function lastChat()
+    {
+        return $this->hasMany('App\Status','user_id');
     }
 
 //    public function taskMeters()

@@ -29,7 +29,9 @@ import 'vue-select/dist/vue-select.css';
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
+import SortedTablePlugin from "vue-sorted-table";
 
+Vue.use(SortedTablePlugin);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('v-select', vSelect);
@@ -67,7 +69,14 @@ Vue.component('admin-panel',            require('./components/admin/AdminPanel')
 
 //Tasks
 Vue.component('request',            require('./components/tasks/Request').default);
+Vue.component('reseller',           require('./components/tasks/Reseller').default);
 Vue.component('gallery',            require('./components/tasks/Gallery').default);
+Vue.component('task-admin',            require('./components/tasks/TaskAdmin').default);
+
+
+
+//ChatBox
+Vue.component('chatbox',            require('./components/chatbox/chatbox').default);
 
 
 

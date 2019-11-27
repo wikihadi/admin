@@ -140,7 +140,9 @@ class ServiceController extends Controller
 
         if ($request->image!=null){
             $imageName = 'fin'.time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path('storage/uploads/fin'), $imageName);
+//            $request->image->move(public_path('storage/uploads/fin'), $imageName);
+            $request->image->storeAs('uploads/fin', $imageName);
+
         }else{
             $imageName=null;
         }
@@ -149,6 +151,7 @@ class ServiceController extends Controller
             'date' => $request->date,
             'user_id' => $request->user,
             'subject' => $request->subject,
+            'section' => $request->section,
             'brand_id' => $request->brand,
             'content' => $request->contentFin,
         ]);
@@ -163,7 +166,8 @@ class ServiceController extends Controller
         ]);
         $status->save();
 
-        return response()->json(['success'=>$request->image]);
+//        return response()->json(['success'=>$request->image]);
+        return $fin;
     }
     public function updateFin()
     {

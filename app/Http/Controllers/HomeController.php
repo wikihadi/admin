@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
 use App\Events\ArticleEvent;
 use App\Status;
 use App\TaskOrderUser;
@@ -80,7 +81,9 @@ class HomeController extends Controller
 
         }
         $messages = Status::with('user','toUser')->where('to_user',$user->id)->orWhere('user_id',$user->id)->whereNotNull('to_user')->orderBy('created_at','DESC')->paginate(5);
-        $users = User::all();
+        $ids=[2,1,3,4,6,7,9,10,22,28,30];
+        $users = User::whereIn('id',$ids)->orderBy('sort','asc')->get();
+
         $lastComments = Status::with('task','user')->whereHas('user')->whereHas('task')->whereNotNull('task_id')->where('status','comment')->orderBy('updated_at','desc')->paginate(10);
         $currentJobs = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('lastStatus','2')->orderBy('updated_at','desc')->get();
         $orderRoutine = TaskOrderUser::with('task','user')->where('user_id',$user->id)->whereHas('task')->where('isDone',0)->where('routine',1)->orderBy('updated_at','desc')->paginate(5);
@@ -107,8 +110,9 @@ class HomeController extends Controller
             $loop->diff = verta($loop->created_at)->formatDifference();
         }
         $lunch=Status::where('user_id',$user->id)->where('status','lunch-start')->whereDate('created_at',Carbon::today())->count();
+        $brands = Brand::all();
 
-        return view('home',compact('lunch','dates','user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
+        return view('home',compact('brands','lunch','dates','user','myOrderCurrent','orderFuture','orderCurrent','orderRoutine','currentJobs','lastComments','users','v','myTasksStatus','usersStatus','statusesToMe','lastStartedStatus','read','lastMyTaskStatus','lastMyComments','messages'));
     }
 
         public function noRoles()

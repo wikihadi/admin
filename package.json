@@ -33,11 +33,14 @@
         "moment-jalaali": "^0.8.3",
         "pusher-js": "^4.4.0",
         "randomcolor": "^0.5.4",
+        "v-mask": "^2.0.2",
         "vue-carousel": "^0.18.0",
+        "vue-custom-scrollbar": "^1.1.0",
         "vue-moment": "^4.0.0",
         "vue-persian-datetime-picker": "^2.0.2",
         "vue-randomcolor": "^1.0.3",
         "vue-select": "^3.1.0",
+        "vue-sorted-table": "^1.2.0",
         "vue2-transitions": "^0.3.0"
     }
 }

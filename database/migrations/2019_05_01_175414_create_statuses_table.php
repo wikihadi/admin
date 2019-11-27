@@ -27,6 +27,7 @@ class CreateStatusesTable extends Migration
             $table->integer('reply_id')->nullable();
             $table->integer('duration')->nullable();
             $table->string('unit')->nullable();
+            $table->string('pic')->nullable();
             $table->boolean('forcedBox')->nullable()->default(0);
             $table->timestamps();
         });

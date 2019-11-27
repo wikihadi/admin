@@ -4,17 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Fin;
 use App\Status;
+use App\User;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Facades\Verta;
 use Illuminate\Http\Request;
 
 class FinController extends Controller
 {
+    public function main(){
+        $users = User::all();
+        return view('fin.main',compact('users'));
+    }
     public function allFin(){
+
+        $user_id = $_GET['user'];
+        $finSection = $_GET['finSection'];
+        $finUser = $_GET['finUser'];
+        $finBrands = $_GET['finBrands'];
         $role = $_GET['role'];
         $code = $_GET['code'];
+        $filters =  [
+            'user_id' => $user_id,
+            'section' => $finSection,
+            'brand_id' => $finBrands,
+            'state' => $code,
+        ];
+
+
+
+//        if ($code!=0&&$code!=100&&$code!=101&&$code!=102&&$code!=200){
         if ($code=='all'){
-            if($role=='admin'){
+            if($role=='admin'||$role=='taskMan'){
 //                $allFin = Fin::with('user','brand')
 //                    ->whereHas('brand')
 //                    ->whereHas('user')
@@ -44,20 +64,48 @@ class FinController extends Controller
                     ->latest()
                     ->whereBetween('state', [100, 200])
                     ->get();
+            }elseif($role=='designer'){
+                $allFin = Fin::with('user','brand')
+                    ->whereHas('brand')
+                    ->whereHas('user')
+                    ->where('user_id',$_GET['user'])
+                    ->latest()
+                    ->get();
             }
         }else{
-            if($code==100){
-                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
-            }elseif ($code==101){
-                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
-            }elseif ($code==102){
-                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
-            }elseif ($code==200){
-                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
-            }elseif ($code==0){
-                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
-            }
+                if ($role=='designer'){
+                    $allFin = Fin::with('user','brand')->whereHas('brand')->where('user_id',$_GET['user'])->where('state', '=',$code)->latest()->orderBy('state','asc')->get();
+                }else{
+                    $allFin = Fin::with('user','brand')->whereHas('brand')->where('state', '=',$code)->latest()->orderBy('state','asc')->get();
+                }
+//            }elseif ($code==101){
+//                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+//            }elseif ($code==102){
+//                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+//            }elseif ($code==200){
+//                $allFin = Fin::with('user','brand')->whereHas('brand')->orderBy('state','asc')->where('state', '=',$code)->get();
+//            }elseif ($code==0){
+//                $allFin = Fin::with('user','brand')->whereHas('brand')->latest()->orderBy('state','asc')->where('state', '=',$code)->get();
+//            }
         }
+        if ($finSection>0){
+            $allFin1 = $allFin->pluck('id')->toArray();
+            $allFin = Fin::with('user','brand')->whereHas('brand')->whereIn('id',$allFin1)->where('section',$finSection)->latest()->get();
+        }
+        if ($finUser>0){
+            $allFin1 = $allFin->pluck('id')->toArray();
+            $allFin = Fin::with('user','brand')->whereHas('brand')->whereIn('id',$allFin1)->where('user_id',$finUser)->latest()->get();
+        }
+        if ($finBrands>0){
+            $allFin1 = $allFin->pluck('id')->toArray();
+            $allFin = Fin::with('user','brand')->whereHas('brand')->whereIn('id',$allFin1)->where('brand_id',$finBrands)->latest()->get();
+        }
+
+//        if ($finSection==null&&$finBrands==null&&$finUser==null){
+//
+//        }else{
+//
+//        }
         foreach ($allFin as $key => $loop){
             if ($loop->date!=null){
                 $loop->jd = verta($loop->date)->formatJalaliDate();
@@ -72,8 +120,18 @@ class FinController extends Controller
         return response()->json([
             'all' => $allFin,
             'sum' => $sum,
-
+            'filters' => $filters,
         ]);
+    }
+    public function show($id)
+    {
+        $fin=Fin::where('id',$id)->with('user','brand')->first();
+        $fin->payDate = verta($fin->date)->formatJalaliDate();
+        $fin->jDate = verta($fin->created_at)->formatJalaliDatetime();
+
+
+//        dd($fin);
+        return view('fin.show',compact('fin'));
     }
     public function delFin(){
         $id = $_GET['id'];
@@ -95,20 +153,52 @@ class FinController extends Controller
         $id = $_GET['id'];
         $fin = Fin::find($id);
 
-        if ($role=='admin'){
-            if ($fin->state<100){
-                if ($fin->price<5000000){
-                    $fin->state=101;
+        if ($role=='roleA'){
+            if ($fin->section==1){
+                if ($fin->state<100){
+                    if ($fin->price<5000000){
+                        $fin->state=101;
+                    }else{
+                        $fin->state=100;
+                    }
                 }else{
-                    $fin->state=100;
+                    $fin->state=200;
                 }
-            }else{
-                $fin->state=200;
+            }elseif ($fin->section==2){
+                if ($fin->state<10) {
+                    $fin->state = 10;
+                }else{
+                    $fin->state=200;
+                }
+            }elseif ($fin->section==3){
+                if ($fin->state<10) {
+                    $fin->state=20;
+                }else{
+                    $fin->state=200;
+                }
             }
-
-        }elseif ($role=='finMan'){
+            if ($fin->state==10){
+                $fin->state=11;
+            }elseif ($fin->state==11){
+                $fin->state=102;
+            }elseif ($fin->state==20){
+                $fin->state=21;
+            }elseif ($fin->state==21){
+                $fin->state=102;
+            }
+        }elseif ($role=='roleB'){
+            if ($fin->state==10){
+                $fin->state=11;
+            }elseif ($fin->state==11){
+                $fin->state=102;
+            }elseif ($fin->state==20){
+                $fin->state=21;
+            }elseif ($fin->state==21){
+                $fin->state=102;
+            }
+        }elseif ($role=='roleC'){
             $fin->state=101;
-        }elseif ($role=='finance'){
+        }elseif ($role=='roleD'){
             $fin->state=102;
         }
         $fin->save();
@@ -130,6 +220,8 @@ class FinController extends Controller
 //        $fin->acc=$_GET['acc'];
         $fin->price=$_GET['price'];
         $fin->brand_id=$_GET['brand'];
+        $fin->date=$_GET['date'];
+        $fin->section=$_GET['section'];
         $fin->subject=$_GET['subject'];
         $fin->save();
     }

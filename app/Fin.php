@@ -11,7 +11,7 @@ class Fin extends Model
     protected $guarded=[];
     public function user()
     {
-        return $this->belongsTo('App\User')->select('name','id','avatar');
+        return $this->belongsTo('App\User');
     }
     public function brand()
     {

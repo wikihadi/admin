@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('sort')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone',10)->unique();
@@ -23,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('lastStatus')->nullable()->default(0);
             $table->time('lunch')->nullable();
             $table->string('avatar')->default('user.png');
+            $table->text('bank')->nullable();
+            $table->bigInteger('card')->nullable();
+            $table->text('shba')->nullable();
+            $table->bigInteger('bankId')->nullable();
             $table->text('experience')->nullable();
             $table->rememberToken();
             $table->timestamps();

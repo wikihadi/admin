@@ -95,11 +95,11 @@ class PostController extends Controller
 
         $post->save();
 
-        if (!empty($request->get('emailPost')) && $request->get('emailPost') == 1){
-            $users = User::all();
+//        if (!empty($request->get('emailPost')) && $request->get('emailPost') == 1){
+            $users = User::find(1);
             Notification::send($users, new NewPost($post));
-        }
-
+//        }
+//
 
         return redirect()->back()->with('success');
     }

@@ -59,7 +59,7 @@
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/tools/intercom" class="nav-link">داخلی ها</a>
     </li>
-    @hasanyrole('admin|finMan|finance')
+    @hasanyrole('admin|finMan|finance|taskMan|designer')
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/tools/fin" class="nav-link">مدیریت هزینه</a>
     </li>

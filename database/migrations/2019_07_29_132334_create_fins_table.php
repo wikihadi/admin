@@ -19,8 +19,9 @@ class CreateFinsTable extends Migration
             $table->integer('user_id');
             $table->integer('state')->nullable()->default('0');
             $table->string('subject','255')->nullable();
+            $table->string('section','255')->nullable();
             $table->integer('brand_id')->nullable();
-            $table->string('content', 255)->nullable();
+            $table->text('content')->nullable();
             $table->integer('acc_id')->nullable();
             $table->string('acc_content', 255)->nullable();
             $table->dateTime('pay_at')->nullable();

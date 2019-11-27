@@ -43,6 +43,8 @@ class CreateTasksTable extends Migration
             $table->dateTime('done_date')->nullable();
             $table->integer('reTask_id')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('reseller_id')->unsigned()->nullable();
+            $table->integer('reseller_state')->nullable();
             $table->integer('brand_id')->unsigned()->nullable();
             $table->bigInteger('cost')->nullable();
             $table->integer('paid')->default(0);

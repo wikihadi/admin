@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Fin;
+use App\Gallery;
 use App\Notifications\messageSent;
 use App\Notifications\RepliedToTask;
 use App\Status;
@@ -655,6 +656,8 @@ public function statics(){
                         $q->where('title', 'like', "%{$value}%");
                     }
                 })->get();
+//                $tasks1 = $tasks->groupBy('task_id')->pluck('id')->toArray();
+//                $tasks = TaskOrderUser::whereIn('id',$tasks1)->with('task','user','comments')->latest()->get();
 //            }else{
 //                $tasks = TaskOrderUser::with('task','user','comments')->
 //                where('user_id',$u)->
@@ -974,5 +977,149 @@ public function statusesFetch(){
     public function allBrands(){
         $brands = Brand::all();
         return $brands;
+    }
+    public function fetchUsersChatbox(){
+
+        $userID=$_GET['user'];
+        $users = User::where('id','!=',$userID)->get();
+        foreach ($users as $key => $loop){
+            $loop->last_chat = Status::
+            whereIn('status',['status','box','boxed'])->
+            where('to_user',$userID)->where('user_id',$loop->id)->
+            orWhere('user_id',$userID)->where('to_user',$loop->id)->
+            whereIn('status',['status','box','boxed'])->
+                latest()->first();
+        }
+        return $users;
+    }
+    public function fetchUserChatbox(){
+
+        $u=$_GET['u'];
+        $uc=$_GET['uc'];
+        $chatbox = Status::
+        where('to_user',$u)->where('user_id',$uc)->
+        orWhere('user_id',$u)->where('to_user',$uc)->
+        with(['user','toUser'])->
+        latest()->get();
+            $userChating=User::find($uc);
+        foreach ($chatbox as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+        }
+        return response()->json([
+            'userChating' => $userChating,
+            'chatbox' => $chatbox,
+
+        ]);
+    }
+    public function chatboxFrmConfirm(Request $request)
+    {
+        $status = new Status([
+            'status'    => $request->get('status'),
+            'content'   => $request->get('content'),
+            'user_id'   => $request->get('user'),
+            'to_user'   => $request->get('toUser'),
+        ]);
+        $status->save();
+
+//        $request->validate([
+//            'pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5000',
+//            'content'=> 'required'
+//        ]);
+        if ($request->pic!=null){
+            $imageName = 'chatbox'.time().'.'.$request->pic->getClientOriginalExtension();
+//            $request->pic->move(public_path('storage/uploads/chatbox'), $imageName);
+            $request->pic->storeAs('uploads/chatbox', $imageName);
+
+//            $gallery = new Gallery([
+//                'content'=> $request->get('content'),
+//                'user_id'=> $request->get('user'),
+//                'chatbox_id'=> $status->id,
+//                'pic'=>$imageName,
+//            ]);
+//            $gallery->save();
+            $status->pic = $imageName;
+            $status->save();
+        }
+
+//        if ($request->get('status')){
+//            $statusBox = 'status';
+//        }else{
+//            $statusBox = 'box';
+//        }
+//        $status = new Status([
+//            'price' => $request->price,
+//            'date' => $request->date,
+//            'user_id' => $request->user,
+//            'subject' => $request->subject,
+//            'brand_id' => $request->brand,
+//            'content' => $request->contentFin,
+//        ]);
+////        $status->image=$imageName;
+//        $status->save();
+
+
+
+
+//        if(!empty($request->pic)) {
+//            $picName = 'gallery' . time() . '.' . request()->pic->getClientOriginalExtension();
+//            $request->pic->storeAs('uploads/gallery', $picName);
+//            $gallery->pic = $picName;
+//        }
+        return response()->json(['success'=>$request->get('pic')]);
+    }
+    public function taskAdminAPI(){
+        if (isset($_GET['tasks'])&&$_GET['tasks']==1) {
+            $statuses = Task::all();
+        }elseif(isset($_GET['taskId'])&&isset($_GET['cost'])){
+            $task = Task::find($_GET['taskId']);
+            $task->cost=$_GET['cost'];
+            $task->save();
+            $statuses = Task::all();
+            $s = new Status([
+                'status'    => 'finUp',
+                'content'   => 'finUp' . $_GET['cost'],
+                'task_id'   => $_GET['taskId'],
+                'user_id'   => $_GET['userId'],
+            ]);
+            $s->save();
+        }else{
+
+
+        $statuses = Status::whereIn('status',['end','start','print','follow','pending'])->orderBy('updated_at','desc')->with('user','task')->whereHas('task')->limit(50)->get();
+        foreach ($statuses as $key => $loop) {
+            if ($loop->status == 'end'){
+                $loop->statusFa = 'پایان کار';
+                $loop->bg = 'table-dark';
+            }elseif ($loop->status == 'start'){
+                $loop->statusFa = 'شروع کار';
+                $loop->bg = 'table-success';
+            }elseif ($loop->status == 'print'){
+                $loop->statusFa = 'ورود به فاز چاپ';
+                $loop->bg = 'table-warning';
+            }elseif ($loop->status == 'pause'){
+                $loop->statusFa = 'توقف کار';
+                $loop->bg = 'table-danger';
+            }elseif ($loop->status == 'follow'){
+                $loop->statusFa = 'فاز پیگیری کار';
+                $loop->bg = 'table-warning';
+            }elseif ($loop->status == 'pending'){
+                $loop->statusFa = 'تعلیق';
+                $loop->bg = 'table-light';
+            }
+        }
+
+        }
+        foreach ($statuses as $key => $loop) {
+            $loop->jd = verta($loop->updated_at)->formatJalaliDatetime();
+            $loop->diff = verta($loop->updated_at)->formatDifference();
+            $loop->costc = number_format($loop->cost);
+        }
+
+        return $statuses;
+    }
+    public function taskEndAdminAPI(){
+        $task = Task::find($_GET['task_id']);
+        return $task;
     }
 }

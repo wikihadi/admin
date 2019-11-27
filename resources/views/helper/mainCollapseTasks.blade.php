@@ -76,14 +76,18 @@
                         <td>برای</td>
                         <td>{{$task->forProduct}}</td>
                     </tr>
-                    @if($task->dx || $task->dy || $task->dz || $task->dDesc)
+                    {{--@if($task->dx || $task->dy || $task->dz || $task->dDesc)--}}
 
-                        <tr>
-                            <td>در قطع</td>
-                            <td><span title="عرض">{{$task->dx}}</span>-<span title="طول">{{$task->dy}}</span>-<span title="عمق">{{$task->dz}}</span>-<span title="واحد">{{$task->dDesc}}</span>
-                            </td>
-                        </tr>
-                    @endif
+                        {{--<tr>--}}
+                            {{--<td>در قطع</td>--}}
+                            {{--<td><span title="عرض">{{$task->dx}}</span>-<span title="طول">{{$task->dy}}</span>-<span title="عمق">{{$task->dz}}</span>-<span title="واحد">{{$task->dDesc}}</span>--}}
+                            {{--</td>--}}
+                        {{--</tr>--}}
+                    {{--@endif--}}
+                    <tr>
+                        <td>توضیحات</td>
+                        <td>{{$task->content}}</td>
+                    </tr>
                     @if($task->material)
 
                         <tr>

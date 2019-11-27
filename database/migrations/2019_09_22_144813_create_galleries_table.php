@@ -21,6 +21,7 @@ class CreateGalleriesTable extends Migration
             $table->text('content')->nullable();
             $table->text('tags')->nullable();
             $table->integer('task_id')->nullable();
+            $table->integer('chatbox_id')->nullable();
             $table->integer('star')->default(0);
         });
     }

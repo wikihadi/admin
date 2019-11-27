@@ -66,11 +66,61 @@
                                             <label for="name">نام و نام خانوادگی (فارسی)</label>
                                             <input class="form-control" type="text" name="name" value="{{ $user->name }}">
                                         </div>
-                                    <div class="form-group row">
-                                        <label for="lunch">ساعت ناهار</label>
-                                        <input type="time" id="lunch" name="lunch" class="form-control">
-
+                                    <div class="form-group ">
+                                        <label for="card">شماره کارت</label>
+                                        <input type="text" id="card" name="card" class="form-control" value="{{ $user->card }}" pattern="[0-9]{16}">
                                     </div>
+                                    <div class="form-group ">
+                                        <label for="shba">شماره شبا</label>
+                                        <input type="text" id="shba" name="shba" class="form-control"  value="{{ $user->shba }}" pattern="[A-Za-z0-9]{26}">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="bankId">شماره حساب</label>
+                                        <input type="number" id="bankId" name="bankId" class="form-control"  value="{{ $user->bankId }}">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="lunch">بانک</label>
+                                        {{--<input type="text" id="bank" name="bank" class="form-control" >--}}
+                                        <select name="bank" class="form-control" id="bank">
+                                            <option value="{{ $user->bank }}">{{ $user->bank }}</option>
+                                            <option value="بانک اقتصاد نوین">بانک اقتصاد نوین</option>
+                                            <option value="بانک انصار">بانک انصار</option>
+                                            <option value="بانک ایران زمین">بانک ایران زمین</option>
+                                            <option value="بانک پارسیان">بانک پارسیان</option>
+                                            <option value="بانک پاسارگاد">بانک پاسارگاد</option>
+                                            <option value="بانک تجارت">بانک تجارت</option>
+                                            <option value="بانک توسعه تعاون">بانک توسعه تعاون</option>
+                                            <option value="بانک توسعه صادرات ایران">بانک توسعه صادرات ایران</option>
+                                            <option value="بانک حکمت ایرانیان">بانک حکمت ایرانیان</option>
+                                            <option value="بانک خاور میانه">بانک خاور میانه</option>
+                                            <option value="بانک دی">بانک دی</option>
+                                            <option value="بانک رفاه">بانک رفاه</option>
+                                            <option value="بانک سامان">بانک سامان</option>
+                                            <option value="بانک سپه">بانک سپه</option>
+                                            <option value="بانک سرمایه">بانک سرمایه</option>
+                                            <option value="بانک سینا">بانک سینا</option>
+                                            <option value="بانک شهر">بانک شهر</option>
+                                            <option value="بانک صادرات">بانک صادرات</option>
+                                            <option value="بانک صنعت و معدن">بانک صنعت و معدن</option>
+                                            <option value="بانک قرض‌الحسنه رسالت">بانک قرض‌الحسنه رسالت</option>
+                                            <option value="بانک قرض‌الحسنه مهر ایران">بانک قرض‌الحسنه مهر ایران</option>
+                                            <option value="بانک قوامین">بانک قوامین</option>
+                                            <option value="بانک کارآفرین">بانک کارآفرین</option>
+                                            <option value="بانک کشاورزی">بانک کشاورزی</option>
+                                            <option value="بانک گردشگری">بانک گردشگری</option>
+                                            <option value="بانک مسکن">بانک مسکن</option>
+                                            <option value="بانک مشترک ایران-ونزوئلا">بانک مشترک ایران-ونزوئلا</option>
+                                            <option value="بانک ملّی ایران">بانک ملّی ایران</option>
+                                            <option value="بانک ملت">بانک ملت</option>
+                                            <option value="پست بانک ایران">پست بانک ایران</option>
+                                            <option value="سایر">سایر</option>
+                                        </select>
+                                    </div>
+                                    {{--<div class="form-group row">--}}
+                                        {{--<label for="lunch">ساعت ناهار</label>--}}
+                                        {{--<input type="time" id="lunch" name="lunch" class="form-control">--}}
+
+                                    {{--</div>--}}
 
                                         {{--<div class="form-group row">--}}
                                             {{--<label for="phone">تلفن همراه</label>--}}
@@ -117,6 +167,16 @@
 
                             <p class="text-muted">
                                 {{ $user->email }}
+                            </p>
+                            <strong><i class="fa fa-credit-card mr-1"></i> شماره کارت {{ $user->bank }}</strong>
+
+                            <p class="text-muted">
+                                {{ $user->card }}
+                            </p>
+                            <strong><i class="fa fa-barcode mr-1"></i> شماره شبا</strong>
+
+                            <p class="text-muted">
+                                {{ $user->shba }}
                             </p>
 
                             {{--<hr>--}}
@@ -353,5 +413,8 @@
                 </div>
                 </div>
 
+
+@endsection
+@section('JS')
 
 @endsection

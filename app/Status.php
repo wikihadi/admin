@@ -21,7 +21,7 @@ class Status extends Model
     }
     public function task()
     {
-        return $this->belongsTo('App\Task','task_id','id')->select('title','id');
+        return $this->belongsTo('App\Task','task_id','id')->select('title','id','cost');
     }
     public function gallery()
     {

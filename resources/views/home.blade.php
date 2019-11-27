@@ -42,44 +42,44 @@
                               <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
                            </a>
 
-                           @role('admin')
-                               <div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">
-                                   <i class="text-muted fa fa-ellipsis-h"></i>
-                               </div>
-                            @endrole
+                           {{--@role('admin')--}}
+                               {{--<div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">--}}
+                                   {{--<i class="text-muted fa fa-ellipsis-h"></i>--}}
+                               {{--</div>--}}
+                            {{--@endrole--}}
 
                        </div>
 
-                        @role('admin')
-                        <div class="modal fade" id="userModal{{$u->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
-                                <div class="modal-content bg-dark">
-                                    <div class="modal-header bg-dark">
-                                        <button type="button" class="close bg-dark" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h5 class="modal-title">{{$u->name}}
-                                            <img src="/storage/avatars/{{ $u->avatar }}" style="width: 50px" alt="" class="img-circle">
-                                        </h5>
+                        {{--@role('admin')--}}
+                        {{--<div class="modal fade" id="userModal{{$u->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+                            {{--<div class="modal-dialog modal-lg  modal-dialog-centered" role="document">--}}
+                                {{--<div class="modal-content bg-dark">--}}
+                                    {{--<div class="modal-header bg-dark">--}}
+                                        {{--<button type="button" class="close bg-dark" data-dismiss="modal" aria-label="Close">--}}
+                                            {{--<span aria-hidden="true">&times;</span>--}}
+                                        {{--</button>--}}
+                                        {{--<h5 class="modal-title">{{$u->name}}--}}
+                                            {{--<img src="/storage/avatars/{{ $u->avatar }}" style="width: 50px" alt="" class="img-circle">--}}
+                                        {{--</h5>--}}
 
-                                    </div>
-                                    <div class="modal-body">
-                                        @if(!empty($u->phone))
-                                        <small data-toggle="tooltip" title="تلفن همراه"><i class="fa fa-phone"></i> {{$u->phone}}</small>
-                                        <small class="mx-2"></small>
-                                        @endif
-                                        <small  data-toggle="tooltip" title="عضویت"><i class="fa fa-user-circle"></i> {{$u->diff}}</small>
-                                            <small class="mx-2"></small>
-                                            <user-status-comments-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="نظرات ثبت شده"></user-status-comments-count>
-                                            <user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>
-                                            <user-tasks-self :user="{{$u->id}}" class="d-inline"></user-tasks-self>
-                                            <user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>
-                                            <hr>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endrole
+                                    {{--</div>--}}
+                                    {{--<div class="modal-body">--}}
+                                        {{--@if(!empty($u->phone))--}}
+                                        {{--<small data-toggle="tooltip" title="تلفن همراه"><i class="fa fa-phone"></i> {{$u->phone}}</small>--}}
+                                        {{--<small class="mx-2"></small>--}}
+                                        {{--@endif--}}
+                                        {{--<small  data-toggle="tooltip" title="عضویت"><i class="fa fa-user-circle"></i> {{$u->diff}}</small>--}}
+                                            {{--<small class="mx-2"></small>--}}
+                                            {{--<user-status-comments-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="نظرات ثبت شده"></user-status-comments-count>--}}
+                                            {{--<user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>--}}
+                                            {{--<user-tasks-self :user="{{$u->id}}" class="d-inline"></user-tasks-self>--}}
+                                            {{--<user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>--}}
+                                            {{--<hr>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--@endrole--}}
 
                 </div>
             @endforeach
@@ -100,44 +100,44 @@
                               <img src="/storage/avatars/{{ $u->avatar }}" style="width: 30px" alt="" class="img-circle hvr-pop" title="{{$u->name}}" data-toggle="tooltip">
                            </a>
 
-                           @role('admin')
-                               <div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">
-                                   <i class="text-muted fa fa-ellipsis-h"></i>
-                               </div>
-                            @endrole
+                           {{--@role('admin')--}}
+                               {{--<div style="width: 30px;height: 30px; bottom: -30px; cursor: pointer" class="position-absolute position-relative"  data-toggle="modal" data-target="#userModal{{$u->id}}">--}}
+                                   {{--<i class="text-muted fa fa-ellipsis-h"></i>--}}
+                               {{--</div>--}}
+                            {{--@endrole--}}
 
                        </div>
 
-                        @role('admin')
-                        <div class="modal fade" id="userModal{{$u->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
-                                <div class="modal-content bg-dark">
-                                    <div class="modal-header bg-dark">
-                                        <button type="button" class="close bg-dark" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h5 class="modal-title">{{$u->name}}
-                                            <img src="/storage/avatars/{{ $u->avatar }}" style="width: 50px" alt="" class="img-circle">
-                                        </h5>
+                        {{--@role('admin')--}}
+                        {{--<div class="modal fade" id="userModal{{$u->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+                            {{--<div class="modal-dialog modal-lg  modal-dialog-centered" role="document">--}}
+                                {{--<div class="modal-content bg-dark">--}}
+                                    {{--<div class="modal-header bg-dark">--}}
+                                        {{--<button type="button" class="close bg-dark" data-dismiss="modal" aria-label="Close">--}}
+                                            {{--<span aria-hidden="true">&times;</span>--}}
+                                        {{--</button>--}}
+                                        {{--<h5 class="modal-title">{{$u->name}}--}}
+                                            {{--<img src="/storage/avatars/{{ $u->avatar }}" style="width: 50px" alt="" class="img-circle">--}}
+                                        {{--</h5>--}}
 
-                                    </div>
-                                    <div class="modal-body">
-                                        @if(!empty($u->phone))
-                                        <small data-toggle="tooltip" title="تلفن همراه"><i class="fa fa-phone"></i> {{$u->phone}}</small>
-                                        <small class="mx-2"></small>
-                                        @endif
-                                        <small  data-toggle="tooltip" title="عضویت"><i class="fa fa-user-circle"></i> {{$u->diff}}</small>
-                                            <small class="mx-2"></small>
-                                            <user-status-comments-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="نظرات ثبت شده"></user-status-comments-count>
-                                            <user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>
-                                            <user-tasks-self :user="{{$u->id}}" class="d-inline"></user-tasks-self>
-                                            <user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>
-                                            <hr>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endrole
+                                    {{--</div>--}}
+                                    {{--<div class="modal-body">--}}
+                                        {{--@if(!empty($u->phone))--}}
+                                        {{--<small data-toggle="tooltip" title="تلفن همراه"><i class="fa fa-phone"></i> {{$u->phone}}</small>--}}
+                                        {{--<small class="mx-2"></small>--}}
+                                        {{--@endif--}}
+                                        {{--<small  data-toggle="tooltip" title="عضویت"><i class="fa fa-user-circle"></i> {{$u->diff}}</small>--}}
+                                            {{--<small class="mx-2"></small>--}}
+                                            {{--<user-status-comments-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="نظرات ثبت شده"></user-status-comments-count>--}}
+                                            {{--<user-tasks-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="کارهای ثبت شده توسط {{$u->name}}"></user-tasks-count>--}}
+                                            {{--<user-tasks-self :user="{{$u->id}}" class="d-inline"></user-tasks-self>--}}
+                                            {{--<user-status-comments-to-user-count :user="{{$u->id}}" class="d-inline" data-toggle="tooltip" title="پیامهای ارسالی"></user-status-comments-to-user-count>--}}
+                                            {{--<hr>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--@endrole--}}
 
                 </div>
                 @endif
@@ -187,6 +187,7 @@
 {{--        </div>--}}
 {{--        @endhasanyrole--}}
     </div>
+
     @hasanyrole('admin|modir|designer')
     <main-home-box v-bind:user="{{Auth::id()}}" :users="{{$users}}"></main-home-box>
 {{--    <report-designer v-bind:user="{{Auth::id()}}" :users="{{$users}}"></report-designer>--}}
@@ -194,11 +195,16 @@
 
     @endhasanyrole
 @role('chairman')
-    <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5" style="">
+    <div class="col-md-10 col-lg-8 col-xl-6 m-auto mt-sm-5">
         <status :user="{{Auth::id()}}" :users="{{$users}}"></status>
     </div>
     @endrole
+    @hasanyrole('reseller')
+    <div class="col-12 align-self-center">
 
+        <reseller :brands="{{$brands}}" :user="{{Auth::user()}}" :task="0"></reseller>
+    </div>
+    @endhasanyrole
 {{--    <user-chart></user-chart>--}}
 
 {{--    @role('admin')--}}
@@ -206,6 +212,7 @@
 {{--    @endrole--}}
 
             <div class="col-12 row justify-content-center">
+
 
         <div class="col-xl-9 col-lg-10 row m-auto">
             @hasanyrole('admin|modir')

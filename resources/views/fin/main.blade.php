@@ -23,18 +23,36 @@
     <div class="col-12 row justify-content-center">
         @hasrole('admin')
         <div class="col-12">
-            <fin-list :user="{{Auth::id()}}" :role="'admin'"></fin-list>
+            <fin-list :users="{{$users}}" :user="{{Auth::id()}}" :role="'admin'"></fin-list>
         </div>
-        @endhasrole
-        @hasrole('finance')
-        <div class="col-12">
-            <fin-list :user="{{Auth::id()}}" :role="'finance'"></fin-list>
-        </div>
-        @endhasrole
-        @hasrole('finMan')
-        <div class="col-12">
-            <fin-list :user="{{Auth::id()}}" :role="'finMan'"></fin-list>
-        </div>
+        @else
+            @hasrole('finance')
+            <div class="col-12">
+                <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'finance'"></fin-list>
+            </div>
+        @else
+                @hasrole('finMan')
+                <div class="col-12">
+                    <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'finMan'"></fin-list>
+                </div>
+            @else
+                    {{--@hasrole('taskMan')--}}
+                    {{--<div class="col-12">--}}
+                        {{--<fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'taskMan'"></fin-list>--}}
+                    {{--</div>--}}
+
+                    {{--@else--}}
+                        @hasrole('designer')
+
+                        <div class="col-12">
+                            <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'designer'"></fin-list>
+                        </div>
+                        @endhasrole
+                        {{--@endhasrole--}}
+                @endhasrole
+            @endhasrole
+
+
         @endhasrole
     </div>
 

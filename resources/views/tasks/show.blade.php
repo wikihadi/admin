@@ -274,6 +274,7 @@
                                                     {{$task->commentCount}} نظر
                                                 </div>
                                                 <div class="panel-body">
+
                                                     @include('statuses.taskStatus')
 
                                                 </div>

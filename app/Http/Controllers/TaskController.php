@@ -734,7 +734,8 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 
         $usersInTasks = TaskOrderUser::all();
         $user = User::find($id);
-        $users = User::all();
+        $ids=[2,1,3,4,6,7,9,10,22,28,30];
+        $users = User::whereIn('id',$ids)->orderBy('sort','asc')->get();
        // $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
         $order = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$id)->where('isDone',0)->whereIn('lastStatus',[0,1,2])->orderBy('order_column','asc')->get();
 
@@ -1041,4 +1042,42 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 //        return $tasks;
         return Task::all();
     }
+    public function taskAdmin(){
+        $taskCount = Task::all()->count();
+//        if (isset($_GET['s'])&&$_GET['s']!=null){
+//            $statuses = Status::where('status',$_GET['s'])->orderBy('updated_at','desc')->with('user','task')->paginate(20);
+//        }else{
+//        $statuses = Status::whereIn('status',['end','start','print','follow','pending'])->orderBy('updated_at','desc')->with('user','task')->whereHas('task')->get();
+//        }
+//        foreach ($statuses as $key => $loop) {
+//            if ($loop->status == 'end'){
+//                $loop->statusFa = 'پایان کار';
+//                $loop->bg = 'table-dark';
+//            }elseif ($loop->status == 'start'){
+//                $loop->statusFa = 'شروع کار';
+//                $loop->bg = 'table-success';
+//            }elseif ($loop->status == 'print'){
+//                $loop->statusFa = 'ورود به فاز چاپ';
+//                $loop->bg = 'table-warning';
+//            }elseif ($loop->status == 'pause'){
+//                $loop->statusFa = 'توقف کار';
+//                $loop->bg = 'table-danger';
+//            }elseif ($loop->status == 'follow'){
+//                $loop->statusFa = 'فاز پیگیری کار';
+//                $loop->bg = 'table-warning';
+//            }elseif ($loop->status == 'pending'){
+//                $loop->statusFa = 'تعلیق';
+//                $loop->bg = 'table-light';
+//            }
+//                $loop->jd = verta($loop->updated_at)->formatJalaliDatetime();
+//                $loop->diff = verta($loop->updated_at)->formatDifference();
+//
+//        }
+        $dateNow = verta()->formatJalaliDatetime();
+
+        $tasks = Task::all();
+
+            return view('tasks.taskAdmin',compact('tasks','taskCount','dateNow'));
+    }
+
 }

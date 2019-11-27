@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @if(isset($titleOfPage)){{$titleOfPage}} |@endif{{ config('app.name', 'Laravel') }}</title>
+    <title>@if(isset($titleOfPage)){{$titleOfPage}} |@endif{{ config('app.name', 'Laravel') }} : {{date("Y-m-d H:i:s")}}</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/admin-core/font-awesome/css/font-awesome.min.css">
@@ -73,7 +73,7 @@ body{
 
 
  <!-- Main content -->
-     <div class="content mt-5">
+     <div class="content mt-3">
 
          <div class="container-fluid">
              <div class="row" id="app">

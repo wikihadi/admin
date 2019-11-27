@@ -63,6 +63,22 @@ Route::post('finFormSubmit','ServiceController@finFormSubmit');
 Route::post('formSubmit','ServiceController@formSubmit');
 Route::get('updateFin','FinController@updateFin');
 
+//Chatbox
+Route::get('fetchUsersChatbox','StatusController@fetchUsersChatbox');
+Route::get('fetchUserChatbox','StatusController@fetchUserChatbox');
+Route::post('chatboxFrmConfirm','StatusController@chatboxFrmConfirm');
+
+//Reseller
+Route::get('resellerFetchTasks','ResellerController@resellerFetchTasks');
+
+//task-admin
+Route::get('taskAdminAPI','StatusController@taskAdminAPI');
+Route::get('taskEndAdminAPI','StatusController@taskEndAdminAPI');
+Route::get('costSum','StatusController@costSum');
+
+
+
+
 //Services Apis
 //Route::get('addFood','StatusController@add');
 

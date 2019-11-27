@@ -603,6 +603,7 @@
                                    class="list-group-item list-group-item-action flex-column align-items-start pointer">
                                     <div class="d-flex w-100 justify-content-between">
                                         <div>
+                                            <span v-if="item.order_column!=999999999&&item.lastStatus!=3" class="badge badge-dark">{{item.order_column}}</span>
                                             <span class="badge badge-dark"><i :class="{'fa fa-users text-info': item.users.length > 1,'fa fa-user': item.users.length == 1}"></i></span> <span class="mb-1 h6"><span class="badge badge-info">{{item.task.subject}}</span> {{item.task.title}} <small class="text-muted ml-1">{{item.task.id}}</small></span>
                                         </div>
 <!--                                        <div class="">-->
@@ -765,7 +766,7 @@
                 </div>
                     </transition>
 
-                    <fin :user="this.user"></fin>
+                    <!--<fin :user="this.user"></fin>-->
                 </div>
             </div>
         </div>
@@ -1255,7 +1256,7 @@
         border-radius: 30px;
         border-top-right-radius: 0;
     }
-.fade-enter-active , .fade-leave-active {
+.fade-enter-active {
     transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
