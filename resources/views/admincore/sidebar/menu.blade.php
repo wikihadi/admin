@@ -137,7 +137,14 @@
             </ul>
         </li>
         @endrole
-
+        @hasanyrole('admin|finMan|finance|taskMan|designer')
+        <li class="nav-item">
+            <a href="/task-admin" class="nav-link">
+                <i class="nav-icon fa fa-th"></i>
+                مدیریت مالی
+            </a>
+        </li>
+        @endhasanyrole
         <li class="nav-item">
             <a href="/posts" class="nav-link">
                 <i class="nav-icon fa fa-th"></i>

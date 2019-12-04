@@ -1070,12 +1070,16 @@ public function statusesFetch(){
     }
     public function taskAdminAPI(){
         if (isset($_GET['tasks'])&&$_GET['tasks']==1) {
-            $statuses = Task::all();
+            if (isset($_GET['minus'])&&$_GET['minus']==1){
+                $statuses = Task::where('cost' , -1)->get();
+            }else{
+                $statuses = Task::where('cost' , '>=' , 0)->get();
+            }
         }elseif(isset($_GET['taskId'])&&isset($_GET['cost'])){
             $task = Task::find($_GET['taskId']);
             $task->cost=$_GET['cost'];
             $task->save();
-            $statuses = Task::all();
+            $statuses = Task::where('cost' , '>=' , 0)->get();
             $s = new Status([
                 'status'    => 'finUp',
                 'content'   => 'finUp' . $_GET['cost'],

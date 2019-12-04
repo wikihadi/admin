@@ -20,13 +20,13 @@
         {{--</div>--}}
         @hasrole('admin')
 
-        <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="'admin'"></task-admin>
+        <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="1"></task-admin>
         @else
             @hasrole('finance')
-            <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="'finance'"></task-admin>
+            <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="2"></task-admin>
         @else
                 @hasrole('finMan')
-                <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="'finMan'"></task-admin>
+                <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="3"></task-admin>
 
                 @endhasrole
                 @endhasrole

@@ -41,6 +41,7 @@
         "vue-randomcolor": "^1.0.3",
         "vue-select": "^3.1.0",
         "vue-sorted-table": "^1.2.0",
-        "vue2-transitions": "^0.3.0"
+        "vue2-transitions": "^0.3.0",
+        "vuejs-dialog": "^1.4.1"
     }
 }

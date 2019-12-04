@@ -1,12 +1,14 @@
 <template>
     <div>
+    <div class="d-flex justify-content-between">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link pointer" @click="updateAll">بروز کردن داده ها</a>
+                <a class="nav-link pointer" @click="updateAll" title="درآمدها"><i class="fa fa-home"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link pointer" @click="showCost=!showCost">ستون درآمد</a>
+                <a class="nav-link pointer" @click="showCost=!showCost" title="ستون درآمدها"><i class="fa fa-dollar"></i></a>
             </li>
+
             <!--<li class="nav-item">-->
                 <!--<a class="nav-link pointer" @click="tasksShow=false">بر اساس فعالیت (50)</a>-->
             <!--</li>-->
@@ -14,6 +16,13 @@
                 <!--<a class="nav-link pointer" @click="tasksFetch">لیست کلی کارها</a>-->
             <!--</li>-->
         </ul>
+        <ul class="nav" v-if="role==1">
+
+        <li class="nav-item">
+            <a class="nav-link pointer" @click="loadMinus" title="کارهایی که درآمد به آنها تعلق نمی گیرد"><i class="fa fa-tasks"></i></a>
+        </li>
+        </ul>
+    </div>
         <!--<table class="table table-sm table-responsiv w-100" v-if="!tasksShow">-->
             <!--<thead>-->
             <!--<tr>-->
@@ -132,38 +141,45 @@
                 </th>
                 <th scope="col">
                     <sort-link name="title">
-                    عنوان کار
+                    عنوان پروژه
                     </sort-link>
                 </th>
 
                 <th v-if="showCost" scope="col">
                     <sort-link name="cost">
-                    درآمد
+                        <i class="fa fa-dollar"></i>
                     </sort-link>
                 </th>
-                <th scope="col">
-                    <!--<sort-link name="title">-->
-                    عملیات
-                    <!--</sort-link>-->
-                </th>
+                <!--<th scope="col">-->
+                    <!--&lt;!&ndash;<sort-link name="title">&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;</sort-link>&ndash;&gt;-->
+                <!--</th>-->
             </tr>
             </thead>
 
                 <tbody slot="body" slot-scope="sort">
             <tr v-for="value in sort.values" :class="value.bg" :key="value.id">
-                <td>{{value.id}}</td>
+                <td>                    <a :href="'/tasks/'+value.id" class="" target="_blank">{{value.id}}</a>
+                    </td>
                 <td>{{value.title}}</td>
                 <td v-if="showCost">
-                    <button class="btn btn-outline-secondary btn-sm" @click="taEndFetch(value.id)" v-if="more"><i class="fa fa-cog"></i></button>
-                    {{value.costc}}</td>
-                <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example"  v-if="role==1">
 
-                    <!--<button class="btn btn-outline-secondary" @click="taEndFetch(item.id)" v-if="more"><i class="fa fa-cog"></i></button>-->
-                    <a :href="'/tasks/'+value.id" class="btn btn-outline-success" target="_blank"><i class="fa fa-eye"></i></a>
+                    <span v-if="value.cost>-1" class="btn btn-outline-danger" @click="costn=-1,taUpdateCostMinus(value.id)"><i class="fa fa-archive"></i></span>
+                    <button class="btn btn-outline-warning" @click="taEndFetch(value.id)" v-if="more"><i class="fa fa-edit"></i></button>
                     </div>
-
+                    <span v-if="value.cost>-1">{{value.costc}}</span>
+                    <span v-else>درآمدی ثبت نشده</span>
                 </td>
+                <!--<td>-->
+                    <!--<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">-->
+
+                    <!--&lt;!&ndash;<button class="btn btn-outline-secondary" @click="taEndFetch(item.id)" v-if="more"><i class="fa fa-cog"></i></button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a :href="'/tasks/'+value.id" class="btn btn-outline-success" target="_blank"><i class="fa fa-eye"></i></a>&ndash;&gt;-->
+                    <!--</div>-->
+
+                <!--</td>-->
             </tr>
 
             </tbody>
@@ -177,20 +193,22 @@
                     <button class="btn btn-sm btn-outline-secondary mb-3" @click="showBox=!showBox,more=true,showForm=false"><i class="fa fa-close"></i></button>
                     <h5>{{task.title}}</h5>
                     درآمد فعلی:
-                    <span>{{task.cost}}</span> ريال
+                    <span v-if="task.cost>-1">{{task.cost}} ريال</span>
+                    <span v-else>این کار درآمدی ندارد</span>
                 </div>
 
                 <div class="card-footer">
 
                     <div>
-                    <button class="btn btn-sm btn-primary" @click="showForm=!showForm" v-if="!showForm">بروزرسانی هزینه</button>
+
+                        <button class="btn btn-sm btn-primary" @click="showForm=!showForm" v-if="!showForm">درج یا ویرایش درآمد</button>
                     <!--<a :href="'/tasks/'+task.id" class="btn btn-outline-success btn-sm" target="_blank">مشاهده تسک</a>-->
                     </div>
                     <form class="form-inline" @submit.prevent="taUpdateCost(task.id)" v-if="showForm">
                         <div class="input-group input-group-sm mb-3">
                             <input type="text" class="form-control" placeholder="مبلغ بریال" v-model="costn">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-success" type="submit">بروز رسانی هزینه</button>
+                                <button class="btn btn-outline-success" type="submit" >بروز رسانی</button>
                             </div>
                         </div>
                     </form>
@@ -201,16 +219,17 @@
 </template>
 
 <script>
+
     export default {
         name: "TaskAdmin",
-        props:['user','tasks'],
+        props:['user','tasks','role'],
         data(){
             return{
                 loop:"",
                 task:'',
                 showBox:false,
                 showForm:false,
-                showCost:false,
+                showCost:true,
                 tasksShow:true,
                 keyword: '',
                 more:true,
@@ -232,6 +251,7 @@
             // }
         },
         methods: {
+
             updateAll: function(){
                 // this.taFetch();
                 this.tasksFetch();
@@ -247,20 +267,32 @@
                 this.costn='';
                 this.taEndFetch(task);
             },
-            taFetch: function(){
-                console.log('Start');
-                let url = '/api/taskAdminAPI?userId=' + this.user.id;
+            taUpdateCostMinus: function(task){
+                let url = '/api/taskAdminAPI?taskId=' + task + '&cost=' + this.costn + '&userId=' + this.user.id;
                 axios.get(url).then(response => this.loop = response.data);
-                console.log('Done');
+                this.updateAll();
+                // this.showForm=false;
+                this.costn='';
+                // this.taEndFetch(task);
             },
+            // taFetch: function(){
+            //     console.log('Start');
+            //     let url = '/api/taskAdminAPI?userId=' + this.user.id;
+            //     axios.get(url).then(response => this.loop = response.data);
+            //     console.log('Done');
+            // },
             tasksFetch: function(){
                 console.log('Start Tasks');
                 let url = '/api/taskAdminAPI?tasks=1&userId=' + this.user.id;
                 axios.get(url).then(response => this.tasksList = response.data,
-                    this.tasksShow=true
+                    // this.tasksShow=true
 
             );
                 console.log('Done');
+            },
+            loadMinus: function(){
+                let url = '/api/taskAdminAPI?minus=1&tasks=1&userId=' + this.user.id;
+                axios.get(url).then(response => this.tasksList = response.data,);
             },
             taEndFetch: function(t){
                 console.log('Start');
