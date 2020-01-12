@@ -28,7 +28,15 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                @hasanyrole('admin|taskMan')
 
+                    <li class="nav-item">
+                        <a href="/press" class="nav-link @if(Request::is('press')) active @endif ">
+                            <i class="fa fa-lg fa-mobile nav-icon"></i>
+                            <p>لیست چاپخانه ها</p>
+                        </a>
+                    </li>
+                @endhasanyrole
                     <li class="nav-item">
                         <a href="/tools/intercom" class="nav-link @if(Request::is('tools/intercom')) active @endif ">
                             <i class="fa fa-lg fa-mobile nav-icon"></i>

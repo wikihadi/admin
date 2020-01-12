@@ -25,10 +25,10 @@
             @hasrole('finance')
             <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="2"></task-admin>
         @else
-                @hasrole('finMan')
+                @hasanyrole('finMan|modir')
                 <task-admin :tasks="{{$tasks}}" :user="{{Auth::user()}}" :role="3"></task-admin>
 
-                @endhasrole
+                @endhasanyrole
                 @endhasrole
                 @endhasrole
 

@@ -1,4 +1,7 @@
 @font-face {
     font-family: 'dirooz';
-    src: url(fonts/dirooz/dirooz.woff), url(fonts/dirooz/dirooz.woff2), url(fonts/dirooz/dirooz.ttf), url(/fonts/dirooz/dirooz.eot);
+    src: url(fonts/iranyekan/woff/robotolight.woff),
+    url(fonts/iranyekan/woff2/robotolight.woff2),
+    url(fonts/iranyekan/ttf/robotolight.ttf),
+    url(/fonts/iranyekan/eot/robotolight.eot);
 }

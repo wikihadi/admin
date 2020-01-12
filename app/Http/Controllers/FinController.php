@@ -54,7 +54,15 @@ class FinController extends Controller
                     ->whereHas('user')
                     ->orderBy('state','asc')
                     ->latest()
-                    ->whereBetween('state', [101, 102])
+                    ->where('state', 101)
+                    ->get();
+            }elseif($role=='finInd'){
+                $allFin = Fin::with('user','brand')
+                    ->whereHas('brand')
+                    ->whereHas('user')
+                    ->orderBy('state','asc')
+                    ->latest()
+                    ->whereBetween('state', [10,21])
                     ->get();
             }elseif($role=='finMan'){
                 $allFin = Fin::with('user','brand')
@@ -62,7 +70,7 @@ class FinController extends Controller
                     ->whereHas('user')
 //                ->orderBy('state','asc')
                     ->latest()
-                    ->whereBetween('state', [100, 200])
+                    ->where('state', 100)
                     ->get();
             }elseif($role=='designer'){
                 $allFin = Fin::with('user','brand')
@@ -177,15 +185,15 @@ class FinController extends Controller
                     $fin->state=200;
                 }
             }
-            if ($fin->state==10){
-                $fin->state=11;
-            }elseif ($fin->state==11){
-                $fin->state=102;
-            }elseif ($fin->state==20){
-                $fin->state=21;
-            }elseif ($fin->state==21){
-                $fin->state=102;
-            }
+//            if ($fin->state==10){
+//                $fin->state=11;
+//            }elseif ($fin->state==11){
+//                $fin->state=102;
+//            }elseif ($fin->state==20){
+//                $fin->state=21;
+//            }elseif ($fin->state==21){
+//                $fin->state=102;
+//            }
         }elseif ($role=='roleB'){
             if ($fin->state==10){
                 $fin->state=11;

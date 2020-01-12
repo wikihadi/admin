@@ -21,39 +21,32 @@
 
 
     <div class="col-12 row justify-content-center">
-        @hasrole('admin')
         <div class="col-12">
-            <fin-list :users="{{$users}}" :user="{{Auth::id()}}" :role="'admin'"></fin-list>
-        </div>
-        @else
-            @hasrole('finance')
-            <div class="col-12">
-                <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'finance'"></fin-list>
-            </div>
-        @else
-                @hasrole('finMan')
-                <div class="col-12">
-                    <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'finMan'"></fin-list>
-                </div>
+
+            @hasrole('admin')
+                <fin-list :users="{{$users}}" :user="{{Auth::id()}}" :role="'admin'"></fin-list>
             @else
-                    {{--@hasrole('taskMan')--}}
-                    {{--<div class="col-12">--}}
-                        {{--<fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'taskMan'"></fin-list>--}}
-                    {{--</div>--}}
-
-                    {{--@else--}}
-                        @hasrole('designer')
-
-                        <div class="col-12">
-                            <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'designer'"></fin-list>
-                        </div>
-                        @endhasrole
-                        {{--@endhasrole--}}
+                @hasrole('finance')
+                    <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'finance'"></fin-list>
+                @else
+                    @hasrole('finMan')
+                        <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'finMan'"></fin-list>
+                    @else
+                        @hasrole('finInd')
+                            <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'finInd'"></fin-list>
+                        @else
+                            @hasrole('taskMan')
+                                <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'taskMan'"></fin-list>
+                            @else
+                                @hasrole('designer')
+                                    <fin-list :users="{{$users}}"  :user="{{Auth::id()}}" :role="'designer'"></fin-list>
+                                @endhasrole
+                            @endhasrole
+                         @endhasrole
+                    @endhasrole
                 @endhasrole
             @endhasrole
-
-
-        @endhasrole
+    </div>
     </div>
 
 @endsection

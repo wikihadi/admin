@@ -1070,16 +1070,28 @@ public function statusesFetch(){
     }
     public function taskAdminAPI(){
         if (isset($_GET['tasks'])&&$_GET['tasks']==1) {
-            if (isset($_GET['minus'])&&$_GET['minus']==1){
-                $statuses = Task::where('cost' , -1)->get();
-            }else{
-                $statuses = Task::where('cost' , '>=' , 0)->get();
-            }
+                if (isset($_GET['minus']) && $_GET['minus'] == 1) {
+                    $statuses = Task::where('cost', -1)->get();
+                } elseif (isset($_GET['payOk']) && $_GET['payOk'] == 1) {
+                    $statuses = Task::where('payOK', 1)->where('paid', 0)->get();
+                } elseif (isset($_GET['paid']) && $_GET['paid'] == 1) {
+                    $statuses = Task::where('paid', 1)->get();
+                } else {
+                    if (isset($_GET['role'])&&$_GET['role']==1) {
+                        $statuses = Task::where('cost', '>=', 0)->where('payOK', 0)->where('paid', 0)->get();
+                    }elseif (isset($_GET['role'])&&$_GET['role']==2){
+                        $statuses = Task::where('cost', '>=', 0)->where('payOK', 1)->where('paid', 0)->get();
+                    }elseif (isset($_GET['role'])&&$_GET['role']==3){
+                        $statuses = Task::where('cost', '>=', 0)->where('payOK', 0)->where('paid', 0)->get();
+                    }
+                }
+
+
         }elseif(isset($_GET['taskId'])&&isset($_GET['cost'])){
             $task = Task::find($_GET['taskId']);
             $task->cost=$_GET['cost'];
             $task->save();
-            $statuses = Task::where('cost' , '>=' , 0)->get();
+            $statuses = Task::where('id' , $_GET['taskId'])->get();
             $s = new Status([
                 'status'    => 'finUp',
                 'content'   => 'finUp' . $_GET['cost'],
@@ -1090,28 +1102,28 @@ public function statusesFetch(){
         }else{
 
 
-        $statuses = Status::whereIn('status',['end','start','print','follow','pending'])->orderBy('updated_at','desc')->with('user','task')->whereHas('task')->limit(50)->get();
-        foreach ($statuses as $key => $loop) {
-            if ($loop->status == 'end'){
-                $loop->statusFa = 'پایان کار';
-                $loop->bg = 'table-dark';
-            }elseif ($loop->status == 'start'){
-                $loop->statusFa = 'شروع کار';
-                $loop->bg = 'table-success';
-            }elseif ($loop->status == 'print'){
-                $loop->statusFa = 'ورود به فاز چاپ';
-                $loop->bg = 'table-warning';
-            }elseif ($loop->status == 'pause'){
-                $loop->statusFa = 'توقف کار';
-                $loop->bg = 'table-danger';
-            }elseif ($loop->status == 'follow'){
-                $loop->statusFa = 'فاز پیگیری کار';
-                $loop->bg = 'table-warning';
-            }elseif ($loop->status == 'pending'){
-                $loop->statusFa = 'تعلیق';
-                $loop->bg = 'table-light';
-            }
-        }
+//        $statuses = Status::whereIn('status',['end','start','print','follow','pending'])->orderBy('updated_at','desc')->with('user','task')->whereHas('task')->limit(50)->get();
+//        foreach ($statuses as $key => $loop) {
+//            if ($loop->status == 'end'){
+//                $loop->statusFa = 'پایان کار';
+//                $loop->bg = 'table-dark';
+//            }elseif ($loop->status == 'start'){
+//                $loop->statusFa = 'شروع کار';
+//                $loop->bg = 'table-success';
+//            }elseif ($loop->status == 'print'){
+//                $loop->statusFa = 'ورود به فاز چاپ';
+//                $loop->bg = 'table-warning';
+//            }elseif ($loop->status == 'pause'){
+//                $loop->statusFa = 'توقف کار';
+//                $loop->bg = 'table-danger';
+//            }elseif ($loop->status == 'follow'){
+//                $loop->statusFa = 'فاز پیگیری کار';
+//                $loop->bg = 'table-warning';
+//            }elseif ($loop->status == 'pending'){
+//                $loop->statusFa = 'تعلیق';
+//                $loop->bg = 'table-light';
+//            }
+//        }
 
         }
         foreach ($statuses as $key => $loop) {
@@ -1125,5 +1137,37 @@ public function statusesFetch(){
     public function taskEndAdminAPI(){
         $task = Task::find($_GET['task_id']);
         return $task;
+    }
+    public function taskAccAdminAPI(){
+        $task = Task::find($_GET['task_id']);
+        if ($_GET['acc']==1){
+            $task->payOK=1;
+        }elseif($_GET['acc']==2){
+            $task->paid=1;
+        }
+        $task->save();
+        $s = new Status([
+            'status'    => 'finACC',
+            'content'   => 'finACC' . $_GET['acc'],
+            'task_id'   => $_GET['task_id'],
+            'user_id'   => $_GET['userId'],
+        ]);
+        $s->save();
+
+
+        return $task;
+    }
+    public function deleteStatus(){
+        $id=$_GET['id'];
+        $status = Status::find($id);
+
+        $s = new Status([
+            'status'    => 'DeleteStatus',
+            'content'   => 'Status deleted: ' . $status->content . ' written by user: ' . $status->user_id . ' deleted by: ' . $_GET['user'],
+            'task_id'   => $status->task_id,
+            'user_id'   => $_GET['user'],
+        ]);
+        $status->delete();
+        $s->save();
     }
 }

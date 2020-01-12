@@ -1,9 +1,34 @@
 <template>
     <div>
+        <div class="d-flex justify-content-between">
+            <fin :user="this.user" v-if="role=='admin'" class="no-print"></fin>
+            <fin :user="this.user" v-if="role=='taskMan'" class="no-print"></fin>
+            <fin :user="this.user" v-if="role=='designer'" class="no-print"></fin>
+            <button class="btn btn-link text-info hvr-pop" :class="{'animated infinite heartBeat':helpFin}" type="button" @click.prevent="helpFin=!helpFin"><i class="fa fa-question-circle"></i></button>
+        </div>
+        <div v-if="helpFin" class="card card-info">
+            <div class="card-header">نحوه استفاده از سیستم مالی بخش طراحی</div>
+            <div class="card-body">
+                <ol>
+                    <li>هزینه خود را ثبت کنید</li>
+                    <li>بررسی کنید که ثبت شده باشد</li>
+                    <li>پرینت بگیرید</li>
+                    <li>بعد از دریافت تاییدهای لازم پرینت را به بخش مالی تحویل دهید</li>
+                    <li>بعد از پرداخت و ورود به حساب، عملیات را تایید کنید</li>
+                </ol>
+                <h5>آیا امکان ویرایش یا حذف وجود دارد؟</h5>
+                <ul>
+                    <li>ویرایش فقط تا زمانی ممکن است که سند به حسابداری تحویل نشده باشد</li>
+                </ul>
+                <ul><li>دقت فرمایید که بعضی از هزینه ها توسط واحد تولیدی صنعتی و بخشی دیگر توسط واحد حسابداری پرداخت خواهد شد.</li></ul>
+                <h5></h5>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button class="btn btn-secondary" @click.prevent="helpFin=false">بستن</button>
+            </div>
+        </div>
 
-        <fin :user="this.user" v-if="role=='admin'" class="no-print"></fin>
-        <fin :user="this.user" v-if="role=='taskMan'" class="no-print"></fin>
-        <fin :user="this.user" v-if="role=='designer'" class="no-print"></fin>
+
         <div class="position-fixed fixed-bottom bg-warning d-flex justify-content-center no-print" v-if="show&&role=='admin'">
             <div><button class="btn btn-link text-light" @click="show=!show"><i class="fa fa-close"></i></button></div>
             <div class="p-5 col-xl-5">
@@ -117,7 +142,7 @@
                 </transition>
             </div>
         </div>
-    <div class="row bg-dark">
+    <div class="row bg-dark" v-if="!helpFin">
 <!--<div class="d-flex justify-content-between col-12 no-print px-3 pt-3">-->
     <!--<div>-->
 
@@ -170,13 +195,17 @@
             <!--<input type="text" class="form-control" placeholder="موضوع یا توضیحات" disabled>-->
             <div class="input-group-append">
 
-                <button class="btn btn-outline-secondary" type="button"  @click="changeFinStatus"><i class="fa fa-search"></i></button>
+                <button class="btn btn-info" type="button"  @click="changeFinStatus"><i class="fa fa-search"></i></button>
+                <button class="btn btn-success" type="button"  @click="changeFinStatus"><i class="fa fa-refresh"></i></button>
+
             </div>
+
         </div>
 
 
 </div>
-<div class="d-flex justify-content-between no-print col-12  mb-3">
+
+        <div class="d-flex justify-content-between no-print col-12  mb-3">
     <div class="input-group input-group-sm col-lg-2 mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text">نمایش
@@ -271,7 +300,7 @@
                     <th scope="col">توضیحات</th>
                     <th scope="col">تصویر</th>
 <!--                    <th scope="col">وضعیت</th>-->
-                    <th scope="col"></th>
+                    <th scope="col">عملیات</th>
                 </tr>
                 </thead>
                 <tbody v-if="loop.all.length>0">
@@ -316,18 +345,41 @@
                         <!--<button class="btn btn-link text-white" @click="hideRow(index)"><i class="fa fa-eye-slash"></i></button>-->
                         <div class="btn-group" role="group">
 
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="edit(item.id,item.price,item.brand.title,item.brand.id,item.subject,item.content,item.acc_content,item.state,item.date,item.section)" v-if="role=='admin' && item.state<102 && item.state!=0"><i class="fa fa-check" v-if="role!='admin'"></i><i class="fa fa-edit" v-if="role=='admin'"></i></button>
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="edit(item.id,item.price,item.brand.title,item.brand.id,item.subject,item.content,item.acc_content,item.state,item.date,item.section)" v-if="item.state==0"><i class="fa fa-edit"></i></button>
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="check(item.id,item.section,item.state)" v-if="roleOn=='roleA'&&item.state==0">
-                            <i class="fa fa-arrow-left"></i> تایید تسلیم سند به حسابداری</button>
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="check(item.id,item.section,item.state)" v-if="roleOn=='roleA'&&item.state==102 || roleOn=='roleA'&&item.state==110 || roleOn=='roleA'&&item.state==120">
-                            <i class="fa fa-archive"></i> تایید پرداخت و آرشیو</button>
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="check(item.id,item.section,item.state)" v-if="roleOn=='roleA'&&item.state==10 || roleOn=='roleA'&&item.state==20">
-                            <i class="fa fa-check"></i> تایید دریافت سند نزد حسابداری</button>
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="check(item.id,item.section,item.state)" v-if="roleOn=='roleA'&&item.state==11 || roleOn=='roleA'&&item.state==21">
-                            <i class="fa fa-check"></i><i class="fa fa-check"></i> تایید پرداخت سند از حسابداری</button>
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="check(item.id,item.section,item.state)" v-if="roleOn=='roleC'&&item.state==100"><i class="fa fa-check"></i> تایید سند برای پرداخت</button>
-                        <button class="btn btn-outline-primary btn-sm" @click.prevent="check(item.id,item.section,item.state)" v-if="roleOn=='roleA'&&item.state==101"><i class="fa fa-check"></i> تایید بعنوان پرداخت شده</button>
+                        <button class="btn btn-outline-primary btn-sm"
+                                @click.prevent="edit(item.id,item.price,item.brand.title,item.brand.id,item.subject,item.content,item.acc_content,item.state,item.date,item.section)"
+                                v-if="role=='admin' && item.state<102 && item.state!=0">
+                            <i class="fa fa-check" v-if="role!='admin'"></i>
+                            <i class="fa fa-edit" v-if="role=='admin'"></i>
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm"
+                                @click.prevent="edit(item.id,item.price,item.brand.title,item.brand.id,item.subject,item.content,item.acc_content,item.state,item.date,item.section)"
+                                v-if="item.state==0&&roleOn=='roleA'">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm"
+                                @click.prevent="check(item.id,item.section,item.state)"
+                                v-if="roleOn=='roleA'&&item.state==0">
+                            <i class="fa fa-arrow-left"></i>تایید تسلیم سند به حسابداری</button>
+                        <button class="btn btn-outline-primary btn-sm"
+                                @click.prevent="check(item.id,item.section,item.state)"
+                                v-if="roleOn=='roleA'&&item.state==102 || roleOn=='roleA'&&item.state==110 || roleOn=='roleA'&&item.state==120">
+                            <i class="fa fa-archive"></i>تایید پرداخت و آرشیو</button>
+                        <button class="btn btn-outline-success btn-sm"
+                                @click.prevent="check(item.id,item.section,item.state)"
+                                v-if="roleOn=='roleB'&&item.state==10 || roleOn=='roleB'&&item.state==20">
+                            <i class="fa fa-check"></i> تایید دریافت در حسابداری</button>
+                        <button class="btn btn-success btn-sm"
+                                @click.prevent="check(item.id,item.section,item.state)"
+                                v-if="roleOn=='roleB'&&item.state==11 || roleOn=='roleB'&&item.state==21">
+                            <i class="fa fa-check"></i><i class="fa fa-check"></i> تایید پرداخت</button>
+                        <button class="btn btn-outline-primary btn-sm"
+                                @click.prevent="check(item.id,item.section,item.state)"
+                                v-if="roleOn=='roleC'&&item.state==100">
+                            <i class="fa fa-check"></i> تایید و ارجاع برای پرداخت</button>
+                        <button class="btn btn-outline-primary btn-sm"
+                                @click.prevent="check(item.id,item.section,item.state)"
+                                v-if="roleOn=='roleD'&&item.state==101">
+                            <i class="fa fa-check"></i> پرداخت شد</button>
                         </div>
                         <!--<small class="badge badge-dark">{{item.state}}</small>-->
                         <!--v-if="role=='admin' && item.state<100 || role=='admin' && item.state==102 || role=='finMan' && item.state==100 || role=='finance' && item.state==101"-->
@@ -389,6 +441,7 @@
                 finUser:null,
                 finBrands:null,
                 roleOn:'',
+                helpFin:false
 
             }
         },
@@ -396,14 +449,14 @@
             let url2 = '/api/allBrands';
             axios.get(url2).then(response => this.brands = response.data);
             this.fetch('all');
-            if (this.role=='admin'||this.role=='taskMan'||this.role=='designer') {
+            if (this.role==='admin'||this.role==='taskMan'||this.role==='designer') {
                 this.roleOn='roleA'
-            }else if(this.role=='khanghah'){
+            }else if(this.role==='finInd'){
                 this.roleOn='roleB'
-            }else if(this.role=='finMan'){
-                this.roleOn=='roleC'
-            }else if(this.role=='finance'){
-                this.roleOn=='roleD'
+            }else if(this.role==='finMan'){
+                this.roleOn='roleC'
+            }else if(this.role==='finance'){
+                this.roleOn='roleD'
             }
         },
         methods:{
@@ -466,11 +519,14 @@
                 );
             },
             check: function(id,sec){
-                let url = '/api/checkFin?role=' + this.roleOn + '&id=' + id + '&user=' + this.user + '&section=' + sec;
-                axios.get(url).then(
+                let x1 = confirm('آیا اطمینان دارید؟');
+                if(x1) {
 
-                    this.change(id)
-                );
+                    let url = '/api/checkFin?role=' + this.roleOn + '&id=' + id + '&user=' + this.user + '&section=' + sec;
+                    axios.get(url).then(
+                        this.change(id)
+                    );
+                }
             },
             deleteThis: function(){
                 let x1 = confirm('آیا از حذف این مورد اطمینان دارید؟');

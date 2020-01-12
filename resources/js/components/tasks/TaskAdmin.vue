@@ -2,123 +2,26 @@
     <div>
     <div class="d-flex justify-content-between">
         <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link pointer" @click="updateAll" title="درآمدها"><i class="fa fa-home"></i></a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link pointer" @click="showCost=!showCost" title="ستون درآمدها"><i class="fa fa-dollar"></i></a>
             </li>
-
-            <!--<li class="nav-item">-->
-                <!--<a class="nav-link pointer" @click="tasksShow=false">بر اساس فعالیت (50)</a>-->
-            <!--</li>-->
-            <!--<li class="nav-item">-->
-                <!--<a class="nav-link pointer" @click="tasksFetch">لیست کلی کارها</a>-->
-            <!--</li>-->
         </ul>
-        <ul class="nav" v-if="role==1">
-
+        <ul class="nav">
+            <li class="nav-item" v-if="role!=2">
+                <a class="nav-link pointer text-primary" @click="updateAll" title="کارها"><i class="fa fa-tasks"></i></a>
+            </li>
+        <li class="nav-item" v-if="role==1">
+            <a class="nav-link pointer text-muted" @click="loadMinus" title="کارهایی که درآمد به آنها تعلق نمی گیرد"><i class="fa fa-tasks"></i></a>
+        </li>
         <li class="nav-item">
-            <a class="nav-link pointer" @click="loadMinus" title="کارهایی که درآمد به آنها تعلق نمی گیرد"><i class="fa fa-tasks"></i></a>
+            <a class="nav-link pointer text-warning" @click="loadPayOk" title="کارهایی که تایید شده"><i class="fa fa-tasks"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link pointer text-success" @click="loadPaid" title="کارهایی که پرداخت شده"><i class="fa fa-tasks"></i></a>
         </li>
         </ul>
     </div>
-        <!--<table class="table table-sm table-responsiv w-100" v-if="!tasksShow">-->
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th>ID</th>-->
-                <!--<th>عنوان کار</th>-->
-                <!--<th>کاربر</th>-->
-                <!--<th>وضعیت جدید</th>-->
-                <!--<th v-if="showCost">درآمد</th>-->
-                <!--<th>عملیات</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody>-->
-            <!--<tr v-for="item in loop" :class="item.bg">-->
-                <!--<td>{{item.id}}</td>-->
-                <!--<td>{{item.task.id}}.{{item.task.title}}</td>-->
-                <!--<td>{{item.user.name}}</td>-->
-                <!--<td>{{item.statusFa}}</td>-->
-                <!--<td v-if="showCost">{{item.task.costc}}</td>-->
-                <!--<td>-->
-                    <!--<div class="btn-group" role="group" aria-label="Basic example">-->
-                        <!--<button class="btn btn-outline-secondary" @click="taEndFetch(item.task.id)" v-if="more">درآمد</button>-->
-                        <!--<a :href="'/tasks/'+item.task.id" class="btn btn-outline-success" target="_blank">مشاهده تسک</a>-->
-                    <!--</div>-->
-
-
-
-                <!--</td>-->
-                <!--&lt;!&ndash;<td v-else></td>&ndash;&gt;-->
-            <!--</tr>-->
-            <!--</tbody>-->
-
-        <!--</table>-->
-        <!--<table class="table table-sm table-responsiv w-100" v-if="tasksShow">-->
-
-            <!--<thead>-->
-            <!--<tr>-->
-                <!--<th></th>-->
-                <!--<th>-->
-                    <!--<input type="text" v-model="keyword" class="form-control" placeholder="جستجوی عنوان">-->
-
-                <!--</th>-->
-                <!--<th colspan="2"></th>-->
-
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<th>ID</th>-->
-                <!--<th>عنوان کار</th>-->
-                <!--<th v-if="showCost">درآمد</th>-->
-                <!--<th>عملیات</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody>-->
-            <!--<tr v-for="item in filteredList" :class="item.bg">-->
-                <!--<td>{{item.id}}</td>-->
-                <!--<td>{{item.title}}</td>-->
-                <!--<td v-if="showCost">-->
-                    <!--<button class="btn btn-outline-secondary btn-sm" @click="taEndFetch(item.id)" v-if="more"><i class="fa fa-cog"></i></button>-->
-                    <!--{{item.costc}}</td>-->
-                <!--<td>-->
-                    <!--<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">-->
-
-                    <!--&lt;!&ndash;<button class="btn btn-outline-secondary" @click="taEndFetch(item.id)" v-if="more"><i class="fa fa-cog"></i></button>&ndash;&gt;-->
-                    <!--<a :href="'/tasks/'+item.id" class="btn btn-outline-success" target="_blank"><i class="fa fa-eye"></i></a>-->
-                    <!--</div>-->
-
-                <!--</td>-->
-            <!--</tr>-->
-            <!--</tbody>-->
-
-        <!--</table>-->
-        <!--<table class="table table-sm table-responsiv w-100" v-if="tasksShow">-->
-
-
-        <sorted-table :values="values">
-            <thead>
-            <tr>
-                <th scope="col" style="text-align: left; width: 10rem;">
-                    <sort-link name="id">ID</sort-link>
-                </th>
-                <th scope="col" style="text-align: left; width: 10rem;">
-                    <sort-link name="name">Name</sort-link>
-                </th>
-                <th scope="col" style="text-align: left; width: 10rem;">
-                    <sort-link name="hits">Hits</sort-link>
-                </th>
-            </tr>
-            </thead>
-            <tbody slot="body" slot-scope="sort">
-            <tr v-for="value in sort.values" :key="value.id">
-                <td>{{ value.id }}</td>
-                <td>{{ value.name }}</td>
-                <td>{{ value.hits }}</td>
-            </tr>
-            </tbody>
-        </sorted-table>
-
 
 
         <input type="text" v-model="keyword" class="form-control" placeholder="جستجوی عنوان">
@@ -126,15 +29,7 @@
         <sorted-table :values="filteredList">
 
             <thead>
-            <!--<tr>-->
-                <!--<th></th>-->
-                <!--<th>-->
-                    <!--<input type="text" v-model="keyword" class="form-control" placeholder="جستجوی عنوان">-->
 
-                <!--</th>-->
-                <!--<th colspan="2"></th>-->
-
-            <!--</tr>-->
             <tr>
                 <th scope="col">
                     <sort-link name="id">ID</sort-link>
@@ -144,48 +39,46 @@
                     عنوان پروژه
                     </sort-link>
                 </th>
+                <th scope="col">
+                    <sort-link name="brand">
+                    برند
+                    </sort-link>
+                </th>
 
                 <th v-if="showCost" scope="col">
                     <sort-link name="cost">
                         <i class="fa fa-dollar"></i>
                     </sort-link>
                 </th>
-                <!--<th scope="col">-->
-                    <!--&lt;!&ndash;<sort-link name="title">&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;</sort-link>&ndash;&gt;-->
-                <!--</th>-->
             </tr>
             </thead>
 
                 <tbody slot="body" slot-scope="sort">
-            <tr v-for="value in sort.values" :class="value.bg" :key="value.id">
+            <tr v-for="value in sort.values" :key="value.id" :class="{'table-dark':value.cost==-1,'table-success':value.paid==1,'table-warning':value.payOK==1&&value.paid==0}">
                 <td>                    <a :href="'/tasks/'+value.id" class="" target="_blank">{{value.id}}</a>
                     </td>
                 <td>{{value.title}}</td>
+                <td>{{value.brand}}</td>
                 <td v-if="showCost">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example"  v-if="role==2 && value.payOK==1 && value.paid==0">
+                        <button class="btn btn-outline-warning" @click="paid(value.id)" v-if="more"><i class="fa fa-check"></i></button>
+                    </div>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example"  v-if="role==3 && value.payOK==0">
+                        <button class="btn btn-outline-success" @click="payOK(value.id)" v-if="more"><i class="fa fa-check"></i></button>
+                        <button class="btn btn-outline-warning" @click="taEndFetch(value.id)" v-if="more"><i class="fa fa-edit"></i></button>
+                    </div>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example"  v-if="role==1">
-
-                    <span v-if="value.cost>-1" class="btn btn-outline-danger" @click="costn=-1,taUpdateCostMinus(value.id)"><i class="fa fa-archive"></i></span>
-                    <button class="btn btn-outline-warning" @click="taEndFetch(value.id)" v-if="more"><i class="fa fa-edit"></i></button>
+                        <span v-if="value.cost>-1" class="btn btn-outline-danger" @click="costn=-1,taUpdateCostMinus(value.id)"><i class="fa fa-archive"></i></span>
+                        <button class="btn btn-outline-warning" @click="taEndFetch(value.id)" v-if="more"><i class="fa fa-edit"></i></button>
                     </div>
                     <span v-if="value.cost>-1">{{value.costc}}</span>
                     <span v-else>درآمدی ثبت نشده</span>
                 </td>
-                <!--<td>-->
-                    <!--<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">-->
-
-                    <!--&lt;!&ndash;<button class="btn btn-outline-secondary" @click="taEndFetch(item.id)" v-if="more"><i class="fa fa-cog"></i></button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<a :href="'/tasks/'+value.id" class="btn btn-outline-success" target="_blank"><i class="fa fa-eye"></i></a>&ndash;&gt;-->
-                    <!--</div>-->
-
-                <!--</td>-->
             </tr>
 
             </tbody>
             </sorted-table>
 
-        <!--</table>-->
         <div class="bg-dark p-3 w-100" style="bottom: 0;position: fixed;right: 0" v-if="showBox">
             <div class="card bg-dark">
                 <div class="card-header">
@@ -202,7 +95,6 @@
                     <div>
 
                         <button class="btn btn-sm btn-primary" @click="showForm=!showForm" v-if="!showForm">درج یا ویرایش درآمد</button>
-                    <!--<a :href="'/tasks/'+task.id" class="btn btn-outline-success btn-sm" target="_blank">مشاهده تسک</a>-->
                     </div>
                     <form class="form-inline" @submit.prevent="taUpdateCost(task.id)" v-if="showForm">
                         <div class="input-group input-group-sm mb-3">
@@ -246,14 +138,10 @@
                     return this.keyword.toLowerCase().split(' ').every(v => task.title.toLowerCase().includes(v));
                 });
             },
-            // sumCost(){
-            //     return this.tasksList.
-            // }
         },
         methods: {
 
             updateAll: function(){
-                // this.taFetch();
                 this.tasksFetch();
 
             },
@@ -271,27 +159,26 @@
                 let url = '/api/taskAdminAPI?taskId=' + task + '&cost=' + this.costn + '&userId=' + this.user.id;
                 axios.get(url).then(response => this.loop = response.data);
                 this.updateAll();
-                // this.showForm=false;
                 this.costn='';
-                // this.taEndFetch(task);
             },
-            // taFetch: function(){
-            //     console.log('Start');
-            //     let url = '/api/taskAdminAPI?userId=' + this.user.id;
-            //     axios.get(url).then(response => this.loop = response.data);
-            //     console.log('Done');
-            // },
             tasksFetch: function(){
                 console.log('Start Tasks');
-                let url = '/api/taskAdminAPI?tasks=1&userId=' + this.user.id;
+                let url = '/api/taskAdminAPI?tasks=1&userId=' + this.user.id + '&role=' + this.role;
                 axios.get(url).then(response => this.tasksList = response.data,
-                    // this.tasksShow=true
 
             );
                 console.log('Done');
             },
             loadMinus: function(){
                 let url = '/api/taskAdminAPI?minus=1&tasks=1&userId=' + this.user.id;
+                axios.get(url).then(response => this.tasksList = response.data,);
+            },
+            loadPayOk: function(){
+                let url = '/api/taskAdminAPI?payOk=1&tasks=1&userId=' + this.user.id;
+                axios.get(url).then(response => this.tasksList = response.data,);
+            },
+            loadPaid: function(){
+                let url = '/api/taskAdminAPI?paid=1&tasks=1&userId=' + this.user.id;
                 axios.get(url).then(response => this.tasksList = response.data,);
             },
             taEndFetch: function(t){
@@ -302,6 +189,20 @@
                 this.showBox=true;
                 this.more=false;
                 console.log('Done');
+            },
+
+            paid: function(t){
+                let url = '/api/taskAccAdminAPI?acc=2&task_id=' + t + '&userId=' + this.user.id;
+                axios.get(url).then(response => this.task = response.data);
+                this.updateAll();
+
+            },
+
+            payOK: function(t){
+                let url = '/api/taskAccAdminAPI?acc=1&task_id=' + t + '&userId=' + this.user.id;
+                axios.get(url).then(response => this.task = response.data);
+                this.updateAll();
+
             },
 
         },

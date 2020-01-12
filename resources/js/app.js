@@ -5,6 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 // import AutoNumeric from 'autonumeric';
+import Vue from 'vue';
 
 require('./bootstrap');
 
@@ -17,6 +18,7 @@ import VueMoment from 'vue-moment'
 // })
 window.vSelect = require('vue-select');
 import 'vue-select/dist/vue-select.css';
+
 // import VueRandomColor from 'vue-randomcolor';
 //
 // Vue.use(VueRandomColor);
@@ -30,6 +32,23 @@ import 'vue-select/dist/vue-select.css';
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 import SortedTablePlugin from "vue-sorted-table";
+
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+// Install BootstrapVue
+Vue.use(BootstrapVue);
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin);
+// app.js
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+
+import Vuetify from 'vuetify/lib';
+
+Vue.use(Vuetify);
+
+const opts = {};
+
+export default new Vuetify(opts);
 
 Vue.use(SortedTablePlugin);
 // const files = require.context('./', true, /\.vue$/i)
@@ -77,6 +96,14 @@ Vue.component('task-admin',            require('./components/tasks/TaskAdmin').d
 
 //ChatBox
 Vue.component('chatbox',            require('./components/chatbox/chatbox').default);
+
+
+//Press
+Vue.component('press',            require('./components/press/press').default);
+
+
+//Main
+Vue.component('home',            require('./components/main/home').default);
 
 
 

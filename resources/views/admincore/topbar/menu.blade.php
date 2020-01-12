@@ -59,30 +59,30 @@
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/tools/intercom" class="nav-link">داخلی ها</a>
     </li>
-    @hasanyrole('admin|finMan|finance|taskMan|designer')
+    @hasanyrole('admin|finMan|finance|taskMan|designer|finInd')
     <li class="nav-item d-none d-sm-inline-block">
         <a href="/tools/fin" class="nav-link">مدیریت هزینه</a>
     </li>
     @endhasanyrole
 
-    @hasanyrole('admin')
+    @hasanyrole('admin|finance|modir|finMan')
     <li class="nav-item d-none d-sm-inline-block">
-    <a class="nav-link" href="/finance" target="_blank">مالی</a>
+    <a class="nav-link" href="/task-admin">مالی</a>
     </li>
 
     @endhasanyrole
-    @hasanyrole('finance')
-    <li class="nav-item d-none d-sm-inline-block">
+    {{--@hasanyrole('finance')--}}
+    {{--<li class="nav-item d-none d-sm-inline-block">--}}
 
-    <a class="nav-link" href="/finance-final" target="_blank">مالی</a>
-    </li>
+    {{--<a class="nav-link" href="/finance-final" target="_blank">مالی</a>--}}
+    {{--</li>--}}
 
-    @endhasanyrole
-    @hasanyrole('modir')
-    <li class="nav-item d-none d-sm-inline-block">
+    {{--@endhasanyrole--}}
+    {{--@hasanyrole('modir')--}}
+    {{--<li class="nav-item d-none d-sm-inline-block">--}}
 
-    <a class="nav-link" href="/finance-check" target="_blank">مالی</a>
-    </li>
+    {{--<a class="nav-link" href="/finance-check" target="_blank">مالی</a>--}}
+    {{--</li>--}}
 
-    @endhasanyrole
+    {{--@endhasanyrole--}}
 </ul>

@@ -738,8 +738,12 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $users = User::whereIn('id',$ids)->orderBy('sort','asc')->get();
        // $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
         $order = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$id)->where('isDone',0)->whereIn('lastStatus',[0,1,2])->orderBy('order_column','asc')->get();
+        foreach ($users as $key => $loop) {
+            $loop->count = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$loop->id)->where('isDone',0)->whereIn('lastStatus',[0,1,2])->orderBy('order_column','asc')->count();
 
-        //        $orderTasks =
+        }
+
+            //        $orderTasks =
 //        $orderUsers = TaskOrderUser::where('user_id',$id)->orderBy('order_column','asc')->get();
 //        $order = TaskOrderUser::where('user_id',$id)->get();
 //        foreach($order as $k => $v) {

@@ -66,12 +66,12 @@
                                 <div class="form-group col-md">
                                     <label for="brand">مربوط به بخش</label>
                                     <select class="form-control" id="section" v-model="section" name="section" required>
-                                        <optgroup label="_________ جاری">
+                                        <optgroup label="_________ جاری علی معاش">
 
                                         <option value="1">تامین ملزومات مثل منگنه و...</option>
                                         <option value="1">مربوط به سفارشاتی که از بیرون از شرکت دریافت شده</option>
                                         </optgroup>
-                                        <optgroup label="_________ حسابداری">
+                                        <optgroup label="_________ حسابداری حیدر خانقاه">
 
                                         <option value="2">برس ونوس</option>
                                         <option value="2">آدامس الدر</option>
@@ -83,7 +83,7 @@
                                         <option value="2">تولیدی مفید دارو</option>
                                         <option value="2">تولیدی خلیلی</option>
                                         </optgroup>
-                                        <optgroup label="_________ تولیدی صنعتی">
+                                        <optgroup label="_________ تولیدی صنعتی حیدر خانقاه">
                                             <option value="3">مرتبط به مایا</option>
                                             <option value="3">گوش پاک کن و خلال با نخ لیو</option>
                                             <option value="3">پوشاک مایا</option>

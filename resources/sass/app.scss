@@ -1,4 +1,3 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
@@ -7,7 +6,45 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "~hover.css/scss/hover";
+@import "~animate.css/animate.min.css";
+//@import "~vazir-font-farsi-number/dist/font-face.css";
+//@import "~vazir-font-farsi-number/dist/iranyekan/font-face.css";
+//@import "~fonts/fonts.css";
+//*{
+//    font-family: 'iranyekanwebregular','IRANSansWeb', sans-serif;
+//}
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.a-h-50{
+    height: 50px
+}
+.a-img-100{
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;}
+.a-img-50{
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.a-circle{
+    border-radius: 50%;
+}
+.a-round{
+    border-radius: 40px;
+}
+.a-bubble{
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border-top-right-radius: 0px;
+}
+.a-min-w{
+    min-width: 700px;
+}
+.a-pointer{
+    cursor: pointer;
 }

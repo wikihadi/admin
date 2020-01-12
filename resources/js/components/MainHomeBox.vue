@@ -16,7 +16,7 @@
 <!--                        SEARCH BAR-------------------------------------------------------------------------------->
                         <transition name="fade">
                         <div  v-if="!minimize" class="row justify-content-center mt-3">
-                            <div class="col-md-8">
+                            <div class="col-md-4">
                                 <form @submit.prevent="searchTasks(),isShow=-1">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control form-control-sm" placeholder="جستجوی کارها..." v-model="searchValue" @keyup.prevent="searchTasks(),isShow=-1" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
@@ -52,17 +52,22 @@
 <!--                            <div class="mx-1"></div>-->
 
                          <div class="d-flex align-items-start">
-                                <button type="button" class="btn btn-sm btn-dark"
+                                <button type="button" class="btn btn-sm btn-dark hvr-pop"
                                         :class="{'text-light':activeTab === 1,'text-muted':activeTab !== 1}"
                                         @click.prevent="tasks='',fetchTasks('lastStatus','=',0,'order_column','asc'),commentFetch(),title='کارهای در انتظار',activeTab=1,isShow=3,loading=true">
 <!--                                    <i :class="{'fa fa-circle':activeTab === 1,'fa fa-circle-o':activeTab !== 1}"></i>-->
                                     در انتظار</button>
 <!--                                <button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
-<!--                                <button type="button"  class="btn btn-sm btn-dark"-->
-<!--                                        :class="{'text-light':activeTab === 7,'text-muted':activeTab !== 7}"-->
-<!--                                        @click.prevent="fetchTasks('lastStatus','=',4,'order_column','asc'),commentFetch(),title='معلق',activeTab=7,isShow=8">-->
-<!--                                    <i :class="{'fa fa-circle':activeTab === 7,'fa fa-circle-o':activeTab !== 7}"></i> معلق</button>-->
-<!--                                <button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
+                                <!--<button type="button"  class="btn btn-sm btn-dark"-->
+                                        <!--:class="{'text-light':activeTab === 7,'text-muted':activeTab !== 7}"-->
+                                        <!--@click.prevent="fetchTasks('lastStatus','=',4,'order_column','asc'),commentFetch(),title='معلق',activeTab=7,isShow=8">-->
+                                    <!--&lt;!&ndash;<i :class="{'fa fa-circle':activeTab === 7,'fa fa-circle-o':activeTab !== 7}"></i>&ndash;&gt;-->
+                                    <!--معلق</button>-->
+                                <!--<button class="btn btn-dark btn-sm d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
+                             <button type="button"  class="btn btn-sm btn-dark hvr-pop"
+                                     :class="{'text-light':activeTab === 7,'text-muted':activeTab !== 7}"
+                                     @click.prevent="fetchTasks('lastStatus','=',4,'order_column','asc'),commentFetch(),title='معلق',activeTab=7,isShow=8">
+                                 معلق</button>
                                 <div class=" border-secondary border d-flex flex-column mb-5" style="border-radius:0.25rem">
                                 <div class="btn-group flex-wrap">
                                     <button type="button" :class="{'active text-light':activeTab === 0,'text-muted':activeTab !== 0}" class="btn btn-sm btn-dark" @click.prevent="fetchRoutine(),loading=true">
@@ -70,7 +75,7 @@
                                         روتین</button>
 
 
-                                <button type="button"  class="btn btn-sm btn-dark"
+                                <button type="button"  class="btn btn-sm btn-dark hvr-pop"
                                         :class="{'text-light':activeTab === 2,'text-muted':activeTab !== 2}"
                                         @click.prevent="fetchCurrentTasks()">
 <!--                                    <i :class="{'fa fa-circle':activeTab === 2,'fa fa-circle-o':activeTab !== 2}"></i>-->
@@ -85,19 +90,20 @@
                                             @click.prevent="mainLine">خط زمان</button>
                                 </div>
 
-                                <button type="button"  class=" btn-sm btn btn-dark"
-                                        :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}"
-                                        @click.prevent="fetchTasks('lastStatus','=',5,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5,loading=true">
-<!--                                    <i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 3}"></i>-->
-                                    پیگیری</button>
-<!--                                <button class="btn  btn-sm  btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
-                                <button type="button"  class=" btn-sm btn btn-dark"
-                                        :class="{'text-light':activeTab === 4,'text-muted':activeTab !== 4}"
-                                        @click.prevent="fetchTasks('lastStatus','=',6,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6,loading=true">
-<!--                                    <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i>-->
-                                    چاپ</button>
 
-                             <button type="button"  class=" btn-sm btn btn-dark"
+<!--                                <button class="btn  btn-sm  btn-dark d-none d-md-block" type="button" disabled><i class="fa fa-angle-double-left text-muted"></i></button>-->
+                                <!--<button type="button"  class=" btn-sm btn btn-dark"-->
+                                        <!--:class="{'text-light':activeTab === 4,'text-muted':activeTab !== 4}"-->
+                                        <!--@click.prevent="fetchTasks('lastStatus','=',6,'order_column','asc'),commentFetch(),title='چاپ',activeTab=4,isShow=6,loading=true">-->
+<!--&lt;!&ndash;                                    <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i>&ndash;&gt;-->
+                                    <!--چاپ</button>-->
+
+                             <button type="button"  class=" btn-sm btn btn-dark hvr-pop"
+                                     :class="{'text-light':activeTab === 3,'text-muted':activeTab !== 3}"
+                                     @click.prevent="fetchTasks('lastStatus','=',5,'order_column','asc'),commentFetch(),title='پیگیری',activeTab=3,isShow=5,loading=true">
+                                 <!--                                    <i :class="{'fa fa-circle':activeTab === 3,'fa fa-circle-o':activeTab !== 3}"></i>-->
+                                 پیگیری</button>
+                             <button type="button"  class=" btn-sm btn btn-dark hvr-pop"
                                         :class="{'text-light':activeTab === 5,'text-muted':activeTab !== 5}"
                                         @click.prevent="fetchTasks('lastStatus','=',3,'updated_at','desc'),commentFetch(),title='آرشیو',activeTab=5,isShow=7,loading=true">
 <!--                                    <i :class="{'fa fa-circle':activeTab === 4,'fa fa-circle-o':activeTab !== 4}"></i>-->
@@ -634,13 +640,13 @@
                                             </div>
                                             <div>
                                                 <span class="badge-secondary badge" title="زمان مجموع صرف شده" v-if="item.time>0">{{item.time}} دقیقه</span>
-                                                <small title="شروع یا ادامه کار" class="pointer text-dark" @click.prevent="playTask(item.task.id,item.id,item.routine)" v-if="item.lastStatus !== 3 || item.lastStatus !== 2"><i class="fa fa-play text-success mx-2 pointer"></i> شروع کار</small>
+                                                <small title="شروع یا ادامه کار" class="pointer text-dark hvr-pop" @click.prevent="playTask(item.task.id,item.id,item.routine)" v-if="item.lastStatus !== 3 || item.lastStatus !== 2"><i class="fa fa-play text-success mx-2 pointer"></i> شروع کار</small>
 
-                                                <a  class="text-muted" :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link ml-1 text-dark" ></i> <small class="text-dark">مشاهده</small></a>
-                                                <a  class="text-muted" :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1 text-dark"></i> <small class="text-dark">ویرایش</small></a>
+                                                <a  class="text-muted hvr-pop" :href="'/tasks/' + item.task.id" target="_blank" title="مشاهده"><i class="fa fa-link ml-1 text-dark" ></i> <small class="text-dark">مشاهده</small></a>
+                                                <a  class="text-muted hvr-pop" :href="'/tasks/' + item.task.id + '/edit'" target="_blank" title="ویرایش"><i class="fa fa-edit ml-1 text-dark"></i> <small class="text-dark">ویرایش</small></a>
                                                 <span class="bg-secondary bulb mr-3">
-                                                    <a title="Share on Whatsapp" data-toggle="tooltip" target="_blank" :href="'https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: ' + item.task.title + ' http://i.sadiq-co.com/tasks/'+ item.task.id" class="mx-2 "><i class="fa fa-whatsapp text-light"></i></a>
-                                                    <a title="Share on Telegram" data-toggle="tooltip" target="_blank" :href="'https://telegram.me/share/url?url=http://i.sadiq-co.com/tasks/' + item.task.id + '&text=Please Check this Task on SADIQ: ' + item.task.title" class="mx-2 "><i class="fa fa-telegram text-light"></i></a>
+                                                    <a title="Share on Whatsapp" data-toggle="tooltip" target="_blank" :href="'https://api.whatsapp.com/send?phone=whatsappphonenumber&text=Please Check this Task on SADIQ: ' + item.task.title + ' http://tirouzh.com/tasks/'+ item.task.id" class="mx-2  hvr-pop"><i class="fa fa-whatsapp text-light"></i></a>
+                                                    <a title="Share on Telegram" data-toggle="tooltip" target="_blank" :href="'https://telegram.me/share/url?url=http://tirouzh.com/tasks/' + item.task.id + '&text=Please Check this Task on SADIQ: ' + item.task.title" class="mx-2  hvr-pop"><i class="fa fa-telegram text-light"></i></a>
                                                 </span>
 <!--                                                <i title="شروع یا ادامه کار" class="fa fa-play text-success mx-2 pointer" @click.prevent="newStatus('شروع کار','start',item.task.id,item.id,item.routine)" v-if="item.lastStatus < 2"></i>-->
                                         </div></div>
@@ -659,9 +665,9 @@
                                                         <div class="input-group">
                                                         </div>
                                                         <div class="input-group">
-                                                            <button class="btn btn-link text-success" @click.prevent="toggleForm=!toggleForm"><i class="fa fa-link"></i></button>
+                                                            <span class="btn btn-link text-success" @click.prevent="toggleForm=!toggleForm"><i class="fa fa-link"></i></span>
                                                             <input type="text" name="content" v-model="content" class="form-control" placeholder="ثبت نظر...">
-                                                            <div class="input-group-append"><button type="submit" class="btn btn-success"><i class="fa fa-arrow-down"></i></button></div>
+                                                            <div class="input-group-append"><button type="submit" class="btn btn-success"><i class="fa fa-arrow-down hvr-sink"></i></button></div>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -673,7 +679,6 @@
                                                     <div class="form-group">
                                                         <div class="input-group">
                                                         </div>
-
                                                         <div class="input-group">
                                                             <button class="btn btn-link text-danger" @click.prevent="toggleForm=!toggleForm"><i class="fa fa-unlink"></i></button>
                                                             <input type="file" name="pic" class="form-control" required>
@@ -682,7 +687,6 @@
                                                             <div class="input-group-append"><button type="submit" class="btn btn-success"><i class="fa fa-arrow-down"></i></button></div>
                                                         </div>
                                                         <small class="text-info">فقط تصویر - حداکثر 5000 کیلوبایت - فرمت JPG و GIF</small>
-
                                                     </div>
                                                 </form>
 
@@ -692,8 +696,12 @@
                                                             <div><img :src="'/storage/avatars/' + comment.user.avatar" :alt="comment.user.name" class="img-circle" style="width: 20px;"> <small class="text-dark">{{comment.user.name}}</small></div>
 
                                                             <div class="">
+                                                                <div class="btn-group" v-if="comment.user_id===user&&comment.diffM<=5">
+                                                                        <!--<span class="btn btn-sm btn-link"><i class="fa fa-edit text-warning"></i></span>-->
+                                                                        <span class="btn btn-sm btn-link" @click="deleteStatus(comment.id,item.task.id)"><i class="fa fa-trash text-danger"></i></span>
+                                                                </div>
                                                                 <small class="text-muted">{{comment.diff}}</small>
-                                                                <i class="fa fa-ellipsis-v text-secondary"></i>
+
                                                             </div>
                                                         </div>
                                                         <div class="pr-4">
@@ -704,46 +712,54 @@
 
                                                         </div>
                                                     </div>
-                                                    <a :href="'/tasks/' + item.task.id" class="text-dark" v-if="item.task.commentCount > 0"><div class="card-footer text-dark text-center">
+                                                    <!--<a :href="'/tasks/' + item.task.id" class="text-dark" v-if="item.task.commentCount > 0"><div class="card-footer text-dark text-center">-->
 
-                                                            <p class="text-dark">  جهت مشاهده تمام نظرات این کار، اینجا کلیک کنید</p>
-                                                        <i class="fa fa-comments fa-3x text-dark"></i>
-                                                    </div></a>
+                                                            <!--<p class="text-dark">  جهت مشاهده تمام نظرات این کار، اینجا کلیک کنید</p>-->
+                                                        <!--<i class="fa fa-comments fa-3x text-dark"></i>-->
+                                                    <!--</div></a>-->
                                                 </div>
                                             </div>
                                             <div class="col-xl-3 bg-light">
-                                                <checklist :user="user" :task="item.task_id"></checklist>
+                                                <!--<checklist :user="user" :task="item.task_id"></checklist>-->
 
                                             </div>
                                         </div>
                                         <div class="d-flex w-100 justify-content-end">
-                                            <div class="">
-                                                <transition name="fade"><span class="badge badge-dark" v-if="showTips == item.id">{{showTipsTitle}}</span></transition>
+                                            <div class="text-dark">
+                                                <transition name="fade"><span class="badge badge-info" v-if="showTips == item.id">{{showTipsTitle}}</span></transition>
 
-                                                <i class="fa fa-flag-checkered text-secondary mx-2 pointer hvr-bob"
-                                                   @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش چاپ'"
-                                                   @mouseleave="showTips = false"
-                                                   @click.prevent="newStatus('انتقال به بخش چاپ ' + item.task.title,'print',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 5"
-                                                ></i>
-                                                <i class="fa fa-flag-o text-secondary mx-2 pointer hvr-bob"
-                                                   @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش پیگیری'"
-                                                   @mouseleave="showTips = false"
-                                                   @click.prevent="newStatus('انتقال به بخش پیگیری ' + item.task.title,'follow',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 6"
-                                                ></i>
-                                                <i class="fa fa-puzzle-piece text-secondary mx-2 pointer hvr-bob"
-                                                   @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش معلق'"
-                                                   @mouseleave="showTips = false"
-                                                   @click.prevent="newStatus('انتقال به بخش معلق ' + item.task.title,'pending',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5"
-                                                ></i>
-                                                <i class="fa fa-stop text-secondary mx-2 pointer hvr-bob"
-                                                   @mouseover="showTips = item.id,showTipsTitle='اعلام پایان کار'"
-                                                   @mouseleave="showTips = false"
-                                                   @click.prevent="newStatus('اعلام پایان کار ' + item.task.title,'end',item.task.id,item.routine)"
-                                                   v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5"
-                                                ></i>
+                                                <!--<i class="fa fa-flag-checkered text-secondary mx-2 pointer hvr-bob"-->
+                                                   <!--@mouseover="showTips = item.id,showTipsTitle='انتقال به بخش چاپ'"-->
+                                                   <!--@mouseleave="showTips = false"-->
+                                                   <!--@click.prevent="newStatus('انتقال به بخش چاپ ' + item.task.title,'print',item.task.id,item.routine)"-->
+                                                   <!--v-if="item.lastStatus <= 2 || item.lastStatus == 5"-->
+                                                <!--&gt;</i>-->
+                                                <span
+                                                    @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش پیگیری'"
+                                                    @mouseleave="showTips = false"
+                                                    @click.prevent="newStatus('انتقال به بخش پیگیری ' + item.task.title,'follow',item.task.id,item.routine)"
+                                                    v-if="item.lastStatus <= 2 || item.lastStatus == 6"
+                                                    class=" text-secondary mx-2 pointer hvr-pop"
+                                                >
+                                                <i class="fa fa-flag-o"
+                                                ></i> پیگیری</span>
+                                                <span class=" mx-2 pointer hvr-pop"
+                                                      @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش معلق'"
+                                                      @mouseleave="showTips = false"
+                                                      @click.prevent="newStatus('انتقال به بخش معلق ' + item.task.title,'pending',item.task.id,item.routine)"
+                                                      v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5">
+                                                <i class="fa fa-puzzle-piece text-secondary"
+
+                                                ></i> معلق</span>
+                                                <span class=" text-secondary mx-2 pointer hvr-pop"
+                                                      @mouseover="showTips = item.id,showTipsTitle='اعلام پایان کار'"
+                                                      @mouseleave="showTips = false"
+                                                      @click.prevent="newStatus('اعلام پایان کار ' + item.task.title,'end',item.task.id,item.routine)"
+                                                      v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5"
+                                                >
+                                                <i class="fa fa-stop"
+
+                                                ></i> پایان کار</span>
 <!--                                                <i class="fa fa-recycle text-secondary mx-2 pointer hvr-bob"-->
 <!--                                                   @mouseover="showTips = item.id,showTipsTitle='برگشت از پایان کار'"-->
 <!--                                                   @mouseleave="showTips = false"-->
@@ -769,6 +785,8 @@
                     <!--<fin :user="this.user"></fin>-->
                 </div>
             </div>
+            <!--<vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>-->
+
         </div>
 </template>
 
@@ -776,10 +794,21 @@
 
     import ZoomCenterTransition from "vue2-transitions/src/Zoom/ZoomCenterTransition";
     import ZoomUpTransition from "vue2-transitions/src/Zoom/ZoomUpTransition";
+    // import vue2Dropzone from 'vue2-dropzone';
+    // import 'vue2-dropzone/dist/vue2Dropzone.min.css';
     export default {
+        components: {
+            // vueDropzone: vue2Dropzone
+        },
         props:['user','users'],
         data(){
             return{
+                // dropzoneOptions: {
+                //     url: 'https://httpbin.org/post',
+                //     thumbnailWidth: 150,
+                //     maxFilesize: 0.5,
+                //     headers: { "My-Awesome-Header": "header value" }
+                // },
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 toggleForm:true,
                 selectedTask:'',
@@ -1138,6 +1167,9 @@
                 }else{
                     // this.fetchCurrentTasks;
                     this.myboxFetchMain(this.day);
+                    this.alerting(task_id + ' با موفقیت ثبت شد');
+                    this.fetchCurrentTasks();
+
                 }
 
 
@@ -1238,6 +1270,15 @@
                     response => this.tasks = response.data,
                     );
             },
+            deleteStatus: function (id,task_id) {
+                this.xdel=confirm('آیا از حذف اطمینان دارید؟');
+                if (this.xdel) {
+                    let url = 'api/deleteStatus?user=' + this.user + '&id=' + id;
+
+                    axios.get(url);
+                    this.commentFetchAfterComment(task_id);
+                }
+            }
         }
 
     }

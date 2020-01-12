@@ -62,6 +62,7 @@ Route::get('fetchMyTasksLastComments','StatusController@fetchMyTasksLastComments
 Route::post('finFormSubmit','ServiceController@finFormSubmit');
 Route::post('formSubmit','ServiceController@formSubmit');
 Route::get('updateFin','FinController@updateFin');
+Route::get('deleteStatus','StatusController@deleteStatus');
 
 //Chatbox
 Route::get('fetchUsersChatbox','StatusController@fetchUsersChatbox');
@@ -74,9 +75,15 @@ Route::get('resellerFetchTasks','ResellerController@resellerFetchTasks');
 //task-admin
 Route::get('taskAdminAPI','StatusController@taskAdminAPI');
 Route::get('taskEndAdminAPI','StatusController@taskEndAdminAPI');
+Route::get('taskAccAdminAPI','StatusController@taskAccAdminAPI');
 Route::get('costSum','StatusController@costSum');
 
-
+//Press
+Route::post('addPress','PressController@addPress');
+Route::get('fetchPress','PressController@fetchPress');
+Route::get('pressDel','PressController@pressDel');
+Route::get('addOptionPress','PressController@addOptionPress');
+Route::get('fetchOptions','PressController@fetchOptions');
 
 
 //Services Apis

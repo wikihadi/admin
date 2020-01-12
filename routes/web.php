@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 
 
@@ -35,13 +36,14 @@ Route::group(['middleware' => ['auth']], function() {
 //       return 'Done';
 //    });
 
-        Route::group(['middleware' => ['offUser']], function () {
+//        Route::group(['middleware' => ['offUser']], function () {
             Route::post('verify/{post}', 'PostController@verifyPost');
     //        Route::resource('media', 'MediaController');
             Route::resource('posts', 'PostController');
             Route::resource('gallery', 'GalleryController');
 
 
+            Route::resource('press', 'PressController');
             Route::get('/request', 'TaskController@request');
             Route::post('/request', 'TaskController@requestPost');
             Route::get('/profile', 'ProfileController@profile');
@@ -49,6 +51,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::get('/tools/lunch', 'ServiceController@lunch');
             Route::post('/lunch/add', 'ServiceController@addFood');
 
+            Route::get('task-admin', 'TaskController@taskAdmin');
 
 //            Route::view('/tools/fin', 'fin.main');
             Route::get('/tools/fin', 'FinController@main');
@@ -61,7 +64,7 @@ Route::group(['middleware' => ['auth']], function() {
             Route::resource('tasks', 'TaskController');
 
 
-            Route::group(['middleware' => ['role:modir|admin|chairman|taskMan']], function () {
+            Route::group(['middleware' => ['role:modir|admin|chairman|taskMan|rd']], function () {
 
                 Route::get('finance-check', 'TaskController@finance1');
 
@@ -96,7 +99,6 @@ Route::group(['middleware' => ['auth']], function() {
 
                 Route::get('admin/tasks', 'TaskController@adminIndex');
                 Route::get('finance', 'TaskController@finance');
-                Route::get('task-admin', 'TaskController@taskAdmin');
                 Route::post('/financeUpdate/{id}', 'TaskController@financeUpdate')->name('tasks.financeUpdate');
 
 
@@ -120,7 +122,7 @@ Route::group(['middleware' => ['auth']], function() {
             });
 
 
-        });
+//        });
     });
 });
 

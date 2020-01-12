@@ -21,6 +21,7 @@ class CreateTaskOrderUsersTable extends Migration
             $table->integer('isDone')->default(0);
             $table->integer('routine')->default(0);
             $table->string('lastStatus')->nullable()->default(0);
+            $table->dateTime('endDatetime')->nullable();
             $table->timestamps();
         });
     }
