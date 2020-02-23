@@ -67,6 +67,9 @@ Route::group(['middleware' => ['auth']], function() {
 
             Route::resource('tasks', 'TaskController');
 
+        Route::group(['middleware' => ['role:admin|modir']], function () {
+            Route::get('/jobs/all', 'TaskController@modirTaskAll');
+        });
 
             Route::group(['middleware' => ['role:modir|admin|chairman|taskMan|rd']], function () {
 
@@ -77,7 +80,6 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::get('/jobs', 'TaskController@modir');
                 Route::put('/jobs/updateAll','TaskOrderUserController@updateAll')->name('tasks.updateAll');
                 Route::get('/jobs/updateRoutine/{id}','TaskOrderUserController@updateRoutine')->name('tasks.updateRoutine');
-                Route::get('/jobs/all', 'TaskController@modirTaskAll');
                 Route::get('/jobs/{id}', 'TaskController@modirUser');
                 Route::get('/jobs/{id}/print', 'TaskController@modirUserPrint');
                 Route::resource('taskorderusers', 'TaskOrderUserController');
@@ -101,7 +103,6 @@ Route::group(['middleware' => ['auth']], function() {
 
 
             Route::group(['middleware' => ['role:admin|modir']], function () {
-
                 Route::get('admin/tasks', 'TaskController@adminIndex');
                 Route::get('finance', 'TaskController@finance');
                 Route::post('/financeUpdate/{id}', 'TaskController@financeUpdate')->name('tasks.financeUpdate');

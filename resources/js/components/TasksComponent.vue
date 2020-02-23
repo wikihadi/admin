@@ -68,7 +68,7 @@
 
 
 
-<div  v-if="role==0">
+<div  v-if="role==0"  class="d-flex">
                         <div class="mx-1 hvr-grow" >
                             <a :href="'/jobs/updateRoutine/' + ord.id">
                                 <i class="fa fa-bars" data-toggle="tooltip" title="TASK" v-if="ord.routine === 0"></i>

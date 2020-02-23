@@ -31,6 +31,10 @@ class Task extends Model
         {
             return $this->hasMany('App\TaskOrderUser','id','task_id');
         }
+     public function lastStatusAllUser()
+        {
+            return $this->hasMany('App\TaskOrderUser','task_id','id');
+        }
 
 
     public function lastStatusUser($user_id)

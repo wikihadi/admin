@@ -836,17 +836,17 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $user = User::find(Auth::id());
         $ids=[2,1,3,4,6,7,9,10,22,28,30];
         $users = User::whereIn('id',$ids)->orderBy('sort','asc')->get();
-       // $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
-        $order = TaskOrderUser::with('task')->whereHas('task')->where('user_id',Auth::id())->where('isDone',0)->whereIn('lastStatus',[0,1,2,4,5])->orderBy('order_column','asc')->get();
+//        $order = TaskOrderUser::with('task')->whereHas('task')->where('user_id',Auth::id())->where('isDone',0)->whereIn('lastStatus',[0,1,2,4,5])->orderBy('order_column','asc')->get();
         foreach ($users as $key => $loop) {
             $loop->count = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$loop->id)->where('isDone',0)->whereIn('lastStatus',[0,1,2,4,5])->orderBy('order_column','asc')->count();
 
         }
+        $tasks = Task::where('isDone','!=',1)->orderBy('orderTask','asc')->latest()->with('userOrder','lastStatusAllUser')->get();
 
-        $title = $user->name;
+        $title = 'all';
 
-        $titleOfPage = 'کارهای'. ' ' . $user->name;
-        $linked = 'jobs';
+        $titleOfPage = 'کارها';
+        $linked = 'jobs/all';
 
 
         $statuses = Status::with('user')->orderBy('created_at','DESC')->get();
@@ -859,8 +859,9 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         }
         $lastStartedStatus = Status::with('user')->where('user_id',Auth::id())->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
         $userLastStatus = $user->lastStatusUser()->orderBy('updated_at','desc')->first();
-     return view('tasks.modirAll', compact('lastStatus','userLastStatus','lastStartedStatus','statusesToMe','statuses','myTasksStatus','usersStatus','users','user','title','usersInTasks','linked','titleOfPage','linked','order'));
+     return view('tasks.modirAll', compact('tasks','lastStatus','userLastStatus','lastStartedStatus','statusesToMe','statuses','myTasksStatus','usersStatus','users','user','title','usersInTasks','linked','titleOfPage','linked'));
     }
+
     public function modirUserPrint($id)
     {
         $today = Verta::now(); //1396-03-02 00:00:00

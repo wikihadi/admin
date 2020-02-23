@@ -1,81 +1,76 @@
 <template>
+    <div>
+        <span class="badge badge-dark badge-pill">{{orderNew.length}}</span>
+
+        <!--<div class="mx-1 hvr-grow" @click="all">-->
+            <!--<i class="fa fa-archive" data-toggle="tooltip" title="کارهای آرشیوی"></i>-->
+        <!--</div>-->
     <draggable :list="orderNew" :element="'div'" :options="{animation:300}" handle=".handleTask" @change="update">
-        <div v-for="ord in orderNew">
+        <div v-for="task in orderNew">
             <div class="card card-border">
-                <div class="card-header card-border" v-bind:class="{ 'bg-info': ord.lastStatus === '0', 'bg-light': ord.lastStatus === '1', 'bg-success': ord.lastStatus === '2', 'bg-dark': ord.lastStatus === '3', 'bg-warning': ord.lastStatus === '5', 'bg-pink2': ord.lastStatus === '6' }">
+                <div class="card-header card-border bg-light"
+                     v-bind:class="{'bg-info' : task.isDone === '0'}">
                     <div class="row">
                         <div class="col-md-9 row">
                             <div class="col-12 col-md-4 row">
-                                <div class="col-2 d-none d-md-block handleTask text-center" v-if="role==0"><i class="fa fa-arrows-v"></i></div>
+                                <div class="col-2 d-none d-md-block handleTask text-center"><i class="fa fa-arrows-v"></i></div>
                                 <div class="col-10 text-right">
-                                    <span v-if="ord.order_column!=999999999" v-text="ord.order_column + ' .'" ></span>
-                                    <span class="badge badge-light" v-if="ord.lastStatus==0">در انتظار</span>
-                                    <span class="badge badge-dark" v-if="ord.lastStatus==1">در لیست کار</span>
-                                    <span class="badge badge-light" v-if="ord.lastStatus==2">در حال انجام</span>
-                                    <span class="badge badge-light" v-if="ord.lastStatus==5">پیگیری</span>
-                                    <span class="badge badge-light" v-if="ord.lastStatus==4">معلق</span>
-                                    |
-                                    <span v-text="ord.task.title"></span>
+                                    <span v-if="task.orderTask!==0" v-text="task.orderTask + ' .'" ></span>
+                                    <span v-text="task.title"></span>
+                                    <span v-text="task.id" class="badge-dark badge"></span>
                                 </div>
                                 <div class="col-2 d-md-none handleTask text-left"><i class="fa fa-arrows-v"></i></div>
                             </div>
-                            <div class="d-none d-lg-block col-lg-2 text-center">
-                            <span v-if="ord.task.type && ord.task.brand != 'سایر'">
-                                {{ord.task.brand}}
+                            <div class="d-none d-lg-block col-lg-2 text-right">
+                            <span v-if="task.type && task.brand !== 'سایر'">
+                                {{task.brand}}
                             </span>
                                 <span v-else>-</span>
                             </div>
-                            <div class="d-none d-lg-block col-lg-2 text-center">
-                            <span v-if="ord.task.type && ord.task.type != 'سایر'">
-                                {{ord.task.type}}
+                            <div class="d-none d-lg-block col-lg-2 text-right">
+                            <span v-if="task.type && task.type !== 'سایر'">
+                                {{task.type}}
                             </span>
                                 <span v-else>-</span>
                             </div>
-                            <div class="d-none d-lg-block col-lg-2 text-center">
-                            <span v-if="ord.task.type && ord.task.forProduct != 'سایر'">
-                                {{ord.task.forProduct}}
+                            <div class="d-none d-lg-block col-lg-2 text-right">
+                            <span v-if="task.type && task.forProduct !== 'سایر'">
+                                {{task.forProduct}}
                             </span>
                                 <span v-else>-</span>
                             </div>
 
-                            <div class="d-none d-lg-block col-lg-2 text-center">
+                            <div class="d-none d-lg-block col-lg-2 text-right">
 
                             </div>
                         </div>
                         <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
-                            <div class="flex-grow-1">
+                            <div v-for="u in task.user_order" class="mx-1">
+                                    <!--<img :src="'/storage/avatars/' + u.avatar" alt="" class="img-circle" style="object-fit: cover; width: 29px;height: 29px; border: 1px solid #a9a9a9;" :title="u.name" data-toggle="tooltip">-->
+                                {{u.name}}
                             </div>
-                            <div v-for="ut in uts" v-if="ut.task_id === ord.task.id">
-                                <div class="mx-1 hvr-pop" v-for="u in us" v-if="u.id === ut.user_id">
-                                    <img :src="'/storage/avatars/' + u.avatar" alt="" class="img-circle" style="object-fit: cover; width: 29px;height: 29px; border: 1px solid #a9a9a9;" :title="u.name" data-toggle="tooltip">
-                                </div>
-                            </div>
-                            <div  v-if="role==0">
-                                <div class="mx-1 hvr-grow" >
-                                    <a :href="'/jobs/updateRoutine/' + ord.id">
-                                        <i class="fa fa-bars" data-toggle="tooltip" title="TASK" v-if="ord.routine === 0"></i>
-                                        <i class="fa fa-repeat" data-toggle="tooltip" title="ROUTINE" v-else></i>
-                                    </a>
+                            <div class="flex-grow-1"></div>
+                            <div class="d-flex">
+                                <div class="mx-1 hvr-grow" @click="end(task.id)">
+                                        <i class="fa fa-archive" data-toggle="tooltip" title="پایان کار"></i>
                                 </div>
                                 <div class="mx-1 hvr-grow">
-                                    <a :href="'/tasks/' + ord.task.id + '/edit'">
-                                        <i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش"></i></a>
+                                    <a :href="'/tasks/' + task.id + '/edit'">
+                                        <i class="fa fa-edit" data-toggle="tooltip" title=" ویرایش"></i>
+                                    </a>
                                 </div>
                                 <div class="mx-1 hvr-backward">
-                                    <a :href="'/tasks/' + ord.task.id"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو"></i></a>
+                                    <a :href="'/tasks/' + task.id"><i class="fa fa-arrow-left" data-toggle="tooltip" title="برو"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     </draggable>
+    </div>
+
 </template>
 
 <script>
@@ -84,10 +79,10 @@
         components: {
             draggable
         },
-        props: ['order','tasks','us','uts','role'],
+        props: ['tasks','us','uts','role'],
         data(){
             return{
-                orderNew: this.order,
+                orderNew: this.tasks,
             }
         },
         methods: {
@@ -105,8 +100,8 @@
             //
             // },
             update() {
-                this.orderNew.map((ord, index) => {
-                    ord.order_column = index + 1;
+                this.orderNew.map((task, index) => {
+                    task.orderTask = index + 1;
                 })
 
                 axios.put('/jobs/updateAll',{
@@ -114,7 +109,10 @@
                 }).then((response) => {
                     //success
                 })
-
+            },
+            end(id){
+                let url = '/api/jobs/taskIsDone?id='+ id;
+                axios.get(url).then(response => this.orderNew = response.data);
             }
         },
 

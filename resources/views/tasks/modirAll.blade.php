@@ -24,7 +24,7 @@
                 @include('helper.titleTasks')
                     {{ csrf_field() }}
                     <div id='app'>
-                        <tasks-component :role="0" :order="{{$order}}" :us="{{$users}}" :uts="{{$usersInTasks}}"></tasks-component>
+                        <tasks-all-component :role="0" :us="{{$users}}" :uts="{{$usersInTasks}}" :tasks="{{$tasks}}"></tasks-all-component>
                     </div>
             </div>
         </div>

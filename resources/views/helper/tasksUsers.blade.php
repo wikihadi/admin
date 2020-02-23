@@ -12,7 +12,7 @@
                 {{--<a href="/pending" class="btn btn-link"><i class="fa fa-history"></i></a>--}}
             {{--@endif--}}
         {{--@endrole--}}
-        <button data-toggle="collapse" href="#users" class="btn btn-link" ><i class="fa fa-users"></i></button>
+        {{--<button data-toggle="collapse" href="#users" class="btn btn-link" ><i class="fa fa-users"></i></button>--}}
             <a href="/jobs/{{$user->id}}/print" class="btn btn-link"  target="_blank"><i class="fa fa-print"></i></a>
 
             {{--@if(Request::is('jobs') || isset($jobPage) && $jobPage == 'old')--}}
@@ -25,7 +25,7 @@
 
 
 
-
+@role('admin|modir')
                 <div class="mx-2">
                     <a href="{{url('jobs/all')}}">
                         <svg style="width:100px;height:100px" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@
                         </svg>
                     </a>
                 </div>
-
+@endrole
 
 
                 @foreach($users as $u)

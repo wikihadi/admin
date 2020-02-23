@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TaskOrderUser;
-use App\User;
+use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Validator;
@@ -21,6 +21,17 @@ class TaskOrderUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function taskIsDone(){
+        $id = $_GET['id'];
+        $task= Task::find($id);
+        $task->isDone=1;
+        $task->save();
+        return Task::where('isDone','!=',1)->orderBy('orderTask','asc')->latest()->with('userOrder','lastStatusAllUser')->get();
+
+
+    }
+
     public function index()
     {
 //
@@ -103,12 +114,12 @@ class TaskOrderUserController extends Controller
     {
 
 
-        $taskOrders = TaskOrderUser::all();
-        foreach ($taskOrders as $to){
-            $id = $to->id;
-            foreach ($request->order as  $orderFrontEnd){
+        $taskss = Task::all();
+        foreach ($taskss as $t){
+            $id = $t->id;
+            foreach ($request->order as $orderFrontEnd){
                 if($orderFrontEnd['id'] == $id){
-                    $to->update(['order_column' => $orderFrontEnd['order_column']]);
+                    $t->update(['orderTask' => $orderFrontEnd['orderTask']]);
                 }
             }
         }
