@@ -1,6 +1,13 @@
 <template>
     <div class="row m-0 p-0"  dir="rtl">
-
+        <div class="col-12">
+            <b-navbar variant="faded" type="light">
+                <b-navbar-brand href="#">
+                    <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="Kitten">
+                    BootstrapVue
+                </b-navbar-brand>
+            </b-navbar>
+        </div>
         <div class="position-fixed bg-dark h-100 d-flex flex-column justify-content-between align-content-center align-items-center" style="z-index: 1000; min-width: 500px" v-if="menu">
 
             <div class="mt-3 text-light text-center">
@@ -11,6 +18,8 @@
             <button class="btn btn-block btn-link" @click="menu=false"><i class="fa fa-times text-white fa-2x"></i></button>
 
         </div>
+
+
         <!--<div class="col-sm-2 d-none d-sm-block" dir="rtl">-->
             <!--<div class="text-right m-3" dir="rtl">-->
                 <!--<img  data-placement="top" data-toggle="tooltip" :src="'/storage/avatars/' + user.avatar" class="a-img-50" :alt="user.name" :title="user.name">-->
@@ -57,7 +66,20 @@
 
 </div>
 
+    <b-card
+        overlay
+        img-src="https://picsum.photos/2000/200"
+        img-alt="Card Image"
+        text-variant="white"
+        title="Design Tracker"
+        sub-title="Application"
+    >
+        <b-card-text>
+            Some quick example text to build on the card and make up the bulk of the card's content.
+        </b-card-text>
 
+
+    </b-card>
 
     <div class="list-group list list-group-flush" dir="rtl">
         <li class="list-group-item a-pointer">

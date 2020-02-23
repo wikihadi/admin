@@ -56,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
 </head>
-<body class="hold-transition sidebar-mini" onload="window.print()">
+<body class="hold-transition sidebar-mini A5 landscape" onload="window.print()">
 
 @yield('afterBody')
 

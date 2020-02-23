@@ -18,3 +18,6 @@ mix.js('resources/js/app.js', 'public/js')
 //     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
 //     //...
 // ]
+mix
+    .copy('ui/dist/spa/index.html', 'resources/views/app.blade.php')
+    .copyDirectory('ui/dist/spa', 'public');

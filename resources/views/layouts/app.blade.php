@@ -22,7 +22,7 @@
     {{--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></head>--}}
 <body>
     <div id="app">
-        <home :user="{{Auth::user()}}"></home>
+        {{--<home :user="{{Auth::user()}}"></home>--}}
 
 
         <div class="col-10 a-min-w" dir="rtl">
@@ -34,11 +34,11 @@
     {{--<script type="text/javascript" src="js/mdb.min.js"></script>--}}
 
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script>
+    {{--<script>--}}
 
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        })
-    </script>
+        {{--$(function () {--}}
+            {{--$('[data-toggle="tooltip"]').tooltip();--}}
+        {{--})--}}
+    {{--</script>--}}
     </body>
 </html>

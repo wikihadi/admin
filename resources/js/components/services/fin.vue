@@ -24,6 +24,17 @@
 <!--                <form action="addFin" method="post">-->
 
                     <input type="hidden" name="_token" :value="csrf">
+
+                            <b-button-group size="lg" v-if="finType===null">
+                                <b-button variant="dark" @click="finTypeChange('تولیدی')">تولیدی</b-button>
+                                <b-button variant="warning" @click="finTypeChange('تبلیغاتی')">تبلیغاتی</b-button>
+                            </b-button-group>
+
+                            <b-alert v-model="showDismissibleAlert" variant="dark" v-if="finType!==null">
+                                هزینه {{finType}}
+                            </b-alert>
+
+                            <div v-if="showFrm">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
@@ -103,6 +114,7 @@
                     <textarea class="form-control" id="content" rows="3" v-model="content" name="content" required></textarea>
                 </div>
                     <button type="submit" class="btn btn-dark">ثبت هزینه</button>
+                            </div>
                 </form>
                 </div>
                 </transition>
@@ -147,6 +159,9 @@
                 subject:'',
                 section:'',
                 done:false,
+                showFrm:false,
+                showDismissibleAlert:'',
+                finType:null
             }
         },
         mounted: function(){
@@ -157,6 +172,10 @@
 
         },
         methods:{
+            finTypeChange: function(a){
+                this.finType=a;
+                this.showFrm=true;
+            },
             onImageChange(e){
                 console.log(e.target.files[0]);
                 this.image = e.target.files[0];
@@ -179,6 +198,7 @@
                 formData.append('section', this.section);
                 formData.append('contentFin', this.content);
                 formData.append('user', this.user);
+                formData.append('type', this.finType);
 
                 axios.post('/api/finFormSubmit', formData, config)
                     // .then(function (response) {

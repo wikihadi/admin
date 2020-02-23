@@ -83,7 +83,7 @@ class HomeController extends Controller
         $ids=[2,1,3,4,6,7,9,10,22,28,30];
         $users = User::whereIn('id',$ids)->orderBy('sort','asc')->get();
 
-        $lastComments = Status::with('task','user')->whereHas('user')->whereHas('task')->whereNotNull('task_id')->where('status','comment')->orderBy('updated_at','desc')->paginate(10);
+        $lastComments = Status::with('task','user')->whereHas('user')->whereHas('task')->whereNotNull('task_id')->where('status','comment')->orderBy('updated_at','desc')->simplePaginate(10);
         $currentJobs = TaskOrderUser::with('task','user')->whereHas('user')->whereHas('task')->where('lastStatus','2')->orderBy('updated_at','desc')->get();
         $orderRoutine = TaskOrderUser::with('task','user')->where('user_id',$user->id)->whereHas('task')->where('isDone',0)->where('routine',1)->orderBy('updated_at','desc')->paginate(5);
         $orderCurrent = TaskOrderUser::with('task','user')->where('user_id',$user->id)->whereHas('task')->where('isDone',0)->where('routine',0)->where('lastStatus',1)->orderBy('updated_at','desc')->paginate(4);

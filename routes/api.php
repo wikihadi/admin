@@ -86,6 +86,12 @@ Route::get('addOptionPress','PressController@addOptionPress');
 Route::get('fetchOptions','PressController@fetchOptions');
 
 
+//Dashboard api
+Route::get('d/u','DashboardController@u');
+Route::get('d/task/all','DashboardController@taskAll');
+
+
+
 //Services Apis
 //Route::get('addFood','StatusController@add');
 

@@ -737,9 +737,9 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $ids=[2,1,3,4,6,7,9,10,22,28,30];
         $users = User::whereIn('id',$ids)->orderBy('sort','asc')->get();
        // $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
-        $order = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$id)->where('isDone',0)->whereIn('lastStatus',[0,1,2])->orderBy('order_column','asc')->get();
+        $order = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$id)->where('isDone',0)->whereIn('lastStatus',[0,1,2,4,5])->orderBy('order_column','asc')->get();
         foreach ($users as $key => $loop) {
-            $loop->count = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$loop->id)->where('isDone',0)->whereIn('lastStatus',[0,1,2])->orderBy('order_column','asc')->count();
+            $loop->count = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$loop->id)->where('isDone',0)->whereIn('lastStatus',[0,1,2,4,5])->orderBy('order_column','asc')->count();
 
         }
 
@@ -817,6 +817,50 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         $userLastStatus = $user->lastStatusUser()->orderBy('updated_at','desc')->first();
      return view('tasks.modir', compact('lastStatus','userLastStatus','lastStartedStatus','statusesToMe','statuses','myTasksStatus','usersStatus','users','user','title','usersInTasks','linked','titleOfPage','linked','order'));
     }
+    public function modirTaskAll()
+    {
+        $user = Auth::user();
+        $myTasksStatus = $user->taskOrder()->get();
+        $usersStatus = User::all();
+        $statusesToMe = Status::with('user')->where('to_user',$user->id)->orderBy('created_at','DESC')->paginate(5);
+        $dateBefore = Carbon::now();
+
+        foreach ($statusesToMe as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+        }
+        $lastStatus = Status::with('user')->where('user_id',Auth::id())->orderBy('created_at','desc')->first();
+
+        $usersInTasks = TaskOrderUser::all();
+        $user = User::find(Auth::id());
+        $ids=[2,1,3,4,6,7,9,10,22,28,30];
+        $users = User::whereIn('id',$ids)->orderBy('sort','asc')->get();
+       // $tasks = $user->taskOrder()->where('isDone', '0')->where('pending','0')->orderBy('updated_at','DESC')->paginate(200);
+        $order = TaskOrderUser::with('task')->whereHas('task')->where('user_id',Auth::id())->where('isDone',0)->whereIn('lastStatus',[0,1,2,4,5])->orderBy('order_column','asc')->get();
+        foreach ($users as $key => $loop) {
+            $loop->count = TaskOrderUser::with('task')->whereHas('task')->where('user_id',$loop->id)->where('isDone',0)->whereIn('lastStatus',[0,1,2,4,5])->orderBy('order_column','asc')->count();
+
+        }
+
+        $title = $user->name;
+
+        $titleOfPage = 'کارهای'. ' ' . $user->name;
+        $linked = 'jobs';
+
+
+        $statuses = Status::with('user')->orderBy('created_at','DESC')->get();
+        $dateBefore = Carbon::now();
+
+        foreach ($statuses as $key => $loop){
+            $loop->jCreated_at = new Verta($loop->created_at);
+            $loop->diff = verta($loop->created_at)->formatDifference();
+            $loop->diffM = abs(Carbon::parse($loop->created_at)->diffInMinutes($dateBefore, false));
+        }
+        $lastStartedStatus = Status::with('user')->where('user_id',Auth::id())->where('status','start')->orWhere('status','end')->orderBy('created_at','desc')->first();
+        $userLastStatus = $user->lastStatusUser()->orderBy('updated_at','desc')->first();
+     return view('tasks.modirAll', compact('lastStatus','userLastStatus','lastStartedStatus','statusesToMe','statuses','myTasksStatus','usersStatus','users','user','title','usersInTasks','linked','titleOfPage','linked','order'));
+    }
     public function modirUserPrint($id)
     {
         $today = Verta::now(); //1396-03-02 00:00:00
@@ -827,7 +871,7 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
         whereHas('task')->
         where('user_id',$id)->
         where('isDone',0)->
-        whereIn('lastStatus',[0,1,2])->
+        whereIn('lastStatus',[0,1,2,5,6])->
         orderBy('routine','asc')->
         orderBy('order_column','asc')->
         get();
@@ -1083,5 +1127,6 @@ $titleOfPage = 'کارهای در انتظار'. " " .$user->name;
 
             return view('tasks.taskAdmin',compact('tasks','taskCount','dateNow'));
     }
+
 
 }

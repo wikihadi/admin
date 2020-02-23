@@ -326,6 +326,8 @@
                         <span class="badge badge-info" v-if="item.section==1">جاری</span>
                         <span class="badge badge-info" v-if="item.section==2">حسابداری</span>
                         <span class="badge badge-info" v-if="item.section==3">تولیدی صنعتی</span>
+                        <span class="badge badge-warning" v-if="item.type!==null">هزینه {{item.type}}</span>
+
 
                     </td>
                     <td>{{item.user.name}}</td>

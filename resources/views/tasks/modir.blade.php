@@ -16,8 +16,11 @@
             {{--<div class="alert alert-info">{{$user->name}}{{$lastStatus->content}}</div>--}}
             <div class="text-left">
             <span class="badge">راهنما:</span>
+                <span class="badge badge-white border">معلق</span>
+                <span class="badge badge-warning">پیگیری</span>
 <span class="badge badge-info">در انتظار</span>
-<span class="badge badge-white border">در حال انجام</span>
+<span class="badge badge-dark">در لیست کار</span>
+
                 <span class="badge badge-success">در حال انجام (هم اکنون)</span>
 
                 {{--<span class="badge badge-warning">بخش پیگیری</span>--}}

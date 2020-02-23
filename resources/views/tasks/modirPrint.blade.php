@@ -52,7 +52,21 @@
                     <td>{{$item->task->title}}
                         @if($item->routine==1)
                     <span class="badge badge-info">روتین</span>
+                            @elseif($item->lastStatus==5)
+                            <span class="badge badge-info">پیگیری</span>
+                            @elseif($item->lastStatus==6)
+                            <span class="badge badge-info">معلق</span>
+
+                        @endif
+                        @if($item->lastStatus==1)
                             @endif
+
+                        {{--<span class="badge badge-light" v-if="ord.lastStatus==0">در انتظار</span>--}}
+                        {{--<span class="badge badge-dark" v-if="ord.lastStatus==1">در لیست کار</span>--}}
+                        {{--<span class="badge badge-light" v-if="ord.lastStatus==2">در حال انجام</span>--}}
+
+
+
                     </td>
                     <td class="">{{$item->task->content}}</td>
                     <td class="">

@@ -10,8 +10,15 @@
                     <div class="col-md-9 row">
                         <div class="col-12 col-md-4 row">
                             <div class="col-2 d-none d-md-block handleTask text-center" v-if="role==0"><i class="fa fa-arrows-v"></i></div>
-                            <div class="col-10">
+                            <div class="col-10 text-right">
                                 <span v-if="ord.order_column!=999999999" v-text="ord.order_column + ' .'" ></span>
+
+                                <span class="badge badge-light" v-if="ord.lastStatus==0">در انتظار</span>
+                                <span class="badge badge-dark" v-if="ord.lastStatus==1">در لیست کار</span>
+                                <span class="badge badge-light" v-if="ord.lastStatus==2">در حال انجام</span>
+                                <span class="badge badge-light" v-if="ord.lastStatus==5">پیگیری</span>
+                                <span class="badge badge-light" v-if="ord.lastStatus==4">معلق</span>
+                                |
                                 <span v-text="ord.task.title"></span>
                             </div>
                             <div class="col-2 d-md-none handleTask text-left"><i class="fa fa-arrows-v"></i></div>

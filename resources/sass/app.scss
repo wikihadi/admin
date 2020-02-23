@@ -6,9 +6,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-v4-rtl/scss/bootstrap-rtl';
 @import "~hover.css/scss/hover";
 @import "~animate.css/animate.min.css";
-//@import "~vazir-font-farsi-number/dist/font-face.css";
+@import "~vazir-font-farsi-number/dist/font-face.css";
+@import "~font-awesome/css/font-awesome.min.css";
 //@import "~vazir-font-farsi-number/dist/iranyekan/font-face.css";
 //@import "~fonts/fonts.css";
 //*{

@@ -696,7 +696,7 @@
                                                             <div><img :src="'/storage/avatars/' + comment.user.avatar" :alt="comment.user.name" class="img-circle" style="width: 20px;"> <small class="text-dark">{{comment.user.name}}</small></div>
 
                                                             <div class="">
-                                                                <div class="btn-group" v-if="comment.user_id===user&&comment.diffM<=5">
+                                                                <div class="btn-group" v-if="comment.user_id===user&&comment.diffM<=5&&comment.status=='comment'">
                                                                         <!--<span class="btn btn-sm btn-link"><i class="fa fa-edit text-warning"></i></span>-->
                                                                         <span class="btn btn-sm btn-link" @click="deleteStatus(comment.id,item.task.id)"><i class="fa fa-trash text-danger"></i></span>
                                                                 </div>
@@ -737,7 +737,7 @@
                                                 <span
                                                     @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش پیگیری'"
                                                     @mouseleave="showTips = false"
-                                                    @click.prevent="newStatus('انتقال به بخش پیگیری ' + item.task.title,'follow',item.task.id,item.routine)"
+                                                    @click.prevent="newStatus('انتقال به پیگیری ','follow',item.task.id,item.routine)"
                                                     v-if="item.lastStatus <= 2 || item.lastStatus == 6"
                                                     class=" text-secondary mx-2 pointer hvr-pop"
                                                 >
@@ -746,7 +746,7 @@
                                                 <span class=" mx-2 pointer hvr-pop"
                                                       @mouseover="showTips = item.id,showTipsTitle='انتقال به بخش معلق'"
                                                       @mouseleave="showTips = false"
-                                                      @click.prevent="newStatus('انتقال به بخش معلق ' + item.task.title,'pending',item.task.id,item.routine)"
+                                                      @click.prevent="newStatus('انتقال به معلق ','pending',item.task.id,item.routine)"
                                                       v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5">
                                                 <i class="fa fa-puzzle-piece text-secondary"
 
@@ -754,7 +754,7 @@
                                                 <span class=" text-secondary mx-2 pointer hvr-pop"
                                                       @mouseover="showTips = item.id,showTipsTitle='اعلام پایان کار'"
                                                       @mouseleave="showTips = false"
-                                                      @click.prevent="newStatus('اعلام پایان کار ' + item.task.title,'end',item.task.id,item.routine)"
+                                                      @click.prevent="newStatus('پایان کار ','end',item.task.id,item.routine)"
                                                       v-if="item.lastStatus <= 2 || item.lastStatus == 6 || item.lastStatus == 5"
                                                 >
                                                 <i class="fa fa-stop"

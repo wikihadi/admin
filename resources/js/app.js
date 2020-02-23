@@ -10,7 +10,8 @@ import Vue from 'vue';
 require('./bootstrap');
 
 window.Vue = require('vue');
-import VueMoment from 'vue-moment'
+
+import VueMoment from 'vue-moment';
 // import moment from 'moment-timezone'
 //
 // Vue.use(VueMoment, {
@@ -31,7 +32,6 @@ import 'vue-select/dist/vue-select.css';
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-import SortedTablePlugin from "vue-sorted-table";
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 // Install BootstrapVue
@@ -39,22 +39,25 @@ Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
 // app.js
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-import Vuetify from 'vuetify/lib';
+// import Vuetify from 'vuetify/lib';
+//
+// Vue.use(Vuetify);
+//
+// const opts = {};
+//
+// export default new Vuetify(opts);
 
-Vue.use(Vuetify);
-
-const opts = {};
-
-export default new Vuetify(opts);
+import SortedTablePlugin from "vue-sorted-table";
 
 Vue.use(SortedTablePlugin);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('v-select', vSelect);
 
+Vue.component('tasks-all-component',    require('./components/TasksAllComponent').default);
 Vue.component('tasks-component',        require('./components/TasksComponent.vue').default);
 Vue.component('routine-component',      require('./components/TasksRoutineComponent').default);
 Vue.component('status-list-box',        require('./components/status/StatusListBox').default);
@@ -104,7 +107,6 @@ Vue.component('press',            require('./components/press/press').default);
 
 //Main
 Vue.component('home',            require('./components/main/home').default);
-
 
 
 /**

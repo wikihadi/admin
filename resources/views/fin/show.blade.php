@@ -1,7 +1,13 @@
 @extends('admincore.appNoTopBar')
 @section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
+    <style>@page { size: A5 landscape }</style>
+
 @endsection
 @section('content')
+    <section class="padding-10mm">
+
     <div class="col-12 row">
 
         <table class="table table-bordered">
@@ -11,7 +17,9 @@
                     {{--<img src="/img/logo.png" alt="" style="width: 50px">--}}
                 {{--</td>--}}
                 <td colspan="4" rowspan="2">
-                    <h3 class="text-center">دستور پرداخت واحد طراحی</h3>
+                    <h3 class="text-center">دستور پرداخت واحد طراحی
+                    <span class="badge badge-info">{{$fin->type}}</span>
+                    </h3>
 
                     <p class="text-center">
                         @if($fin->section==1)
@@ -40,8 +48,10 @@
             <tr>
                 <td class="text-left">مبلغ</td>
                 <td>{{number_format($fin->price)}} ريال</td>
-                <td class="text-left">در وجه</td>
-                <td>{{$fin->user->name}}</td>
+                <td class="">در وجه</td>
+                {{--<td>--}}
+{{--                    {{//$fin->user->name}}--}}
+                {{--</td>--}}
 
                 <td class="text-left">توسط</td>
                 <td>{{$fin->user->name}}</td>
@@ -51,8 +61,10 @@
             <tr>
                 <td class="text-left">برند</td>
                 <td>{{$fin->brand->title}}</td>
-                <td class="text-left">بانک</td>
-                <td>{{$fin->user->bank}}</td>
+                <td class="">بانک</td>
+                {{--<td>--}}
+                    {{--{{//$fin->user->bank}}--}}
+                {{--</td>--}}
                 <td class="text-left">تاریخ پرداخت</td>
                 <td>{{$fin->payDate}}</td>
 
@@ -60,22 +72,22 @@
             </table>
         <table class="table table-bordered">
             <tr>
-            <td class="text-left">شماره شبا</td>
-            <td>
-                @if($fin->user->shba!=null)
-                    {{substr($fin->user->shba,0,4)}}-{{substr($fin->user->shba,4,4)}}-{{substr($fin->user->shba,8,4)}}-{{substr($fin->user->shba,12,4)}}-{{substr($fin->user->shba,16,4)}}-{{substr($fin->user->shba,20,4)}}-{{substr($fin->user->shba,24,2)}}
-                @endif
-            </td>
-                <td class="text-left">شماره کارت</td>
-                <td>
-                    @if($fin->user->card!=null)
-                        {{substr($fin->user->card,0,4)}}-{{substr($fin->user->card,4,4)}}-{{substr($fin->user->card,8,4)}}-{{substr($fin->user->card,12,4)}}
-                    @endif
-                </td>
-                <td class="text-left">شماره حساب</td>
-                <td>
-                    {{$fin->user->bankId}}
-                </td>
+            <td class="">شماره شبا</td>
+            {{--<td>--}}
+                {{--@if($fin->user->shba!=null)--}}
+                    {{--{{substr($fin->user->shba,0,4)}}-{{substr($fin->user->shba,4,4)}}-{{substr($fin->user->shba,8,4)}}-{{substr($fin->user->shba,12,4)}}-{{substr($fin->user->shba,16,4)}}-{{substr($fin->user->shba,20,4)}}-{{substr($fin->user->shba,24,2)}}--}}
+                {{--@endif--}}
+            {{--</td>--}}
+                <td class="">شماره کارت</td>
+                {{--<td>--}}
+                    {{--@if($fin->user->card!=null)--}}
+                        {{--{{substr($fin->user->card,0,4)}}-{{substr($fin->user->card,4,4)}}-{{substr($fin->user->card,8,4)}}-{{substr($fin->user->card,12,4)}}--}}
+                    {{--@endif--}}
+                {{--</td>--}}
+                <td class="">شماره حساب</td>
+                {{--<td>--}}
+                    {{--{{//$fin->user->bankId}}--}}
+                {{--</td>--}}
             </tr>
             </table>
         <table class="table table-bordered">
@@ -122,6 +134,8 @@
         @endif
 
     </div>
+    </section>
+
 @endsection
 @section('JS')
 @endsection

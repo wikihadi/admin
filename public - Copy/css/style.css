@@ -1,0 +1,83 @@
+/* Coded with love by Mutiullah Samim */
+*{
+    font-family: Vazir;
+}
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #ffffff !important;
+}
+.user_card {
+    height: 560px;
+    /* width: 350px; */
+    margin-top: auto;
+    margin-bottom: auto;
+    /* background: #ffffff; */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* padding: 10px; */
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    /* -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    /* border-radius: 5px; */
+}
+
+
+.form_container {
+    margin-top: 100px;
+}
+.login_btn {
+    width: 100%;
+    /*background: #6AC8C9 !important;*/
+    color: white !important;
+}
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.login_container {
+    padding: 0 2rem;
+}
+.input-group-text {
+ background: #fff !important;
+
+    color: black !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+}
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #6AC8C9 !important;
+}
+
+
+.bigCheck{
+    width: 15px;
+    height: 15px;
+}
+.btn-rounded {
+    -webkit-border-radius: 10em;
+    border-radius: 10em;
+}
+.dottedTop{
+    border-top: 2px dotted #ccc;
+}
+
+.myInput{
+    border: none;
+    border-bottom: 1px solid #e9e4e5;
+    border-radius: 0;
+}
+
+.myIcon{
+    right: 2px;top: 3px; color: #e9e4e5; position: absolute
+}
+

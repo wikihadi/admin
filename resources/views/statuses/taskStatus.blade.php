@@ -39,7 +39,8 @@
 @php
 $i = 1;
 @endphp
-    @foreach($statuses->where('task_id', $task->id)->where('status','comment') as $status)
+    {{--@foreach($statuses->where('task_id', $task->id)->where('status','comment') as $status)--}}
+        @foreach($statuses->where('task_id', $task->id)->whereIn('status',['comment','follow','pending','start','pause','end']) as $status)
 
         <li class="media">
             <span class="pull-left ml-3">

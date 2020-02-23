@@ -25,6 +25,7 @@ class CreateFinsTable extends Migration
             $table->integer('acc_id')->nullable();
             $table->string('acc_content', 255)->nullable();
             $table->dateTime('pay_at')->nullable();
+            $table->string('type',191)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

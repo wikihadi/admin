@@ -784,7 +784,7 @@ public function statics(){
     public function commentFetch(){
         $task_id = $_GET['id'];
         $comments = Status::with('user','gallery')->
-        whereIn('status',['comment','new-pic'])->where('task_id',$task_id)->
+        whereIn('status',['comment','new-pic','follow','pending','start','pause','end'])->where('task_id',$task_id)->
         whereHas('user')->
         orderBy('updated_at','desc')->get();
         $dateBefore = Carbon::now();

@@ -11,9 +11,13 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
 Auth::routes();
 
-
+Route::get('/dashboard{any}', function () {
+    return view('app');
+})->where('any','.*');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('noRoles', 'HomeController@noRoles')->name('noRoles');
@@ -73,6 +77,7 @@ Route::group(['middleware' => ['auth']], function() {
                 Route::get('/jobs', 'TaskController@modir');
                 Route::put('/jobs/updateAll','TaskOrderUserController@updateAll')->name('tasks.updateAll');
                 Route::get('/jobs/updateRoutine/{id}','TaskOrderUserController@updateRoutine')->name('tasks.updateRoutine');
+                Route::get('/jobs/all', 'TaskController@modirTaskAll');
                 Route::get('/jobs/{id}', 'TaskController@modirUser');
                 Route::get('/jobs/{id}/print', 'TaskController@modirUserPrint');
                 Route::resource('taskorderusers', 'TaskOrderUserController');

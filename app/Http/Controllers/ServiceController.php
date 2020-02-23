@@ -154,6 +154,7 @@ class ServiceController extends Controller
             'section' => $request->section,
             'brand_id' => $request->brand,
             'content' => $request->contentFin,
+            'type' => $request->type,
         ]);
         $fin->image=$imageName;
         $fin->save();

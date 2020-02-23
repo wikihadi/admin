@@ -28,8 +28,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- bootstrap rtl -->
     <link rel="stylesheet" href="/admin-core/css/bootstrap-rtl.min.css">
-    <link rel="stylesheet" href="/admin-core/css/hover.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
+    {{--<link rel="stylesheet" href="/admin-core/css/hover.css">--}}
+    {{--<link rel="stylesheet" href="/css/animate.min.css">--}}
 
 {{--    <link rel="stylesheet" href="/admin-core/css/animate.css">--}}
     <!-- template rtl version -->
