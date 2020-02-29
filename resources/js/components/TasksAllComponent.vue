@@ -1,6 +1,7 @@
 <template>
     <div>
-        <span class="badge badge-dark badge-pill">{{orderNew.length}}</span>
+        <span class="badge badge-info badge-pill">بدون تیم</span>
+        <span class="badge badge-dark badge-pill">{{orderNew.length}} پروژه</span>
 
         <!--<div class="mx-1 hvr-grow" @click="all">-->
             <!--<i class="fa fa-archive" data-toggle="tooltip" title="کارهای آرشیوی"></i>-->
@@ -8,8 +9,8 @@
     <draggable :list="orderNew" :element="'div'" :options="{animation:300}" handle=".handleTask" @change="update">
         <div v-for="task in orderNew">
             <div class="card card-border">
-                <div class="card-header card-border bg-light"
-                     v-bind:class="{'bg-info' : task.isDone === '0'}">
+                <div class="card-header card-border"
+                     v-bind:class="{'bg-info' : task.user_order.length<1,'bg-light':task.user_order.length>0}">
                     <div class="row">
                         <div class="col-md-9 row">
                             <div class="col-12 col-md-4 row">
@@ -21,7 +22,7 @@
                                 </div>
                                 <div class="col-2 d-md-none handleTask text-left"><i class="fa fa-arrows-v"></i></div>
                             </div>
-                            <div class="d-none d-lg-block col-lg-2 text-right">
+                            <div class="d-none d-md-block col-lg-2 text-right">
                             <span v-if="task.type && task.brand !== 'سایر'">
                                 {{task.brand}}
                             </span>
@@ -46,8 +47,7 @@
                         </div>
                         <div class="col-md-3 row d-none d-md-flex justify-content-end align-items-center">
                             <div v-for="u in task.user_order" class="mx-1">
-                                    <!--<img :src="'/storage/avatars/' + u.avatar" alt="" class="img-circle" style="object-fit: cover; width: 29px;height: 29px; border: 1px solid #a9a9a9;" :title="u.name" data-toggle="tooltip">-->
-                                {{u.name}}
+                                    <img :src="'/storage/avatars/' + u.avatar" :alt="u.name" class="img-circle" style="object-fit: cover; width: 29px;height: 29px; border: 1px solid #a9a9a9;" :title="u.name" data-toggle="tooltip">
                             </div>
                             <div class="flex-grow-1"></div>
                             <div class="d-flex">

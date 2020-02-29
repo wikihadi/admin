@@ -47,7 +47,7 @@
                                 <img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle userJobsImageActive animated pulse infinite delay-4s" title="{{$u->name}}" data-toggle="tooltip">
                             <span class="badge badge-pill badge-success position-absolute" style="right: 10px">{{$u->count}}</span></span>
                             @else
-                            <a href="/{{$linked}}/{{$u->id}}" class="position-relative">
+                            <a href="/jobs/{{$u->id}}" class="position-relative">
 
                                 <img src="/storage/avatars/{{ $u->avatar }}" alt="" class="img-circle userJobsImage hvr-push" title="{{$u->name}}" data-toggle="tooltip">
                                 <span class="badge badge-pill badge-dark position-absolute" style="right: 10px">{{$u->count}}</span>

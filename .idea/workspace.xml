@@ -6,17 +6,582 @@
   <component name="ChangeListManager">
     <list default="true" id="16b8dd04-1233-4f26-bfe3-de701ecdecf6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskOrderUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskOrderUserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/bootstrap/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/css/adminlte.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/css/adminlte.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/css/adminlte.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/css/animate.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/css/bootstrap-rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/css/custom-style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/css/hover.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/css/all.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/css/all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/css/font-awesome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/css/font-awesome.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/css/font-awesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/fonts/FontAwesome.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/fonts/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/fonts/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/fonts/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/fonts/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/font-awesome/fonts/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Black.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Black.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Black.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Bold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Bold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Bold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Light.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Light.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Light.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Medium.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Medium.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Medium.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Thin.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Thin.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Thin.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir-Thin.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/Vazir.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/eot/iranyekanwebbold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/eot/iranyekanweblight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/eot/iranyekanwebregular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/eot/robotobold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/eot/robotolight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/eot/robotoregular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/svg/iranyekanwebbold.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/svg/iranyekanweblight.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/svg/iranyekanwebregular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/svg/robotobold.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/svg/robotolight.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/svg/robotoregular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/ttf/iranyekanwebbold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/ttf/iranyekanweblight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/ttf/iranyekanwebregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/ttf/robotobold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/ttf/robotolight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/ttf/robotoregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff/iranyekanwebbold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff/iranyekanweblight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff/iranyekanwebregular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff/robotobold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff/robotolight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff/robotoregular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff2/iranyekanwebbold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff2/iranyekanweblight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff2/iranyekanwebregular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff2/robotobold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff2/robotolight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/fonts/iranyekan/woff2/robotoregular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/AdminLTELogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/avatar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/avatar04.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/avatar2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/avatar3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/avatar5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/boxed-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/boxed-bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/credit/american-express.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/credit/cirrus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/credit/mastercard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/credit/mestro.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/credit/paypal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/credit/paypal2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/credit/visa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/default-150x150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/icons.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/photo1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/photo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/photo3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/photo4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user1-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user2-160x160.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user3-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user4-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user5-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user6-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user7-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/img/user8-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/jquery/core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/jquery/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/jquery/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/jquery/jquery.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/jquery/jquery.slim.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/jquery/jquery.slim.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/jquery/jquery.slim.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/adminlte.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/adminlte.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/adminlte.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/adminlte.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/bootslider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/pages/dashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/pages/dashboard2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/pages/dashboard3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/persian-date.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/persian-datepicker.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/bootstrap/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chart.js2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/Chart.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/Chart.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/Chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/Chart.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/cartesian/category.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/cartesian/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/cartesian/linear.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/cartesian/logarithmic.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/cartesian/time.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/labelling.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/radial/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/radial/linear.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/axes/styling.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/area.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/bar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/bubble.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/doughnut.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/line.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/mixed.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/polar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/radar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/charts/scatter.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/configuration/animations.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/configuration/elements.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/configuration/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/configuration/layout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/configuration/legend.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/configuration/title.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/configuration/tooltip.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/developers/api.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/developers/axes.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/developers/charts.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/developers/contributing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/developers/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/developers/plugins.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/developers/updates.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/colors.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/device-pixel-ratio.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/fonts.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/interactions/events.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/interactions/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/interactions/modes.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/options.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/general/responsive.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/getting-started/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/getting-started/installation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/getting-started/integration.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/getting-started/usage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/fonts/fontawesome/FontAwesome.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/fonts/fontawesome/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/fonts/fontawesome/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/fonts/fontawesome/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/fonts/fontawesome/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/fonts/fontawesome/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-anchorjs/anchor-style.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-chartjs/Chart.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-chartjs/Chart.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-chartjs/Chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-chartjs/Chart.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-chartjs/chartjs-plugin-deferred.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-chartjs/chartjs-plugin-deferred.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-chartjs/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-fontsettings/fontsettings.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-fontsettings/website.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-ga/plugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-highlight/ebook.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-highlight/website.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-search-plus/jquery.mark.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-search-plus/search.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-search-plus/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook-plugin-sharing/buttons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/gitbook.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/images/apple-touch-icon-precomposed-152.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/images/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/gitbook/theme.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/notes/comparison.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/notes/extensions.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/notes/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/notes/license.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/search_plus_index.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/chartjs2/docs/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/css/font-awesome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/css/font-awesome.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/css/font-awesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/fonts/FontAwesome.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/fonts/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/fonts/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/fonts/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/fonts/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/font-awesome/fonts/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/jquery/core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/jquery/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/jquery/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/jquery/jquery.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/jquery/jquery.slim.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/jquery/jquery.slim.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/jquery/jquery.slim.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper-utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper-utils.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper-utils.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper-utils.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/esm/popper.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper-utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper-utils.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper-utils.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper-utils.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/popper.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper-utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper-utils.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper-utils.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper-utils.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/popper/umd/popper.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/js/plugins/select2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/pdate/persian-date.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/pdate/persian-datepicker.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/pdate/persian-datepicker.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/persiandatapicker/persianDatepicker-default.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/admin-core/persiandatapicker/persianDatepicker.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/animate.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/animate.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/bootstrap-select.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fa.all.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/font-awesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/dirooz/dirooz.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/dirooz/dirooz.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/dirooz/dirooz.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/dirooz/dirooz.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/eot/iranyekanwebbold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/eot/iranyekanweblight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/eot/iranyekanwebregular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/eot/robotobold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/eot/robotolight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/eot/robotoregular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/svg/iranyekanwebbold.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/svg/iranyekanweblight.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/svg/iranyekanwebregular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/svg/robotobold.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/svg/robotolight.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/svg/robotoregular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/ttf/iranyekanwebbold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/ttf/iranyekanweblight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/ttf/iranyekanwebregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/ttf/robotobold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/ttf/robotolight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/ttf/robotoregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff/iranyekanwebbold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff/iranyekanweblight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff/iranyekanwebregular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff/robotobold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff/robotolight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff/robotoregular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff2/iranyekanwebbold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff2/iranyekanweblight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff2/iranyekanwebregular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff2/robotobold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff2/robotolight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/iranyekan/woff2/robotoregular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Black.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Black.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Black.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Bold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Bold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Bold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Light.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Light.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Light.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Medium.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Medium.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Medium.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Thin.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Thin.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Thin.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir-Thin.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/fonts/vazir/Vazir.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/hover.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/mdb.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/persian-datepicker.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/rtlbootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/rtlbootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/rtlbootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_Black.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_Bold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_FaNum.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_FaNum_Black.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_FaNum_Bold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_FaNum_Light.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_FaNum_Medium.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_FaNum_UltraLight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_Light.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_Medium.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/IRANSansWeb_UltraLight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/Yekan.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iransansdn.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iransansdnbold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iransansdnlight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iransansdnweb.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iransansdnwebbold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iransansdnweblight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iranyekanwebbold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iranyekanwebbold_FaNum.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iranyekanweblight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iranyekanweblight_FaNum.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iranyekanwebregular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/iranyekanwebregular_FaNum.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/robotobold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/robotolight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/eot/robotoregular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/font-awesome/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/font-awesome/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/font-awesome/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/font-awesome/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/font-awesome/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_FaNum.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_FaNum_Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_FaNum_Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_FaNum_Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_FaNum_Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_FaNum_UltraLight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_Light.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/IRANSansWeb_UltraLight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/Yekan.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iransansdn.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iransansdnbold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iransansdnlight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iransansdnwebbold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iransansdnweblight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iranyekanwebbold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iranyekanwebbold_FaNum.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iranyekanweblight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iranyekanweblight_FaNum.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iranyekanwebregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/iranyekanwebregular_FaNum.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/robotobold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/robotolight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/ttf/robotoregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Black-FD.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Black-FD.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Black-FD.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Black-FD.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Bold-FD.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Bold-FD.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Bold-FD.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Bold-FD.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-FD.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-FD.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-FD.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-FD.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Light-FD.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Light-FD.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Light-FD.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Light-FD.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Medium-FD.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Medium-FD.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Medium-FD.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Medium-FD.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Thin-FD.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Thin-FD.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Thin-FD.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/Vazir-Thin-FD.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/eot/iranyekanwebbold.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/eot/iranyekanweblight.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/eot/iranyekanwebregular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/ttf/iranyekanwebbold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/ttf/iranyekanweblight.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/ttf/iranyekanwebregular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/woff/iranyekanwebbold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/woff/iranyekanweblight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/woff/iranyekanwebregular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/woff2/iranyekanwebbold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/woff2/iranyekanweblight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vazir-font-farsi-number/dist/iranyekan/woff2/iranyekanwebregular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vue-blu/dist/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vue-blu/dist/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vue-blu/dist/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vue-blu/dist/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/vue-blu/dist/img/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_Black.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_Bold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_FaNum.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_FaNum_Black.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_FaNum_Bold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_FaNum_Light.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_FaNum_Medium.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_FaNum_UltraLight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_Light.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_Medium.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/IRANSansWeb_UltraLight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/Yekan.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iransansdn.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iransansdnbold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iransansdnlight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iransansdnweb.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iransansdnwebbold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iransansdnweblight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iranyekanwebbold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iranyekanwebbold_FaNum.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iranyekanweblight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iranyekanweblight_FaNum.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iranyekanwebregular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/iranyekanwebregular_FaNum.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/robotobold.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/robotolight.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff/robotoregular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_Black.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_Bold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_FaNum.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_FaNum_Black.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_FaNum_Bold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_FaNum_Light.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_FaNum_Medium.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_FaNum_UltraLight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_Light.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_Medium.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/IRANSansWeb_UltraLight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/Yekan.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iransansdn.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iransansdnbold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iransansdnlight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iransansdnweb.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iransansdnwebbold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iransansdnweblight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iranyekanwebbold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iranyekanwebbold_FaNum.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iranyekanweblight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iranyekanweblight_FaNum.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iranyekanwebregular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/iranyekanwebregular_FaNum.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/robotobold.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/robotolight.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/fonts/vendor/woff2/robotoregular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/Icon-256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/dsp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/logo-complete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/sad.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/task.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/img/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/autonumeric.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/checklist.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/echo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/jquery-3.3.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/mdb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/mdb.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/popper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/rtlbootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/select2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/status.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/timer.jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/js/tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/mix-manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/svg/403.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/svg/404.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/svg/500.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/svg/503.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public - Copy/symsym.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/TasksAllComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasksAllComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/TasksComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/TasksComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/helper/tasksUsers.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/helper/tasksUsers.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/tasks/modirAll.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tasks/modirAll.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,45 +598,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="843" column="120" selection-start-line="843" selection-start-column="120" selection-end-line="843" selection-end-column="120" />
-              <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/components/TasksComponent.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="61" column="26" selection-start-line="60" selection-start-column="16" selection-end-line="65" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/tasks/modirAll.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/TaskOrderUser.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Task.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="33" column="38" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="38" />
+            <state relative-caret-position="141">
+              <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -79,8 +609,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/helper/tasksUsers.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="153">
+              <caret line="49" column="42" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -88,7 +618,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-47">
+            <state relative-caret-position="1054">
               <caret line="71" column="11" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
             </state>
           </provider>
@@ -97,7 +627,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskOrderUserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="408">
               <caret line="29" column="118" selection-start-line="29" selection-start-column="118" selection-end-line="29" selection-end-column="118" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
@@ -109,8 +639,39 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/js/components/TasksAllComponent.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+            <state relative-caret-position="51">
+              <caret line="3" column="75" selection-start-line="3" selection-start-column="75" selection-end-line="3" selection-end-column="75" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#draggable#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webpack.mix.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/composer.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.env">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -118,7 +679,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="374">
               <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
             </state>
           </provider>
@@ -137,7 +698,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>histo</find>
       <find>dashbo</find>
       <find>taskAll</find>
       <find>پیگیری</find>
@@ -167,6 +727,7 @@
       <find>lastStatusOrder</find>
       <find>TaskOrderUser</find>
       <find>updateAll</find>
+      <find>v-for</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -175,7 +736,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/newHome.blade.php" />
         <option value="$PROJECT_DIR$/public/css/app.css" />
         <option value="$PROJECT_DIR$/resources/views/layouts/topbar.blade.php" />
         <option value="$PROJECT_DIR$/resources/js/components/main/topbar.vue" />
@@ -219,12 +779,13 @@
         <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/resources/js/components/TasksComponent.vue" />
         <option value="$PROJECT_DIR$/routes/api.php" />
-        <option value="$PROJECT_DIR$/resources/views/helper/tasksUsers.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/tasks/modirAll.blade.php" />
         <option value="$PROJECT_DIR$/app/Task.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/TaskOrderUserController.php" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/resources/views/helper/tasksUsers.blade.php" />
         <option value="$PROJECT_DIR$/resources/js/components/TasksAllComponent.vue" />
       </list>
     </option>
@@ -365,66 +926,39 @@
         <subPane>
           <expand>
             <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="admin2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Notifications" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="admin2" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="admin2" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="admin2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="admin2" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="admin2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="admin2" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admin2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="admin2" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="tasks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -479,6 +1013,26 @@
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="prod" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prod" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="production" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -501,8 +1055,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.production" />
+        <item itemvalue="npm.prod" />
+        <item itemvalue="npm.dev" />
         <item itemvalue="npm.watch" />
+        <item itemvalue="npm.production" />
         <item itemvalue="JavaScript Debug.noRules.php" />
       </list>
     </recent_temporary>
@@ -651,11 +1207,12 @@
       <workItem from="1582369400666" duration="6121000" />
       <workItem from="1582434610874" duration="1198000" />
       <workItem from="1582449159622" duration="10872000" />
+      <workItem from="1582617989438" duration="9528000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="674582000" />
+    <option name="totallyTimeSpent" value="684110000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -667,16 +1224,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="22" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49496403" visible="true" weight="0.20628998" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49342105" visible="true" weight="0.2927383" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="npm" order="2" sideWeight="0.505036" side_tool="true" visible="true" weight="0.20628998" />
+      <window_info id="npm" order="2" sideWeight="0.5065789" side_tool="true" visible="true" weight="0.2927383" />
       <window_info id="Favorites" order="3" sideWeight="0.5009597" side_tool="true" weight="0.26862463" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32934928" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3290461" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.49590835" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -685,7 +1241,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32802126" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2550911" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2536825" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -756,21 +1312,6 @@
     </ignored-roots>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/home2.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="20" selection-start-column="20" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" selection-start-line="36" selection-end-line="41" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/vendor/home.blade.php" />
     <entry file="file://$PROJECT_DIR$/dapp/src/App.vue" />
     <entry file="file://$PROJECT_DIR$/resources/views/admincore/appNoTopBar.blade.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -786,28 +1327,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../larasar/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="437">
-            <caret line="38" selection-start-line="38" selection-end-line="38" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../larasar/README.md" />
     <entry file="file://$PROJECT_DIR$/my-app/vue.config.js" />
     <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.mix.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1021,54 +1546,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/TaskOrderUser.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/helper/tasksUsers.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-47">
-          <caret line="71" column="11" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tasks/modirAll.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/TasksComponent.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="61" column="26" selection-start-line="60" selection-start-column="16" selection-end-line="65" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Task.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="33" column="38" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
+        <state relative-caret-position="14093">
           <caret line="843" column="120" selection-start-line="843" selection-start-column="120" selection-end-line="843" selection-end-column="120" />
           <folding>
             <element signature="e#40#57#0#PHP" expanded="true" />
@@ -1076,9 +1556,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/TasksComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="61" column="26" selection-start-line="60" selection-start-column="16" selection-end-line="65" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/TaskOrderUser.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Task.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="71" column="11" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskOrderUserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
+        <state relative-caret-position="408">
           <caret line="29" column="118" selection-start-line="29" selection-start-column="118" selection-end-line="29" selection-end-column="118" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
@@ -1086,10 +1590,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/tasks/modirAll.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/helper/tasksUsers.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="49" column="42" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.mix.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/TasksAllComponent.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+        <state relative-caret-position="51">
+          <caret line="3" column="75" selection-start-line="3" selection-start-column="75" selection-end-line="3" selection-end-column="75" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#draggable#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
